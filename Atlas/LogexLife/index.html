@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Logex Life Atlas — Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    :root {
+        --bg: #0f0f12;
+        --fg: #f0e6ff;
+        --panel: #1a1623;
+        --panel-border: #3a2f4f;
+        --panel-hover: #7a5fcf;
+        --accent: #6a4fa8;
+        --desc: #b8a8d8;
+    }
+
+    body.light {
+        --bg: #f7f4ff;
+        --fg: #1a0f2a;
+        --panel: #ffffff;
+        --panel-border: #d0c0f0;
+        --panel-hover: #b090ff;
+        --accent: #8050ff;
+        --desc: #4a3a6a;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        transition: background 0.4s, color 0.4s;
+    }
+
+    header {
+        padding: 40px 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #2a1f3d, #4a2f6d);
+        color: #f8eaff;
+        border-bottom: 2px solid var(--accent);
+        position: relative;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2.4em;
+        letter-spacing: 0.04em;
+    }
+
+    #toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--panel);
+        color: var(--fg);
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 1px solid var(--panel-border);
+        transition: 0.3s;
+        font-size: 0.85em;
+    }
+
+    #toggle:hover {
+        background: var(--panel-hover);
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .item {
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 10px;
+        padding: 15px;
+        transition: 0.3s;
+    }
+
+    .item:hover {
+        transform: scale(1.02);
+        border-color: var(--panel-hover);
+    }
+
+    .item img {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .item img:hover {
+        transform: scale(1.03);
+    }
+
+    .title {
+        margin-top: 10px;
+        font-size: 1.1em;
+        color: var(--fg);
+        font-weight: 600;
+    }
+
+    .desc {
+        margin-top: 6px;
+        font-size: 0.9em;
+        color: var(--desc);
+        line-height: 1.4em;
+    }
+
+    .download {
+        margin-top: 10px;
+        display: inline-block;
+        padding: 6px 10px;
+        background: var(--panel-border);
+        color: var(--fg);
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.85em;
+        transition: 0.2s;
+    }
+
+    .download:hover {
+        background: var(--panel-hover);
+    }
+
+    /* Fullscreen viewer */
+    #viewer {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(10, 8, 15, 0.95);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #viewer img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+        box-shadow: 0 0 20px #000;
+    }
+
+    #viewer-close {
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 2em;
+        color: #e8d8ff;
+    }
+
+    .nav-arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3em;
+        color: #e8d8ff;
+        cursor: pointer;
+        z-index: 10000;
+        user-select: none;
+        padding: 10px;
+    }
+
+    #nav-left { left: 20px; }
+    #nav-right { right: 20px; }
+
+    .nav-arrow:hover {
+        color: var(--panel-hover);
+    }
+</style>
+
+<script>
+let currentIndex = -1;
+const images = [
+    "0-LogexCover.png",
+    "1-LogexLife.png",
+    "2-JaneCorp1.png",
+    "3-JaneCorp2.png",
+    "4-CannotAssumeCorporation.png",
+    "5-TenLocalGlobal.png",
+    "5B-TenLocalGlobal1.png",
+    "6-PotentialField.png",
+    "7-CommonWoman.png",
+    "8-CommonCity.png",
+    "9-LogexEnding.png"
+];
+
+function openViewer(src) {
+    currentIndex = images.indexOf(src);
+    const viewer = document.getElementById("viewer");
+    const img = document.getElementById("viewer-img");
+    img.src = src;
+    viewer.style.display = "flex";
+}
+
+function closeViewer() {
+    document.getElementById("viewer").style.display = "none";
+}
+
+function nextImage() {
+    if (currentIndex < images.length - 1) {
+        currentIndex++;
+        document.getElementById("viewer-img").src = images[currentIndex];
+    }
+}
+
+function prevImage() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        document.getElementById("viewer-img").src = images[currentIndex];
+    }
+}
+
+document.addEventListener("keydown", function(e) {
+    if (document.getElementById("viewer").style.display === "flex") {
+        if (e.key === "ArrowRight") nextImage();
+        if (e.key === "ArrowLeft") prevImage();
+        if (e.key === "Escape") closeViewer();
+    }
+});
+
+function toggleMode() {
+    document.body.classList.toggle("light");
+}
+</script>
+
+</head>
+<body>
+
+<header>
+    <h1>Logex Life Atlas — Gallery</h1>
+    <p>A warm‑math, cold‑spiritual visual journey through Logecs, SpiReason, and Laegna geometry.</p>
+    <div id="toggle" onclick="toggleMode()">Toggle Light/Dark</div>
+</header>
+
+<div class="gallery">
+
+    <div class="item">
+        <img src="0-LogexCover.png" onclick="openViewer('0-LogexCover.png')">
+        <div class="title">0 — Logex Cover</div>
+        <div class="desc">Warm‑math chamber, combinator logic, implication engine, multi‑digit organism, paradox vs solution.</div>
+        <a class="download" href="0-LogexCover.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="1-LogexLife.png" onclick="openViewer('1-LogexLife.png')">
+        <div class="title">1 — Logex Life Logo</div>
+        <div class="desc">IOAE glyph organism surrounded by fractals, holograms, symbolic membranes.</div>
+        <a class="download" href="1-LogexLife.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="2-JaneCorp1.png" onclick="openViewer('2-JaneCorp1.png')">
+        <div class="title">2 — Jane Inputs</div>
+        <div class="desc">Warm‑math console receiving “Jane.” and “Corporation.” as separate semantic capsules.</div>
+        <a class="download" href="2-JaneCorp1.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="3-JaneCorp2.png" onclick="openViewer('3-JaneCorp2.png')">
+        <div class="title">3 — Generated Relations</div>
+        <div class="desc">Machine expands inputs into relational glyphs: ⇔, ⇒, ⇐.</div>
+        <a class="download" href="3-JaneCorp2.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="4-CannotAssumeCorporation.png" onclick="openViewer('4-CannotAssumeCorporation.png')">
+        <div class="title">4 — Paradox</div>
+        <div class="desc">“Corporation ⇒ not Corporation.” Machine refuses E‑state assumption.</div>
+        <a class="download" href="4-CannotAssumeCorporation.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="5-TenLocalGlobal.png" onclick="openViewer('5-TenLocalGlobal.png')">
+        <div class="title">5 — Local & Global Tens</div>
+        <div class="desc">Four‑digit Logex variable with lin/exp bands and unified IOAE logic.</div>
+        <a class="download" href="5-TenLocalGlobal.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="5B-TenLocalGlobal1.png" onclick="openViewer('5B-TenLocalGlobal1.png')">
+        <div class="title">5B — Tens Variant</div>
+        <div class="desc">Alternate curvature emphasis, stronger Laegna18 geometry.</div>
+        <a class="download" href="5B-TenLocalGlobal1.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="6-PotentialField.png" onclick="openViewer('6-PotentialField.png')">
+        <div class="title">6 — Potential Field</div>
+        <div class="desc">Combinator logic vs implication engine; optimistic E collapsing into pessimistic E.</div>
+        <a class="download" href="6-PotentialField.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="7-CommonWoman.png" onclick="openViewer('7-CommonWoman.png')">
+        <div class="title">7 — Cityzen Woman</div>
+        <div class="desc">Everyday life infused with subtle Logecs geometry and symbolic reasoning.</div>
+        <a class="download" href="7-CommonWoman.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="8-CommonCity.png" onclick="openViewer('8-CommonCity.png')">
+        <div class="title">8 — Common City</div>
+        <div class="desc">Ordinary city moment with hidden fractals, grids, and IOAE pulses.</div>
+        <a class="download" href="8-CommonCity.png" download>Download</a>
+    </div>
+
+    <div class="item">
+        <img src="9-LogexEnding.png" onclick="openViewer('9-LogexEnding.png')">
+        <div class="title">9 — Ending Symbolic Realm</div>
+        <div class="desc">Serene landscape where math hides in plain sight; IOAE pillar at center.</div>
+        <a class="download" href="9-LogexEnding.png" download>Download</a>
+    </div>
+
+</div>
+
+<div id="viewer">
+    <div id="viewer-close" onclick="closeViewer()">×</div>
+    <span id="nav-left" class="nav-arrow" onclick="prevImage()">❮</span>
+    <img id="viewer-img" src="">
+    <span id="nav-right" class="nav-arrow" onclick="nextImage()">❯</span>
+</div>
+
+</body>
+</html>

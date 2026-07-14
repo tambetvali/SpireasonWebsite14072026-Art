@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LaeGeosis Visual Symbolic Atlas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    :root {
+        --bg: #111;
+        --fg: #eee;
+        --sidebar-bg: #000;
+        --border: #333;
+        --accent: #fff;
+    }
+
+    body.light {
+        --bg: #fdfdfd;
+        --fg: #222;
+        --sidebar-bg: #f0f0f0;
+        --border: #ccc;
+        --accent: #000;
+    }
+
+    body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        display: flex;
+        transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* Sidebar */
+    #sidebar {
+        width: 240px;
+        background: var(--sidebar-bg);
+        border-right: 2px solid var(--border);
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
+        transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    #sidebar h2 {
+        margin-top: 0;
+        font-size: 1.4em;
+        color: var(--accent);
+    }
+
+    #sidebar a {
+        display: block;
+        padding: 8px 0;
+        color: var(--fg);
+        text-decoration: none;
+        font-size: 0.95em;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+    }
+
+    #sidebar a:hover {
+        opacity: 1;
+    }
+
+    #toggle {
+        margin-top: 20px;
+        padding: 10px;
+        background: var(--border);
+        color: var(--fg);
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.3s ease;
+    }
+
+    #toggle:hover {
+        background: var(--accent);
+        color: var(--bg);
+    }
+
+    /* Main content */
+    #content {
+        margin-left: 260px;
+        padding: 30px;
+        padding-left: 20px;
+        max-width: 900px;
+    }
+
+    .plate {
+        margin-bottom: 60px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .plate h3 {
+        margin-top: 0;
+        font-size: 1.6em;
+        color: var(--accent);
+    }
+
+    .plate p {
+        color: var(--fg);
+        line-height: 1.5em;
+        opacity: 0.85;
+    }
+
+    .plate img {
+        width: calc(100% - 10px);
+        max-width: 800px;
+        border: 2px solid var(--border);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        display: block;
+        touch-action: pinch-zoom;
+    }
+
+    .plate img:hover {
+        transform: scale(1.03);
+    }
+
+    /* Fullscreen viewer */
+    #viewer {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.95);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(4px);
+    }
+
+    #viewer img {
+        max-width: 95%;
+        max-height: 95%;
+        border: 2px solid #666;
+        border-radius: 4px;
+        touch-action: pinch-zoom;
+    }
+
+    #viewer-close {
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        font-size: 2em;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    /* Mobile gallery mode */
+    @media (max-width: 700px) {
+        #sidebar {
+            position: static;
+            width: 100%;
+            border-right: none;
+            border-bottom: 2px solid var(--border);
+        }
+        #content {
+            margin-left: 0;
+            padding: 20px;
+        }
+        .plate img {
+            max-width: 100%;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<div id="sidebar">
+    <h2>LaeGeosis Atlas</h2>
+
+    <a href="#plate00">Plate 00 — Cover</a>
+    <a href="#plate01">Plate 01 — Spiral of Origin</a>
+    <a href="#plate02">Plate 02 — Archimedean Lane</a>
+    <a href="#plate03">Plate 03 — Cycle Grid</a>
+    <a href="#plate04">Plate 04 — Spherical Octahedron</a>
+    <a href="#plate05">Plate 05 — Diagonal Symmetry</a>
+    <a href="#plate06">Plate 06 — Lin–Log–Exp Realms</a>
+    <a href="#plate07">Plate 07 — Social Equilibrium</a>
+    <a href="#plate08">Plate 08 — Interplanetary Spiral</a>
+    <a href="#plate09">Plate 09 — Earth Projection</a>
+    <a href="#plate10">Plate 10 — Universe Precision</a>
+    <a href="#plate11">Plate 11 — Life Spiral</a>
+    <a href="#plate12">Plate 12 — Intelligence & Creativity</a>
+    <a href="#plate13">Plate 13 — Next Octave</a>
+
+    <div id="toggle">Toggle Dark / Light</div>
+</div>
+
+<div id="content">
+
+    <!-- PLATES -->
+    <!-- (Same content as before, unchanged except for animations) -->
+
+    <div class="plate" id="plate00">
+        <h3>Plate 00 — Atlas Cover</h3>
+        <p>The origin sphere: pure potential before division, motion, or symmetry.</p>
+        <img src="GRAPHICS/Plate-00-Atlas-Cover.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate01">
+        <h3>Plate 01 — Spiral of Origin</h3>
+        <p>The first projection: spherical octahedron memory expressed as a spiral.</p>
+        <img src="GRAPHICS/Plate-01-Spiral-Origin.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate02">
+        <h3>Plate 02 — Archimedean Lane</h3>
+        <p>The spiral becomes motion: the lane geometry of direction and continuity.</p>
+        <img src="GRAPHICS/Plate-02-Archimedean-Lane.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate03">
+        <h3>Plate 03 — Cycle Grid</h3>
+        <p>The OE/IA square unfolds into harmonic cycles and temporal structure.</p>
+        <img src="GRAPHICS/Plate-03-Cycle-Grid.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate04">
+        <h3>Plate 04 — Spherical Octahedron</h3>
+        <p>The sphere’s perfect symmetry: eight equal regions, harmonic structure.</p>
+        <img src="GRAPHICS/Plate-04-Spherical-Octahedron.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate05">
+        <h3>Plate 05 — Diagonal Symmetry</h3>
+        <p>The cancellation geometry: 1/4 → 1/2 transformation, linear equivalence.</p>
+        <img src="GRAPHICS/Plate-05-Diagonal-Symmetry.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate06">
+        <h3>Plate 06 — Lin–Log–Exp Realms</h3>
+        <p>Three growth modes unified: linear, logarithmic, exponential.</p>
+        <img src="GRAPHICS/Plate-06-Lin-Log-Exp-Realms.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate07">
+        <h3>Plate 07 — Social Equilibrium</h3>
+        <p>Human symmetry: OE/IA as cultural, ethical, and cooperative geometry.</p>
+        <img src="GRAPHICS/Plate-07-Social-Equilibrium.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate08">
+        <h3>Plate 08 — Interplanetary Spiral</h3>
+        <p>Orbital mechanics, gravitational corridors, cosmic navigation.</p>
+        <img src="GRAPHICS/Plate-08-Interplanetary-Spiral.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate09">
+        <h3>Plate 09 — Earth Projection</h3>
+        <p>The biosphere as geometric equilibrium: climates, ecosystems, civilizations.</p>
+        <img src="GRAPHICS/Plate-09-Earth-Projection.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate10">
+        <h3>Plate 10 — Universe Precision</h3>
+        <p>Cosmic symmetry: galaxies, spacetime, position‑bound infinities.</p>
+        <img src="GRAPHICS/Plate-10-Universe-Precision.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate11">
+        <h3>Plate 11 — Life Spiral</h3>
+        <p>Evolution, biology, cognition: life as geometric continuity.</p>
+        <img src="GRAPHICS/Plate-11-Life-Spiral.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate12">
+        <h3>Plate 12 — Intelligence & Creativity</h3>
+        <p>Mind geometry: insight, imagination, cognitive harmonics.</p>
+        <img src="GRAPHICS/Plate-12-Intelligence-Creativity.png" onclick="openViewer(this.src)">
+    </div>
+
+    <div class="plate" id="plate13">
+        <h3>Plate 13 — Next Octave</h3>
+        <p>Transcendence: the atlas expands into the next sphere, next harmonic.</p>
+        <img src="GRAPHICS/Plate-13-Next-Octave.png" onclick="openViewer(this.src)">
+    </div>
+
+</div>
+
+<!-- Fullscreen Viewer -->
+<div id="viewer" onclick="closeViewer()">
+    <span id="viewer-close">&times;</span>
+    <img id="viewer-img" src="">
+</div>
+
+<script>
+/* Dark / Light mode toggle */
+document.getElementById("toggle").onclick = () => {
+    document.body.classList.toggle("light");
+};
+
+/* Fullscreen viewer */
+function openViewer(src) {
+    const viewer = document.getElementById('viewer');
+    const img = document.getElementById('viewer-img');
+    img.src = src;
+    viewer.style.display = 'flex';
+}
+
+function closeViewer() {
+    document.getElementById('viewer').style.display = 'none';
+}
+
+/* Keyboard navigation */
+document.addEventListener("keydown", (e) => {
+    const plates = [...document.querySelectorAll(".plate")];
+    const ids = plates.map(p => p.id);
+    const current = ids.findIndex(id => location.hash === "#" + id);
+
+    if (e.key === "ArrowRight") {
+        const next = Math.min(current + 1, ids.length - 1);
+        location.hash = "#" + ids[next];
+    }
+    if (e.key === "ArrowLeft") {
+        const prev = Math.max(current - 1, 0);
+        location.hash = "#" + ids[prev];
+    }
+});
+</script>
+
+</body>
+</html>
