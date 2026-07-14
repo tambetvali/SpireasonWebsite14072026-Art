@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laegna × Spireason Portal</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0b1020 0%, #02030a 55%, #000000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f5ff;
+    }
+    #renderCanvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="renderCanvas"></canvas>
+
+  <!-- Babylon.js CDN -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+
+  <script>
+    // --- BASIC BABYLON SETUP ---
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+
+      // Camera
+      const camera = new BABYLON.ArcRotateCamera(
+        "camera",
+        Math.PI / 2.2,
+        Math.PI / 2.6,
+        18,
+        new BABYLON.Vector3(0, 0, 0),
+        scene
+      );
+      camera.attachControl(canvas, true);
+      camera.lowerRadiusLimit = 6;
+      camera.upperRadiusLimit = 40;
+
+      // Lights
+      const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+      light1.intensity = 0.7;
+      const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 5, -5), scene);
+      light2.intensity = 0.9;
+
+      // Subtle space fog
+      scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+      scene.fogDensity = 0.02;
+      scene.fogColor = new BABYLON.Color3(0.01, 0.02, 0.06);
+
+      // --- SPIRAL OF NODES (Laegna structure) ---
+      const spiralParent = new BABYLON.TransformNode("laegnaSpiral", scene);
+      const spiralMaterial = new BABYLON.StandardMaterial("spiralMat", scene);
+      spiralMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.8, 1.0);
+      spiralMaterial.diffuseColor = new BABYLON.Color3(0.1, 0.2, 0.4);
+      spiralMaterial.specularColor = new BABYLON.Color3(0.8, 0.9, 1.0);
+
+      const spiralNodes = [];
+      const N = 64;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1); // 0..1
+        const angle = t * Math.PI * 6.0; // 3 turns
+        const radius = 2.0 + 4.0 * t;
+        const y = (t - 0.5) * 6.0;
+
+        const x = radius * Math.cos(angle);
+        const z = radius * Math.sin(angle);
+
+        const sphere = BABYLON.MeshBuilder.CreateSphere("node" + i, { diameter: 0.35 + 0.25 * t }, scene);
+        sphere.position.set(x, y, z);
+        sphere.material = spiralMaterial;
+        sphere.parent = spiralParent;
+
+        spiralNodes.push({ mesh: sphere, t });
+      }
+
+      // --- INFINITY RING (Spireason motif) ---
+      const torus = BABYLON.MeshBuilder.CreateTorus("infinityRing", {
+        diameter: 6,
+        thickness: 0.25,
+        tessellation: 96
+      }, scene);
+      const torusMat = new BABYLON.StandardMaterial("torusMat", scene);
+      torusMat.emissiveColor = new BABYLON.Color3(0.9, 0.8, 1.0);
+      torusMat.diffuseColor = new BABYLON.Color3(0.2, 0.1, 0.4);
+      torus.material = torusMat;
+      torus.rotation.x = Math.PI / 2.5;
+
+      // --- FLOATING GLYPH PLANE (Laegna × Spireason logo) ---
+      const glyphPlane = BABYLON.MeshBuilder.CreatePlane("glyphPlane", { size: 4 }, scene);
+      glyphPlane.position = new BABYLON.Vector3(0, 3.2, 0);
+      glyphPlane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+      const glyphTexture = new BABYLON.DynamicTexture("glyphTexture", { width: 512, height: 256 }, scene, true);
+      const glyphMat = new BABYLON.StandardMaterial("glyphMat", scene);
+      glyphMat.diffuseTexture = glyphTexture;
+      glyphMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1.0);
+      glyphMat.backFaceCulling = false;
+      glyphPlane.material = glyphMat;
+
+      const glyphCtx = glyphTexture.getContext();
+      function drawGlyphText(text) {
+        glyphTexture.clear();
+        glyphCtx.clearRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#050814";
+        glyphCtx.fillRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#cfe4ff";
+        glyphCtx.font = "32px system-ui";
+        glyphCtx.textAlign = "center";
+        glyphCtx.textBaseline = "middle";
+        glyphCtx.fillText(text, 256, 128);
+        glyphTexture.update();
+      }
+      drawGlyphText("Laegna · Spireason");
+
+      // --- PARTICLE FIELD (background universe) ---
+      const particleSystem = new BABYLON.ParticleSystem("stars", 2000, scene);
+      particleSystem.particleTexture = new BABYLON.Texture("https://playground.babylonjs.com/textures/flare.png", scene);
+      particleSystem.emitter = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.minEmitBox = new BABYLON.Vector3(-20, -20, -20);
+      particleSystem.maxEmitBox = new BABYLON.Vector3(20, 20, 20);
+      particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+      particleSystem.color2 = new BABYLON.Color4(0.4, 0.6, 1.0, 1.0);
+      particleSystem.minSize = 0.05;
+      particleSystem.maxSize = 0.15;
+      particleSystem.minLifeTime = 4.0;
+      particleSystem.maxLifeTime = 12.0;
+      particleSystem.emitRate = 400;
+      particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+      particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.direction1 = new BABYLON.Vector3(-0.5, 0.5, -0.5);
+      particleSystem.direction2 = new BABYLON.Vector3(0.5, 0.5, 0.5);
+      particleSystem.minAngularSpeed = 0;
+      particleSystem.maxAngularSpeed = Math.PI;
+      particleSystem.minEmitPower = 0.1;
+      particleSystem.maxEmitPower = 0.4;
+      particleSystem.updateSpeed = 0.01;
+      particleSystem.start();
+
+      // --------------------------------------------------------------------
+      //  LAEGNA COUNTERS CLASS + ON-SITE API
+      //  You can control everything via LaegnaCountersAPI below.
+      //  No need to touch HTML or Babylon scene setup.
+      // --------------------------------------------------------------------
+
+      class LaegnaCounterDisplay {
+        constructor(id, scene, options) {
+          this.id = id;
+          this.title = options.title || "";
+          this.value = options.value ?? 0;
+          this.enabled = options.enabled ?? true;
+          this.palette = options.palette || "full"; // "full" | "cool" | "warm"
+          this.basePosition = options.position.clone();
+          this.currentPosition = options.position.clone();
+          this.size = options.size || { width: 6, height: 1.6 };
+          this.largeSize = options.largeSize || { width: 8.5, height: 2.4 };
+          this.isLower = options.isLower || false;
+
+          this.plane = BABYLON.MeshBuilder.CreatePlane(
+            id + "Plane",
+            { width: this.size.width, height: this.size.height },
+            scene
+          );
+          this.plane.position = this.currentPosition.clone();
+          this.plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+          const texWidth = 1024;
+          const texHeight = this.isLower ? 320 : 256;
+          this.texture = new BABYLON.DynamicTexture(
+            id + "Tex",
+            { width: texWidth, height: texHeight },
+            scene,
+            true
+          );
+          const mat = new BABYLON.StandardMaterial(id + "Mat", scene);
+          mat.diffuseTexture = this.texture;
+          mat.emissiveColor = new BABYLON.Color3(1.0, 1.0, 1.0);
+          mat.backFaceCulling = false;
+          this.plane.material = mat;
+
+          this.ctx = this.texture.getContext();
+          this.texWidth = texWidth;
+          this.texHeight = texHeight;
+
+          this.draw();
+        }
+
+        randomColor() {
+          if (this.palette === "cool") {
+            const hue = 200 + Math.random() * 60; // blue-ish
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          if (this.palette === "warm") {
+            const hue = 10 + Math.random() * 60; // red/orange/yellow
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          const hue = Math.floor(Math.random() * 360); // full spectrum
+          return `hsl(${hue}, 85%, 65%)`;
+        }
+
+        setValue(v) {
+          this.value = v;
+          this.draw();
+        }
+
+        setTitle(t) {
+          this.title = t;
+          this.draw();
+        }
+
+        setEnabled(enabled) {
+          this.enabled = enabled;
+          this.plane.setEnabled(enabled);
+        }
+
+        setLowerCentered(isCentered) {
+          if (!this.isLower) return;
+          if (isCentered) {
+            this.plane.position.x = 0;
+            this.plane.scaling.set(1.4, 1.4, 1.4);
+            this.plane.width = this.largeSize.width;
+            this.plane.height = this.largeSize.height;
+          } else {
+            this.plane.position = this.basePosition.clone();
+            this.plane.scaling.set(1, 1, 1);
+            this.plane.width = this.size.width;
+            this.plane.height = this.size.height;
+          }
+        }
+
+        draw() {
+          const ctx = this.ctx;
+          const w = this.texWidth;
+          const h = this.texHeight;
+
+          ctx.clearRect(0, 0, w, h);
+
+          // background
+          const grad = ctx.createLinearGradient(0, 0, w, h);
+          grad.addColorStop(0, "#050814");
+          grad.addColorStop(1, "#0b1024");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          // digits
+          const text = String(this.value);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.font = this.isLower ? "140px system-ui" : "120px system-ui";
+
+          const totalWidth = text.length;
+          const baseX = w / 2;
+          const baseY = this.isLower ? h * 0.45 : h * 0.5;
+          const spacing = this.isLower ? 80 : 70;
+
+          for (let i = 0; i < text.length; i++) {
+            ctx.fillStyle = this.randomColor();
+            const x = baseX + (i - (totalWidth - 1) / 2) * spacing;
+            ctx.fillText(text[i], x, baseY);
+          }
+
+          // title
+          if (this.title) {
+            ctx.fillStyle = "#cfe4ff";
+            ctx.font = this.isLower ? "30px system-ui" : "26px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const titleY = this.isLower ? h * 0.82 : h * 0.8;
+            ctx.fillText(this.title, w / 2, titleY);
+          }
+
+          this.texture.update();
+        }
+      }
+
+      // Create all five counters: x, y, z (upper), l, r (lower)
+      const counters = {};
+
+      counters.x = new LaegnaCounterDisplay("x", scene, {
+        title: "Laegna natural numbers (frequential counter)",
+        value: 0,
+        palette: "full",
+        position: new BABYLON.Vector3(0, 1.4, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.y = new LaegnaCounterDisplay("y", scene, {
+        title: "Laegna natural complex (complex counter)",
+        value: 0,
+        palette: "full",
+        position: new BABYLON.Vector3(0, 0.1, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.z = new LaegnaCounterDisplay("z", scene, {
+        title: "Laegna low-threshold natural (octavial counter)",
+        value: 0,
+        palette: "full",
+        position: new BABYLON.Vector3(0, -1.2, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.l = new LaegnaCounterDisplay("l", scene, {
+        title: "Left Laegna channel",
+        value: 0,
+        palette: "cool", // blue, serious hues
+        position: new BABYLON.Vector3(-5.5, -3.0, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      counters.r = new LaegnaCounterDisplay("r", scene, {
+        title: "Right Laegna channel",
+        value: 0,
+        palette: "warm", // warm, supporting hues
+        position: new BABYLON.Vector3(5.5, -3.0, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      // -----------------------------
+      // PUBLIC ON-SITE API
+      // -----------------------------
+      // Use LaegnaCountersAPI from outside to control everything:
+      //
+      //   LaegnaCountersAPI.setCounter("x", { value: 42, title: "New title" });
+      //   LaegnaCountersAPI.setEnabled("r", false); // hide right counter
+      //
+      // IDs: "x", "y", "z", "l", "r"
+      // -----------------------------
+
+      window.LaegnaCountersAPI = {
+        setCounter(id, { value, title }) {
+          const c = counters[id];
+          if (!c) return;
+          if (value !== undefined) c.setValue(value);
+          if (title !== undefined) c.setTitle(title);
+        },
+        setEnabled(id, enabled) {
+          const c = counters[id];
+          if (!c) return;
+          c.setEnabled(enabled);
+
+          // special behavior: if right counter is off, left moves to center and grows
+          if (id === "r") {
+            const rEnabled = enabled;
+            if (!rEnabled) {
+              counters.l.setLowerCentered(true);
+            } else {
+              counters.l.setLowerCentered(false);
+            }
+          }
+        }
+      };
+
+      // --------------------------------------------------------------------
+      // DEMO DRIVER (can be removed):
+      // simple internal "programmator" that counts and toggles right counter.
+      // --------------------------------------------------------------------
+      let demoValue = 0;
+      let demoRightOn = true;
+
+      setInterval(() => {
+        demoValue = (demoValue + 1) % 1001;
+
+        // upper three share same value but can have different titles if desired
+        LaegnaCountersAPI.setCounter("x", {
+          value: demoValue,
+          title: "Laegna natural numbers (frequential counter)"
+        });
+        LaegnaCountersAPI.setCounter("y", {
+          value: demoValue,
+          title: "Laegna natural complex (complex counter)"
+        });
+        LaegnaCountersAPI.setCounter("z", {
+          value: demoValue,
+          title: "Laegna low-threshold natural (octavial counter)"
+        });
+
+        // lower left/right mirror same value for now
+        LaegnaCountersAPI.setCounter("l", {
+          value: demoValue,
+          title: "Laegna left channel (cool serious hues)"
+        });
+        LaegnaCountersAPI.setCounter("r", {
+          value: demoValue,
+          title: "Laegna right channel (warm supporting hues)"
+        });
+
+        // occasionally toggle right counter on/off to show behavior
+        if (demoValue % 200 === 0) {
+          demoRightOn = !demoRightOn;
+          LaegnaCountersAPI.setEnabled("r", demoRightOn);
+        }
+      }, 140);
+
+      // --- ANIMATION LOOP ---
+      let time = 0;
+      scene.registerBeforeRender(() => {
+        const dt = scene.getEngine().getDeltaTime() * 0.001;
+        time += dt;
+
+        spiralParent.rotation.y += dt * 0.25;
+        torus.rotation.y -= dt * 0.18;
+
+        // subtle breathing of spiral nodes
+        spiralNodes.forEach(({ mesh, t }, i) => {
+          const phase = time * 1.5 + t * Math.PI * 4;
+          const scale = 0.9 + 0.3 * Math.sin(phase);
+          mesh.scaling.set(scale, scale, scale);
+
+          // small radial oscillation
+          const baseRadius = 2.0 + 4.0 * t;
+          const angle = t * Math.PI * 6.0;
+          const y = (t - 0.5) * 6.0;
+          const radialOffset = 0.3 * Math.sin(time * 0.8 + i * 0.3);
+          const r = baseRadius + radialOffset;
+
+          mesh.position.x = r * Math.cos(angle);
+          mesh.position.z = r * Math.sin(angle);
+          mesh.position.y = y + 0.2 * Math.sin(time * 0.9 + i * 0.5);
+        });
+
+        glyphPlane.position.y = 3.2 + 0.3 * Math.sin(time * 0.8);
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+  </script>
+</body>
+</html>

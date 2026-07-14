@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laegna × Spireason Portal</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0b1020 0%, #02030a 55%, #000000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f5ff;
+    }
+    #renderCanvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* Overlay layout */
+    .overlay-root {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+
+    .overlay-panel {
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+
+    .overlay-left {
+      width: 220px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    .overlay-right {
+      width: 260px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    .overlay-bottom {
+      position: fixed;
+      left: 220px;
+      right: 260px;
+      bottom: 0;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 8px 0;
+    }
+
+    .overlay-bottom-inner {
+      pointer-events: auto;
+      background: rgba(5, 8, 20, 0.9);
+      border-radius: 10px 10px 0 0;
+      border: 1px solid rgba(120, 160, 255, 0.4);
+      padding: 6px 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .panel-box {
+      background: rgba(5, 8, 20, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(120, 160, 255, 0.4);
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9fb7ff;
+      margin-bottom: 4px;
+    }
+
+    .panel-body {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* TOC */
+    .toc-main {
+      margin-bottom: 6px;
+    }
+
+    .toc-main-title {
+      font-weight: 600;
+      cursor: pointer;
+      padding: 3px 4px;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .toc-sub-list {
+      margin-left: 10px;
+      margin-top: 2px;
+    }
+
+    .toc-sub {
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-bottom: 1px;
+      transition: background 0.15s, color 0.15s;
+      font-size: 12px;
+    }
+
+    .toc-main-title.active-main,
+    .toc-sub.active-sub {
+      background: linear-gradient(90deg, rgba(120, 160, 255, 0.4), rgba(120, 160, 255, 0.1));
+      color: #ffffff;
+    }
+
+    .toc-main-title:hover,
+    .toc-sub:hover {
+      background: rgba(120, 160, 255, 0.15);
+    }
+
+    /* Controls */
+    .speed-button,
+    .frame-button {
+      border: 1px solid rgba(140, 170, 255, 0.7);
+      background: rgba(10, 15, 35, 0.9);
+      color: #e0e6ff;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .speed-button.active {
+      background: rgba(140, 170, 255, 0.9);
+      color: #050814;
+    }
+
+    .speed-button:hover,
+    .frame-button:hover {
+      background: rgba(140, 170, 255, 0.4);
+    }
+
+    .frame-controls {
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      margin-left: 10px;
+    }
+
+    .frame-controls.hidden {
+      display: none;
+    }
+
+    .status-line {
+      font-size: 11px;
+      color: #a8b4ff;
+    }
+
+    /* Meaning / Description */
+    .meaning-label {
+      font-weight: 600;
+      color: #cfe4ff;
+      margin-bottom: 2px;
+    }
+
+    .meaning-text,
+    .description-text {
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    
+    
+    
+    #frameControls {
+  position: absolute;
+  left: 20px;
+  bottom: 70px; /* adjust height above bottom bar */
+  display: flex;
+  gap: 6px;
+  background: rgba(10, 15, 35, 0.85);
+  padding: 6px 10px;
+  border-radius: 6px;
+  z-index: 50;
+}
+
+#frameControls.hidden {
+  display: none;
+}
+
+    
+    
+    
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <canvas id="renderCanvas"></canvas>
+
+  <!-- Overlay UI -->
+  <div class="overlay-root">
+    <!-- LEFT: TOC -->
+    <div class="overlay-panel overlay-left">
+      <div class="panel-box">
+        <div class="panel-title">Table of Contents</div>
+        <div class="panel-body" id="tocContainer">
+          <!-- Filled by JS from SheepCounter -->
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Meaning / Description -->
+    <div class="overlay-panel overlay-right">
+      <div class="panel-box">
+        <div class="panel-title">Laegna Natural Numbers</div>
+        <div class="panel-body">
+          <div class="meaning-label">Meaning</div>
+          <div class="meaning-text" id="meaningText">–</div>
+          <div class="meaning-label">Description</div>
+          <div class="description-text" id="descriptionText">–</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM: Controls -->
+  <div class="frame-controls hidden" id="frameControls">
+    <button class="frame-button" data-frame="first">⏮ First</button>
+    <button class="frame-button" data-frame="prev">◀ Prev</button>
+    <button class="frame-button" data-frame="next">Next ▶</button>
+    <button class="frame-button" data-frame="last">Last ⏭</button>
+  </div>
+
+  <div class="overlay-bottom">
+    <div class="overlay-bottom-inner">
+      <span class="status-line" id="statusLine">Frequential R=1</span>
+      <div style="margin-left: 10px; display: flex; gap: 4px;">
+        <button class="speed-button active" data-speed="animation">Animation</button>
+        <button class="speed-button" data-speed="amusement">Amusement</button>
+        <button class="speed-button" data-speed="study">Study</button>
+        <button class="speed-button" data-speed="count">Count sheep</button>
+        <button class="speed-button" data-speed="stop">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Babylon.js CDN -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <!-- SheepCounter micro-lib (the file you just integrated) -->
+  <script src="sheepcounter.js"></script>
+
+  <script>
+    // --- BASIC BABYLON SETUP ---
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+
+      // Camera
+      const camera = new BABYLON.ArcRotateCamera(
+        "camera",
+        Math.PI / 2.2,
+        Math.PI / 2.6,
+        18,
+        new BABYLON.Vector3(0, 0, 0),
+        scene
+      );
+      camera.attachControl(canvas, true);
+      camera.lowerRadiusLimit = 6;
+      camera.upperRadiusLimit = 40;
+
+      // Lights
+      const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+      light1.intensity = 0.7;
+      const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 5, -5), scene);
+      light2.intensity = 0.9;
+
+      // Subtle space fog
+      scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+      scene.fogDensity = 0.02;
+      scene.fogColor = new BABYLON.Color3(0.01, 0.02, 0.06);
+
+      // --- SPIRAL OF NODES (Laegna structure) ---
+      const spiralParent = new BABYLON.TransformNode("laegnaSpiral", scene);
+      const spiralMaterial = new BABYLON.StandardMaterial("spiralMat", scene);
+      spiralMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.8, 1.0);
+      spiralMaterial.diffuseColor = new BABYLON.Color3(0.1, 0.2, 0.4);
+      spiralMaterial.specularColor = new BABYLON.Color3(0.8, 0.9, 1.0);
+
+      const spiralNodes = [];
+      const N = 64;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1); // 0..1
+        const angle = t * Math.PI * 6.0; // 3 turns
+        const radius = 2.0 + 4.0 * t;
+        const y = (t - 0.5) * 6.0;
+
+        const x = radius * Math.cos(angle);
+        const z = radius * Math.sin(angle);
+
+        const sphere = BABYLON.MeshBuilder.CreateSphere("node" + i, { diameter: 0.35 + 0.25 * t }, scene);
+        sphere.position.set(x, y, z);
+        sphere.material = spiralMaterial;
+        sphere.parent = spiralParent;
+
+        spiralNodes.push({ mesh: sphere, t });
+      }
+
+      // --- INFINITY RING (Spireason motif) ---
+      const torus = BABYLON.MeshBuilder.CreateTorus("infinityRing", {
+        diameter: 6,
+        thickness: 0.25,
+        tessellation: 96
+      }, scene);
+      const torusMat = new BABYLON.StandardMaterial("torusMat", scene);
+      torusMat.emissiveColor = new BABYLON.Color3(0.9, 0.8, 1.0);
+      torusMat.diffuseColor = new BABYLON.Color3(0.2, 0.1, 0.4);
+      torus.material = torusMat;
+      torus.rotation.x = Math.PI / 2.5;
+
+      // --- FLOATING GLYPH PLANE (Laegna × Spireason logo) ---
+      const glyphPlane = BABYLON.MeshBuilder.CreatePlane("glyphPlane", { size: 4 }, scene);
+      glyphPlane.position = new BABYLON.Vector3(0, 3.2, 0);
+      glyphPlane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+      const glyphTexture = new BABYLON.DynamicTexture("glyphTexture", { width: 512, height: 256 }, scene, true);
+      const glyphMat = new BABYLON.StandardMaterial("glyphMat", scene);
+      glyphMat.diffuseTexture = glyphTexture;
+      glyphMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1.0);
+      glyphMat.backFaceCulling = false;
+      glyphPlane.material = glyphMat;
+
+      const glyphCtx = glyphTexture.getContext();
+      function drawGlyphText(text) {
+        glyphTexture.clear();
+        glyphCtx.clearRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#050814";
+        glyphCtx.fillRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#cfe4ff";
+        glyphCtx.font = "32px system-ui";
+        glyphCtx.textAlign = "center";
+        glyphCtx.textBaseline = "middle";
+        glyphCtx.fillText(text, 256, 128);
+        glyphTexture.update();
+      }
+      drawGlyphText("Laegna · Spireason");
+
+      // --- PARTICLE FIELD (background universe) ---
+      const particleSystem = new BABYLON.ParticleSystem("stars", 2000, scene);
+      particleSystem.particleTexture = new BABYLON.Texture("https://playground.babylonjs.com/textures/flare.png", scene);
+      particleSystem.emitter = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.minEmitBox = new BABYLON.Vector3(-20, -20, -20);
+      particleSystem.maxEmitBox = new BABYLON.Vector3(20, 20, 20);
+      particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+      particleSystem.color2 = new BABYLON.Color4(0.4, 0.6, 1.0, 1.0);
+      particleSystem.minSize = 0.05;
+      particleSystem.maxSize = 0.15;
+      particleSystem.minLifeTime = 4.0;
+      particleSystem.maxLifeTime = 12.0;
+      particleSystem.emitRate = 400;
+      particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+      particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.direction1 = new BABYLON.Vector3(-0.5, 0.5, -0.5);
+      particleSystem.direction2 = new BABYLON.Vector3(0.5, 0.5, 0.5);
+      particleSystem.minAngularSpeed = 0;
+      particleSystem.maxAngularSpeed = Math.PI;
+      particleSystem.minEmitPower = 0.1;
+      particleSystem.maxEmitPower = 0.4;
+      particleSystem.updateSpeed = 0.01;
+      particleSystem.start();
+
+      // --------------------------------------------------------------------
+      //  LAEGNA COUNTERS CLASS + ON-SITE API (unchanged from your version)
+      // --------------------------------------------------------------------
+
+      class LaegnaCounterDisplay {
+        constructor(id, scene, options) {
+          this.id = id;
+          this.title = options.title || "";
+          this.value = options.value ?? 0;
+          this.enabled = options.enabled ?? true;
+          this.palette = options.palette || "full"; // "full" | "cool" | "warm"
+          this.basePosition = options.position.clone();
+          this.currentPosition = options.position.clone();
+          this.size = options.size || { width: 6, height: 1.6 };
+          this.largeSize = options.largeSize || { width: 8.5, height: 2.4 };
+          this.isLower = options.isLower || false;
+
+          this.plane = BABYLON.MeshBuilder.CreatePlane(
+            id + "Plane",
+            { width: this.size.width, height: this.size.height },
+            scene
+          );
+          this.plane.position = this.currentPosition.clone();
+          this.plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+          const texWidth = 1024;
+          const texHeight = this.isLower ? 320 : 256;
+          this.texture = new BABYLON.DynamicTexture(
+            id + "Tex",
+            { width: texWidth, height: texHeight },
+            scene,
+            true
+          );
+          const mat = new BABYLON.StandardMaterial(id + "Mat", scene);
+          mat.diffuseTexture = this.texture;
+          mat.emissiveColor = new BABYLON.Color3(1.0, 1.0, 1.0);
+          mat.backFaceCulling = false;
+          this.plane.material = mat;
+
+          this.ctx = this.texture.getContext();
+          this.texWidth = texWidth;
+          this.texHeight = texHeight;
+
+          this.draw();
+        }
+
+        randomColor() {
+          if (this.palette === "cool") {
+            const hue = 200 + Math.random() * 60; // blue-ish
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          if (this.palette === "warm") {
+            const hue = 10 + Math.random() * 60; // red/orange/yellow
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          const hue = Math.floor(Math.random() * 360); // full spectrum
+          return `hsl(${hue}, 85%, 65%)`;
+        }
+
+        setValue(v) {
+          this.value = v;
+          this.draw();
+        }
+
+        setTitle(t) {
+          this.title = t;
+          this.draw();
+        }
+
+        setEnabled(enabled) {
+          this.enabled = enabled;
+          this.plane.setEnabled(enabled);
+        }
+
+        setLowerCentered(isCentered) {
+          if (!this.isLower) return;
+          if (isCentered) {
+            this.plane.position.x = 0;
+            this.plane.scaling.set(1.4, 1.4, 1.4);
+            this.plane.width = this.largeSize.width;
+            this.plane.height = this.largeSize.height;
+          } else {
+            this.plane.position = this.basePosition.clone();
+            this.plane.scaling.set(1, 1, 1);
+            this.plane.width = this.size.width;
+            this.plane.height = this.size.height;
+          }
+        }
+
+        draw() {
+          const ctx = this.ctx;
+          const w = this.texWidth;
+          const h = this.texHeight;
+
+          ctx.clearRect(0, 0, w, h);
+
+          // background
+          const grad = ctx.createLinearGradient(0, 0, w, h);
+          grad.addColorStop(0, "#050814");
+          grad.addColorStop(1, "#0b1024");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          // digits
+          const text = String(this.value);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+// --- FONT SIZE ADJUSTMENTS ---
+if (this.id === "x") {
+  // d0: shrink again by 25% → 68px × 0.75 ≈ 51px
+  ctx.font = "52px system-ui";
+} else {
+  ctx.font = this.isLower ? "140px system-ui" : "120px system-ui";
+}
+
+const totalWidth = text.length;
+const baseX = w / 2;
+const baseY = this.isLower ? h * 0.45 : h * 0.5;
+
+// --- SPACING ADJUSTMENTS ---
+let spacing = this.isLower ? 80 : 70;
+
+// d0: spacing shrinks proportionally with font size
+if (this.id === "x") {
+  spacing = 30;   // proportional to ~52px font
+}
+
+// dm (lower-left main): +50% + 10% = +60% total
+if (this.id === "l") {
+  spacing *= 1.60;   // 80 → 128
+}
+
+// ds (lower-right secondary): +100%
+if (this.id === "r") {
+  spacing *= 2.00;   // 80 → 160
+}
+
+
+
+
+
+for (let i = 0; i < text.length; i++) {
+    ctx.fillStyle = this.randomColor();
+
+    const ch = text[i];
+    const x = baseX + (i - (totalWidth - 1) / 2) * spacing;
+
+    if (ch === "∩") {
+        // --- TRUE UPSIDE‑DOWN REAL "U" ---
+        ctx.save();
+        ctx.translate(x, baseY);
+        ctx.scale(1, -1);      // vertical flip
+        ctx.fillText("U", 0, 0);
+        ctx.restore();
+    } else {
+        ctx.fillText(ch, x, baseY);
+    }
+}
+
+          // title
+          if (this.title) {
+            ctx.fillStyle = "#cfe4ff";
+            ctx.font = this.isLower ? "30px system-ui" : "26px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const titleY = this.isLower ? h * 0.82 : h * 0.8;
+            ctx.fillText(this.title, w / 2, titleY);
+          }
+
+          this.texture.update();
+        }
+      }
+
+      // Create all five counters: x, y, z (upper), l, r (lower)
+      const counters = {};
+
+      counters.x = new LaegnaCounterDisplay("x", scene, {
+        title: "RTS",
+        value: "",
+        palette: "full",
+        position: new BABYLON.Vector3(0, 1.4, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.y = new LaegnaCounterDisplay("y", scene, {
+        title: "Position scale",
+        value: "",
+        palette: "full",
+        position: new BABYLON.Vector3(0, 0.1, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.z = new LaegnaCounterDisplay("z", scene, {
+        title: "Posetion scale",
+        value: "",
+        palette: "full",
+        position: new BABYLON.Vector3(0, -1.2, 0),
+        size: { width: 6.5, height: 1.7 },
+        isLower: false
+      });
+
+      counters.l = new LaegnaCounterDisplay("l", scene, {
+        title: "Laegna Natural Numbers",
+        value: "",
+        palette: "cool",
+        position: new BABYLON.Vector3(-5.5, -3.0, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      counters.r = new LaegnaCounterDisplay("r", scene, {
+        title: "Secondary",
+        value: "",
+        palette: "warm",
+        position: new BABYLON.Vector3(5.5, -3.0, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      // PUBLIC ON-SITE API
+      window.LaegnaCountersAPI = {
+        setCounter(id, { value, title }) {
+          const c = counters[id];
+          if (!c) return;
+          if (value !== undefined) c.setValue(value);
+          if (title !== undefined) c.setTitle(title);
+        },
+        setEnabled(id, enabled) {
+          const c = counters[id];
+          if (!c) return;
+          c.setEnabled(enabled);
+
+          // special behavior: if right counter is off, left moves to center and grows
+          if (id === "r") {
+            const rEnabled = enabled;
+            if (!rEnabled) {
+              counters.l.setLowerCentered(true);
+            } else {
+              counters.l.setLowerCentered(false);
+            }
+          }
+        }
+      };
+
+      // --- ANIMATION LOOP (scene visuals only) ---
+      let time = 0;
+      scene.registerBeforeRender(() => {
+        const dt = scene.getEngine().getDeltaTime() * 0.001;
+        time += dt;
+
+        spiralParent.rotation.y += dt * 0.25;
+        torus.rotation.y -= dt * 0.18;
+
+        // subtle breathing of spiral nodes
+        spiralNodes.forEach(({ mesh, t }, i) => {
+          const phase = time * 1.5 + t * Math.PI * 4;
+          const scale = 0.9 + 0.3 * Math.sin(phase);
+          mesh.scaling.set(scale, scale, scale);
+
+          // small radial oscillation
+          const baseRadius = 2.0 + 4.0 * t;
+          const angle = t * Math.PI * 6.0;
+          const y = (t - 0.5) * 6.0;
+          const radialOffset = 0.3 * Math.sin(time * 0.8 + i * 0.3);
+          const r = baseRadius + radialOffset;
+
+          mesh.position.x = r * Math.cos(angle);
+          mesh.position.z = r * Math.sin(angle);
+          mesh.position.y = y + 0.2 * Math.sin(time * 0.9 + i * 0.5);
+        });
+
+        glyphPlane.position.y = 3.2 + 0.3 * Math.sin(time * 0.8);
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+
+    // --------------------------------------------------------------------
+    // SHEEPCOUNTER INTEGRATION: TOC, playback, highlighting, displays
+    // --------------------------------------------------------------------
+
+    const sheepCounter = new window.SheepCounter();
+    const totalLength = sheepCounter.getTotalLength();
+
+    // Playback state
+    let sheepTime = 0;
+    let playing = true;
+    let speedMode = "animation";
+
+    function speedToFactor(mode) {
+      switch (mode) {
+        case "animation": return 1.0;
+        case "amusement": return 0.5;
+        case "study": return 0.2;
+        case "count": return 0.05;
+        case "stop": return 0.0;
+        default: return 1.0;
+      }
+    }
+
+    // DOM elements
+    const tocContainer = document.getElementById("tocContainer");
+    const meaningText = document.getElementById("meaningText");
+    const descriptionText = document.getElementById("descriptionText");
+    const statusLine = document.getElementById("statusLine");
+    const frameControls = document.getElementById("frameControls");
+
+    // Build TOC
+    const tocStructure = sheepCounter.getTOCStructure();
+    const tocMainElements = [];
+    const tocSubElements = [];
+
+    tocStructure.forEach(mainEntry => {
+      const mainDiv = document.createElement("div");
+      mainDiv.className = "toc-main";
+
+      const mainTitle = document.createElement("div");
+      mainTitle.className = "toc-main-title";
+      mainTitle.textContent = mainEntry.displayName;
+      mainTitle.dataset.typeCode = mainEntry.typeCode;
+      mainDiv.appendChild(mainTitle);
+
+      const subList = document.createElement("div");
+      subList.className = "toc-sub-list";
+
+      mainEntry.subChapters.forEach(subEntry => {
+        const subDiv = document.createElement("div");
+        subDiv.className = "toc-sub";
+        subDiv.textContent = subEntry.displayRName;
+        subDiv.dataset.typeCode = mainEntry.typeCode;
+        subDiv.dataset.rCode = subEntry.rCode;
+        subList.appendChild(subDiv);
+        tocSubElements.push(subDiv);
+
+        subDiv.addEventListener("click", () => {
+          const t = sheepCounter.getChapterStartTime(mainEntry.typeCode, subEntry.rCode);
+          if (t !== null) {
+            sheepTime = t;
+          }
+        });
+      });
+
+      mainDiv.appendChild(subList);
+      tocContainer.appendChild(mainDiv);
+      tocMainElements.push(mainTitle);
+
+      mainTitle.addEventListener("click", () => {
+        // Jump to first subchapter of this main
+        const firstSub = mainEntry.subChapters[0];
+        if (firstSub) {
+          const t = sheepCounter.getChapterStartTime(mainEntry.typeCode, firstSub.rCode);
+          if (t !== null) {
+            sheepTime = t;
+          }
+        }
+      });
+    });
+
+    // Highlight TOC based on current time
+    function updateTOCHighlight(info) {
+      tocMainElements.forEach(el => el.classList.remove("active-main"));
+      tocSubElements.forEach(el => el.classList.remove("active-sub"));
+
+      if (!info) return;
+
+      const typeCode = info.mainChapter.typeCode;
+      const rCode = info.subChapter.rCode;
+
+      tocMainElements.forEach(el => {
+        if (el.dataset.typeCode === typeCode) {
+          el.classList.add("active-main");
+        }
+      });
+
+      tocSubElements.forEach(el => {
+        if (el.dataset.typeCode === typeCode && el.dataset.rCode === rCode) {
+          el.classList.add("active-sub");
+        }
+      });
+    }
+
+    // Update Babylon displays from SheepNumber
+    function updateDisplays(info) {
+      if (!info) return;
+
+      const number = info.number;
+      const mainChapter = info.mainChapter;
+      const subChapter = info.subChapter;
+
+      const d0 = number.displays.d0;
+      const d1 = number.displays.d1;
+      const d2 = number.displays.d2;
+      const dm = number.displays.dm;
+      const ds = number.displays.ds;
+
+      // x: RTS
+      window.LaegnaCountersAPI.setCounter("x", {
+        value: d0.content,
+        title: d0.title
+      });
+
+      // y: Position scale
+      window.LaegnaCountersAPI.setCounter("y", {
+        value: d1.content,
+        title: d1.title
+      });
+
+      // z: Posetion scale
+      window.LaegnaCountersAPI.setCounter("z", {
+        value: d2.content,
+        title: d2.title
+      });
+
+      // l: main Laegna Natural Number
+      window.LaegnaCountersAPI.setCounter("l", {
+        value: dm.content,
+        title: dm.title
+      });
+
+      // r: secondary (complex / logecs / logic)
+      if (ds.visible && ds.content !== "") {
+        window.LaegnaCountersAPI.setEnabled("r", true);
+        window.LaegnaCountersAPI.setCounter("r", {
+          value: ds.content,
+          title: ds.title || "Secondary"
+        });
+      } else {
+        window.LaegnaCountersAPI.setEnabled("r", false);
+      }
+
+      // Meaning / Description panel (from main display)
+      meaningText.textContent = dm.meaning || "–";
+      descriptionText.textContent = dm.description || "–";
+
+      // Status line
+      const typeLabel = mainChapter.typeCode === "FREQUENTIAL" ? "Frequential" : "Octavian";
+      statusLine.textContent = `${typeLabel} ${subChapter.displayRName}`;
+    }
+
+    // Playback integration with Babylon render loop
+    let lastTimeStamp = performance.now();
+
+    scene.onBeforeRenderObservable.add(() => {
+      const now = performance.now();
+      const dtSec = (now - lastTimeStamp) / 1000;
+      lastTimeStamp = now;
+
+      const factor = speedToFactor(speedMode);
+      if (factor > 0) {
+        sheepTime += dtSec * factor;
+        if (sheepTime >= totalLength) {
+          sheepTime = sheepTime % totalLength;
+        }
+      }
+
+      const info = sheepCounter.getNumberAtTime(sheepTime);
+      updateTOCHighlight(info);
+      updateDisplays(info);
+    });
+
+    // Speed buttons
+    const speedButtons = Array.from(document.querySelectorAll(".speed-button"));
+    speedButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        speedButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        speedMode = btn.dataset.speed;
+
+        if (speedMode === "stop") {
+          frameControls.classList.remove("hidden");
+        } else {
+          frameControls.classList.add("hidden");
+        }
+      });
+    });
+
+    // Frame controls (only active in stop mode)
+    const frameButtons = Array.from(document.querySelectorAll(".frame-button"));
+    frameButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.dataset.frame;
+        const info = sheepCounter.getNumberAtTime(sheepTime);
+        if (!info) return;
+
+        const numbers = info.subChapter.system.numbers;
+        const currentIndex = info.number.index;
+
+        function jumpToIndex(idx) {
+          const num = numbers[idx];
+          if (!num) return;
+          sheepTime = num.startTime;
+        }
+
+        if (action === "first") {
+          jumpToIndex(0);
+        } else if (action === "last") {
+          jumpToIndex(numbers.length - 1);
+        } else if (action === "prev") {
+          const idx = (currentIndex - 1 + numbers.length) % numbers.length;
+          jumpToIndex(idx);
+        } else if (action === "next") {
+          const idx = (currentIndex + 1) % numbers.length;
+          jumpToIndex(idx);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

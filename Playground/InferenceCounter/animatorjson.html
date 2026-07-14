@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Minimal File Viewer</title>
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+
+<!-- JSON Viewer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/json-viewer-js@latest/dist/json-viewer.css">
+<script src="https://cdn.jsdelivr.net/npm/json-viewer-js@latest/dist/json-viewer.js"></script>
+
+<style>
+body {
+    margin: 0;
+    background: #111;
+    color: #eee;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+#files {
+    width: 260px;
+    background: #181818;
+    border-right: 1px solid #333;
+    padding: 20px 14px;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+
+/* File block */
+.file {
+    padding: 10px 12px;
+    margin: 12px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.file:hover {
+    background: #262626;
+}
+.file.active {
+    background: #333;
+}
+
+/* Folder + file name stacked */
+.file-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+}
+.file-sub {
+    margin-left: 24px;
+    opacity: 0.8;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Viewer */
+#viewer {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Top bar */
+#topbar {
+    background: #202020;
+    border-bottom: 1px solid #333;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Buttons */
+.btn {
+    padding: 7px 14px;
+    background: #3a3a3a;
+    border: 1px solid #666;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+.btn:hover {
+    background: #555;
+}
+
+/* Content */
+#content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Code block */
+pre {
+    background: #1a1a1a;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+</style>
+</head>
+<body>
+
+<div id="files"></div>
+
+<div id="viewer">
+    <div id="topbar"></div>
+    <div id="content"></div>
+</div>
+
+<script>
+const fileList = [
+    { folder: "📁 PlaceholderResearchitem", file: "index.html", path: "PlaceholderResearchitem/", type: "folder" },
+    { folder: "🐍 decoder.py", file: "", path: "decoder.py", type: "py" },
+    { folder: "🧩 numbers.bin.json", file: "", path: "numbers.bin.json", type: "json" },
+    { folder: "🛠️ extensions.py", file: "", path: "extensions.py", type: "py" },
+    { folder: "📚 numberdatabase", file: "complete.json", path: "numberdatabase/complete.json", type: "json" },
+    { folder: "🎞️ numberdatabase/flatlist", file: "animation.json", path: "numberdatabase/flatlist/animation.json", type: "json" }
+];
+
+const filesDiv = document.getElementById("files");
+const topbar = document.getElementById("topbar");
+const content = document.getElementById("content");
+
+let currentRaw = "";
+
+/* Build sidebar */
+fileList.forEach((f, i) => {
+    const el = document.createElement("div");
+    el.className = "file";
+    el.innerHTML = `
+        <div class="file-title">${f.folder}</div>
+        ${f.file ? `<div class="file-sub">📄 ${f.file}</div>` : ""}
+    `;
+    el.onclick = () => selectFile(i);
+    filesDiv.appendChild(el);
+});
+
+async function selectFile(index) {
+    document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
+    document.querySelectorAll(".file")[index].classList.add("active");
+
+    const f = fileList[index];
+
+    topbar.innerHTML = "";
+    content.innerHTML = "";
+    currentRaw = "";
+
+    if (f.type === "folder") {
+        topbar.innerHTML = `<a class="btn" href="${f.path}" target="_blank">Open Folder</a>`;
+        content.textContent = `Folder: ${f.path}`;
+        return;
+    }
+
+    const raw = await fetch(f.path).then(r => r.text());
+    currentRaw = raw;
+
+    topbar.innerHTML = `
+        <button class="btn" onclick="copyRaw()">Copy</button>
+        <a class="btn" href="${f.path}" target="_blank">Open</a>
+    `;
+
+    if (f.type === "py") {
+        const pre = document.createElement("pre");
+        const code = document.createElement("code");
+        code.className = "language-python";
+        code.textContent = raw;
+        pre.appendChild(code);
+        content.appendChild(pre);
+        hljs.highlightElement(code);
+        return;
+    }
+
+    if (f.type === "json") {
+        try {
+            const obj = JSON.parse(raw);
+            const viewerJSON = new JSONViewer();
+            content.appendChild(viewerJSON.getContainer());
+            viewerJSON.showJSON(obj, null, 2);
+        } catch {
+            const pre = document.createElement("pre");
+            const code = document.createElement("code");
+            code.className = "language-json";
+            code.textContent = raw;
+            pre.appendChild(code);
+            content.appendChild(pre);
+            hljs.highlightElement(code);
+        }
+    }
+}
+
+function copyRaw() {
+    if (!currentRaw) return;
+    navigator.clipboard.writeText(currentRaw);
+}
+</script>
+
+</body>
+</html>

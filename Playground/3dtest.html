@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laegna × Spireason Portal</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0b1020 0%, #02030a 55%, #000000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f5ff;
+    }
+    #renderCanvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+    #ui-panel {
+      position: fixed;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 320px;
+      max-height: calc(100vh - 1.5rem);
+      background: rgba(5, 8, 20, 0.88);
+      border-radius: 12px;
+      border: 1px solid rgba(140, 180, 255, 0.35);
+      box-shadow: 0 0 24px rgba(40, 120, 255, 0.35);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+      padding: 0.75rem 0.9rem;
+    }
+    #ui-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a8c7ff;
+      margin-bottom: 0.25rem;
+    }
+    #ui-subtitle {
+      font-size: 0.78rem;
+      color: #d0ddff;
+      margin-bottom: 0.5rem;
+    }
+    #ui-links {
+      font-size: 0.72rem;
+      margin-bottom: 0.5rem;
+      color: #9fb4ff;
+    }
+    #ui-links a {
+      color: #c7e0ff;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(199, 224, 255, 0.6);
+    }
+    #ui-links a:hover {
+      color: #ffffff;
+      border-bottom-style: solid;
+    }
+    #ui-log {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.25rem;
+      border-radius: 8px;
+      background: radial-gradient(circle at top left, rgba(40, 80, 160, 0.25), rgba(5, 8, 20, 0.9));
+      margin-bottom: 0.5rem;
+    }
+    .log-entry {
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+    .log-entry span.role {
+      font-weight: 600;
+      color: #9fc5ff;
+      margin-right: 0.25rem;
+    }
+    .log-entry span.text {
+      color: #f5f5ff;
+    }
+    #ui-input-row {
+      display: flex;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+    }
+    #ui-input {
+      flex: 1;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(150, 180, 255, 0.6);
+      background: rgba(5, 8, 20, 0.9);
+      color: #f5f5ff;
+      outline: none;
+    }
+    #ui-input:focus {
+      border-color: #e0f0ff;
+      box-shadow: 0 0 0 1px rgba(200, 220, 255, 0.4);
+    }
+    #ui-send {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #5a8bff, #b07bff);
+      color: #050814;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #ui-send:hover {
+      filter: brightness(1.08);
+    }
+    #ui-send:active {
+      filter: brightness(0.95);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="renderCanvas"></canvas>
+
+  <div id="ui-panel">
+    <div id="ui-title">Laegna × Spireason Console</div>
+    <div id="ui-subtitle">
+      A small window into a theory‑realm of spirals, invariants, and reflective play.
+    </div>
+    <div id="ui-links">
+      Sources of the universe:<br />
+      – <a href="https://laegna.notaku.site/" target="_blank">Laegna notes</a><br />
+      – <a href="https://github.com/tambetvali" target="_blank">Tambet Vali GitHub</a><br />
+      – <a href="https://spireason.neocities.org/" target="_blank">Spireason</a>
+    </div>
+    <div id="ui-log"></div>
+    <div id="ui-input-row">
+      <input id="ui-input" type="text" placeholder="Ask the portal about Laegna or Spireason…" />
+      <button id="ui-send">Send</button>
+    </div>
+  </div>
+
+  <!-- Babylon.js CDN -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+
+  <script>
+    // --- BASIC BABYLON SETUP ---
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+
+      // Camera
+      const camera = new BABYLON.ArcRotateCamera(
+        "camera",
+        Math.PI / 2.2,
+        Math.PI / 2.6,
+        18,
+        new BABYLON.Vector3(0, 0, 0),
+        scene
+      );
+      camera.attachControl(canvas, true);
+      camera.lowerRadiusLimit = 6;
+      camera.upperRadiusLimit = 40;
+
+      // Lights
+      const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+      light1.intensity = 0.7;
+      const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 5, -5), scene);
+      light2.intensity = 0.9;
+
+      // Subtle space fog
+      scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+      scene.fogDensity = 0.02;
+      scene.fogColor = new BABYLON.Color3(0.01, 0.02, 0.06);
+
+      // --- SPIRAL OF NODES (Laegna structure) ---
+      const spiralParent = new BABYLON.TransformNode("laegnaSpiral", scene);
+      const spiralMaterial = new BABYLON.StandardMaterial("spiralMat", scene);
+      spiralMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.8, 1.0);
+      spiralMaterial.diffuseColor = new BABYLON.Color3(0.1, 0.2, 0.4);
+      spiralMaterial.specularColor = new BABYLON.Color3(0.8, 0.9, 1.0);
+
+      const spiralNodes = [];
+      const N = 64;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1); // 0..1
+        const angle = t * Math.PI * 6.0; // 3 turns
+        const radius = 2.0 + 4.0 * t;
+        const y = (t - 0.5) * 6.0;
+
+        const x = radius * Math.cos(angle);
+        const z = radius * Math.sin(angle);
+
+        const sphere = BABYLON.MeshBuilder.CreateSphere("node" + i, { diameter: 0.35 + 0.25 * t }, scene);
+        sphere.position.set(x, y, z);
+        sphere.material = spiralMaterial;
+        sphere.parent = spiralParent;
+
+        spiralNodes.push({ mesh: sphere, t });
+      }
+
+      // --- INFINITY RING (Spireason motif) ---
+      const torus = BABYLON.MeshBuilder.CreateTorus("infinityRing", {
+        diameter: 6,
+        thickness: 0.25,
+        tessellation: 96
+      }, scene);
+      const torusMat = new BABYLON.StandardMaterial("torusMat", scene);
+      torusMat.emissiveColor = new BABYLON.Color3(0.9, 0.8, 1.0);
+      torusMat.diffuseColor = new BABYLON.Color3(0.2, 0.1, 0.4);
+      torus.material = torusMat;
+      torus.rotation.x = Math.PI / 2.5;
+
+      // --- FLOATING GLYPH PLANE (symbolic text) ---
+      const glyphPlane = BABYLON.MeshBuilder.CreatePlane("glyphPlane", { size: 4 }, scene);
+      glyphPlane.position = new BABYLON.Vector3(0, 2.5, 0);
+      glyphPlane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+      const glyphTexture = new BABYLON.DynamicTexture("glyphTexture", { width: 512, height: 256 }, scene, true);
+      const glyphMat = new BABYLON.StandardMaterial("glyphMat", scene);
+      glyphMat.diffuseTexture = glyphTexture;
+      glyphMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1.0);
+      glyphMat.backFaceCulling = false;
+      glyphPlane.material = glyphMat;
+
+      const glyphCtx = glyphTexture.getContext();
+      function drawGlyphText(text) {
+        glyphTexture.clear();
+        glyphCtx.clearRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#050814";
+        glyphCtx.fillRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#cfe4ff";
+        glyphCtx.font = "28px system-ui";
+        glyphCtx.textAlign = "center";
+        glyphCtx.textBaseline = "middle";
+        glyphCtx.fillText(text, 256, 128);
+        glyphTexture.update();
+      }
+      drawGlyphText("Laegna · Spireason");
+
+      // --- PARTICLE FIELD (background universe) ---
+      const particleSystem = new BABYLON.ParticleSystem("stars", 2000, scene);
+      particleSystem.particleTexture = new BABYLON.Texture("https://playground.babylonjs.com/textures/flare.png", scene);
+      particleSystem.emitter = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.minEmitBox = new BABYLON.Vector3(-20, -20, -20);
+      particleSystem.maxEmitBox = new BABYLON.Vector3(20, 20, 20);
+      particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+      particleSystem.color2 = new BABYLON.Color4(0.4, 0.6, 1.0, 1.0);
+      particleSystem.minSize = 0.05;
+      particleSystem.maxSize = 0.15;
+      particleSystem.minLifeTime = 4.0;
+      particleSystem.maxLifeTime = 12.0;
+      particleSystem.emitRate = 400;
+      particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+      particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.direction1 = new BABYLON.Vector3(-0.5, 0.5, -0.5);
+      particleSystem.direction2 = new BABYLON.Vector3(0.5, 0.5, 0.5);
+      particleSystem.minAngularSpeed = 0;
+      particleSystem.maxAngularSpeed = Math.PI;
+      particleSystem.minEmitPower = 0.1;
+      particleSystem.maxEmitPower = 0.4;
+      particleSystem.updateSpeed = 0.01;
+      particleSystem.start();
+
+      // --- ANIMATION LOOP ---
+      let time = 0;
+      scene.registerBeforeRender(() => {
+        const dt = scene.getEngine().getDeltaTime() * 0.001;
+        time += dt;
+
+        spiralParent.rotation.y += dt * 0.25;
+        torus.rotation.y -= dt * 0.18;
+
+        // subtle breathing of spiral nodes
+        spiralNodes.forEach(({ mesh, t }, i) => {
+          const phase = time * 1.5 + t * Math.PI * 4;
+          const scale = 0.9 + 0.3 * Math.sin(phase);
+          mesh.scaling.set(scale, scale, scale);
+
+          // small radial oscillation
+          const baseRadius = 2.0 + 4.0 * t;
+          const angle = t * Math.PI * 6.0;
+          const y = (t - 0.5) * 6.0;
+          const radialOffset = 0.3 * Math.sin(time * 0.8 + i * 0.3);
+          const r = baseRadius + radialOffset;
+
+          mesh.position.x = r * Math.cos(angle);
+          mesh.position.z = r * Math.sin(angle);
+          mesh.position.y = y + 0.2 * Math.sin(time * 0.9 + i * 0.5);
+        });
+
+        glyphPlane.position.y = 2.5 + 0.3 * Math.sin(time * 0.8);
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+
+    // --- SIMPLE "RESPONSES" SYSTEM (client-side symbolic oracle) ---
+    const logEl = document.getElementById("ui-log");
+    const inputEl = document.getElementById("ui-input");
+    const sendEl = document.getElementById("ui-send");
+
+    function appendLog(role, text) {
+      const div = document.createElement("div");
+      div.className = "log-entry";
+      const roleSpan = document.createElement("span");
+      roleSpan.className = "role";
+      roleSpan.textContent = role + ":";
+      const textSpan = document.createElement("span");
+      textSpan.className = "text";
+      textSpan.textContent = " " + text;
+      div.appendChild(roleSpan);
+      div.appendChild(textSpan);
+      logEl.appendChild(div);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    // Very simple symbolic response generator.
+    // You can later replace this with a real backend / AI endpoint.
+    function laegnaSpireasonResponse(query) {
+      const q = query.toLowerCase();
+
+      if (q.includes("spiral")) {
+        return "In Laegna, a spiral is not motion away from center, but a record of how the center remembers.";
+      }
+      if (q.includes("infinity") || q.includes("∞") || q.includes("♾")) {
+        return "Infinity here is not size, but permeability: how easily a pattern lets new meaning pass through.";
+      }
+      if (q.includes("math") || q.includes("equation")) {
+        return "Think of Laegna math as topology of attention: what stays invariant when you move through states.";
+      }
+      if (q.includes("spireason")) {
+        return "Spireason is a way of thinking that climbs by circling: each loop adds height without losing ground.";
+      }
+      if (q.includes("laegna")) {
+        return "Laegna is a realm where structures are felt before they are named, and then named without being fixed.";
+      }
+      if (q.includes("game") || q.includes("play")) {
+        return "Play is the interface between your finite moves and the realm’s infinite patience.";
+      }
+      if (q.includes("portal")) {
+        return "Every portal is just a re-weighting of attention: what you choose to treat as foreground.";
+      }
+
+      // fallback: semi‑poetic generic answer
+      const generic = [
+        "The structure you’re asking about is already present in the spiral—try rotating your perspective, not the object.",
+        "In this universe, distance is measured in transformations, not meters.",
+        "What you call a question, Laegna treats as a new coordinate system.",
+        "Spireason would answer by drawing a curve, not a conclusion.",
+        "If you follow the faintest symmetry, you’ll eventually find the strongest invariants."
+      ];
+      return generic[Math.floor(Math.random() * generic.length)];
+    }
+
+    function handleSend() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+      appendLog("You", text);
+      inputEl.value = "";
+
+      const response = laegnaSpireasonResponse(text);
+      appendLog("Portal", response);
+
+      // Also echo a short phrase onto the floating glyph plane
+      const shortGlyph = response.length > 40 ? response.slice(0, 40) + "…" : response;
+      drawGlyphText(shortGlyph);
+    }
+
+    sendEl.addEventListener("click", handleSend);
+    inputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleSend();
+      }
+    });
+
+    // Initial log
+    appendLog("Portal", "Welcome. This is only a first slice of Laegna × Spireason. Ask about spirals, infinity, math, or portals.");
+  </script>
+</body>
+</html>

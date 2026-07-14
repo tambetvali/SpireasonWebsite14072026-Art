@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laegna AI Stack – Basics, Practice, Training</title>
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --text: #f5f5f5;
+      --muted: #c7c7d3;
+      --accent-basics: #4fc3f7;   /* light cyan */
+      --accent-practical: #ffb74d;/* warm amber */
+      --accent-training: #ce93d8; /* soft violet */
+      --card-bg: #151821;
+      --card-border: #25293a;
+      --shadow-soft: 0 16px 35px rgba(0,0,0,0.35);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1f2833 0, #06070b 52%, #020309 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Make linked repo names look like titles */
+    .repo-name a,
+    .stack-name a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .repo-name a:hover,
+    .stack-name a:hover {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 18px 64px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: conic-gradient(
+        from 210deg,
+        #4fc3f7,
+        #ffb74d,
+        #ce93d8,
+        #4fc3f7
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-inner {
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 25% 20%, #ffffff 0, #0b0c10 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: #e0f7fa;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .logo-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .repo-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(4, 8, 18, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .pill-basics .pill-dot { background: var(--accent-basics); }
+    .pill-practical .pill-dot { background: var(--accent-practical); }
+    .pill-training .pill-dot { background: var(--accent-training); }
+
+    .pill span {
+      opacity: 0.9;
+    }
+
+    .intro-card {
+      border-radius: var(--radius-lg);
+      padding: 20px 22px 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        radial-gradient(circle at -10% 0%, rgba(79,195,247,0.18) 0, transparent 50%),
+        radial-gradient(circle at 110% 0%, rgba(255,183,77,0.18) 0, transparent 55%),
+        radial-gradient(circle at 50% 120%, rgba(206,147,216,0.22) 0, transparent 60%),
+        rgba(10,12,20,0.96);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.5fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 820px) {
+      .intro-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .intro-main-title {
+      font-size: 1.18rem;
+      margin: 0 0 8px;
+    }
+
+    .intro-main-lead {
+      font-size: 0.94rem;
+      color: #fdfdfd;
+      margin: 0 0 10px;
+      line-height: 1.5;
+    }
+
+    .intro-main-body {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .intro-highlight {
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .intro-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .intro-pill {
+      font-size: 0.78rem;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(4,6,15,0.88);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .intro-pill-icon {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .intro-stack {
+      border-radius: var(--radius-md);
+      padding: 14px 14px 10px;
+      background: rgba(5,7,16,0.98);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .intro-stack-title {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .intro-stack-diagram {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 7px;
+      font-size: 0.78rem;
+    }
+
+    .stack-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stack-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stack-badge {
+      width: 7px;
+      height: 28px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .stack-name {
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .cta-btn {
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: rgba(7,10,20,0.95);
+      color: #ffffff;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .cta-btn span {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      opacity: 0.85;
+    }
+
+    .cta-btn.primary {
+      border-color: rgba(79,195,247,0.9);
+      background: linear-gradient(135deg, rgba(79,195,247,0.18), rgba(2,4,12,0.92));
+      box-shadow: 0 10px 30px rgba(79,195,247,0.25);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.35);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+      background: rgba(11,15,26,0.98);
+    }
+
+    .cta-btn.primary:hover {
+      box-shadow: 0 12px 32px rgba(79,195,247,0.4);
+      background: linear-gradient(135deg, rgba(79,195,247,0.28), rgba(2,4,12,1));
+    }
+
+    main {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-divider {
+      height: 1px;
+      border: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0.26), transparent);
+      margin: 0 0 8px;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      background: rgba(7,9,18,0.9);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .toggle-btn {
+      border-radius: var(--radius-pill);
+      border: none;
+      padding: 3px 10px 4px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-main);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .toggle-btn.active {
+      background: rgba(250,250,250,0.1);
+      color: #ffffff;
+    }
+
+    .toggle-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .repo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 690px) {
+      .repo-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .repo-card {
+      border-radius: var(--radius-lg);
+      padding: 16px 15px 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: default;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .repo-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .repo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.24);
+      background: #1a1d27;
+    }
+
+    .repo-card:hover::before {
+      opacity: 1;
+    }
+
+    .repo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .repo-title-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .repo-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #020309;
+      flex-shrink: 0;
+    }
+
+    .repo-name {
+      font-size: 0.96rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .repo-tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .repo-body {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .repo-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .meta-pill {
+      font-size: 0.74rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(5,7,14,0.9);
+    }
+
+    .meta-label {
+      opacity: 0.7;
+    }
+
+    .meta-value {
+      font-family: var(--font-mono);
+      opacity: 0.95;
+    }
+
+    .repo-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .link-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .repo-link {
+      font-size: 0.78rem;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(8,10,18,0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .repo-link span {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      opacity: 0.9;
+    }
+
+    .repo-link:hover {
+      background: rgba(16,20,34,1);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-1px);
+    }
+
+    .repo-level {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Accent themes for cards & icons */
+
+    .accent-basics {
+      background:
+        linear-gradient(145deg, rgba(2,10,18,1), rgba(8,26,40,1));
+      border-color: rgba(79,195,247,0.6);
+    }
+
+    .accent-basics .repo-icon {
+      background: radial-gradient(circle at 20% 15%, #ffffff 0, #4fc3f7 40%, #01579b 100%);
+      color: #021019;
+    }
+
+    .accent-practical {
+      background:
+        linear-gradient(145deg, rgba(14,10,5,1), rgba(25,18,8,1));
+      border-color: rgba(255,183,77,0.6);
+    }
+
+    .accent-practical .repo-icon {
+      background: radial-gradient(circle at 20% 15%, #ffffff 0, #ffb74d 40%, #e65100 100%);
+      color: #2a1300;
+    }
+
+    .accent-training {
+      background:
+        linear-gradient(145deg, rgba(14,7,19,1), rgba(24,10,35,1));
+      border-color: rgba(206,147,216,0.65);
+    }
+
+    .accent-training .repo-icon {
+      background: radial-gradient(circle at 20% 15%, #ffffff 0, #ce93d8 40%, #6a1b9a 100%);
+      color: #1c042e;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0.9;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .foot-link {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <div class="page">
+    <header>
+      <div class="masthead">
+        <div class="logo-mark">
+          <div class="logo-icon">
+            <div class="logo-inner">LA</div>
+          </div>
+          <div class="logo-text">
+            <h1>Laegna AI Repositories</h1>
+            <div class="logo-subtitle">
+              From understanding one wheel to steering your whole AI ecosystem.
+            </div>
+          </div>
+        </div>
+
+        <div class="repo-badges">
+          <div class="pill pill-basics">
+            <div class="pill-dot"></div>
+            <span>LaegnaAIBasics · Conceptual foundations</span>
+          </div>
+          <div class="pill pill-practical">
+            <div class="pill-dot"></div>
+            <span>LaegnaPracticalAI · Document‑driven workflows</span>
+          </div>
+          <div class="pill pill-training">
+            <div class="pill-dot"></div>
+            <span>LaegnaAITraining · Deeper custom models</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="intro-card">
+        <div>
+          <h2 class="intro-main-title">
+            A classical start: measures, masses, reflections
+          </h2>
+          <p class="intro-main-lead">
+            Imagine the kind of person who could build a cart or a loom from almost nothing:
+            with a feel for balance, weight, and symmetry that was never just “male” or “female”
+            knowledge, but shared craft and intuition. Once such a person understood a wheel,
+            they did not only know one circle of wood – they could foresee wagons, bicycles,
+            even future engines.
+          </p>
+          <p class="intro-main-body">
+            <span class="intro-highlight">LaegnaAIBasics, LaegnaPracticalAI, and LaegnaAITraining</span>
+            form a similar trio for modern AI work. The first gives you the basic “wheel”:
+            perceptrons, invariants, tensors, and the way deep learning transforms simple inputs
+            into rich decisions. The second shows how to gather and shape your own documents
+            so an AI can serve you – not as a mystery box, but as a structured tool you can
+            reason about. The third guides you when you want an AI that does more than answer –
+            one that can meditate on your material, internalize your voice, and evolve with
+            your ideas. None of this belongs to one gender or one profession: it is craft
+            knowledge that any careful mind can grow into.
+          </p>
+          <div class="intro-pill-row">
+            <div class="intro-pill">
+              <span class="intro-pill-icon">○</span>
+              <span>From perceptron to full deep nets</span>
+            </div>
+            <div class="intro-pill">
+              <span class="intro-pill-icon">✶</span>
+              <span>Document collections as living knowledge bases</span>
+            </div>
+            <div class="intro-pill">
+              <span class="intro-pill-icon">∞</span>
+              <span>Training AIs to truly “know” your work</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="intro-stack">
+            <div class="intro-stack-title">The Laegna AI stack at a glance</div>
+            <div class="intro-stack-diagram">
+              <div class="stack-row">
+                <div class="stack-left">
+                  <div class="stack-badge" style="background: linear-gradient(180deg,#4fc3f7,#0288d1);"></div>
+                  <div>
+                    <div class="stack-name">
+                      <a href="https://github.com/tambetvali/LaegnaAIBasics" target="_blank" rel="noopener noreferrer">
+                        LaegnaAIBasics
+                      </a>
+                    </div>
+                    <div style="font-size:0.74rem;color:var(--muted);">
+                      Understand the “wheel” of AI: perceptrons, tensors, gradients, invariants.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stack-row">
+                <div class="stack-left">
+                  <div class="stack-badge" style="background: linear-gradient(180deg,#ffb74d,#f57c00);"></div>
+                  <div>
+                    <div class="stack-name">
+                      <a href="https://github.com/tambetvali/LaegnaPracticalAI" target="_blank" rel="noopener noreferrer">
+                        LaegnaPracticalAI
+                      </a>
+                    </div>
+                    <div style="font-size:0.74rem;color:var(--muted);">
+                      Build and use document collections as your everyday AI workspace.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="stack-row">
+                <div class="stack-left">
+                  <div class="stack-badge" style="background: linear-gradient(180deg,#ce93d8,#8e24aa);"></div>
+                  <div>
+                    <div class="stack-name">
+                      <a href="https://github.com/tambetvali/LaegnaAITraining" target="_blank" rel="noopener noreferrer">
+                        LaegnaAITraining
+                      </a>
+                    </div>
+                    <div style="font-size:0.74rem;color:var(--muted);">
+                      Train models so they contemplate and reflect your own corpus in depth.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cta-row">
+              <a class="cta-btn primary" href="https://spireason.neocities.org/repos" target="_blank" rel="noopener noreferrer">
+                <span>◎</span>
+                <span>See all Laegna repos &amp; icons</span>
+              </a>
+              <a class="cta-btn" href="https://mind-sculptor-engine.lovable.app/" target="_blank" rel="noopener noreferrer">
+                <span>◉</span>
+                <span>Introduction to this + Appendixes</span>
+              </a>
+              <a class="cta-btn" href="https://docu-deploy-ai.lovable.app/" target="_blank" rel="noopener noreferrer">
+                <span>◆</span>
+                <span>Explore docu‑deploy AI site</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section>
+        <div class="section-heading">
+          <h2>Three repositories, one continuum</h2>
+          <div class="view-toggle" aria-label="View mode">
+            <button class="toggle-btn active" data-view="sequence">
+              <div class="toggle-dot"></div>
+              <span>Wheel → Vehicle → Journey</span>
+            </button>
+            <button class="toggle-btn" data-view="role">
+              <div class="toggle-dot"></div>
+              <span>Concept → Practice → Training</span>
+            </button>
+          </div>
+        </div>
+        <hr class="section-divider" />
+
+        <div class="repo-grid">
+          <!-- LaegnaAIBasics -->
+          <article class="repo-card accent-basics" data-sequence="1" data-role="concept">
+            <div class="repo-header">
+              <div class="repo-title-box">
+                <div class="repo-icon">
+                  <span>⊕</span>
+                </div>
+                <div>
+                  <div class="repo-name">
+                    <a href="https://github.com/tambetvali/LaegnaAIBasics" target="_blank" rel="noopener noreferrer">
+                      LaegnaAIBasics
+                    </a>
+                  </div>
+                  <div class="repo-tagline">Deep learning foundations in human language</div>
+                </div>
+              </div>
+              <div class="repo-level">
+                Level: Foundations
+              </div>
+            </div>
+            <div class="repo-body">
+              LaegnaAIBasics is an introduction to deep learning AIs that stays as close as possible
+              to “classical craft” understanding. It begins with the perceptron – a single decision
+              unit – and shows how stacking these units into layers creates a network that can
+              recognize patterns across images, language, and other data. Instead of drowning
+              you in formulas, it walks through tensors, matrices, and gradients with analogies
+              to weight, leverage, projection, and reflection, so the ideas can be shared by anyone
+              willing to think carefully, regardless of background or gender.
+              From there, it introduces invariants – the features that stay meaningful when inputs
+              change – and discusses how to visualize high‑dimensional spaces, so you can “see”
+              what your AI is doing instead of trusting it blindly. The goal is that once you
+              understand this one “wheel” of a perceptron and gradient descent, you can recognize
+              the same principles in convolutional nets, transformers, and beyond: bicycles,
+              cars, and carriages of the AI world built from the same circular core.
+            </div>
+            <div class="repo-meta">
+              <div class="meta-pill">
+                <div class="meta-label">Focus:</div>
+                <div class="meta-value">Perceptrons, tensors, gradients, invariants</div>
+              </div>
+              <div class="meta-pill">
+                <div class="meta-label">Audience:</div>
+                <div class="meta-value">Curious beginners &amp; reflective practitioners</div>
+              </div>
+            </div>
+            <div class="repo-links">
+              <div class="link-group">
+                <a class="repo-link" href="https://github.com/tambetvali/LaegnaAIBasics" target="_blank" rel="noopener noreferrer">
+                  <span>GH</span>
+                  <span>Open repository</span>
+                </a>
+              </div>
+              <div class="repo-level">
+                Includes: AI intro, invariants, visualization, compassion
+              </div>
+            </div>
+          </article>
+
+          <!-- LaegnaPracticalAI -->
+          <article class="repo-card accent-practical" data-sequence="2" data-role="practice">
+            <div class="repo-header">
+              <div class="repo-title-box">
+                <div class="repo-icon">
+                  <span>☰</span>
+                </div>
+                <div>
+                  <div class="repo-name">
+                    <a href="https://github.com/tambetvali/LaegnaPracticalAI" target="_blank" rel="noopener noreferrer">
+                      LaegnaPracticalAI
+                    </a>
+                  </div>
+                  <div class="repo-tagline">Document collections as your AI workshop</div>
+                </div>
+              </div>
+              <div class="repo-level">
+                Level: Everyday practice
+              </div>
+            </div>
+            <div class="repo-body">
+              LaegnaPracticalAI shows how to turn your ideas, notes, presentations, web pages,
+              and media into a structured document collection – a living workshop where AI can
+              actually work with you. Instead of treating models as magic, it treats your documents
+              as the main raw material: they define what the AI can know about you, your team, or
+              your project. The repository is organized into themed folders (ChatProvider,
+              ChatWithDocs, CommonChat, DocsOwnPresentations, DocsOwnVideoPresentations,
+              DocsOwnWebpages, Images, and more), each with its own README that explains how to
+              wire that kind of content into conversations and tools you can actually use every day.
+              In practice, this means building consistent pipelines for indexing, retrieving,
+              and presenting your documents, so you can create AI assistants, resource builders,
+              and knowledge explorers that reflect your own domain. Together with the
+              <em>docu‑deploy‑ai</em> website, it embodies the idea that everyone can own an AI
+              workspace – not just people with big infrastructures or formal data warehouses.
+            </div>
+            <div class="repo-meta">
+              <div class="meta-pill">
+                <div class="meta-label">Focus:</div>
+                <div class="meta-value">Document collections &amp; AI‑powered resources</div>
+              </div>
+              <div class="meta-pill">
+                <div class="meta-label">Audience:</div>
+                <div class="meta-value">Creators, teams, researchers, educators</div>
+              </div>
+            </div>
+            <div class="repo-links">
+              <div class="link-group">
+                <a class="repo-link" href="https://github.com/tambetvali/LaegnaPracticalAI" target="_blank" rel="noopener noreferrer">
+                  <span>GH</span>
+                  <span>Open repository</span>
+                </a>
+                <a class="repo-link" href="https://docu-deploy-ai.lovable.app/" target="_blank" rel="noopener noreferrer">
+                  <span>◎</span>
+                  <span>docu‑deploy‑ai site</span>
+                </a>
+              </div>
+              <div class="repo-level">
+                Includes: chat with docs, multi‑source collections, deployment patterns
+              </div>
+            </div>
+          </article>
+
+          <!-- LaegnaAITraining -->
+          <article class="repo-card accent-training" data-sequence="3" data-role="training">
+            <div class="repo-header">
+              <div class="repo-title-box">
+                <div class="repo-icon">
+                  <span>Ψ</span>
+                </div>
+                <div>
+                  <div class="repo-name">
+                    <a href="https://github.com/tambetvali/LaegnaAITraining" target="_blank" rel="noopener noreferrer">
+                      LaegnaAITraining
+                    </a>
+                  </div>
+                  <div class="repo-tagline">Teaching AI to contemplate your corpus</div>
+                </div>
+              </div>
+              <div class="repo-level">
+                Level: Deep personalization
+              </div>
+            </div>
+            <div class="repo-body">
+              LaegnaAITraining is about what happens after you have a functioning document
+              collection and a basic understanding of deep learning: you begin to train models
+              so they do not just reference your documents, but grow an internal sense of your
+              style, priorities, and theory. In the same way a craftsperson develops an instinct
+              for wood grain or stone, a trained model can develop an internal “grain” of your
+              work – one that helps it generate, summarize, and reason in ways that feel less
+              generic and more like a genuine collaborator.
+              The repository focuses on how to prepare your own material, how to structure
+              training so it remains interpretable and ethical, and how to think of AI as a
+              contemplative partner: something that revisits your texts, refines its understanding,
+              and becomes better attuned to you over time. This is where researchers, writers,
+              and builders of any gender or discipline can move from “using an AI” to “cultivating
+              a shared language” with it.
+            </div>
+            <div class="repo-meta">
+              <div class="meta-pill">
+                <div class="meta-label">Focus:</div>
+                <div class="meta-value">Fine‑tuning &amp; reflective training</div>
+              </div>
+              <div class="meta-pill">
+                <div class="meta-label">Audience:</div>
+                <div class="meta-value">Advanced users, theory builders, long‑term projects</div>
+              </div>
+            </div>
+            <div class="repo-links">
+              <div class="link-group">
+                <a class="repo-link" href="https://github.com/tambetvali/LaegnaAITraining" target="_blank" rel="noopener noreferrer">
+                  <span>GH</span>
+                  <span>Open repository</span>
+                </a>
+              </div>
+              <div class="repo-level">
+                Supports: deeper alignment with your voice &amp; ideas
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        The mission of this trio is simple: give any thoughtful person – regardless of background,
+        gender, or title – a way to understand AI from first principles, organize their own
+        knowledge as a usable resource, and then train models that can grow alongside their work.
+      </div>
+      <div class="foot-links">
+        <a class="foot-link" href="https://spireason.neocities.org/repos" target="_blank" rel="noopener noreferrer">
+          Laegna repository overview
+        </a>
+        <a class="foot-link" href="https://github.com/tambetvali" target="_blank" rel="noopener noreferrer">
+          Author on GitHub
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const toggleButtons = document.querySelectorAll('.toggle-btn');
+      const cards = document.querySelectorAll('.repo-card');
+
+      function setView(mode) {
+        toggleButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.view === mode);
+        });
+
+        // Currently both modes show all cards; sequence mode just respects the ordering attribute.
+        if (mode === 'sequence') {
+          cards.forEach(card => {
+            card.style.order = card.getAttribute('data-sequence') || '0';
+          });
+        } else {
+          cards.forEach(card => {
+            card.style.order = '0';
+          });
+        }
+      }
+
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setView(btn.dataset.view);
+        });
+      });
+
+      setView('sequence');
+    })();
+  </script>
+</body>
+</html>

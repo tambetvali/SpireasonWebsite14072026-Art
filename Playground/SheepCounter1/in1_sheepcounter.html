@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>in1_sheepcounter – SheepCounter Architecture & Barebone API Manual</title>
+
+  <!-- Prism.js for syntax highlighting (graceful fallback if CDN fails) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-js.min.js"></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 24px;
+      line-height: 1.6;
+      max-width: 980px;
+      color: #222;
+      background: #fafafa;
+    }
+    h1, h2, h3, h4 { margin-top: 28px; margin-bottom: 10px; font-weight: 600; }
+    h1 { font-size: 1.9rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.05rem; }
+    p { margin: 8px 0; }
+    hr { margin: 28px 0; border: none; border-top: 1px solid #ddd; }
+    ul { margin-top: 4px; margin-bottom: 8px; padding-left: 20px; }
+    li { margin: 2px 0; }
+    code { font-family: Consolas, Menlo, Monaco, "Courier New", monospace; font-size: 0.95em; }
+    pre {
+      position: relative;
+      background: #111;
+      color: #eee;
+      padding: 10px 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      margin-bottom: -4px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .copy-button {
+      border: none;
+      background: #444;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .copy-button:hover { background: #666; }
+    .copy-button.copied { background: #2b7a2b; }
+    .note { font-size: 0.9em; color: #555; margin-top: 4px; }
+    .toc { margin-top: 10px; padding-left: 18px; font-size: 0.95rem; }
+    .toc a { color: #0050aa; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    details {
+      margin-top: 14px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 6px 10px 8px;
+    }
+    details[open] { border-color: #bbb; background: #fdfdfd; }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .summary-arrow {
+      display: inline-block;
+      transition: transform 0.15s ease-out;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    details[open] .summary-arrow { transform: rotate(90deg); }
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+    }
+    .section-title { font-size: 1.0rem; }
+    .section-body { margin-top: 8px; }
+    .highlight-box {
+      background: #f0f4ff;
+      border-left: 3px solid #4a6fdc;
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+    .small { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<h1>in1_sheepcounter – SheepCounter Architecture & Barebone API Manual</h1>
+
+<p>
+  This document is a <strong>snapshot manual</strong> for the first version of the SheepCounter
+  architecture. It is designed as an <strong>anchor point</strong> before the system grows more
+  complex. Future milestones can have their own manuals (<code>in2_*.html</code>, <code>in3_*.html</code>, …),
+  but this file preserves the <strong>barebone abstract counter API</strong> and its initial design
+  considerations.
+</p>
+
+<div class="highlight-box">
+  <strong>Goal:</strong> This manual explains the <em>architecture</em> and <em>extensibility</em> of the
+  SheepCounter system, not just the current 0–10 example. The example is a stub; the design is
+  meant to support the full Laegna number system and later 3D visualization.
+</div>
+
+<hr>
+
+<h2>Table of Contents</h2>
+<ul class="toc">
+  <li><a href="#overview">1. Architecture Overview</a></li>
+  <li><a href="#classes">2. Classes & Structures (Collapsible)</a></li>
+  <li><a href="#full-js">3. Full Barebone JS Snapshot</a></li>
+  <li><a href="#extending">4. Extending to Laegna & 3D</a></li>
+  <li><a href="#future">5. Notes on Future Refactoring</a></li>
+  <li><a href="#html-manual">6. Manual for This HTML File</a></li>
+  <li><a href="#full-html">7. Full HTML Snapshot (this file)</a></li>
+</ul>
+
+<hr id="overview">
+
+<h2>1. Architecture Overview</h2>
+
+<p>
+  The SheepCounter system is a <strong>timeline engine</strong> and <strong>number system framework</strong>.
+  It is designed to:
+</p>
+
+<ul>
+  <li>Represent numbers and their displays over time.</li>
+  <li>Organize numbers into number systems (e.g. Frequential, Octavian).</li>
+  <li>Organize number systems into chapters and main chapters.</li>
+  <li>Provide a global counter that can answer: “What is shown at time <code>t</code>?”</li>
+  <li>Remain abstract enough to support Laegna’s more advanced structures later.</li>
+</ul>
+
+<p>
+  The current implementation uses a simple example (counting 0–10 with equal durations) as a
+  placeholder. The <strong>design</strong> is what matters: it must be easy to replace the example
+  with real Laegna logic without changing the overall architecture.
+</p>
+
+<h3>1.1 Timeline Model</h3>
+
+<p>
+  The core idea is that everything that occupies time is a <strong>block</strong>. This is captured
+  by the base class <code>SheepBlock</code>. All other time-based entities inherit from it:
+</p>
+
+<ul>
+  <li><code>SheepPadding</code> – explicit gaps or transitions.</li>
+  <li><code>SheepNumber</code> – one number instance.</li>
+  <li><code>SheepNumberSystem</code> – a sequence of numbers.</li>
+  <li><code>SheepSubChapter</code> – one (type + R) chapter.</li>
+  <li><code>SheepMainChapter</code> – a family of subchapters (e.g. all Frequential R=1..4).</li>
+  <li><code>SheepCounter</code> – the global orchestrator.</li>
+</ul>
+
+<p>
+  Each block has:
+</p>
+
+<ul>
+  <li><code>startTime</code></li>
+  <li><code>endTime</code></li>
+  <li><code>length</code></li>
+</ul>
+
+<h3>1.2 Display Model</h3>
+
+<p>
+  Each number has up to five logical “screens”:
+</p>
+
+<ul>
+  <li><code>d0</code>, <code>d1</code>, <code>d2</code> – auxiliary displays.</li>
+  <li><code>dm</code> – main display.</li>
+  <li><code>ds</code> – secondary display.</li>
+</ul>
+
+<p>
+  Each screen is a <code>SheepDisplay</code> object with:
+</p>
+
+<ul>
+  <li><code>title</code></li>
+  <li><code>content</code></li>
+  <li><code>visible</code></li>
+</ul>
+
+<h3>1.3 Chapter Hierarchy</h3>
+
+<p>
+  The hierarchy is:
+</p>
+
+<ul>
+  <li><strong>SheepCounter</strong> – global timeline, contains main chapters.</li>
+  <li><strong>SheepMainChapter</strong> – e.g. “Frequential Numbers”, “Octavian Numbers”.</li>
+  <li><strong>SheepSubChapter</strong> – e.g. “Frequential R=1”, “Octavian R=3”.</li>
+  <li><strong>SheepNumberSystem</strong> – the actual sequence of numbers for that chapter.</li>
+  <li><strong>SheepNumber</strong> – one number instance.</li>
+</ul>
+
+<h3>1.4 Counter as Orchestrator</h3>
+
+<p>
+  <code>SheepCounter</code> is the main entry point. It:
+</p>
+
+<ul>
+  <li>Builds the entire structure from a <code>SheepTOC</code> definition.</li>
+  <li>Assigns start times and lengths to all chapters and numbers.</li>
+  <li>Provides methods like:
+    <ul>
+      <li><code>getTotalLength()</code></li>
+      <li><code>getTOCStructure()</code></li>
+      <li><code>getNumberAtTime(t)</code></li>
+      <li><code>getChapterStartTime(typeCode, rCode)</code></li>
+    </ul>
+  </li>
+</ul>
+
+<hr id="classes">
+
+<h2>2. Classes & Structures (Collapsible)</h2>
+
+<p class="small">
+  Each section below describes one class or structure. It includes:
+</p>
+<ul class="small">
+  <li>Conceptual role</li>
+  <li>API description</li>
+  <li>Extensibility notes</li>
+  <li>A syntax-highlighted code block with a copy button</li>
+</ul>
+
+<!-- 2.1 SheepBlock -->
+<details id="class-sheepblock">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepBlock – base timeline entity</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepBlock</code> is the abstract base class for anything that occupies time on the global timeline.</p>
+    <p><strong>Fields:</strong></p>
+    <ul>
+      <li><code>startTime</code>, <code>endTime</code>, <code>length</code></li>
+    </ul>
+    <p><strong>Methods:</strong></p>
+    <ul>
+      <li><code>setStartTime(t)</code>, <code>containsTime(t)</code>, <code>toDebugJSON()</code></li>
+    </ul>
+    <div class="code-header">
+      <span>SheepBlock implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepblock">Copy</button>
+    </div>
+    <pre><code id="code-sheepblock" class="language-js">
+// **SheepBlock** – base class for anything on the timeline
+class SheepBlock {
+  constructor() {
+    this.startTime = 0;
+    this.endTime = 0;
+    this.length = 0;
+  }
+  setStartTime(t) {
+    this.startTime = t;
+    this.endTime = t + this.length;
+  }
+  containsTime(t) {
+    return t >= this.startTime && t &lt; this.endTime;
+  }
+  toDebugJSON() {
+    return {
+      type: "block",
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.2 SheepPadding -->
+<details id="class-sheeppadding">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepPadding – explicit timeline gaps</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepPadding</code> represents non-number time segments: intros, outros, pauses, transitions.</p>
+    <div class="code-header">
+      <span>SheepPadding implementation</span>
+      <button class="copy-button" data-copy-target="code-sheeppadding">Copy</button>
+    </div>
+    <pre><code id="code-sheeppadding" class="language-js">
+// **SheepPadding** – timeline atom for gaps
+class SheepPadding extends SheepBlock {
+  constructor(length) {
+    super();
+    this.length = length;
+  }
+  toDebugJSON() {
+    return {
+      type: "padding",
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.3 SheepDisplay -->
+<details id="class-sheepdisplay">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepDisplay – one logical screen</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepDisplay</code> represents one “screen” of information for a number.</p>
+    <div class="code-header">
+      <span>SheepDisplay implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepdisplay">Copy</button>
+    </div>
+    <pre><code id="code-sheepdisplay" class="language-js">
+// **SheepDisplay** – single display (d0, d1, d2, dm, ds)
+class SheepDisplay {
+  constructor(codeName, title = "", content = "") {
+    this.codeName = codeName; // "d0", "d1", "d2", "dm", "ds"
+    this.title = title;
+    this.content = content;
+    this.visible = true;
+  }
+  set(title, content, visible = true) {
+    this.title = title;
+    this.content = content;
+    this.visible = visible;
+  }
+  toDebugJSON() {
+    return {
+      codeName: this.codeName,
+      title: this.title,
+      content: this.content,
+      visible: this.visible
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.4 SheepNumber -->
+<details id="class-sheepnumber">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepNumber – one number instance</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepNumber</code> represents a single number in a given number system.</p>
+    <div class="code-header">
+      <span>SheepNumber implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepnumber">Copy</button>
+    </div>
+    <pre><code id="code-sheepnumber" class="language-js">
+// **SheepNumber** – one number instance in a system
+class SheepNumber extends SheepBlock {
+  constructor(system, index, valueStr, length = 1.0) {
+    super();
+    this.system = system;
+    this.index = index;
+    this.valueStr = valueStr;
+    this.length = length;
+    this.displays = {
+      d0: new SheepDisplay("d0", "Aux 0", valueStr),
+      d1: new SheepDisplay("d1", "Aux 1", valueStr),
+      d2: new SheepDisplay("d2", "Aux 2", valueStr),
+      dm: new SheepDisplay("dm", "Main", valueStr),
+      ds: new SheepDisplay("ds", "Secondary", valueStr)
+    };
+  }
+  getLength() {
+    return this.length;
+  }
+  toDebugJSON() {
+    return {
+      type: "number",
+      index: this.index,
+      valueStr: this.valueStr,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      displays: Object.fromEntries(
+        Object.entries(this.displays).map(([k, d]) => [k, d.toDebugJSON()])
+      )
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.5 SheepNumberSystem -->
+<details id="class-sheepnumbersystem">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepNumberSystem – sequence of numbers</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepNumberSystem</code> represents a full sequence of numbers in a given Laegna system.</p>
+    <div class="code-header">
+      <span>SheepNumberSystem implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepnumbersystem">Copy</button>
+    </div>
+    <pre><code id="code-sheepnumbersystem" class="language-js">
+// **SheepNumberSystem** – e.g. Frequential / Octavian
+class SheepNumberSystem extends SheepBlock {
+  constructor(typeCode, rCode) {
+    super();
+    this.typeCode = typeCode;
+    this.rCode = rCode;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.numbers = [];
+    this.numberStartTimes = [];
+    this._initNumbers();
+    this._buildIndex();
+  }
+  _initNumbers() {
+    const count = 11;
+    for (let i = 0; i &lt; count; i++) {
+      const valueStr = String(i);
+      const num = new SheepNumber(this, i, valueStr, 1.0);
+      this.numbers.push(num);
+    }
+  }
+  _buildIndex() {
+    let t = 0;
+    this.numberStartTimes = [];
+    for (const num of this.numbers) {
+      num.setStartTime(t);
+      this.numberStartTimes.push(t);
+      t += num.getLength();
+    }
+    this.length = this.paddingBefore.length + t + this.paddingAfter.length;
+  }
+  setStartTime(t) {
+    super.setStartTime(t);
+    let cursor = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const num of this.numbers) {
+      num.setStartTime(cursor);
+      cursor += num.getLength();
+    }
+    this.paddingAfter.setStartTime(cursor);
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    const local = t - this.startTime - this.paddingBefore.length;
+    if (local &lt; 0 || local &gt;= (this.length - this.paddingBefore.length - this.paddingAfter.length)) {
+      return null;
+    }
+    for (const num of this.numbers) {
+      if (num.containsTime(t)) {
+        return { number: num, localTime: t - num.startTime };
+      }
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "numberSystem",
+      typeCode: this.typeCode,
+      rCode: this.rCode,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      numbers: this.numbers.map(n => n.toDebugJSON())
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.6 SheepSubChapter -->
+<details id="class-sheepsubchapter">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepSubChapter – one (type + R) chapter</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepSubChapter</code> wraps a <code>SheepNumberSystem</code> with chapter-level padding.</p>
+    <div class="code-header">
+      <span>SheepSubChapter implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepsubchapter">Copy</button>
+    </div>
+    <pre><code id="code-sheepsubchapter" class="language-js">
+// **SheepSubChapter** – one (type + R) chapter
+class SheepSubChapter extends SheepBlock {
+  constructor(mainChapter, typeCode, rCode, displayRName) {
+    super();
+    this.mainChapter = mainChapter;
+    this.typeCode = typeCode;
+    this.rCode = rCode;
+    this.displayRName = displayRName;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.system = null;
+  }
+  initSystem(system) {
+    this.system = system;
+    this.length = this.paddingBefore.length + system.length + this.paddingAfter.length;
+  }
+  setStartTime(t) {
+    super.setStartTime(t);
+    this.paddingBefore.setStartTime(this.startTime);
+    const sysStart = this.startTime + this.paddingBefore.length;
+    this.system.setStartTime(sysStart);
+    const afterStart = sysStart + this.system.length;
+    this.paddingAfter.setStartTime(afterStart);
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    if (!this.system) return null;
+    return this.system.getNumberAtTime(t);
+  }
+  toDebugJSON() {
+    return {
+      type: "subChapter",
+      typeCode: this.typeCode,
+      rCode: this.rCode,
+      displayRName: this.displayRName,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      system: this.system ? this.system.toDebugJSON() : null
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.7 SheepMainChapter -->
+<details id="class-sheepmainchapter">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepMainChapter – Frequential / Octavian</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepMainChapter</code> groups subchapters for one number system type.</p>
+    <div class="code-header">
+      <span>SheepMainChapter implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepmainchapter">Copy</button>
+    </div>
+    <pre><code id="code-sheepmainchapter" class="language-js">
+// **SheepMainChapter** – Frequential / Octavian
+class SheepMainChapter extends SheepBlock {
+  constructor(typeCode, displayName) {
+    super();
+    this.typeCode = typeCode;
+    this.displayName = displayName;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.subChapters = [];
+  }
+  addSubChapter(sub) {
+    this.subChapters.push(sub);
+  }
+  buildTimeline() {
+    let t = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const sub of this.subChapters) {
+      sub.setStartTime(t);
+      t += sub.length;
+    }
+    this.paddingAfter.setStartTime(t);
+    this.length = this.paddingBefore.length +
+                  this.subChapters.reduce((acc, s) => acc + s.length, 0) +
+                  this.paddingAfter.length;
+    this.endTime = this.startTime + this.length;
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    for (const sub of this.subChapters) {
+      const res = sub.getNumberAtTime(t);
+      if (res) {
+        return {
+          mainChapter: this,
+          subChapter: sub,
+          number: res.number,
+          localTimeInNumber: res.localTime
+        };
+      }
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "mainChapter",
+      typeCode: this.typeCode,
+      displayName: this.displayName,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      subChapters: this.subChapters.map(s => s.toDebugJSON())
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.8 SheepTOC -->
+<details id="class-sheeptoc">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepTOC – structural definition</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepTOC</code> defines which main chapters and R-levels exist.</p>
+    <div class="code-header">
+      <span>SheepTOC implementation</span>
+      <button class="copy-button" data-copy-target="code-sheeptoc">Copy</button>
+    </div>
+    <pre><code id="code-sheeptoc" class="language-js">
+// **SheepTOC** – defines structure
+class SheepTOC {
+  constructor() {
+    this.mainDefs = [];
+    this._initDefs();
+  }
+  _initDefs() {
+    const types = [
+      { typeCode: "FREQUENTIAL", displayName: "Frequential Numbers" },
+      { typeCode: "OCTAVIAN", displayName: "Octavian Numbers" }
+    ];
+    const rCodes = [
+      { rCode: "R0", displayRName: "R=1" },
+      { rCode: "R1", displayRName: "R=2" },
+      { rCode: "R2", displayRName: "R=3" },
+      { rCode: "R3", displayRName: "R=4" }
+    ];
+    for (const t of types) {
+      this.mainDefs.push({
+        typeCode: t.typeCode,
+        displayName: t.displayName,
+        rDefs: rCodes.map(r => ({
+          rCode: r.rCode,
+          displayRName: r.displayRName
+        }))
+      });
+    }
+  }
+  getDefs() {
+    return this.mainDefs;
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<!-- 2.9 SheepCounter -->
+<details id="class-sheepcounter">
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Class</span>
+    <span class="section-title">SheepCounter – global timeline & API</span>
+  </summary>
+  <div class="section-body">
+    <p><code>SheepCounter</code> builds the whole structure and exposes the main API.</p>
+    <div class="code-header">
+      <span>SheepCounter implementation</span>
+      <button class="copy-button" data-copy-target="code-sheepcounter">Copy</button>
+    </div>
+    <pre><code id="code-sheepcounter" class="language-js">
+// **SheepCounter** – global timeline and API
+class SheepCounter extends SheepBlock {
+  constructor() {
+    super();
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.toc = new SheepTOC();
+    this.mainChapters = [];
+    this._initChapters();
+    this._buildTimeline();
+  }
+  _initChapters() {
+    const defs = this.toc.getDefs();
+    for (const mainDef of defs) {
+      const main = new SheepMainChapter(mainDef.typeCode, mainDef.displayName);
+      for (const rDef of mainDef.rDefs) {
+        const sub = new SheepSubChapter(
+          main,
+          mainDef.typeCode,
+          rDef.rCode,
+          rDef.displayRName
+        );
+        const system = new SheepNumberSystem(mainDef.typeCode, rDef.rCode);
+        sub.initSystem(system);
+        main.addSubChapter(sub);
+      }
+      this.mainChapters.push(main);
+    }
+  }
+  _buildTimeline() {
+    let t = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const main of this.mainChapters) {
+      main.setStartTime(t);
+      main.buildTimeline();
+      t += main.length;
+    }
+    this.paddingAfter.setStartTime(t);
+    this.length = this.paddingBefore.length +
+                  this.mainChapters.reduce((acc, m) => acc + m.length, 0) +
+                  this.paddingAfter.length;
+    this.endTime = this.startTime + this.length;
+  }
+  getTotalLength() {
+    return this.length;
+  }
+  getTOCStructure() {
+    return this.mainChapters.map(main => ({
+      typeCode: main.typeCode,
+      displayName: main.displayName,
+      mainChapter: main,
+      subChapters: main.subChapters.map(sub => ({
+        rCode: sub.rCode,
+        displayRName: sub.displayRName,
+        subChapter: sub
+      }))
+    }));
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    for (const main of this.mainChapters) {
+      const res = main.getNumberAtTime(t);
+      if (res) {
+        return {
+          mainChapter: res.mainChapter,
+          subChapter: res.subChapter,
+          number: res.number,
+          localTimeInNumber: res.localTimeInNumber
+        };
+      }
+    }
+    return null;
+  }
+  getChapterStartTime(typeCode, rCode) {
+    for (const main of this.mainChapters) {
+      if (main.typeCode !== typeCode) continue;
+      for (const sub of main.subChapters) {
+        if (sub.rCode === rCode) {
+          return sub.startTime;
+        }
+      }
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "counter",
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      mainChapters: this.mainChapters.map(m => m.toDebugJSON())
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<hr id="full-js">
+
+<h2>3. Full Barebone JS Snapshot</h2>
+
+<p>
+  This section contains the entire barebone <code>sheepcounter.js</code> code as used in this
+  manual. It is collapsed by default to keep the document readable.
+</p>
+
+<details>
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Snapshot</span>
+    <span class="section-title">Full sheepcounter.js (barebone version)</span>
+  </summary>
+  <div class="section-body">
+    <div class="code-header">
+      <span>Full sheepcounter.js</span>
+      <button class="copy-button" data-copy-target="code-full-js">Copy</button>
+    </div>
+    <pre><code id="code-full-js" class="language-js">
+// (Same content as the class definitions above, grouped in one file)
+class SheepBlock {
+  constructor() { this.startTime = 0; this.endTime = 0; this.length = 0; }
+  setStartTime(t) { this.startTime = t; this.endTime = t + this.length; }
+  containsTime(t) { return t >= this.startTime && t &lt; this.endTime; }
+  toDebugJSON() { return { type: "block", startTime: this.startTime, endTime: this.endTime, length: this.length }; }
+}
+class SheepPadding extends SheepBlock {
+  constructor(length) { super(); this.length = length; }
+  toDebugJSON() { return { type: "padding", startTime: this.startTime, endTime: this.endTime, length: this.length }; }
+}
+class SheepDisplay {
+  constructor(codeName, title = "", content = "") {
+    this.codeName = codeName; this.title = title; this.content = content; this.visible = true;
+  }
+  set(title, content, visible = true) { this.title = title; this.content = content; this.visible = visible; }
+  toDebugJSON() { return { codeName: this.codeName, title: this.title, content: this.content, visible: this.visible }; }
+}
+class SheepNumber extends SheepBlock {
+  constructor(system, index, valueStr, length = 1.0) {
+    super();
+    this.system = system; this.index = index; this.valueStr = valueStr; this.length = length;
+    this.displays = {
+      d0: new SheepDisplay("d0", "Aux 0", valueStr),
+      d1: new SheepDisplay("d1", "Aux 1", valueStr),
+      d2: new SheepDisplay("d2", "Aux 2", valueStr),
+      dm: new SheepDisplay("dm", "Main", valueStr),
+      ds: new SheepDisplay("ds", "Secondary", valueStr)
+    };
+  }
+  getLength() { return this.length; }
+  toDebugJSON() {
+    return {
+      type: "number",
+      index: this.index,
+      valueStr: this.valueStr,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      displays: Object.fromEntries(
+        Object.entries(this.displays).map(([k, d]) => [k, d.toDebugJSON()])
+      )
+    };
+  }
+}
+class SheepNumberSystem extends SheepBlock {
+  constructor(typeCode, rCode) {
+    super();
+    this.typeCode = typeCode; this.rCode = rCode;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.numbers = []; this.numberStartTimes = [];
+    this._initNumbers(); this._buildIndex();
+  }
+  _initNumbers() {
+    const count = 11;
+    for (let i = 0; i &lt; count; i++) {
+      const valueStr = String(i);
+      const num = new SheepNumber(this, i, valueStr, 1.0);
+      this.numbers.push(num);
+    }
+  }
+  _buildIndex() {
+    let t = 0; this.numberStartTimes = [];
+    for (const num of this.numbers) {
+      num.setStartTime(t);
+      this.numberStartTimes.push(t);
+      t += num.getLength();
+    }
+    this.length = this.paddingBefore.length + t + this.paddingAfter.length;
+  }
+  setStartTime(t) {
+    super.setStartTime(t);
+    let cursor = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const num of this.numbers) {
+      num.setStartTime(cursor);
+      cursor += num.getLength();
+    }
+    this.paddingAfter.setStartTime(cursor);
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    const local = t - this.startTime - this.paddingBefore.length;
+    if (local &lt; 0 || local &gt;= (this.length - this.paddingBefore.length - this.paddingAfter.length)) return null;
+    for (const num of this.numbers) {
+      if (num.containsTime(t)) return { number: num, localTime: t - num.startTime };
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "numberSystem",
+      typeCode: this.typeCode,
+      rCode: this.rCode,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      numbers: this.numbers.map(n => n.toDebugJSON())
+    };
+  }
+}
+class SheepSubChapter extends SheepBlock {
+  constructor(mainChapter, typeCode, rCode, displayRName) {
+    super();
+    this.mainChapter = mainChapter; this.typeCode = typeCode; this.rCode = rCode; this.displayRName = displayRName;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.system = null;
+  }
+  initSystem(system) {
+    this.system = system;
+    this.length = this.paddingBefore.length + system.length + this.paddingAfter.length;
+  }
+  setStartTime(t) {
+    super.setStartTime(t);
+    this.paddingBefore.setStartTime(this.startTime);
+    const sysStart = this.startTime + this.paddingBefore.length;
+    this.system.setStartTime(sysStart);
+    const afterStart = sysStart + this.system.length;
+    this.paddingAfter.setStartTime(afterStart);
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    if (!this.system) return null;
+    return this.system.getNumberAtTime(t);
+  }
+  toDebugJSON() {
+    return {
+      type: "subChapter",
+      typeCode: this.typeCode,
+      rCode: this.rCode,
+      displayRName: this.displayRName,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      system: this.system ? this.system.toDebugJSON() : null
+    };
+  }
+}
+class SheepMainChapter extends SheepBlock {
+  constructor(typeCode, displayName) {
+    super();
+    this.typeCode = typeCode; this.displayName = displayName;
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.subChapters = [];
+  }
+  addSubChapter(sub) { this.subChapters.push(sub); }
+  buildTimeline() {
+    let t = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const sub of this.subChapters) {
+      sub.setStartTime(t);
+      t += sub.length;
+    }
+    this.paddingAfter.setStartTime(t);
+    this.length = this.paddingBefore.length +
+                  this.subChapters.reduce((acc, s) => acc + s.length, 0) +
+                  this.paddingAfter.length;
+    this.endTime = this.startTime + this.length;
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    for (const sub of this.subChapters) {
+      const res = sub.getNumberAtTime(t);
+      if (res) {
+        return {
+          mainChapter: this,
+          subChapter: sub,
+          number: res.number,
+          localTimeInNumber: res.localTime
+        };
+      }
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "mainChapter",
+      typeCode: this.typeCode,
+      displayName: this.displayName,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      subChapters: this.subChapters.map(s => s.toDebugJSON())
+    };
+  }
+}
+class SheepTOC {
+  constructor() { this.mainDefs = []; this._initDefs(); }
+  _initDefs() {
+    const types = [
+      { typeCode: "FREQUENTIAL", displayName: "Frequential Numbers" },
+      { typeCode: "OCTAVIAN", displayName: "Octavian Numbers" }
+    ];
+    const rCodes = [
+      { rCode: "R0", displayRName: "R=1" },
+      { rCode: "R1", displayRName: "R=2" },
+      { rCode: "R2", displayRName: "R=3" },
+      { rCode: "R3", displayRName: "R=4" }
+    ];
+    for (const t of types) {
+      this.mainDefs.push({
+        typeCode: t.typeCode,
+        displayName: t.displayName,
+        rDefs: rCodes.map(r => ({ rCode: r.rCode, displayRName: r.displayRName }))
+      });
+    }
+  }
+  getDefs() { return this.mainDefs; }
+}
+class SheepCounter extends SheepBlock {
+  constructor() {
+    super();
+    this.paddingBefore = new SheepPadding(0.0);
+    this.paddingAfter = new SheepPadding(0.0);
+    this.toc = new SheepTOC();
+    this.mainChapters = [];
+    this._initChapters();
+    this._buildTimeline();
+  }
+  _initChapters() {
+    const defs = this.toc.getDefs();
+    for (const mainDef of defs) {
+      const main = new SheepMainChapter(mainDef.typeCode, mainDef.displayName);
+      for (const rDef of mainDef.rDefs) {
+        const sub = new SheepSubChapter(main, mainDef.typeCode, rDef.rCode, rDef.displayRName);
+        const system = new SheepNumberSystem(mainDef.typeCode, rDef.rCode);
+        sub.initSystem(system);
+        main.addSubChapter(sub);
+      }
+      this.mainChapters.push(main);
+    }
+  }
+  _buildTimeline() {
+    let t = this.startTime + this.paddingBefore.length;
+    this.paddingBefore.setStartTime(this.startTime);
+    for (const main of this.mainChapters) {
+      main.setStartTime(t);
+      main.buildTimeline();
+      t += main.length;
+    }
+    this.paddingAfter.setStartTime(t);
+    this.length = this.paddingBefore.length +
+                  this.mainChapters.reduce((acc, m) => acc + m.length, 0) +
+                  this.paddingAfter.length;
+    this.endTime = this.startTime + this.length;
+  }
+  getTotalLength() { return this.length; }
+  getTOCStructure() {
+    return this.mainChapters.map(main => ({
+      typeCode: main.typeCode,
+      displayName: main.displayName,
+      mainChapter: main,
+      subChapters: main.subChapters.map(sub => ({
+        rCode: sub.rCode,
+        displayRName: sub.displayRName,
+        subChapter: sub
+      }))
+    }));
+  }
+  getNumberAtTime(t) {
+    if (!this.containsTime(t)) return null;
+    for (const main of this.mainChapters) {
+      const res = main.getNumberAtTime(t);
+      if (res) {
+        return {
+          mainChapter: res.mainChapter,
+          subChapter: res.subChapter,
+          number: res.number,
+          localTimeInNumber: res.localTimeInNumber
+        };
+      }
+    }
+    return null;
+  }
+  getChapterStartTime(typeCode, rCode) {
+    for (const main of this.mainChapters) {
+      if (main.typeCode !== typeCode) continue;
+      for (const sub of main.subChapters) {
+        if (sub.rCode === rCode) return sub.startTime;
+      }
+    }
+    return null;
+  }
+  toDebugJSON() {
+    return {
+      type: "counter",
+      startTime: this.startTime,
+      endTime: this.endTime,
+      length: this.length,
+      paddingBefore: this.paddingBefore.toDebugJSON(),
+      paddingAfter: this.paddingAfter.toDebugJSON(),
+      mainChapters: this.mainChapters.map(m => m.toDebugJSON())
+    };
+  }
+}
+    </code></pre>
+  </div>
+</details>
+
+<hr id="extending">
+
+<h2>4. Extending to Laegna & 3D</h2>
+
+<p>
+  The real Laegna logic will live mainly in <code>SheepNumberSystem._initNumbers()</code> and
+  <code>SheepNumber</code>’s behavior over time. The 3D layer should query the counter instead of
+  reimplementing number logic.
+</p>
+
+<hr id="future">
+
+<h2>5. Notes on Future Refactoring</h2>
+
+<p>
+  As the system grows, this snapshot remains the reference for the original architecture. Later
+  milestones can diverge in implementation but should keep the same conceptual layering unless
+  there is a deliberate redesign.
+</p>
+
+<hr id="html-manual">
+
+<h2>6. Manual for This HTML File</h2>
+
+<h3>6.1 Purpose</h3>
+<p>
+  This HTML file is a <strong>manual + snapshot package</strong>. It documents the barebone
+  SheepCounter architecture and embeds the full JS source as a reference. It is meant to be saved
+  as <code>in1_sheepcounter.html</code> and kept unchanged as the “intro 1” milestone.
+</p>
+
+<h3>6.2 Main Features</h3>
+<ul>
+  <li><strong>Collapsible sections</strong> using native <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code>.</li>
+  <li><strong>Syntax highlighting</strong> via Prism.js from a CDN (if it fails, code is still readable).</li>
+  <li><strong>Copy buttons</strong> for each code block, implemented with a small inline script.</li>
+  <li><strong>Full JS snapshot</strong> in Section 3.</li>
+  <li><strong>Full HTML snapshot</strong> in Section 7.</li>
+</ul>
+
+<h3>6.3 Critical JS Usage Examples</h3>
+<p>
+  The HTML itself does not execute the SheepCounter classes; they are shown as code blocks. To use
+  the JS in a real project, you would typically put the JS into its own file and then do:
+</p>
+
+<div class="code-header">
+  <span>Example usage of SheepCounter</span>
+  <button class="copy-button" data-copy-target="code-usage-example">Copy</button>
+</div>
+<pre><code id="code-usage-example" class="language-js">
+// Example: basic usage and debugging
+const counter = new SheepCounter();
+
+// Total length of the whole timeline
+console.log("Total length:", counter.getTotalLength());
+
+// Inspect TOC structure
+console.log("TOC:", counter.getTOCStructure());
+
+// Inspect which number is active at time t = 5
+const stateAt5 = counter.getNumberAtTime(5);
+console.log("State at t=5:", stateAt5);
+
+// Jump to a specific chapter (e.g. Frequential R0)
+const startFrequentialR0 = counter.getChapterStartTime("FREQUENTIAL", "R0");
+console.log("Frequential R0 starts at:", startFrequentialR0);
+</code></pre>
+
+<h3>6.4 Using the Browser Debugger</h3>
+<ul>
+  <li>Open this file in a browser.</li>
+  <li>Open DevTools (F12 or right-click → Inspect).</li>
+  <li>Paste the example code above into the Console (after loading the JS in a real project).</li>
+  <li>Inspect the returned objects (<code>counter</code>, <code>stateAt5</code>) to see the structure.</li>
+</ul>
+
+<h3>6.5 Why HTML Is Not Deeply Explained</h3>
+<p>
+  The HTML here is mostly WYSIWYG for a programmer: headings, paragraphs, lists, and code blocks.
+  The manual focuses on the <strong>architecture and API</strong>, not on explaining what a
+  <code>&lt;p&gt;</code> tag does. The only HTML-specific behavior worth noting is:
+</p>
+<ul>
+  <li><code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> for collapsible sections.</li>
+  <li>Prism.js includes for syntax highlighting.</li>
+  <li>The small inline script that powers the copy buttons.</li>
+</ul>
+
+<h3>6.6 Extending This Manual in Future Milestones</h3>
+<ul>
+  <li>Create new files like <code>in2_sheepcounter.html</code>, <code>in3_sheepcounter.html</code>, etc.</li>
+  <li>Each new manual should:
+    <ul>
+      <li>Describe what changed since the previous milestone.</li>
+      <li>Embed the new JS snapshot.</li>
+      <li>Optionally embed the new HTML snapshot.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr id="full-html">
+
+<h2>7. Full HTML Snapshot (this file)</h2>
+
+<p>
+  This section contains the full HTML source of <code>in1_sheepcounter.html</code> as a single
+  code block. It is mainly for archival and copy-paste purposes. Note that it includes this
+  section itself, so it is self-referential.
+</p>
+
+<details>
+  <summary>
+    <span class="summary-arrow">▶</span>
+    <span class="section-label">Snapshot</span>
+    <span class="section-title">Full in1_sheepcounter.html</span>
+  </summary>
+  <div class="section-body">
+    <div class="code-header">
+      <span>Full in1_sheepcounter.html</span>
+      <button class="copy-button" data-copy-target="code-full-html">Copy</button>
+    </div>
+    <pre><code id="code-full-html" class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;in1_sheepcounter – SheepCounter Architecture &amp; Barebone API Manual&lt;/title&gt;
+  &lt;link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-js.min.js"&gt;&lt;/script&gt;
+  &lt;style&gt;
+    /* (Same CSS as in the &lt;head&gt; of this file) */
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  <!-- (Same HTML structure as this document: sections 1–7, code blocks, etc.) -->
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+  </div>
+</details>
+
+<script>
+  // Copy button logic
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.copy-button');
+    if (!btn) return;
+    const targetId = btn.getAttribute('data-copy-target');
+    if (!targetId) return;
+    const codeElem = document.getElementById(targetId);
+    if (!codeElem) return;
+    const text = codeElem.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.textContent = 'Copied';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = 'Copy';
+      }, 1200);
+    }).catch(() => {});
+  });
+</script>
+
+</body>
+</html>

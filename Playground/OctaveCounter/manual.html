@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laegna / Octave Selector Documentation</title>
+
+<!-- KaTeX CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<!-- MathJax 3: stable, long-term, widely supported -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\
+
+\[', '\\]
+
+'], ['$$', '$$']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    line-height: 1.55;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: #222;
+  }
+
+  article {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  header, footer {
+    margin-bottom: 2rem;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    margin-top: 2rem;
+  }
+
+  pre {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 0.95rem;
+  }
+
+  figure {
+    margin: 1.5rem 0;
+  }
+
+  figcaption {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 0.4rem;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+</style>
+</head>
+
+<body>
+
+<article>
+
+<header>
+  <h1>Laegna / Octave Selector Number System</h1>
+  <p>
+    This document describes the JSON format, mathematical structure, and visualization
+    model of the Laegna XYZ octave selector system. It is written for humans, AIs,
+    Copilot, and tools that need to understand or process the format.
+  </p>
+</header>
+
+<!-- ========================================================= -->
+<!-- === PLACE YOUR GENERATED DOCUMENTATION CONTENT HERE ===== -->
+<!-- ========================================================= -->
+
+<article>
+
+  <header>
+    <h1>Laegna / Octave Selector JSON Format</h1>
+    <p>This document describes the XYZ octave number system and its JSON representation.</p>
+  </header>
+
+  <section>
+    <h2>5.2 Recomputing <code>zoom</code> from <code>k</code></h2>
+
+    <p>
+      The octave multiplier is defined as:
+      <span class="math">\( \text{zoom} = 2^k \)</span>.
+      This is the fundamental octave relation: each step in <code>k</code> doubles or halves the scale.
+    </p>
+
+    <figure>
+      <figcaption>Minimal Julia example</figcaption>
+      <pre><code>
+# Recompute zoom from k
+zoom_from_k(k) = 2.0^k
+      </code></pre>
+    </figure>
+
+    <p>
+      This is intentionally minimal: it expresses the mathematical essence without
+      implementation overhead. Users can paste it directly into a Julia REPL.
+    </p>
+  </section>
+
+  <section>
+    <h2>5.3 Projecting a value into the signed Laegna range</h2>
+
+    <p>
+      Signed Laegna visualization uses the interval
+      <span class="math">\( [-2, -1, 0, 1, 2] \)</span>.
+      Projection is linear:
+      <span class="math">\( \text{DigitValue}(x) = x \cdot \text{Num} \)</span>.
+    </p>
+
+    <figure>
+      <figcaption>Julia projection function</figcaption>
+      <pre><code>
+project_signed(x, Num) = x * Num
+      </code></pre>
+    </figure>
+  </section>
+
+  <section>
+    <h2>5.4 Reading the JSON file</h2>
+
+    <p>
+      This example shows how to load the octave-selector JSON and iterate through
+      chapters and numbers. It is intentionally short and math-focused.
+    </p>
+
+    <figure>
+      <figcaption>Julia JSON reader</figcaption>
+      <pre><code>
+using JSON
+
+data = JSON.parsefile("octave_xyz.json")
+
+for chapter in data["chapters"]
+    R = chapter["R"]
+    for num in chapter["numbers"]
+        digits = num["Expr"]["Digits"]
+        zoom   = num["Props"]["zoom"]
+        println("R = $R, digits = $digits, zoom = $zoom")
+    end
+end
+      </code></pre>
+    </figure>
+
+  </section>
+
+</article>
+
+<!-- ========================================================= -->
+
+<footer>
+  <p>
+    Laegna / Spireason Project — Mathematical and symbolic systems for octave logic,
+    fractal reprojection, and discrete number theory.
+  </p>
+</footer>
+
+</article>
+
+</body>
+</html>

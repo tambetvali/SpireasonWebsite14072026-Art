@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SheepCounter – Five Display Etalon (ex2)</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #05060a;
+    color: #eee;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 360px;
+    grid-template-rows: 100vh;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* TOC panel (left) */
+  .toc-panel {
+    background: #0b0d14;
+    border-right: 1px solid #222;
+    padding: 12px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .toc-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f0f0ff;
+  }
+  .toc-main {
+    margin-top: 10px;
+  }
+  .toc-main-title {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    color: #d0d0ff;
+  }
+  .toc-main-title.active {
+    background: #28304a;
+    color: #ffffff;
+  }
+  .toc-sub {
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+  .toc-sub-title {
+    font-size: 13px;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: #b0b0d0;
+  }
+  .toc-sub-title.active {
+    background: #3a4466;
+    color: #ffffff;
+  }
+
+  /* Center 3D-ish stage */
+  .stage {
+    position: relative;
+    background: radial-gradient(circle at top, #20263a 0, #05060a 60%);
+    overflow: hidden;
+    perspective: 1200px;
+  }
+
+  .stage-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .panel-group {
+    position: relative;
+    width: 70%;
+    max-width: 900px;
+    height: 60%;
+    transform-style: preserve-3d;
+  }
+
+  .panel {
+    position: absolute;
+    top: 50%;
+    width: 46%;
+    height: 70%;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    background: linear-gradient(145deg, #151a26, #1f2636);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #f5f7ff;
+    padding: 12px 14px;
+    box-sizing: border-box;
+    transition:
+      transform 260ms ease-out,
+      opacity 220ms ease-out,
+      left 260ms ease-out,
+      right 260ms ease-out,
+      width 260ms ease-out;
+  }
+
+  .panel-main {
+    left: 4%;
+    transform: translateY(-50%) rotateY(-10deg);
+  }
+  .panel-secondary {
+    right: 4%;
+    transform: translateY(-50%) rotateY(10deg);
+  }
+
+  /* When secondary is hidden, main slides to center and flattens */
+  .panel-main.solo {
+    left: 27%;
+    width: 46%;
+    transform: translateY(-50%) rotateY(0deg);
+  }
+
+  .panel-secondary.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .panel-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #cfd6ff;
+  }
+  .panel-subtitle {
+    font-size: 11px;
+    color: #9aa3d0;
+  }
+
+  .panel-body {
+    position: relative;
+    margin-top: 6px;
+    height: calc(100% - 26px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .number-main {
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+
+  .meaning-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #aab3e0;
+    margin-top: 4px;
+  }
+  .meaning-label {
+    font-weight: 600;
+    color: #d6ddff;
+  }
+  .meaning-desc {
+    text-align: right;
+    max-width: 60%;
+  }
+
+  /* Right debug/info panel */
+  .info-panel {
+    background: #05060a;
+    border-left: 1px solid #222;
+    padding: 10px;
+    box-sizing: border-box;
+    color: #cfd6ff;
+    font-size: 12px;
+    overflow-y: auto;
+  }
+  .info-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 6px 0 4px;
+  }
+  .info-line {
+    margin: 2px 0;
+  }
+  .info-mono {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+<div class="layout">
+  <!-- TOC / Chapters -->
+  <div class="toc-panel">
+    <div class="toc-title">Chapters</div>
+    <div id="toc-root"></div>
+  </div>
+
+  <!-- 3D-ish main stage -->
+  <div class="stage">
+    <div class="stage-inner">
+      <div class="panel-group">
+        <!-- Main display -->
+        <div id="panel-main" class="panel panel-main">
+          <div class="panel-header">
+            <div class="panel-title" id="main-title">Laegna Natural Numbers</div>
+            <div class="panel-subtitle" id="main-subtitle"></div>
+          </div>
+          <div class="panel-body">
+            <div class="number-main" id="main-number">I</div>
+            <div class="meaning-row">
+              <div class="meaning-label" id="main-meaning-left"></div>
+              <div class="meaning-desc" id="main-meaning-right"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary display -->
+        <div id="panel-secondary" class="panel panel-secondary">
+          <div class="panel-header">
+            <div class="panel-title" id="sec-title">Secondary</div>
+            <div class="panel-subtitle" id="sec-subtitle"></div>
+          </div>
+          <div class="panel-body">
+            <div class="number-main" id="sec-number"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right info/debug panel -->
+  <div class="info-panel">
+    <div class="info-section-title">Playback</div>
+    <div class="info-line">Time: <span id="info-time" class="info-mono">0.000</span></div>
+    <div class="info-line">Total: <span id="info-total" class="info-mono">0.000</span></div>
+
+    <div class="info-section-title">Current Chapter</div>
+    <div class="info-line">Main: <span id="info-main" class="info-mono"></span></div>
+    <div class="info-line">Sub: <span id="info-sub" class="info-mono"></span></div>
+
+    <div class="info-section-title">Current Number</div>
+    <div class="info-line">Index: <span id="info-index" class="info-mono"></span></div>
+    <div class="info-line">Value: <span id="info-value" class="info-mono"></span></div>
+    <div class="info-line">Type: <span id="info-type" class="info-mono"></span></div>
+  </div>
+</div>
+
+<!-- SheepCounter logic (must be in same folder) -->
+<script src="sheepcounter.js"></script>
+<script>
+(function() {
+  // --- DOM references ---
+  const panelMain = document.getElementById("panel-main");
+  const panelSecondary = document.getElementById("panel-secondary");
+
+  const mainTitle = document.getElementById("main-title");
+  const mainSubtitle = document.getElementById("main-subtitle");
+  const mainNumber = document.getElementById("main-number");
+  const mainMeaningLeft = document.getElementById("main-meaning-left");
+  const mainMeaningRight = document.getElementById("main-meaning-right");
+
+  const secTitle = document.getElementById("sec-title");
+  const secSubtitle = document.getElementById("sec-subtitle");
+  const secNumber = document.getElementById("sec-number");
+
+  const infoTime = document.getElementById("info-time");
+  const infoTotal = document.getElementById("info-total");
+  const infoMain = document.getElementById("info-main");
+  const infoSub = document.getElementById("info-sub");
+  const infoIndex = document.getElementById("info-index");
+  const infoValue = document.getElementById("info-value");
+  const infoType = document.getElementById("info-type");
+
+  const tocRoot = document.getElementById("toc-root");
+
+  // --- SheepCounter instance ---
+  const counter = new SheepCounter();
+  const totalLength = counter.getTotalLength();
+  infoTotal.textContent = totalLength.toFixed(3);
+
+  let currentTime = 0;
+  let lastFrameTime = performance.now();
+  let playing = true;
+
+  // --- TOC construction ---
+  const tocStructure = counter.getTOCStructure();
+  const tocMainNodes = new Map(); // typeCode -> element
+  const tocSubNodes = new Map();  // typeCode+rCode -> element
+
+  function buildTOC() {
+    tocRoot.innerHTML = "";
+    tocStructure.forEach(mainDef => {
+      const mainDiv = document.createElement("div");
+      mainDiv.className = "toc-main";
+
+      const mainTitleEl = document.createElement("div");
+      mainTitleEl.className = "toc-main-title";
+      mainTitleEl.textContent = mainDef.displayName;
+      mainDiv.appendChild(mainTitleEl);
+
+      tocMainNodes.set(mainDef.typeCode, mainTitleEl);
+
+      mainTitleEl.addEventListener("click", () => {
+        // jump to first subchapter (R=1)
+        const firstSub = mainDef.subChapters[0];
+        if (firstSub) {
+          const t = counter.getChapterStartTime(mainDef.typeCode, firstSub.rCode);
+          if (t != null) currentTime = t;
+        }
+      });
+
+      mainDef.subChapters.forEach(subDef => {
+        const subDiv = document.createElement("div");
+        subDiv.className = "toc-sub";
+
+        const subTitleEl = document.createElement("div");
+        subTitleEl.className = "toc-sub-title";
+        subTitleEl.textContent = subDef.displayRName;
+        subDiv.appendChild(subTitleEl);
+
+        tocSubNodes.set(mainDef.typeCode + "|" + subDef.rCode, subTitleEl);
+
+        subTitleEl.addEventListener("click", () => {
+          const t = counter.getChapterStartTime(mainDef.typeCode, subDef.rCode);
+          if (t != null) currentTime = t;
+        });
+
+        mainDiv.appendChild(subDiv);
+      });
+
+      tocRoot.appendChild(mainDiv);
+    });
+  }
+
+  buildTOC();
+
+  function updateTOCHighlight(mainChapter, subChapter) {
+    tocMainNodes.forEach((el) => el.classList.remove("active"));
+    tocSubNodes.forEach((el) => el.classList.remove("active"));
+
+    if (mainChapter) {
+      const mainEl = tocMainNodes.get(mainChapter.typeCode);
+      if (mainEl) mainEl.classList.add("active");
+    }
+    if (mainChapter && subChapter) {
+      const key = mainChapter.typeCode + "|" + subChapter.rCode;
+      const subEl = tocSubNodes.get(key);
+      if (subEl) subEl.classList.add("active");
+    }
+  }
+
+  // --- Main animation loop ---
+  function update(dt) {
+    if (!playing) return;
+
+    currentTime += dt * 0.001; // seconds
+    if (currentTime >= totalLength) {
+      currentTime -= totalLength;
+    }
+
+    const res = counter.getNumberAtTime(currentTime);
+    if (!res) return;
+
+    const { mainChapter, subChapter, number } = res;
+
+    // Info panel
+    infoTime.textContent = currentTime.toFixed(3);
+    infoMain.textContent = mainChapter ? mainChapter.displayName : "";
+    infoSub.textContent = subChapter ? subChapter.displayRName : "";
+    infoIndex.textContent = number.index;
+    infoValue.textContent = number.valueStr;
+    infoType.textContent = mainChapter ? mainChapter.typeCode : "";
+
+    updateTOCHighlight(mainChapter, subChapter);
+
+    // Displays from SheepNumber
+    const dm = number.displays.dm;
+    const ds = number.displays.ds;
+
+    // Main display
+    mainTitle.textContent = dm.title || "Laegna Natural Numbers";
+    mainNumber.textContent = dm.content || "";
+    mainMeaningLeft.textContent = dm.meaning || "";
+    mainMeaningRight.textContent = dm.description || "";
+
+    // Secondary display
+    if (ds.visible) {
+      panelSecondary.classList.remove("hidden");
+      panelMain.classList.remove("solo");
+
+      secTitle.textContent = ds.title || "Secondary";
+      secNumber.textContent = ds.content || "";
+      secSubtitle.textContent = ds.meaning || "";
+    } else {
+      panelSecondary.classList.add("hidden");
+      panelMain.classList.add("solo");
+    }
+  }
+
+  function frame(now) {
+    const dt = now - lastFrameTime;
+    lastFrameTime = now;
+    update(dt);
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+
+  // Simple click to pause/play on center stage
+  document.querySelector(".stage").addEventListener("click", () => {
+    playing = !playing;
+    lastFrameTime = performance.now();
+  });
+})();
+</script>
+</body>
+</html>

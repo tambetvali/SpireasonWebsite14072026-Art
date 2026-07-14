@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laegna Playground – Structure Base</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- MathJax (LaTeX) -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+/* -----------------------------------------------------------
+   GLOBAL BASE
+----------------------------------------------------------- */
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: #fafafa;
+    color: #222;
+    overflow-x: hidden;
+}
+
+h1, h2 {
+    font-weight: 600;
+}
+
+/* -----------------------------------------------------------
+   ARTICLE LAYOUT (TWO CHAPTERS)
+----------------------------------------------------------- */
+#article-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 20px 200px;
+}
+
+.chapter {
+    margin-bottom: 200px;
+    padding-bottom: 200px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* -----------------------------------------------------------
+   FREQUENTIAL BUTTONS
+----------------------------------------------------------- */
+.freq-button {
+    position: fixed;
+    bottom: 40px;
+    padding: 18px 32px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.6s ease;
+    z-index: 1000;
+    user-select: none;
+    font-weight: 600;
+
+    /* These two are REQUIRED for scroll‑aware logic */
+    left: auto;
+    right: auto;
+}
+
+/* Popular (big) */
+#freq-main {
+    background: linear-gradient(135deg, #ffb36b, #ff8a00);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255,140,0,0.4);
+}
+
+/* Academic (small, subtle) */
+#freq-academic {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid #ccc;
+    color: #444;
+}
+
+/* -----------------------------------------------------------
+   POPUP FULLSCREEN APPLET
+----------------------------------------------------------- */
+#applet-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    z-index: 2000;
+}
+
+#applet-window {
+    position: absolute;
+    inset: 40px;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#close-applet {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ff8a00;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.applet-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #ff3b3b;
+    color: #fff;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 42px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+
+/* Placeholder for future 3D canvas */
+#canvas-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 24px;
+}
+
+/* -----------------------------------------------------------
+   CODE TABS (PLACEHOLDER)
+----------------------------------------------------------- */
+.code-tabs {
+    margin: 40px 0;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-buttons button {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    background: #eee;
+    cursor: pointer;
+}
+
+.code-block {
+    display: none;
+    background: #1e1e1e;
+    color: #eee;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre;
+}
+
+.code-block.active {
+    display: block;
+}
+
+/* -----------------------------------------------------------
+   PLACEHOLDERS FOR COUNTERS
+----------------------------------------------------------- */
+#laegna-counter, #oa-counter {
+    margin: 40px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    min-height: 80px;
+}
+
+/* -----------------------------------------------------------
+   OVERLAYS (shared base)
+----------------------------------------------------------- */
+#applet-overlay-freq,
+#applet-overlay-oct {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 2000;
+    backdrop-filter: blur(6px);
+}
+
+/* -----------------------------------------------------------
+   FULLSCREEN FREQUENTIAL APPLET
+----------------------------------------------------------- */
+#applet-overlay-freq {
+    /* full screen already handled by inset:0 */
+}
+
+#applet-window-freq {
+    position: absolute;
+    inset: 40px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* -----------------------------------------------------------
+   SMALL OCTAVENTIAL APPLET (top-left)
+----------------------------------------------------------- */
+#applet-overlay-oct {
+    width: 360px;
+    height: 260px;
+    inset: auto;          /* reset fullscreen */
+    top: 20px;
+    left: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* inner window for OA */
+#applet-window-oct {
+    position: absolute;
+    inset: 32px 16px 16px 16px;
+}
+
+/* -----------------------------------------------------------
+   CLOSE BUTTON (big red X)
+----------------------------------------------------------- */
+.applet-close {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ff3b3b;
+    color: #fff;
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3000;
+    box-shadow: 0 0 12px rgba(255,0,0,0.5);
+}
+
+/* -----------------------------------------------------------
+   CANVAS ALWAYS FILLS THE WINDOW
+----------------------------------------------------------- */
+#frequential-canvas,
+#octavential-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+</style>
+</head>
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<body>
+
+<!-- -----------------------------------------------------------
+     ARTICLE
+----------------------------------------------------------- -->
+<div id="article-container">
+
+<div id="chapter1" class="chapter">
+    <h1>Chapter 1 – Introduction to Laegna Base‑4 Frequentials</h1>
+
+    <p>
+        Welcome to the Laegna Playground.  
+        This chapter introduces the <strong>Laegna Base‑4 IOAE system</strong> — a number system
+        designed not only for computation, but for <em>intuition</em>, <em>frequency‑based thinking</em>,
+        and <em>child‑friendly learning</em>.  
+        It is the foundation for the interactive counters and 3D visualizations that appear later.
+    </p>
+
+    <h2>The Task (for users who want to repeat the whole construction)</h2>
+    <p>
+        The Laegna system is built from a simple challenge:
+    </p>
+
+    <blockquote>
+        <strong>“Can we create a base‑4 number system that behaves like a frequency ladder,
+        aligns with binary exponentiation, and uses two kinds of zero?”</strong>
+    </blockquote>
+
+    <p>
+        This chapter explains the rules so that <strong>you</strong> can reconstruct the system yourself.
+        Later chapters show the math, code, and 3D visualization.
+    </p>
+
+    <h2>1. Why Base‑4?</h2>
+    <p>
+        Base‑4 is the smallest base that naturally expresses:
+    </p>
+
+    <ul>
+        <li>binary × binary structures</li>
+        <li>2‑dimensional frequency grids</li>
+        <li>octave‑like doubling (2, 4, 8, 16…)</li>
+        <li>clean symmetry around a center</li>
+    </ul>
+
+    <p>
+        In Laegna, base‑4 is not written as <code>0, 1, 2, 3</code>.  
+        Instead, it uses <strong>IOAE</strong> — four letters that represent four “frequency tones”.
+    </p>
+
+    <h2>2. The Digits: I, O, A, E</h2>
+    <p>
+        These four symbols correspond to the four non‑zero values:
+    </p>
+
+    <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
+        <tr><th style="border-bottom:1px solid #ccc; text-align:left;">Digit</th>
+            <th style="border-bottom:1px solid #ccc; text-align:left;">Value</th></tr>
+        <tr><td>I</td><td>1</td></tr>
+        <tr><td>O</td><td>2</td></tr>
+        <tr><td>A</td><td>3</td></tr>
+        <tr><td>E</td><td>4</td></tr>
+    </table>
+
+    <p>
+        The unusual part is that <strong>Laegna does not start from 0</strong>.  
+        Instead, it introduces <strong>two special zeroes</strong>.
+    </p>
+
+    <h2>3. The Two Zeroes: U and V</h2>
+
+    <p>
+        Laegna uses:
+    </p>
+
+    <ul>
+        <li><strong>U</strong> — the <em>unsigned zero</em> (the “empty frequency”)</li>
+        <li><strong>V</strong> — the <em>signed zero</em> (the “centered frequency”)</li>
+    </ul>
+
+    <p>
+        These two zeroes behave differently:
+    </p>
+
+    <ul>
+        <li><strong>U</strong> appears at the beginning of each digit‑length cycle.</li>
+        <li><strong>V</strong> appears at the center of each range, where the system “balances”.</li>
+    </ul>
+
+    <p>
+        This is why Laegna is called a <strong>frequential</strong> number system:
+        each digit length forms a <em>frequency band</em> with a beginning (U) and a center (V).
+    </p>
+
+    <h2>4. R‑Levels: The Four Starting Points</h2>
+
+    <p>
+        Laegna numbers are grouped by <strong>R</strong>, the number of digits:
+    </p>
+
+    <ul>
+        <li><strong>R = 1</strong> → start at <code>U</code></li>
+        <li><strong>R = 2</strong> → start at <code>UU</code></li>
+        <li><strong>R = 3</strong> → start at <code>UUU</code></li>
+        <li><strong>R = 4</strong> → start at <code>UUUU</code></li>
+    </ul>
+
+    <p>
+        Each R‑level contains exactly <strong>4ᴿ</strong> values.  
+        This mirrors binary exponentiation:  
+        <code>4ᴿ = (2²)ᴿ = 2^(2R)</code>.
+    </p>
+
+    <p>
+        This is why Laegna aligns naturally with:
+    </p>
+
+    <ul>
+        <li>Fourier decomposition</li>
+        <li>binary grids</li>
+        <li>2D wave interference</li>
+        <li>octave‑like doubling</li>
+    </ul>
+
+    <h2>5. The Counting Pattern</h2>
+
+    <p>
+        Each R‑level begins with <strong>U…U</strong> (R times).  
+        Then the system cycles through:
+    </p>
+
+    <ol>
+        <li><strong>I</strong> (T=1, S=–2)</li>
+        <li><strong>O</strong> (T=2, S=–1)</li>
+        <li><strong>V</strong> (T=0, S=0) — the signed zero</li>
+        <li><strong>A</strong> (T=3, S=+1)</li>
+        <li><strong>E</strong> (T=4, S=+2)</li>
+    </ol>
+
+    <p>
+        The pair <strong>(T, S)</strong> is the “frequency coordinate” of each digit:
+    </p>
+
+    <ul>
+        <li><strong>T</strong> = tonal height (0–4)</li>
+        <li><strong>S</strong> = signed shift (–2 to +2)</li>
+    </ul>
+
+    <p>
+        When <strong>T = 0</strong> or <strong>S = 0</strong>, the digit is displayed longer,
+        with special visual effects (birth/death of a frequency).
+    </p>
+
+    <h2>6. Why This Matters</h2>
+
+    <p>
+        Laegna numbers are not just symbols — they are <strong>frequency coordinates</strong>.
+        They map cleanly to:
+    </p>
+
+    <ul>
+        <li>binary exponentiation</li>
+        <li>2D Fourier tiles</li>
+        <li>octave‑like doubling</li>
+        <li>Hilbert‑space simplifications</li>
+    </ul>
+
+    <p>
+        This is why the system is used for:
+    </p>
+
+    <ul>
+        <li>teaching children to count</li>
+        <li>visualizing multidimensional waves</li>
+        <li>building intuitive math intuition</li>
+        <li>constructing the Laegna 3D hologram numbers</li>
+    </ul>
+
+    <h2>7. What Comes Next</h2>
+
+    <p>
+        In Chapter 2, you will see:
+    </p>
+
+    <ul>
+        <li>the formal math</li>
+        <li>the code generators (Python, Julia, Prolog, Spapython)</li>
+        <li>the OA (octavic) system</li>
+        <li>the 3D applet that animates the counters</li>
+    </ul>
+
+    <p>
+        For now, this chapter gives you the conceptual foundation:
+        <strong>a base‑4 system with two zeroes, frequency coordinates, and octave‑aligned ranges</strong>.
+    </p>
+</div>
+
+<div id="chapter2" class="chapter">
+    <h1>Chapter 2 – Formal Math, Code, and the OA System</h1>
+
+    <p>
+        This chapter presents the <strong>formal mathematical structure</strong> of the Laegna
+        Base‑4 IOAE system, including the two zeroes <strong>U</strong> and <strong>V</strong>,
+        the <strong>(T, S)</strong> coordinate system, and the related
+        <strong>OA (Octavic) base‑2 system</strong>.
+        It also includes <strong>code generators</strong> so users can reproduce the system.
+    </p>
+
+    <h2>1. The Formal Digit Mapping</h2>
+
+    <p>
+        Laegna uses four non‑zero digits:
+    </p>
+
+    <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
+        <tr><th style="border-bottom:1px solid #ccc; text-align:left;">Digit</th>
+            <th style="border-bottom:1px solid #ccc; text-align:left;">Value</th>
+            <th style="border-bottom:1px solid #ccc; text-align:left;">T</th>
+            <th style="border-bottom:1px solid #ccc; text-align:left;">S</th></tr>
+        <tr><td>I</td><td>1</td><td>1</td><td>-2</td></tr>
+        <tr><td>O</td><td>2</td><td>2</td><td>-1</td></tr>
+        <tr><td>V</td><td>0 (signed)</td><td>0</td><td>0</td></tr>
+        <tr><td>A</td><td>3</td><td>3</td><td>+1</td></tr>
+        <tr><td>E</td><td>4</td><td>4</td><td>+2</td></tr>
+    </table>
+
+    <p>
+        The unsigned zero <strong>U</strong> is not part of the digit cycle.
+        It appears only at the <strong>start of each R‑level</strong>.
+    </p>
+
+    <h2>2. The Two Zeroes in LaTeX</h2>
+
+    <p>
+        The unsigned zero:
+    </p>
+
+    <p>
+        
+
+\[
+            U = \text{“empty frequency”}, \quad T(U) = 0,\quad S(U) = 0
+        \]
+
+
+    </p>
+
+    <p>
+        The signed zero:
+    </p>
+
+    <p>
+        
+
+\[
+            V = \text{“centered frequency”}, \quad T(V) = 0,\quad S(V) = 0
+        \]
+
+
+    </p>
+
+    <p>
+        They share the same coordinate but differ in <em>role</em>:
+    </p>
+
+    <ul>
+        <li><strong>U</strong> marks the beginning of a range.</li>
+        <li><strong>V</strong> marks the center of a range.</li>
+    </ul>
+
+    <h2>3. R‑Levels and Frequency Bands</h2>
+
+    <p>
+        Each R‑digit number spans:
+    </p>
+
+    <p>
+        
+
+\[
+            4^R = 2^{2R}
+        \]
+
+
+    </p>
+
+    <p>
+        This is the key reason Laegna aligns with:
+    </p>
+
+    <ul>
+        <li>binary exponentiation</li>
+        <li>2D Fourier tiles</li>
+        <li>octave‑like doubling</li>
+    </ul>
+
+    <p>
+        The starting point of each band is:
+    </p>
+
+    <p>
+        
+
+\[
+            \underbrace{UU\ldots U}_{R\text{ times}}
+        \]
+
+
+    </p>
+
+    <h2>4. Digit Coordinates (T, S)</h2>
+
+    <p>
+        Each digit is mapped to a 2‑dimensional coordinate:
+    </p>
+
+    <p>
+        
+
+\[
+            d \mapsto (T(d), S(d))
+        \]
+
+
+    </p>
+
+    <p>
+        where:
+    </p>
+
+    <ul>
+        <li><strong>T</strong> is tonal height (0–4)</li>
+        <li><strong>S</strong> is signed shift (–2 to +2)</li>
+    </ul>
+
+    <p>
+        For a multi‑digit number:
+    </p>
+
+    <p>
+        
+
+\[
+            N = d_1 d_2 \ldots d_R
+        \]
+
+
+    </p>
+
+    <p>
+        the full coordinate is:
+    </p>
+
+    <p>
+        
+
+\[
+            (T_N, S_N) = \left( \sum_{i=1}^R T(d_i)\,4^{R-i},\;
+                               \sum_{i=1}^R S(d_i)\,4^{R-i} \right)
+        \]
+
+
+    </p>
+
+    <p>
+        This is the “frequency hologram” representation.
+    </p>
+
+    <h2>5. The OA (Octavic) System</h2>
+
+    <p>
+        OA is the <strong>base‑2 sibling</strong> of Laegna.
+        It uses only two digits:
+    </p>
+
+    <ul>
+        <li><strong>O</strong> → +1</li>
+        <li><strong>A</strong> → –1</li>
+    </ul>
+
+    <p>
+        The two zeroes are:
+    </p>
+
+    <ul>
+        <li><strong>U</strong> → unsigned zero</li>
+        <li><strong>V</strong> → signed zero</li>
+    </ul>
+
+    <p>
+        OA divides each range into <strong>8 equal parts</strong> (octavic symmetry).
+    </p>
+
+    <p>
+        This is why OA is used for:
+    </p>
+
+    <ul>
+        <li>binary waveforms</li>
+        <li>±1 signal encoding</li>
+        <li>Hilbert‑space simplification</li>
+    </ul>
+
+    <h2>6. Code Generators</h2>
+
+    <p>
+        Below are code blocks for generating Laegna numbers.
+        Use the tabs above to switch languages.
+    </p>
+
+    <div class="code-tabs">
+        <div class="tab-buttons">
+            <button onclick="openTab('py')">Python</button>
+            <button onclick="openTab('jl')">Julia</button>
+            <button onclick="openTab('pl')">Prolog</button>
+            <button onclick="openTab('spa')">Spapython</button>
+        </div>
+
+        <div id="tab-py" class="code-block">
+# Python – Laegna generator
+digits = ["I","O","V","A","E"]
+
+def laegna_digits(R):
+    if R == 0:
+        return []
+    if R == 1:
+        return ["U"] + digits
+    base = laegna_digits(R-1)
+    return ["U"*R] + [d + x for d in digits for x in base]
+        </div>
+
+        <div id="tab-jl" class="code-block">
+# Julia – Laegna generator
+digits = ["I","O","V","A","E"]
+
+function laegna_digits(R)
+    R == 1 && return ["U", digits...]
+    prev = laegna_digits(R-1)
+    return vcat(["U"^R], [d * x for d in digits for x in prev])
+end
+        </div>
+
+        <div id="tab-pl" class="code-block">
+% Prolog – Laegna generator
+digit("I"). digit("O"). digit("V"). digit("A"). digit("E").
+
+laegna(1, ["U" | D]) :- findall(X, digit(X), D).
+
+laegna(R, [U | Out]) :-
+    R > 1,
+    atom_concat_list(["U"], R, U),
+    R1 is R - 1,
+    laegna(R1, Prev),
+    findall(DX, (digit(D), member(X, Prev), atom_concat(D, X, DX)), Out).
+        </div>
+
+        <div id="tab-spa" class="code-block">
+# Spapython – flat, simple
+digits = ["I","O","V","A","E"]
+
+def laegna(R):
+    if R == 1:
+        return ["U"] + digits
+    prev = laegna(R-1)
+    return ["U"*R] + [d + x for d in digits for x in prev]
+        </div>
+    </div>
+
+    <h2>7. Counter Placeholders</h2>
+
+    <div id="laegna-counter">[Laegna Counter Placeholder]</div>
+    <div id="oa-counter">[OA Counter Placeholder]</div>
+
+    <p>
+        These counters will be animated in the 3D applet in the next stage.
+    </p>
+
+    <h2>8. What Comes Next</h2>
+
+    <p>
+        The next step is to integrate the <strong>3D visualization</strong>:
+    </p>
+
+    <ul>
+        <li>digit holograms</li>
+        <li>frequency transitions</li>
+        <li>birth/death animations for U and V</li>
+        <li>range‑level octave shifts</li>
+    </ul>
+
+    <p>
+        The placeholders in the fullscreen applet are already prepared.
+        The next phase will insert the rendering logic.
+    </p>
+</div>
+
+</div>
+
+<!-- -----------------------------------------------------------
+     FREQUENTIAL BUTTONS
+----------------------------------------------------------- -->
+<div id="freq-main" class="freq-button">Frequential</div>
+<div id="freq-academic" class="freq-button">Octavential</div>
+
+<div id="applet-overlay-freq">
+  <div id="applet-window-freq">
+    <div id="close-applet-freq" class="applet-close">×</div>
+    <canvas id="frequential-canvas"></canvas>
+  </div>
+</div>
+
+<div id="applet-overlay-oct">
+  <div id="applet-window-oct">
+    <div id="close-applet-oct" class="applet-close">×</div>
+    <canvas id="octavential-canvas"></canvas>
+  </div>
+</div>
+
+<div id="freq-info" style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: system-ui, sans-serif;
+  font-size: 20px;
+  z-index: 3000;
+  padding: 12px 18px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 12px;
+  text-align: center;
+">
+  <div id="freq-info-top"></div>
+  <div id="freq-info-bottom" style="margin-top: 6px; opacity: 0.9;"></div>
+</div>
+
+<script>
+/* -----------------------------------------------------------
+   CODE TABS
+----------------------------------------------------------- */
+function openTab(name) {
+    document.querySelectorAll('.code-block').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+}
+
+/* -----------------------------------------------------------
+   SCROLL‑AWARE BUTTON POSITIONING
+----------------------------------------------------------- */
+const mainBtn = document.getElementById('freq-main');
+const acadBtn = document.getElementById('freq-academic');
+const chapter2 = document.getElementById('chapter2');
+
+function updateButtons() {
+    const rect = chapter2.getBoundingClientRect();
+    const inSecond = rect.top < window.innerHeight / 2;
+
+    if (!inSecond) {
+        // Chapter 1 mode
+        mainBtn.style.left = "50%";
+        mainBtn.style.right = "auto";
+        mainBtn.style.transform = "translateX(-50%) scale(1)";
+
+        acadBtn.style.left = "auto";
+        acadBtn.style.right = "40px";
+        acadBtn.style.transform = "scale(0.8)";
+    } else {
+        // Chapter 2 mode
+        acadBtn.style.left = "50%";
+        acadBtn.style.right = "auto";
+        acadBtn.style.transform = "translateX(-50%) scale(1)";
+
+        mainBtn.style.left = "40px";
+        mainBtn.style.right = "auto";
+        mainBtn.style.transform = "scale(0.8)";
+    }
+}
+
+window.addEventListener('scroll', updateButtons);
+updateButtons();
+
+// -----------------------------------------------------------
+// DIGIT SETS
+// -----------------------------------------------------------
+const DIGITS_4 = ["I","O","V","A","E"];
+const DIGITS_2 = ["O","A"]; // Octavential
+
+// -----------------------------------------------------------
+// COLOR MAPS
+// -----------------------------------------------------------
+// Laegna color scheme (Ponegates)
+const DIGIT_COLORS_4 = {
+    "I": { fg: "#ffff33", bg: "#4d4d00" }, // Yellow
+    "O": { fg: "#ff3333", bg: "#330000" }, // Red
+    "U": { fg: "#000000", bg: "#999999" }, // Black
+    "A": { fg: "#33ff33", bg: "#003300" }, // Green
+    "E": { fg: "#3399ff", bg: "#001933" }, // Blue
+    "V": { fg: "#ffffff", bg: "#222222" }  // White
+};
+
+const DIGIT_COLORS_2 = {
+    "O": { fg: "#b3ffff", bg: "#330066" }, // +1
+    "A": { fg: "#ffb3ff", bg: "#004444" }, // -1
+    "V": { fg: "#ffd86b", bg: "#333333" },
+    "U": { fg: "#ffffff", bg: "#111111" }
+};
+
+// -----------------------------------------------------------
+//  COLOR MAP (PONEGATE COLORS)
+// -----------------------------------------------------------
+const DIGIT_COLORS_4 = {
+    "I": { fg: "#ffff33", bg: "#4d4d00" }, // Yellow
+    "O": { fg: "#ff3333", bg: "#330000" }, // Red
+    "U": { fg: "#000000", bg: "#999999" }, // Black
+    "A": { fg: "#33ff33", bg: "#003300" }, // Green
+    "E": { fg: "#3399ff", bg: "#001933" }, // Blue
+    "V": { fg: "#ffffff", bg: "#222222" }  // White
+};
+
+const DIGITS_4 = ["I","O","V","A","E"];
+
+// -----------------------------------------------------------
+//  LAEGNA MATH (T, S, UNSIGNED, SIGNED)
+// -----------------------------------------------------------
+function laegnaT(d) {
+    return { U:0, I:1, O:2, V:0, A:3, E:4 }[d] ?? 0;
+}
+
+function laegnaS(d) {
+    return { U:0, I:-2, O:-1, V:0, A:+1, E:+2 }[d] ?? 0;
+}
+
+function laegnaUnsignedValue(n) {
+    let v = 0;
+    for (let i = 0; i < n.length; i++) {
+        const d = n[n.length - 1 - i];
+        const digitVal = {U:0, V:0, I:1, O:2, A:3, E:4}[d] ?? 0;
+        v += digitVal * Math.pow(4, i);
+    }
+    return v;
+}
+
+function laegnaSignedValue(n) {
+    let v = 0;
+    for (let i = 0; i < n.length; i++) {
+        const d = n[n.length - 1 - i];
+        const s = laegnaS(d);
+        v += s * Math.pow(4, i);
+    }
+    return v;
+}
+
+// -----------------------------------------------------------
+//  LAEGNA SEQUENCE (R = 1..4)
+// -----------------------------------------------------------
+function laegnaSequence4(R) {
+    if (R === 1) return ["U", ...DIGITS_4];
+    const prev = laegnaSequence4(R - 1);
+    return ["U".repeat(R), ...DIGITS_4.flatMap(d => prev.map(x => d + x))];
+}
+
+// -----------------------------------------------------------
+//  OPTIONAL INFO PANEL UPDATE (SAFE)
+// -----------------------------------------------------------
+window.updateFreqInfo = ({R, n, d, T, S, unsignedVal, signedVal}) => {
+    const top = document.getElementById("freq-info-top");
+    const bottom = document.getElementById("freq-info-bottom");
+    if (!top || !bottom) return;
+
+    top.innerHTML =
+        `R=${R} &nbsp; n=${n} &nbsp; d=${d} &nbsp; T=${T} &nbsp; S=${S} ` +
+        `&nbsp; unsigned=${unsignedVal}`;
+
+    bottom.innerHTML = `signed=${signedVal}`;
+};
+
+// -----------------------------------------------------------
+//  SIMPLE, STABLE 3D ENGINE (NO BUTTONS, NO OVERLAYS)
+// -----------------------------------------------------------
+class FreqCounter {
+    constructor({digits, colors, sequenceFn, canvas, speed = 1}) {
+        this.digits = digits;
+        this.colors = colors;
+        this.sequenceFn = sequenceFn;
+        this.canvas = canvas;
+        this.speed = speed;
+
+        this.engine = null;
+        this.scene = null;
+        this.meshDigit = null;
+        this.meshDisc = null;
+        this.dynTex = null;
+
+        this.generator = this.makeGenerator();
+        this.running = false;
+    }
+
+    makeGenerator() {
+        const seqFn = this.sequenceFn;
+        return (function*() {
+            while (true) {
+                for (let R = 1; R <= 4; R++) {
+                    for (let n of seqFn(R)) yield {R, n};
+                }
+            }
+        })();
+    }
+
+    start() {
+        if (this.running) return;
+        this.running = true;
+        this.createScene();
+        this.scheduleNext();
+    }
+
+    createScene() {
+        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.scene = new BABYLON.Scene(this.engine);
+        this.scene.clearColor = new BABYLON.Color4(0,0,0,0);
+
+        const camera = new BABYLON.ArcRotateCamera(
+            "cam",
+            -Math.PI/2,
+            Math.PI/2.2,
+            6,
+            new BABYLON.Vector3(0,0,0),
+            this.scene
+        );
+        camera.attachControl(this.canvas, true);
+
+        new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0,1,0), this.scene);
+
+        // Background disc
+        this.meshDisc = BABYLON.MeshBuilder.CreateDisc("disc", {radius:1.8}, this.scene);
+        this.meshDisc.material = new BABYLON.StandardMaterial("discMat", this.scene);
+        this.meshDisc.position.z = 0.01;
+
+        // Digit plane
+        this.meshDigit = BABYLON.MeshBuilder.CreatePlane("digit", {size:1.8}, this.scene);
+        this.meshDigit.material = new BABYLON.StandardMaterial("digitMat", this.scene);
+        this.meshDigit.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+        // Dynamic texture
+        this.dynTex = new BABYLON.DynamicTexture("digitTex", {width:1024, height:1024}, this.scene, true);
+        this.dynTex.hasAlpha = true;
+        this.meshDigit.material.diffuseTexture = this.dynTex;
+        this.meshDigit.material.emissiveTexture = this.dynTex;
+        this.meshDigit.material.backFaceCulling = false;
+
+        this.engine.runRenderLoop(() => {
+            const t = performance.now() * 0.002;
+            const s = 1 + 0.05 * Math.sin(t);
+            this.meshDigit.scaling.set(s, s, s);
+            this.scene.render();
+        });
+    }
+
+    scheduleNext() {
+        const {R, n} = this.generator.next().value;
+        const d = n[n.length - 1];
+
+        const isU = d === "U";
+        const isV = d === "V";
+
+        let delay = 350 / this.speed;
+        if (isU) delay = 1400 / this.speed;
+        if (isV) delay = 1800 / this.speed;
+
+        this.updateVisual(R, n, d);
+        setTimeout(() => this.scheduleNext(), delay);
+    }
+
+    updateVisual(R, n, d) {
+        const colors = this.colors[d];
+        this.meshDigit.material.emissiveColor = BABYLON.Color3.FromHexString(colors.fg);
+        this.meshDisc.material.emissiveColor = BABYLON.Color3.FromHexString(colors.bg);
+
+        const idx = this.digits.indexOf(d);
+        const angle = (idx / this.digits.length) * Math.PI * 2 - Math.PI/2;
+        const radius = 0.6 + 0.4 * (R - 1);
+
+        this.meshDigit.position.x = radius * Math.cos(angle);
+        this.meshDigit.position.y = radius * Math.sin(angle);
+        this.meshDisc.position.x = this.meshDigit.position.x;
+        this.meshDisc.position.y = this.meshDigit.position.y;
+
+        const ctx = this.dynTex.getContext();
+        ctx.clearRect(0, 0, 1024, 1024);
+        ctx.font = "bold 700px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(d, 512, 512);
+        this.dynTex.update();
+
+        const T = laegnaT(d);
+        const S = laegnaS(d);
+        const unsignedVal = laegnaUnsignedValue(n);
+        const signedVal = laegnaSignedValue(n);
+
+        if (window.updateFreqInfo) {
+            window.updateFreqInfo({R, n, d, T, S, unsignedVal, signedVal});
+        }
+    }
+}
+
+// -----------------------------------------------------------
+//  GLOBAL START FUNCTION — YOU CALL THIS YOURSELF
+// -----------------------------------------------------------
+let _laegnaCounter = null;
+
+function startLaegnaCounter(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    if (!_laegnaCounter) {
+        _laegnaCounter = new FreqCounter({
+            digits: DIGITS_4,
+            colors: DIGIT_COLORS_4,
+            sequenceFn: laegnaSequence4,
+            canvas: canvas,
+            speed: 1
+        });
+    }
+    _laegnaCounter.start();
+}
+
+// -----------------------------------------------------------
+// SAFE POPUP WIRING FOR BOTH APPLETS
+// -----------------------------------------------------------
+
+const overlayFreq = document.getElementById("applet-overlay-freq");
+const overlayOct  = document.getElementById("applet-overlay-oct");
+const closeFreq   = document.getElementById("close-applet-freq");
+const closeOct    = document.getElementById("close-applet-oct");
+const canvasFreq  = document.getElementById("frequential-canvas");
+const canvasOct   = document.getElementById("octavential-canvas");
+const btnFreq     = document.getElementById("freq-main");
+const btnOct      = document.getElementById("freq-academic");
+
+const laegnaCounter = new FreqCounter({
+    digits: DIGITS_4,
+    colors: DIGIT_COLORS_4,
+    sequenceFn: laegnaSequence4,
+    canvas: canvasFreq,
+    speed: 1
+});
+
+const octCounter = new FreqCounter({
+    digits: DIGITS_2,
+    colors: DIGIT_COLORS_2,
+    sequenceFn: octaventialSequence,
+    canvas: canvasOct,
+    speed: 1.1
+});
+
+btnFreq.addEventListener("click", () => {
+    overlayFreq.style.display = "block";
+    laegnaCounter.start();
+});
+
+btnOct.addEventListener("click", () => {
+    overlayOct.style.display = "block";
+    octCounter.start();
+});
+
+closeFreq.addEventListener("click", () => {
+    overlayFreq.style.display = "none";
+});
+
+closeOct.addEventListener("click", () => {
+    overlayOct.style.display = "none";
+});
+
+window.updateFreqInfo = ({R, n, d, T, S, unsignedVal, signedVal}) => {
+    startLaegnaCounter("frequential-canvas");
+
+    const top = document.getElementById("freq-info-top");
+    const bottom = document.getElementById("freq-info-bottom");
+    if (!top || !bottom) return;
+
+    top.innerHTML =
+        `R=${R} &nbsp; n=${n} &nbsp; d=${d} &nbsp; T=${T} &nbsp; S=${S} ` +
+        `&nbsp; unsigned=${unsignedVal}`;
+
+    bottom.innerHTML =
+        `signed=${signedVal}`;
+};
+
+</script>
+
+
+</body>
+</html>

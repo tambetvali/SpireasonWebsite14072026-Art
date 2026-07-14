@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laegna / Octave Selector Visualizer</title>
+
+<!-- MathJax 3: stable LaTeX rendering -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\
+
+\[', '\\]
+
+'], ['$$', '$$']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #222;
+  }
+
+  article {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  header, footer {
+    margin-bottom: 1.5rem;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.5rem;
+  }
+
+  nav {
+    border-right: 1px solid #ddd;
+    padding-right: 1rem;
+  }
+
+  nav h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  nav li {
+    margin: 0.15rem 0;
+  }
+
+  nav button {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: 0.25rem 0.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  nav button.chapter {
+    font-weight: 600;
+    margin-top: 0.4rem;
+  }
+
+  nav button.active {
+    background: #e0f0ff;
+  }
+
+  nav h3 {
+    font-size: 0.95rem;
+    margin: 0.4rem 0 0.2rem 0.2rem;
+  }
+
+  nav ul ul {
+    margin-left: 0.5rem;
+  }
+
+  section#number-details {
+    padding-left: 0.5rem;
+  }
+
+  .property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+  }
+
+  .card h3 {
+    margin-top: 0;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  pre {
+    background: #f4f4f4;
+    padding: 0.6rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+  }
+
+  code {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+
+  figure {
+    margin: 1.2rem 0;
+  }
+
+  figcaption {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin-bottom: 0.3rem;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  /* Visualization */
+  #viz-container {
+    margin-top: 1rem;
+  }
+
+  #viz-svg {
+    width: 100%;
+    max-width: 700px;
+    height: 220px;
+    border-radius: 8px;
+    background: #fcfcfc;
+    border: 1px solid #ddd;
+  }
+
+  .viz-label {
+    font-size: 0.8rem;
+    fill: #555;
+  }
+
+  .viz-line {
+    stroke: #ccc;
+    stroke-width: 1;
+  }
+
+  .viz-point-signed {
+    fill: #0077cc;
+  }
+
+  .viz-point-unsigned {
+    fill: #cc5500;
+  }
+
+  .viz-boundary {
+    stroke: #aaa;
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+
+  /* Controls */
+  #controls {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  #controls button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+    background: #e8e8e8;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  #controls button.active {
+    background: #0077cc;
+    color: white;
+  }
+
+  #controls span.label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    border-top: 1px solid #eee;
+    padding-top: 0.75rem;
+  }
+</style>
+</head>
+
+<body>
+
+<article>
+
+<header>
+  <h1>Laegna / Octave Selector Visualizer</h1>
+  <p>
+    This interface loads <code>octaves.json</code> (the XYZ octave selector JSON) and lets you
+    browse each number, inspect its properties, and see a signed/unsigned projection
+    visualization. You can step through numbers manually or run an animation across all of them.
+  </p>
+</header>
+
+<main>
+
+  <nav aria-label="Chapters and numbers">
+    <h2>Chapters</h2>
+    <ul id="chapters-list">
+      <!-- Filled by JavaScript -->
+    </ul>
+  </nav>
+
+  <section id="number-details" aria-live="polite">
+    <h2 id="number-title">No data loaded yet</h2>
+
+    <section class="property-grid" aria-label="Core properties">
+      <section class="card" id="expr-card">
+        <h3>Expression</h3>
+        <p><strong>Digits:</strong> <span id="expr-digits">–</span></p>
+      </section>
+
+      <section class="card" id="simp-card">
+        <h3>Simplified (D)</h3>
+        <p><strong>D:</strong> <span id="simp-d">–</span></p>
+      </section>
+
+      <section class="card" id="props-card">
+        <h3>Octave Props</h3>
+        <p><strong>k:</strong> <span id="props-k">–</span></p>
+        <p><strong>L:</strong> <span id="props-l">–</span></p>
+        <p><strong>zoom:</strong> <span id="props-zoom">–</span></p>
+      </section>
+
+      <section class="card" id="visual-card">
+        <h3>Visual Scalars</h3>
+        <p><strong>Num:</strong> <span id="visual-num">–</span></p>
+        <p><strong>NumExp:</strong> <span id="visual-numexp">–</span></p>
+        <p><strong>NumLog:</strong> <span id="visual-numlog">–</span></p>
+        <p><strong>ScaledMult:</strong> <span id="visual-scaled">–</span></p>
+      </section>
+    </section>
+
+    <section class="property-grid" aria-label="Binary views">
+      <section class="card" id="binsig-card">
+        <h3>Binary Signature</h3>
+        <p><strong>Num:</strong> <span id="binsig-num">–</span></p>
+        <pre><code id="binsig-map">–</code></pre>
+      </section>
+
+      <section class="card" id="binprops-card">
+        <h3>Binary Props</h3>
+        <p><strong>ZoomFactor:</strong> <span id="binprops-zoomfactor">–</span></p>
+        <p><strong>Direction:</strong> <span id="binprops-direction">–</span></p>
+        <pre><code id="binprops-decimal">–</code></pre>
+        <pre><code id="binprops-boolean">–</code></pre>
+      </section>
+
+      <section class="card" id="binaxis-card">
+        <h3>Binary Axis</h3>
+        <p><strong>Num:</strong> <span id="binaxis-num">–</span></p>
+        <pre><code id="binaxis-decimal">–</code></pre>
+        <pre><code id="binaxis-boolean">–</code></pre>
+      </section>
+    </section>
+
+    <section id="viz-container" aria-label="Visualization">
+      <h3>Signed / Unsigned Projection</h3>
+      <p>
+        The same underlying octave multiplier is shown in two ways:
+        signed projection on \([-2,2]\) and unsigned projection on \([0,1]\),
+        both derived from the JSON’s <code>Visual</code> block.
+      </p>
+
+      <figure>
+        <figcaption>Signed (top) and unsigned (bottom) projections</figcaption>
+        <svg id="viz-svg" viewBox="0 0 700 220" role="img" aria-label="Signed and unsigned projection">
+          <!-- Drawn by JavaScript -->
+        </svg>
+      </figure>
+    </section>
+
+    <section id="controls" aria-label="Playback controls">
+      <span class="label">Playback:</span>
+      <button id="btn-stop" title="Stop (manual browsing)">⏹ Stop</button>
+      <button id="btn-play-animation" title="Play (animation speed)">▶ Animation</button>
+      <button id="btn-play-amusement" title="Play (fast)">⏩ Amusement</button>
+      <button id="btn-play-study" title="Play (slow study)">🐢 Study</button>
+      <span class="label" id="status-label">Mode: stop</span>
+    </section>
+
+    <section aria-label="Raw JSON snippet">
+      <h3>Raw JSON for this number</h3>
+      <pre><code id="raw-json">–</code></pre>
+    </section>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    Data source: <code>octaves.json</code>. This visualizer uses only the values already
+    present in the JSON (no hidden recomputation of octave math), and projects them into
+    a simple signed/unsigned line visualization for exploration and study.
+  </p>
+</footer>
+
+</article>
+
+<script>
+(function() {
+  let data = null;
+  let flatIndex = []; // [{chapterIndex, numberIndex}]
+  let currentFlatPos = 0;
+  let playTimer = null;
+  let playMode = "stop";
+
+  const speeds = {
+    "animation": 500,
+    "amusement": 150,
+    "study": 3000
+  };
+
+  const chaptersList = document.getElementById("chapters-list");
+  const numberTitle = document.getElementById("number-title");
+  const exprDigits = document.getElementById("expr-digits");
+  const simpD = document.getElementById("simp-d");
+  const propsK = document.getElementById("props-k");
+  const propsL = document.getElementById("props-l");
+  const propsZoom = document.getElementById("props-zoom");
+  const visualNum = document.getElementById("visual-num");
+  const visualNumExp = document.getElementById("visual-numexp");
+  const visualNumLog = document.getElementById("visual-numlog");
+  const visualScaled = document.getElementById("visual-scaled");
+  const binsigNum = document.getElementById("binsig-num");
+  const binsigMap = document.getElementById("binsig-map");
+  const binpropsZoomFactor = document.getElementById("binprops-zoomfactor");
+  const binpropsDirection = document.getElementById("binprops-direction");
+  const binpropsDecimal = document.getElementById("binprops-decimal");
+  const binpropsBoolean = document.getElementById("binprops-boolean");
+  const binaxisNum = document.getElementById("binaxis-num");
+  const binaxisDecimal = document.getElementById("binaxis-decimal");
+  const binaxisBoolean = document.getElementById("binaxis-boolean");
+  const rawJson = document.getElementById("raw-json");
+  const vizSvg = document.getElementById("viz-svg");
+  const statusLabel = document.getElementById("status-label");
+
+  const btnStop = document.getElementById("btn-stop");
+  const btnAnim = document.getElementById("btn-play-animation");
+  const btnAmuse = document.getElementById("btn-play-amusement");
+  const btnStudy = document.getElementById("btn-play-study");
+
+  function setPlayMode(mode) {
+    playMode = mode;
+    clearInterval(playTimer);
+    btnStop.classList.remove("active");
+    btnAnim.classList.remove("active");
+    btnAmuse.classList.remove("active");
+    btnStudy.classList.remove("active");
+
+    if (mode === "stop") {
+      statusLabel.textContent = "Mode: stop";
+      btnStop.classList.add("active");
+      return;
+    }
+
+    let ms = speeds[mode] || speeds.animation;
+    statusLabel.textContent = "Mode: " + mode + " (" + ms + " ms/frame)";
+    if (mode === "animation") btnAnim.classList.add("active");
+    if (mode === "amusement") btnAmuse.classList.add("active");
+    if (mode === "study") btnStudy.classList.add("active");
+
+    playTimer = setInterval(() => {
+      currentFlatPos = (currentFlatPos + 1) % flatIndex.length;
+      const pos = flatIndex[currentFlatPos];
+      showNumber(pos.chapterIndex, pos.numberIndex, false);
+    }, ms);
+  }
+
+  btnStop.addEventListener("click", () => setPlayMode("stop"));
+  btnAnim.addEventListener("click", () => setPlayMode("animation"));
+  btnAmuse.addEventListener("click", () => setPlayMode("amusement"));
+  btnStudy.addEventListener("click", () => setPlayMode("study"));
+
+  function fetchData() {
+    fetch("octaves.json")
+      .then(r => r.json())
+      .then(json => {
+        data = json;
+        buildIndex();
+        buildChaptersNav();
+        if (flatIndex.length > 0) {
+          const pos = flatIndex[0];
+          showNumber(pos.chapterIndex, pos.numberIndex, true);
+        }
+      })
+      .catch(err => {
+        numberTitle.textContent = "Failed to load octaves.json";
+        console.error(err);
+      });
+  }
+
+  function buildIndex() {
+    flatIndex = [];
+    if (!data || !data.chapters) return;
+    data.chapters.forEach((ch, ci) => {
+      if (!ch.numbers) return;
+      ch.numbers.forEach((_, ni) => {
+        flatIndex.push({ chapterIndex: ci, numberIndex: ni });
+      });
+    });
+  }
+
+  function buildChaptersNav() {
+    chaptersList.innerHTML = "";
+
+    data.chapters.forEach((ch, ci) => {
+      const li = document.createElement("li");
+
+      const btn = document.createElement("button");
+      btn.textContent = "R = " + ch.R + " (base " + ch.base + ")";
+      btn.className = "chapter";
+      btn.addEventListener("click", () => {
+        const firstIndex = flatIndex.findIndex(p => p.chapterIndex === ci);
+        if (firstIndex >= 0) {
+          currentFlatPos = firstIndex;
+          showNumber(ci, 0, true);
+        }
+      });
+      li.appendChild(btn);
+
+      const subtitle = document.createElement("h3");
+      subtitle.textContent = "Numbers";
+      li.appendChild(subtitle);
+
+      const ulNums = document.createElement("ul");
+
+      ch.numbers.forEach((num, ni) => {
+        const liNum = document.createElement("li");
+
+        const xyz = num.Expr.Digits
+          .map(d => d === -1 ? "Z" : d === 0 ? "X" : "Y")
+          .join("");
+
+        const btnNum = document.createElement("button");
+        btnNum.textContent = xyz;
+        btnNum.addEventListener("click", () => {
+          currentFlatPos = flatIndex.findIndex(
+            p => p.chapterIndex === ci && p.numberIndex === ni
+          );
+          showNumber(ci, ni, true);
+        });
+
+        liNum.appendChild(btnNum);
+        ulNums.appendChild(liNum);
+      });
+
+      li.appendChild(ulNums);
+      chaptersList.appendChild(li);
+    });
+  }
+
+  function showNumber(chapterIndex, numberIndex, scrollIntoView) {
+    const chapter = data.chapters[chapterIndex];
+    const num = chapter.numbers[numberIndex];
+
+    const xyz = num.Expr.Digits
+      .map(d => d === -1 ? "Z" : d === 0 ? "X" : "Y")
+      .join("");
+
+    numberTitle.textContent = "R = " + chapter.R + ", " + xyz + " (index " + (numberIndex + 1) + ")";
+
+    exprDigits.textContent = JSON.stringify(num.Expr.Digits);
+    simpD.textContent = num.Simp.D;
+
+    propsK.textContent = num.Props.k;
+    propsL.textContent = num.Props.L;
+    propsZoom.textContent = num.Props.zoom;
+
+    const vis = num.Visual || num.Visualization || {};
+    visualNum.textContent = vis.Num ?? "–";
+    visualNumExp.textContent = vis.NumExp ?? "–";
+    visualNumLog.textContent = vis.NumLog ?? "–";
+    visualScaled.textContent = vis.ScaledMult ?? "–";
+
+    if (num.BinSig) {
+      binsigNum.textContent = num.BinSig.Num;
+      binsigMap.textContent = JSON.stringify(num.BinSig.Map, null, 2);
+    } else {
+      binsigNum.textContent = "–";
+      binsigMap.textContent = "–";
+    }
+
+    if (num.BinProps) {
+      binpropsZoomFactor.textContent = num.BinProps.ZoomFactor;
+      binpropsDirection.textContent = num.BinProps.Direction;
+      binpropsDecimal.textContent = JSON.stringify(num.BinProps.Decimal, null, 2);
+      binpropsBoolean.textContent = JSON.stringify(num.BinProps.Boolean, null, 2);
+    } else {
+      binpropsZoomFactor.textContent = "–";
+      binpropsDirection.textContent = "–";
+      binpropsDecimal.textContent = "–";
+      binpropsBoolean.textContent = "–";
+    }
+
+    if (num.BinAxis) {
+      binaxisNum.textContent = num.BinAxis.Num;
+      binaxisDecimal.textContent = JSON.stringify(num.BinAxis.Decimal, null, 2);
+      binaxisBoolean.textContent = JSON.stringify(num.BinAxis.Boolean, null, 2);
+    } else {
+      binaxisNum.textContent = "–";
+      binaxisDecimal.textContent = "–";
+      binaxisBoolean.textContent = "–";
+    }
+
+    rawJson.textContent = JSON.stringify(num, null, 2);
+
+    drawVisualization(vis);
+
+    if (scrollIntoView) {
+      numberTitle.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    Array.from(chaptersList.querySelectorAll("button")).forEach(b => b.classList.remove("active"));
+    const chapterLi = chaptersList.children[chapterIndex];
+    if (chapterLi) {
+      const numButtons = chapterLi.querySelectorAll("ul li button");
+      if (numButtons[numberIndex]) numButtons[numberIndex].classList.add("active");
+      const chapterBtn = chapterLi.querySelector("button.chapter");
+      if (chapterBtn) chapterBtn.classList.add("active");
+    }
+  }
+
+  function drawVisualization(vis) {
+    while (vizSvg.firstChild) vizSvg.removeChild(vizSvg.firstChild);
+    if (!vis || !vis.Signed || !vis.Unsigned) return;
+
+    const width = 700;
+    const height = 220;
+    const marginLeft = 140;
+    const marginRight = 20;
+    const lineTopY = 70;
+    const lineBottomY = 160;
+
+    function xFromUnsignedFloat(f) {
+      const t = f / 4.0;
+      return marginLeft + t * (width - marginLeft - marginRight);
+    }
+
+    function xFromSignedFloat(f) {
+      const t = (f + 2.0) / 4.0;
+      return marginLeft + t * (width - marginLeft - marginRight);
+    }
+
+    const lineSigned = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    lineSigned.setAttribute("x1", marginLeft);
+    lineSigned.setAttribute("y1", lineTopY);
+    lineSigned.setAttribute("x2", width - marginRight);
+    lineSigned.setAttribute("y2", lineTopY);
+    lineSigned.setAttribute("class", "viz-line");
+    vizSvg.appendChild(lineSigned);
+
+    const lineUnsigned = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    lineUnsigned.setAttribute("x1", marginLeft);
+    lineUnsigned.setAttribute("y1", lineBottomY);
+    lineUnsigned.setAttribute("x2", width - marginRight);
+    lineUnsigned.setAttribute("y2", lineBottomY);
+    lineUnsigned.setAttribute("class", "viz-line");
+    vizSvg.appendChild(lineUnsigned);
+
+    function addText(x, y, text, cls) {
+      const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t.setAttribute("x", x);
+      t.setAttribute("y", y);
+      t.setAttribute("class", "viz-label " + (cls || ""));
+      t.textContent = text;
+      vizSvg.appendChild(t);
+    }
+
+    function addBoundaryLabel(x, y, text) {
+      addText(x - 4, y, text, "");
+    }
+
+    addText(20, lineTopY + 4, "Signed [-2,2]", "");
+    addText(20, lineBottomY + 4, "Unsigned [0,1]", "");
+
+    const sb = vis.Signed.Boundaries;
+    const sd = vis.Signed.DigitValues;
+    const signedKeys = ["MinusTwo", "MinusOne", "Zero", "PlusOne", "PlusTwo"];
+
+    signedKeys.forEach(key => {
+      const f = sb[key].Float;
+      const x = xFromSignedFloat(f);
+
+      const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      tick.setAttribute("x1", x);
+      tick.setAttribute("y1", lineTopY - 6);
+      tick.setAttribute("x2", x);
+      tick.setAttribute("y2", lineTopY + 6);
+      tick.setAttribute("class", "viz-boundary");
+      vizSvg.appendChild(tick);
+
+      addBoundaryLabel(x, lineTopY - 10, sb[key].Percent);
+    });
+
+    signedKeys.forEach(key => {
+      const f = sb[key].Float;
+      const x = xFromSignedFloat(f);
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", x);
+      circle.setAttribute("cy", lineTopY);
+      circle.setAttribute("r", 4);
+      circle.setAttribute("class", "viz-point-signed");
+      circle.setAttribute("title", key + ": " + sd[key]);
+      vizSvg.appendChild(circle);
+    });
+
+    const ub = vis.Unsigned.Boundaries;
+    const ud = vis.Unsigned.DigitValues;
+    const unsignedKeys = ["Zero", "One", "Two", "Three", "Four"];
+
+    unsignedKeys.forEach(key => {
+      const f = ub[key].Float;
+      const x = xFromUnsignedFloat(f);
+
+      const tick = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      tick.setAttribute("x1", x);
+      tick.setAttribute("y1", lineBottomY - 6);
+      tick.setAttribute("x2", x);
+      tick.setAttribute("y2", lineBottomY + 6);
+      tick.setAttribute("class", "viz-boundary");
+      vizSvg.appendChild(tick);
+
+      addBoundaryLabel(x, lineBottomY + 18, ub[key].Percent);
+    });
+
+    unsignedKeys.forEach(key => {
+      const f = ub[key].Float;
+      const x = xFromUnsignedFloat(f);
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", x);
+      circle.setAttribute("cy", lineBottomY);
+      circle.setAttribute("r", 4);
+      circle.setAttribute("class", "viz-point-unsigned");
+      circle.setAttribute("title", key + ": " + ud[key]);
+      vizSvg.appendChild(circle);
+    });
+  }
+
+  fetchData();
+})();
+</script>
+
+</body>
+</html>

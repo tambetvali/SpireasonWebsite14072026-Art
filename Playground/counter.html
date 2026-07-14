@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laegna · Sheep Counter</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0b1020 0%, #02030a 55%, #000000 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f5ff;
+    }
+    #renderCanvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+    #controlPanel {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      padding: 10px 12px;
+      background: rgba(5, 8, 20, 0.8);
+      border-radius: 10px;
+      border: 1px solid rgba(160, 190, 255, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      max-width: 220px;
+    }
+    #controlPanel .sectionTitle {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9fb4ff;
+      margin: 6px 0 4px;
+    }
+    #controlPanel button {
+      display: inline-block;
+      margin: 2px 3px;
+      padding: 3px 7px;
+      font-size: 11px;
+      border-radius: 6px;
+      border: 1px solid rgba(180, 205, 255, 0.5);
+      background: rgba(15, 25, 60, 0.7);
+      color: #e5ecff;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s, border-color 0.15s;
+    }
+    #controlPanel button:hover {
+      background: rgba(40, 70, 140, 0.9);
+      box-shadow: 0 0 6px rgba(120, 170, 255, 0.8);
+    }
+    #controlPanel button.active {
+      background: rgba(90, 140, 255, 0.95);
+      border-color: rgba(220, 240, 255, 0.9);
+      box-shadow: 0 0 8px rgba(150, 200, 255, 1);
+      transform: translateY(-1px);
+    }
+
+    #octaveCanvas {
+      position: fixed;
+      top: 8px;
+      right: 8px;
+      width: 260px;
+      height: 60px;
+      z-index: 20;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="controlPanel">
+    <div class="sectionTitle">Frequential (IOAE)</div>
+    <button data-phase="frequential" data-R="1">R=1</button>
+    <button data-phase="frequential" data-R="2">R=2</button>
+    <button data-phase="frequential" data-R="3">R=3</button>
+    <button data-phase="frequential" data-R="4">R=4</button>
+
+    <div class="sectionTitle">Octavian (OA / base‑2)</div>
+    <button data-phase="octavial" data-R="1">R=1</button>
+    <button data-phase="octavial" data-R="2">R=2</button>
+    <button data-phase="octavial" data-R="3">R=3</button>
+    <button data-phase="octavial" data-R="4">R=4</button>
+
+    <div class="sectionTitle">Speed</div>
+    <button data-speed="fast">Amusement</button>
+    <button data-speed="normal">Counting</button>
+    <button data-speed="slow">Falling Asleep</button>
+  </div>
+
+  <canvas id="renderCanvas"></canvas>
+  <canvas id="octaveCanvas"></canvas>
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+
+    const octaveCanvas = document.getElementById("octaveCanvas");
+    const octaveCtx = octaveCanvas.getContext("2d");
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
+
+      const camera = new BABYLON.ArcRotateCamera(
+        "camera",
+        Math.PI / 2.2,
+        Math.PI / 2.6,
+        18,
+        new BABYLON.Vector3(0, 0, 0),
+        scene
+      );
+      camera.attachControl(canvas, true);
+      camera.lowerRadiusLimit = 6;
+      camera.upperRadiusLimit = 40;
+
+      const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+      light1.intensity = 0.7;
+      const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 5, -5), scene);
+      light2.intensity = 0.9;
+
+      scene.fogMode = BABYLON.Scene.FOGMODE_EXP2;
+      scene.fogDensity = 0.015;
+      scene.fogColor = new BABYLON.Color3(0.01, 0.02, 0.06);
+
+      const spiralParent = new BABYLON.TransformNode("laegnaSpiral", scene);
+      const spiralMaterial = new BABYLON.StandardMaterial("spiralMat", scene);
+      spiralMaterial.emissiveColor = new BABYLON.Color3(0.5, 0.8, 1.0);
+      spiralMaterial.diffuseColor = new BABYLON.Color3(0.1, 0.2, 0.4);
+      spiralMaterial.specularColor = new BABYLON.Color3(0.8, 0.9, 1.0);
+
+      const spiralNodes = [];
+      const N = 64;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        const angle = t * Math.PI * 6.0;
+        const radius = 2.0 + 4.0 * t;
+        const y = (t - 0.5) * 6.0;
+
+        const x = radius * Math.cos(angle);
+        const z = radius * Math.sin(angle);
+
+        const sphere = BABYLON.MeshBuilder.CreateSphere("node" + i, { diameter: 0.35 + 0.25 * t }, scene);
+        sphere.position.set(x, y, z);
+        sphere.material = spiralMaterial;
+        sphere.parent = spiralParent;
+
+        spiralNodes.push({ mesh: sphere, t });
+      }
+
+      const torus = BABYLON.MeshBuilder.CreateTorus("infinityRing", {
+        diameter: 6,
+        thickness: 0.25,
+        tessellation: 96
+      }, scene);
+      const torusMat = new BABYLON.StandardMaterial("torusMat", scene);
+      torusMat.emissiveColor = new BABYLON.Color3(0.9, 0.8, 1.0);
+      torusMat.diffuseColor = new BABYLON.Color3(0.2, 0.1, 0.4);
+      torus.material = torusMat;
+      torus.rotation.x = Math.PI / 2.5;
+
+      const glyphPlane = BABYLON.MeshBuilder.CreatePlane("glyphPlane", { size: 4 }, scene);
+      glyphPlane.position = new BABYLON.Vector3(0, 3.2, 0);
+      glyphPlane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+      const glyphTexture = new BABYLON.DynamicTexture("glyphTexture", { width: 512, height: 256 }, scene, true);
+      const glyphMat = new BABYLON.StandardMaterial("glyphMat", scene);
+      glyphMat.diffuseTexture = glyphTexture;
+      glyphMat.emissiveColor = new BABYLON.Color3(0.9, 0.95, 1.0);
+      glyphMat.backFaceCulling = false;
+      glyphPlane.material = glyphMat;
+
+      const glyphCtx = glyphTexture.getContext();
+      function drawGlyphText(text) {
+        glyphTexture.clear();
+        glyphCtx.clearRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#050814";
+        glyphCtx.fillRect(0, 0, 512, 256);
+        glyphCtx.fillStyle = "#cfe4ff";
+        glyphCtx.font = "32px system-ui";
+        glyphCtx.textAlign = "center";
+        glyphCtx.textBaseline = "middle";
+        glyphCtx.fillText(text, 256, 128);
+        glyphTexture.update();
+      }
+      drawGlyphText("Laegna · Spireason");
+
+      const particleSystem = new BABYLON.ParticleSystem("stars", 2000, scene);
+      particleSystem.particleTexture = new BABYLON.Texture("https://playground.babylonjs.com/textures/flare.png", scene);
+      particleSystem.emitter = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.minEmitBox = new BABYLON.Vector3(-25, -25, -25);
+      particleSystem.maxEmitBox = new BABYLON.Vector3(25, 25, 25);
+      particleSystem.color1 = new BABYLON.Color4(0.7, 0.8, 1.0, 1.0);
+      particleSystem.color2 = new BABYLON.Color4(0.4, 0.6, 1.0, 1.0);
+      particleSystem.minSize = 0.05;
+      particleSystem.maxSize = 0.15;
+      particleSystem.minLifeTime = 4.0;
+      particleSystem.maxLifeTime = 12.0;
+      particleSystem.emitRate = 400;
+      particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ADD;
+      particleSystem.gravity = new BABYLON.Vector3(0, 0, 0);
+      particleSystem.direction1 = new BABYLON.Vector3(-0.5, 0.5, -0.5);
+      particleSystem.direction2 = new BABYLON.Vector3(0.5, 0.5, 0.5);
+      particleSystem.minAngularSpeed = 0;
+      particleSystem.maxAngularSpeed = Math.PI;
+      particleSystem.minEmitPower = 0.1;
+      particleSystem.maxEmitPower = 0.4;
+      particleSystem.updateSpeed = 0.01;
+      particleSystem.start();
+
+      class LaegnaCounterDisplay {
+        constructor(id, scene, options) {
+          this.id = id;
+          this.title = options.title || "";
+          this.subtitle = options.subtitle || "";
+          this.value = options.value ?? "";
+          this.enabled = options.enabled ?? true;
+          this.palette = options.palette || "full";
+          this.basePosition = options.position.clone();
+          this.size = options.size || { width: 6, height: 1.6 };
+          this.largeSize = options.largeSize || { width: 8.5, height: 2.4 };
+          this.isLower = options.isLower || false;
+
+          this.overlayValue = null;
+          this.overlayAlpha = 0.25;
+
+          this.isGauge = options.isGauge || false;
+          this.gaugeValue = 0;
+          this.gaugeR = 0;
+
+          this.plane = BABYLON.MeshBuilder.CreatePlane(
+            id + "Plane",
+            { width: this.size.width, height: this.size.height },
+            scene
+          );
+          this.plane.position = this.basePosition.clone();
+          this.plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+
+          const texWidth = 1024;
+          const texHeight = this.isLower ? 320 : 256;
+          this.texture = new BABYLON.DynamicTexture(
+            id + "Tex",
+            { width: texWidth, height: texHeight },
+            scene,
+            true
+          );
+          const mat = new BABYLON.StandardMaterial(id + "Mat", scene);
+          mat.diffuseTexture = this.texture;
+          mat.emissiveColor = new BABYLON.Color3(1.0, 1.0, 1.0);
+          mat.backFaceCulling = false;
+          this.plane.material = mat;
+          this.material = mat;
+          this.baseEmissive = mat.emissiveColor.clone();
+
+          this.ctx = this.texture.getContext();
+          this.texWidth = texWidth;
+          this.texHeight = texHeight;
+
+          this.draw();
+        }
+
+        randomColor() {
+          if (this.palette === "cool") {
+            const hue = 200 + Math.random() * 60;
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          if (this.palette === "warm") {
+            const hue = 10 + Math.random() * 60;
+            return `hsl(${hue}, 80%, 65%)`;
+          }
+          if (this.palette === "eco") {
+            const hue = 90 + Math.random() * 60;
+            return `hsl(${hue}, 70%, 60%)`;
+          }
+          if (this.palette === "infinity") {
+            const hue = 260 + Math.random() * 60;
+            return `hsl(${hue}, 80%, 70%)`;
+          }
+          const hue = Math.floor(Math.random() * 360);
+          return `hsl(${hue}, 85%, 65%)`;
+        }
+
+        setValue(v) {
+          this.value = v;
+          this.isGauge = false;
+          this.draw();
+        }
+        setOverlay(v) {
+          this.overlayValue = v;
+          this.draw();
+        }
+        clearOverlay() {
+          this.overlayValue = null;
+          this.draw();
+        }
+        setTitle(t) {
+          this.title = t;
+          this.draw();
+        }
+        setSubtitle(t) {
+          this.subtitle = t;
+          this.draw();
+        }
+        setEnabled(enabled) {
+          this.enabled = enabled;
+          this.plane.setEnabled(enabled);
+        }
+        setLowerCentered(isCentered) {
+          if (!this.isLower) return;
+          if (isCentered) {
+            this.plane.position.x = 0;
+            this.plane.scaling.set(1.4, 1.4, 1.4);
+            this.plane.width = this.largeSize.width;
+            this.plane.height = this.largeSize.height;
+          } else {
+            this.plane.position = this.basePosition.clone();
+            this.plane.scaling.set(1, 1, 1);
+            this.plane.width = this.size.width;
+            this.plane.height = this.size.height;
+          }
+        }
+        setPalette(p) {
+          this.palette = p;
+          this.draw();
+        }
+        setGauge(Rvalue, Fpercent) {
+          this.isGauge = true;
+          this.gaugeR = Rvalue;
+          this.gaugeValue = Fpercent;
+          this.draw();
+        }
+
+        drawTextString(text, alpha = 1.0, dimMain = false) {
+          const ctx = this.ctx;
+          const w = this.texWidth;
+          const h = this.texHeight;
+
+          ctx.save();
+          ctx.globalAlpha = alpha * (dimMain ? 0.8 : 1.0);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.font = this.isLower ? "140px system-ui" : "120px system-ui";
+
+          const totalWidth = text.length;
+          const baseX = w / 2;
+          const baseY = this.isLower ? h * 0.45 : h * 0.5;
+          let spacing = this.isLower ? 80 : 70;
+
+          const allW = text.length > 1 && [...text].every(ch => ch === "W");
+          if (allW) spacing *= 1.8;
+
+          for (let i = 0; i < text.length; i++) {
+            ctx.fillStyle = this.randomColor();
+            const x = baseX + (i - (totalWidth - 1) / 2) * spacing;
+            ctx.fillText(text[i], x, baseY);
+          }
+
+          ctx.restore();
+        }
+
+        drawGauge() {
+          const ctx = this.ctx;
+          const w = this.texWidth;
+          const h = this.texHeight;
+
+          ctx.clearRect(0, 0, w, h);
+          ctx.fillStyle = "#050814";
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.fillStyle = "#cfe4ff";
+          ctx.font = "26px system-ui";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText("Octave R = " + this.gaugeR.toFixed(2), w * 0.08, h * 0.25);
+
+          ctx.textAlign = "right";
+          ctx.fillText("F = " + this.gaugeValue.toFixed(1) + "%", w * 0.92, h * 0.25);
+
+          const gx = w * 0.08;
+          const gy = h * 0.6;
+          const gw = w * 0.84;
+          const gh = h * 0.18;
+
+          const totalBlocks = 32;
+          const blockW = gw / totalBlocks;
+          const groupColors = ["#ffd84a", "#ff5a4a", "#6adf6a", "#5a7dff"];
+
+          for (let i = 0; i < totalBlocks; i++) {
+            const group = i % 4;
+            ctx.fillStyle = groupColors[group];
+            ctx.globalAlpha = 0.35;
+            ctx.fillRect(gx + i * blockW, gy, blockW - 1, gh);
+          }
+          ctx.globalAlpha = 1.0;
+
+          const t = this.gaugeValue / 100;
+          const px = gx + t * gw;
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(px, gy - 6);
+          ctx.lineTo(px, gy + gh + 6);
+          ctx.stroke();
+
+          const bandIndex = Math.floor(t * totalBlocks);
+          const localT = (t * totalBlocks) - bandIndex;
+          let dotX = gx + bandIndex * blockW;
+          if (localT < 0.33) dotX += blockW * 0.15;
+          else if (localT < 0.66) dotX += blockW * 0.5;
+          else dotX += blockW * 0.85;
+
+          const dotY = gy + gh / 2;
+          ctx.fillStyle = "#ffffff";
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (this.title) {
+            ctx.fillStyle = "#cfe4ff";
+            ctx.font = "22px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(this.title, w / 2, h * 0.12);
+          }
+          if (this.subtitle) {
+            ctx.fillStyle = "#9fb4ff";
+            ctx.font = "20px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(this.subtitle, w / 2, h * 0.88);
+          }
+
+          this.texture.update();
+        }
+
+        draw() {
+          if (this.isGauge) {
+            this.drawGauge();
+            return;
+          }
+
+          const ctx = this.ctx;
+          const w = this.texWidth;
+          const h = this.texHeight;
+
+          ctx.clearRect(0, 0, w, h);
+          const grad = ctx.createLinearGradient(0, 0, w, h);
+          grad.addColorStop(0, "#050814");
+          grad.addColorStop(1, "#0b1024");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          const text = String(this.value ?? "");
+          if (text) this.drawTextString(text, 1.0, this.dimMain || false);
+
+          if (this.overlayValue) {
+            const overlayText = String(this.overlayValue);
+            const ctx2 = this.ctx;
+            ctx2.save();
+            ctx2.globalAlpha = this.overlayAlpha;
+            ctx2.textAlign = "center";
+            ctx2.textBaseline = "middle";
+            ctx2.font = this.isLower ? "140px system-ui" : "120px system-ui";
+
+            const totalWidth = overlayText.length;
+            const baseX = w / 2;
+            const baseY = this.isLower ? h * 0.45 : h * 0.5;
+            let spacing = this.isLower ? 80 : 70;
+
+            const allW = overlayText.length > 1 && [...overlayText].every(ch => ch === "W");
+            if (allW) spacing *= 1.8;
+
+            for (let i = 0; i < overlayText.length; i++) {
+              ctx2.fillStyle = this.overlayColor || "#ffffff";
+              const x = baseX + (i - (totalWidth - 1) / 2) * spacing;
+              ctx2.fillText(overlayText[i], x, baseY);
+            }
+            ctx2.restore();
+          }
+
+          if (this.title) {
+            ctx.fillStyle = "#cfe4ff";
+            ctx.font = this.isLower ? "30px system-ui" : "26px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const titleY = this.isLower ? h * 0.82 : h * 0.8;
+            ctx.fillText(this.title, w / 2, titleY);
+          }
+          if (this.subtitle) {
+            ctx.fillStyle = "#9fb4ff";
+            ctx.font = "22px system-ui";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const subY = this.isLower ? h * 0.15 : h * 0.18;
+            ctx.fillText(this.subtitle, w / 2, subY);
+          }
+
+          this.texture.update();
+        }
+      }
+
+      const counters = {};
+
+      counters.x = new LaegnaCounterDisplay("x", scene, {
+        title: "Octave / Percentage",
+        subtitle: "",
+        value: "",
+        palette: "eco",
+        position: new BABYLON.Vector3(0, 3.6, 0),
+        size: { width: 6.0, height: 1.4 },
+        isLower: false,
+        isGauge: true
+      });
+
+      counters.y = new LaegnaCounterDisplay("y", scene, {
+        title: "Middle mapping",
+        subtitle: "",
+        value: "",
+        palette: "full",
+        position: new BABYLON.Vector3(0, 1.8, 0),
+        size: { width: 5.0, height: 1.4 },
+        isLower: false
+      });
+
+      counters.z = new LaegnaCounterDisplay("z", scene, {
+        title: "Linear base (signed / unsigned)",
+        subtitle: "",
+        value: "",
+        palette: "full",
+        position: new BABYLON.Vector3(0, 0.6, 0),
+        size: { width: 5.0, height: 1.4 },
+        isLower: false
+      });
+
+      counters.l = new LaegnaCounterDisplay("l", scene, {
+        title: "Laegna Naturals",
+        subtitle: "",
+        value: "",
+        palette: "cool",
+        position: new BABYLON.Vector3(-4.8, -2.4, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      counters.r = new LaegnaCounterDisplay("r", scene, {
+        title: "Laegna Complex",
+        subtitle: "",
+        value: "",
+        palette: "warm",
+        position: new BABYLON.Vector3(4.8, -2.4, 0),
+        size: { width: 7.5, height: 2.1 },
+        largeSize: { width: 9.0, height: 2.6 },
+        isLower: true
+      });
+
+      window.LaegnaCountersAPI = {
+        setCounter(id, { value, title, subtitle, palette }) {
+          const c = counters[id];
+          if (!c) return;
+          if (value !== undefined) c.setValue(value);
+          if (title !== undefined) c.setTitle(title);
+          if (subtitle !== undefined) c.setSubtitle(subtitle);
+          if (palette !== undefined) c.setPalette(palette);
+        },
+        setEnabled(id, enabled) {
+          const c = counters[id];
+          if (!c) return;
+          c.setEnabled(enabled);
+          if (id === "r") {
+            if (!enabled) counters.l.setLowerCentered(true);
+            else counters.l.setLowerCentered(false);
+          }
+        },
+        setOverlay(id, value, color, dimMain) {
+          const c = counters[id];
+          if (!c) return;
+          c.overlayColor = color || "#ffffff";
+          c.dimMain = !!dimMain;
+          if (value) c.setOverlay(value);
+          else c.clearOverlay();
+        },
+        clearOverlay(id) {
+          const c = counters[id];
+          if (!c) return;
+          c.clearOverlay();
+          c.dimMain = false;
+        }
+      };
+
+      const DIGITS = ["I", "O", "A", "E"];
+      const SPECIAL = {
+        MIN_INF: "W",
+        MIN_ZERO: "V",
+        PLUS_ZERO: "U",
+        PLUS_INF: "⋂"
+      };
+
+      const COMPLEX_TABLE = [
+        ["G", "F", "E", "H"],
+        ["C", "B", "A", "D"],
+        ["Q", "P", "O", "R"],
+        ["K", "J", "I", "L"]
+      ];
+
+      function octavianComplexFromOA(lower, higher) {
+        if (lower === "O" && higher === "O") return "I";
+        if (lower === "O" && higher === "A") return "O";
+        if (lower === "A" && higher === "O") return "A";
+        if (lower === "A" && higher === "A") return "E";
+        return "-";
+      }
+
+      function idxDigit(ch) {
+        return DIGITS.indexOf(ch);
+      }
+      function isSpecial(ch) {
+        return ch === SPECIAL.MIN_INF ||
+               ch === SPECIAL.MIN_ZERO ||
+               ch === SPECIAL.PLUS_ZERO ||
+               ch === SPECIAL.PLUS_INF;
+      }
+
+      function complexFromPair(lower, higher) {
+        if (isSpecial(lower) || isSpecial(higher)) {
+          if (lower === higher) return lower;
+          if (isSpecial(lower) && !isSpecial(higher)) return lower;
+          if (!isSpecial(lower) && isSpecial(higher)) return higher;
+          return "-";
+        }
+        const il = idxDigit(lower);
+        const ih = idxDigit(higher);
+        if (il < 0 || ih < 0) return "-";
+        return COMPLEX_TABLE[il][ih] || "-";
+      }
+
+      function toBase4String(n, R) {
+        let s = "";
+        for (let i = 0; i < R; i++) {
+          const d = n % 4;
+          s = DIGITS[d] + s;
+          n = Math.floor(n / 4);
+        }
+        return s;
+      }
+
+      function buildMainSequenceForR(R) {
+        const max = Math.pow(4, R);
+        const mid = max / 2;
+        const seq = [];
+
+        seq.push(SPECIAL.MIN_INF.repeat(R));
+
+        for (let i = 0; i < mid; i++) {
+          seq.push(toBase4String(i, R));
+        }
+
+        const minusZero = SPECIAL.MIN_ZERO.repeat(R);
+        const plusZero  = SPECIAL.PLUS_ZERO.repeat(R);
+        seq.push(minusZero);
+        seq.push(plusZero);
+
+        for (let i = mid; i < max; i++) {
+          seq.push(toBase4String(i, R));
+        }
+
+        seq.push(SPECIAL.PLUS_INF.repeat(R));
+
+        return seq;
+      }
+
+      function isAllSameSpecial(str) {
+        if (!str || str.length === 0) return false;
+        const ch = str[0];
+        if (!isSpecial(ch)) return false;
+        for (let i = 1; i < str.length; i++) if (str[i] !== ch) return false;
+        return true;
+      }
+
+      function isAllSameChar(str, ch) {
+        if (!str || str.length === 0) return false;
+        for (let i = 0; i < str.length; i++) if (str[i] !== ch) return false;
+        return true;
+      }
+
+      function base4IndexFromDigits(str) {
+        let n = 0;
+        for (let i = 0; i < str.length; i++) {
+          const ch = str[i];
+          let d = 0;
+          if (ch === "I") d = 0;
+          else if (ch === "O") d = 1;
+          else if (ch === "A") d = 2;
+          else if (ch === "E") d = 3;
+          n = n * 4 + d;
+        }
+        return n;
+      }
+
+      function signedLinearLabel(seq, idx, R) {
+        const str = seq[idx];
+
+        const isW = isAllSameChar(str, SPECIAL.MIN_INF);
+        const isV = isAllSameChar(str, SPECIAL.MIN_ZERO);
+        const isU = isAllSameChar(str, SPECIAL.PLUS_ZERO);
+        const isCap = isAllSameChar(str, SPECIAL.PLUS_INF);
+
+        if (isW) return "-∞";
+        if (isCap) return "+∞";
+        if (isV) return "-0";
+        if (isU) return "+0";
+
+        const n = base4IndexFromDigits(str);
+        const max = Math.pow(4, R);
+        const mid = max / 2;
+
+        if (n < mid) {
+          const val = -(mid - n);
+          return String(val);
+        } else {
+          const val = (n - mid) + 1;
+          return "+" + val;
+        }
+      }
+
+      function unsignedLinearLabel(seq, idx, R) {
+        const N = seq.length;
+        const str = seq[idx];
+        const isW = isAllSameChar(str, SPECIAL.MIN_INF);
+        const isV = isAllSameChar(str, SPECIAL.MIN_ZERO);
+        const isU = isAllSameChar(str, SPECIAL.PLUS_ZERO);
+        const isCap = isAllSameChar(str, SPECIAL.PLUS_INF);
+
+        if (isW || isCap) return "+∞";
+        if (isV || isU) return "";
+
+        let rank = 0;
+        for (let i = 0; i < N; i++) {
+          const s = seq[i];
+          const sw = isAllSameChar(s, SPECIAL.MIN_INF);
+          const sv = isAllSameChar(s, SPECIAL.MIN_ZERO);
+          const su = isAllSameChar(s, SPECIAL.PLUS_ZERO);
+          const sc = isAllSameChar(s, SPECIAL.PLUS_INF);
+          if (sw || sv || su || sc) continue;
+          if (i === idx) break;
+          rank++;
+        }
+        return String(rank + 1);
+      }
+
+      // OCTAVIANS: base‑2 O/A, same infinities set (W, V, U, ⋂) kept as symbols
+      function octLinearSigned(oaStr) {
+        let v = 0;
+        let pow = 1;
+        for (let i = oaStr.length - 1; i >= 0; i--) {
+          const ch = oaStr[i];
+          if (ch === SPECIAL.MIN_INF || ch === SPECIAL.PLUS_INF) {
+            // infinities: you can refine this manually if needed
+            continue;
+          }
+          if (ch === SPECIAL.MIN_ZERO || ch === SPECIAL.PLUS_ZERO) {
+            continue;
+          }
+          let d = 0;
+          if (ch === "O") d = -1;
+          else if (ch === "A") d = +1;
+          v += d * pow;
+          pow *= 2;
+        }
+        return v;
+      }
+      function octLinearUnsigned(oaStr) {
+        let v = 0;
+        let pow = 1;
+        for (let i = oaStr.length - 1; i >= 0; i--) {
+          const ch = oaStr[i];
+          if (ch === SPECIAL.MIN_INF || ch === SPECIAL.PLUS_INF) {
+            continue;
+          }
+          if (ch === SPECIAL.MIN_ZERO || ch === SPECIAL.PLUS_ZERO) {
+            continue;
+          }
+          let d = 0;
+          if (ch === "O") d = 1;
+          else if (ch === "A") d = 2;
+          v += d * pow;
+          pow *= 2;
+        }
+        return v;
+      }
+
+      // direct base‑4 string mapping of base‑2, reduced back:
+      // O -> I, A -> E, then repeat each bit twice and take square roots
+      function oaToBase4StringSimple(oaStr) {
+        let s = "";
+        for (const ch of oaStr) {
+          if (ch === "O") s += "I";
+          else if (ch === "A") s += "E";
+        }
+        return s || "I";
+      }
+
+      function oaToBase4Repeated(oaStr) {
+        let s = "";
+        for (const ch of oaStr) {
+          if (ch === "O") s += "II";
+          else if (ch === "A") s += "EE";
+        }
+        return s || "II";
+      }
+
+      function oaMiddleMappingUnsigned(oaStr) {
+        const b4 = oaToBase4Repeated(oaStr);
+        const n = base4IndexFromDigits(b4);
+        const max = Math.pow(4, b4.length) - 1;
+        if (max <= 0) return 0;
+        const t0 = n / max;
+        // two square roots for unsigned
+        const t1 = Math.sqrt(t0);
+        const t2 = Math.sqrt(t1);
+        // PLACE FOR MANUAL TUNING: you can adjust t2 here if you want a different curve
+        return t2;
+      }
+
+      function oaMiddleMappingSigned(oaStr) {
+        const b4 = oaToBase4Repeated(oaStr);
+        const n = base4IndexFromDigits(b4);
+        const max = Math.pow(4, b4.length) - 1;
+        if (max <= 0) return 0;
+        const t0 = n / max;
+        // one square root for signed
+        const t1 = Math.sqrt(t0);
+        // PLACE FOR MANUAL TUNING: you can adjust t1 here if you want a different curve
+        return t1;
+      }
+
+      function isZeroInf(ch) {
+        return ch === SPECIAL.MIN_ZERO ||
+               ch === SPECIAL.PLUS_ZERO ||
+               ch === SPECIAL.MIN_INF ||
+               ch === SPECIAL.PLUS_INF;
+      }
+
+      function sameDegreeZeroInf(a, b) {
+        return a === b && isZeroInf(a);
+      }
+
+      function mapToOA(ch) {
+        // keep infinities and zeroes as themselves; only IOAE map to OA
+        if (ch === SPECIAL.MIN_INF || ch === SPECIAL.MIN_ZERO ||
+            ch === SPECIAL.PLUS_ZERO || ch === SPECIAL.PLUS_INF) {
+          return ch;
+        }
+        if (ch === "I" || ch === "O") return "O";
+        if (ch === "A" || ch === "E") return "A";
+        return "O";
+      }
+
+      function complexFromPairWithSpecial(d1, d2, phase) {
+        if (sameDegreeZeroInf(d1, d2)) {
+          return { digit: d1, flash: false };
+        }
+
+        const hasZeroInf = isZeroInf(d1) || isZeroInf(d2);
+
+        let digit;
+        if (phase === "octavial") {
+          const m1 = mapToOA(d1);
+          const m2 = mapToOA(d2);
+          digit = octavianComplexFromOA(m1, m2);
+        } else {
+          digit = complexFromPair(d1, d2);
+        }
+
+        return { digit, flash: hasZeroInf };
+      }
+
+      function buildComplexWithFlags(mainStr, phase) {
+        const outDigits = [];
+        const flashFlags = [];
+        for (let i = 0; i < mainStr.length; i += 2) {
+          const d1 = mainStr[i];
+          const d2 = mainStr[i + 1] || mainStr[i];
+          const { digit, flash } = complexFromPairWithSpecial(d1, d2, phase);
+          outDigits.push(digit);
+          flashFlags.push(flash);
+        }
+        return { complexStr: outDigits.join(""), flashFlags };
+      }
+
+      function octaveDigitValue(ch) {
+        if (ch === SPECIAL.MIN_INF || ch === "W") return 0;
+        if (ch === "I") return 1;
+        if (ch === "O") return 8;
+        if (ch === "A") return 9;
+        if (ch === "E") return 15;
+        if (ch === SPECIAL.PLUS_INF || ch === "⋂") return 16;
+        if (ch === SPECIAL.MIN_ZERO || ch === "V") return 0;
+        if (ch === SPECIAL.PLUS_ZERO || ch === "U") return 0;
+        return 0;
+      }
+
+      function octaveLinearFromDigits(s) {
+        let v = 0;
+        const R = s.length;
+        for (let i = 0; i < R; i++) {
+          const ch = s[i];
+          const dv = octaveDigitValue(ch);
+          const pow = Math.pow(4, R - i - 1);
+          v += dv * pow;
+        }
+        return v / 4;
+      }
+
+      const frames = [];
+
+      function buildFrequentialFrames() {
+        for (let R = 1; R <= 4; R++) {
+          const seq = buildMainSequenceForR(R);
+          for (let idx = 0; idx < seq.length; idx++) {
+            const mainStr = seq[idx];
+            const signedLabel = signedLinearLabel(seq, idx, R);
+            const unsignedLabel = unsignedLinearLabel(seq, idx, R);
+            let complexStr = "";
+            let complexFlashFlags = [];
+            if (R % 2 === 0) {
+              const cf = buildComplexWithFlags(mainStr, "frequential");
+              complexStr = cf.complexStr;
+              complexFlashFlags = cf.flashFlags;
+            }
+            frames.push({
+              phase: "frequential",
+              R,
+              main: mainStr,
+              complex: complexStr,
+              complexFlashFlags,
+              signed: signedLabel,
+              unsigned: unsignedLabel,
+              octIndex: null,
+              isZeroInf: isAllSameSpecial(mainStr),
+              idxInSeq: idx,
+              seqLength: seq.length,
+              seqRef: seq
+            });
+          }
+        }
+      }
+
+      function buildOctavialFrames() {
+        let globalIndex = 0;
+        for (let R = 1; R <= 4; R++) {
+          const seq = buildMainSequenceForR(R);
+          for (let idx = 0; idx < seq.length; idx++) {
+            const mainStr = seq[idx];
+            const cf = buildComplexWithFlags(mainStr, "octavial");
+            frames.push({
+              phase: "octavial",
+              R,
+              main: mainStr,
+              complex: cf.complexStr,
+              complexFlashFlags: cf.flashFlags,
+              signed: "",
+              unsigned: "",
+              octIndex: globalIndex,
+              isZeroInf: isAllSameSpecial(mainStr),
+              idxInSeq: idx,
+              seqLength: seq.length,
+              seqRef: seq
+            });
+            globalIndex++;
+          }
+        }
+      }
+
+      buildFrequentialFrames();
+      buildOctavialFrames();
+
+      const ORBIT = [
+        { phase: "frequential", R: 1 },
+        { phase: "frequential", R: 2 },
+        { phase: "frequential", R: 3 },
+        { phase: "frequential", R: 4 },
+        { phase: "octavial",    R: 1 },
+        { phase: "octavial",    R: 2 },
+        { phase: "octavial",    R: 3 },
+        { phase: "octavial",    R: 4 }
+      ];
+      let orbitIndex = 0;
+
+      const controller = {
+        phase: ORBIT[0].phase,
+        R: ORBIT[0].R,
+        frameIndex: 0,
+        subFrame: 0,
+        subFrameMax: 10,
+        tickMs: 200,
+        speedMode: "normal"
+      };
+
+      function zeroOverlayFor(mainStr) {
+        let s = "";
+        for (let i = 0; i < mainStr.length; i++) {
+          s += (i % 2 === 0) ? SPECIAL.MIN_ZERO : SPECIAL.PLUS_ZERO;
+        }
+        return s;
+      }
+
+      function isBoundaryTransition(prevFrame, frame) {
+        if (!prevFrame) return null;
+
+        const seq = frame.seqRef;
+        const seqLen = frame.seqLength;
+        const idx = frame.idxInSeq;
+        const prevIdx = prevFrame.idxInSeq;
+
+        const idxMinInf = 0;
+        const idxPlusInf = seqLen - 1;
+
+        const minusZeroStr = SPECIAL.MIN_ZERO.repeat(frame.R);
+        const plusZeroStr  = SPECIAL.PLUS_ZERO.repeat(frame.R);
+
+        const idxMinusZero = seq.findIndex(s => s === minusZeroStr);
+        const idxPlusZero  = seq.findIndex(s => s === plusZeroStr);
+        const centerIdx = Math.floor(seqLen / 2);
+
+        if ((prevIdx === idxMinInf && idx === idxMinInf + 1) ||
+            (prevIdx === idxMinInf + 1 && idx === idxMinInf)) {
+          return "minInf";
+        }
+
+        if ((prevIdx === idxPlusInf - 1 && idx === idxPlusInf) ||
+            (prevIdx === idxPlusInf && idx === idxPlusInf - 1)) {
+          return "plusInf";
+        }
+
+        if ((prevIdx === idxMinusZero && idx === idxPlusZero) ||
+            (prevIdx === idxPlusZero && idx === idxMinusZero) ||
+            (prevIdx === centerIdx && idx === centerIdx + 1) ||
+            (prevIdx === centerIdx + 1 && idx === centerIdx)) {
+          return "zeroCenter";
+        }
+
+        return null;
+      }
+
+      function flashColorForBoundary(type) {
+        if (type === "minInf") {
+          return "rgba(190, 210, 255, 1.0)";
+        }
+        if (type === "plusInf") {
+          return "rgba(255, 215, 140, 1.0)";
+        }
+        if (type === "zeroCenter") {
+          return "rgba(255, 255, 255, 1.0)";
+        }
+        return "rgba(255, 255, 255, 1.0)";
+      }
+
+      function octaveValue(R) {
+        if (R === 1) return 0.00;
+        if (R === 2) return 0.25;
+        if (R === 3) return 0.50;
+        if (R === 4) return 1.00;
+        return R / 4;
+      }
+
+      function percentageForFrame(frame) {
+        const seq = frame.seqRef;
+        const idx = frame.idxInSeq;
+        const N = seq.length;
+
+        const idxPlusInf = N - 1;
+        const plusZeroStr = SPECIAL.PLUS_ZERO.repeat(frame.R);
+        const idxPlusZero = seq.findIndex(s => s === plusZeroStr);
+
+        const idxZeroNat = idxPlusZero >= 0 ? idxPlusZero : 0;
+        const idxCap = idxPlusInf;
+
+        if (idx <= idxZeroNat) return 0;
+        if (idx >= idxCap) return 100;
+
+        const t = (idx - idxZeroNat) / (idxCap - idxZeroNat);
+        return t * 100;
+      }
+
+      function applyComplexFlashing(frame) {
+        const R = frame.R;
+        if (R % 2 !== 0) {
+          LaegnaCountersAPI.clearOverlay("r");
+          const mat = counters.r.material;
+          if (mat && counters.r.baseEmissive) {
+            mat.emissiveColor = counters.r.baseEmissive.clone();
+          }
+          return;
+        }
+
+        const flags = frame.complexFlashFlags || [];
+        const anyFlash = flags.some(f => f);
+
+        if (!anyFlash) {
+          LaegnaCountersAPI.clearOverlay("r");
+          const mat = counters.r.material;
+          if (mat && counters.r.baseEmissive) {
+            mat.emissiveColor = counters.r.baseEmissive.clone();
+          }
+          return;
+        }
+
+        const complexSub = controller.subFrame % 16;
+        const flashOn = complexSub < 4;
+
+        const mat = counters.r.material;
+        if (!mat) return;
+
+        if (flashOn) {
+          mat.emissiveColor = new BABYLON.Color3(
+            counters.r.baseEmissive.r * 1.8,
+            counters.r.baseEmissive.g * 1.8,
+            counters.r.baseEmissive.b * 1.8
+          );
+        } else {
+          mat.emissiveColor = counters.r.baseEmissive.clone();
+        }
+      }
+
+      function mainToOA(mainStr) {
+        let out = "";
+        for (const ch of mainStr) {
+          out += mapToOA(ch);
+        }
+        return out;
+      }
+
+      function drawOctaveGuide(frame) {
+        const R = frame.R;
+        const phase = frame.phase;
+        const mainStr = frame.main;
+
+        const w = octaveCanvas.width;
+        const h = octaveCanvas.height;
+        octaveCtx.clearRect(0, 0, w, h);
+
+        const max = Math.pow(4, R);
+        const boxMargin = 6;
+        const gx = boxMargin;
+        const gw = w - 2 * boxMargin;
+        const gy = h * 0.35;
+        const gh = h * 0.35;
+
+        const boxW = gw / max;
+
+        const colors = ["#ffd84a", "#ff5a4a", "#6adf6a", "#5a7dff"];
+
+        octaveCtx.fillStyle = "rgba(5,8,20,0.9)";
+        octaveCtx.fillRect(0, 0, w, h);
+
+        for (let i = 0; i < max; i++) {
+          const group = i % 4;
+          octaveCtx.fillStyle = colors[group];
+          octaveCtx.globalAlpha = 0.35;
+          octaveCtx.fillRect(gx + i * boxW, gy, boxW - 1, gh);
+        }
+        octaveCtx.globalAlpha = 1.0;
+
+        let tGlobal = 0.5;
+
+        if (phase === "frequential") {
+          if (!isAllSameSpecial(mainStr)) {
+            const n = base4IndexFromDigits(mainStr);
+            tGlobal = n / (max - 1);
+          }
+        } else {
+          const oa = mainToOA(mainStr);
+          const t = oaMiddleMappingUnsigned(oa);
+          tGlobal = t;
+        }
+
+        if (tGlobal < 0) tGlobal = 0;
+        if (tGlobal > 1) tGlobal = 1;
+
+        const globalX = gx + tGlobal * gw;
+        const boxIndex = Math.min(max - 1, Math.max(0, Math.floor(tGlobal * max)));
+        const localT = tGlobal * max - boxIndex;
+        const boxLeft = gx + boxIndex * boxW;
+        const dotX = boxLeft + localT * boxW;
+        const dotY = gy + gh / 2;
+
+        octaveCtx.fillStyle = "#ffffff";
+        octaveCtx.beginPath();
+        octaveCtx.arc(dotX, dotY, 4, 0, Math.PI * 2);
+        octaveCtx.fill();
+
+        octaveCtx.fillStyle = "#cfe4ff";
+        octaveCtx.font = "10px system-ui";
+        octaveCtx.textAlign = "left";
+        octaveCtx.textBaseline = "top";
+        octaveCtx.fillText("R=" + R + " (" + (phase === "frequential" ? "linear" : "octavian") + ")", 6, 2);
+
+        octaveCtx.textAlign = "right";
+        octaveCtx.fillText("0% … 100%", w - 6, 2);
+      }
+
+      function applyFrame(frame, isTransition, prevFrame) {
+        const R = frame.R;
+        const phase = frame.phase;
+        const mainStr = frame.main;
+
+        const Rvalue = octaveValue(R);
+        const Fpercent = percentageForFrame(frame);
+
+        counters.x.setGauge(Rvalue, Fpercent);
+        counters.x.setTitle("Octave / Percentage");
+        counters.x.setSubtitle(phase === "frequential" ? "Frequential phase" : "Octavian phase");
+
+        if (phase === "frequential") {
+          const val = frame.unsigned || "";
+          counters.y.setEnabled(val !== "");
+          LaegnaCountersAPI.setCounter("y", {
+            value: val,
+            title: "Unsigned decimal (0%–100%)",
+            subtitle: ""
+          });
+        } else {
+          const oa = mainToOA(mainStr);
+          const b4 = oaToBase4Repeated(oa);
+          const tUnsigned = oaMiddleMappingUnsigned(oa);
+          const tSigned = oaMiddleMappingSigned(oa);
+          const label =
+            `${oa} → base‑4(rep): ${b4} → √,√ (unsigned ${(tUnsigned * 100).toFixed(1)}%) / ` +
+            `√ (signed ${(tSigned * 100).toFixed(1)}%)`;
+          LaegnaCountersAPI.setCounter("y", {
+            value: label,
+            title: "Octavian middle (bit‑repeat + square roots)",
+            subtitle: ""
+          });
+          counters.y.setEnabled(true);
+        }
+        LaegnaCountersAPI.clearOverlay("y");
+
+        if (phase === "frequential") {
+          const val = frame.signed || "";
+          counters.z.setEnabled(val !== "");
+          LaegnaCountersAPI.setCounter("z", {
+            value: val,
+            title: "Signed linear (−∞…−0…+0…+∞)",
+            subtitle: ""
+          });
+        } else {
+          // base‑2 linear aspect, same style as frequentials but using OA
+          const oa = mainToOA(mainStr);
+          const sLin = octLinearSigned(oa);
+          const uLin = octLinearUnsigned(oa);
+          const label = `${sLin} / ${uLin}`;
+          LaegnaCountersAPI.setCounter("z", {
+            value: label,
+            title: "Octavian base‑2 linear (signed / unsigned)",
+            subtitle: ""
+          });
+          counters.z.setEnabled(true);
+        }
+        LaegnaCountersAPI.clearOverlay("z");
+
+        if (phase === "frequential") {
+          LaegnaCountersAPI.setCounter("l", {
+            value: frame.main,
+            title: "Laegna Naturals",
+            subtitle: ""
+          });
+        } else {
+          const oa = mainToOA(mainStr);
+          LaegnaCountersAPI.setCounter("l", {
+            value: oa,
+            title: "Octavian Naturals (O/A + infinities)",
+            subtitle: ""
+          });
+        }
+        LaegnaCountersAPI.clearOverlay("l");
+
+        if (R % 2 === 0) {
+          LaegnaCountersAPI.setEnabled("r", true);
+          LaegnaCountersAPI.setCounter("r", {
+            value: frame.complex,
+            title: phase === "frequential" ? "Laegna Complex" : "Octavian Complex (I/O/A/E)",
+            subtitle: ""
+          });
+          counters.l.setLowerCentered(false);
+        } else {
+          LaegnaCountersAPI.setEnabled("r", false);
+          LaegnaCountersAPI.clearOverlay("r");
+          counters.l.setLowerCentered(true);
+        }
+
+        applyComplexFlashing(frame);
+
+        drawOctaveGuide(frame);
+
+        if (isTransition && prevFrame && prevFrame.main !== frame.main) {
+          const boundaryType = isBoundaryTransition(prevFrame, frame);
+          if (boundaryType) {
+            const color = flashColorForBoundary(boundaryType);
+            const overlayMain = zeroOverlayFor(frame.main);
+            LaegnaCountersAPI.setOverlay("l", overlayMain, color, true);
+            if (R % 2 === 0 && frame.complex) {
+              const overlayComplex = zeroOverlayFor(frame.complex);
+              LaegnaCountersAPI.setOverlay("r", overlayComplex, color, true);
+            }
+
+            if (boundaryType === "zeroCenter") {
+              counters.z.setEnabled(false);
+            } else if (boundaryType === "minInf" || boundaryType === "plusInf") {
+              counters.y.setEnabled(false);
+              counters.z.setEnabled(false);
+            }
+
+            setTimeout(() => {
+              counters.y.setEnabled(true);
+              counters.z.setEnabled(true);
+              LaegnaCountersAPI.clearOverlay("l");
+              LaegnaCountersAPI.clearOverlay("r");
+            }, controller.tickMs * 0.3);
+          }
+        }
+      }
+
+      function currentFrameList() {
+        return frames.filter(f => f.phase === controller.phase && f.R === controller.R);
+      }
+
+      function advanceOrbit() {
+        orbitIndex = (orbitIndex + 1) % ORBIT.length;
+        controller.phase = ORBIT[orbitIndex].phase;
+        controller.R     = ORBIT[orbitIndex].R;
+        controller.frameIndex = 0;
+        controller.subFrame   = 0;
+        updateButtonStates();
+      }
+
+      function tick() {
+        const list = currentFrameList();
+        if (list.length === 0) return;
+
+        const frame = list[controller.frameIndex];
+        const prevFrame = controller.frameIndex > 0 ? list[controller.frameIndex - 1] : null;
+
+        controller.subFrameMax = frame.isZeroInf ? 20 : 10;
+
+        const isTransition = (controller.subFrame === 0);
+        applyFrame(frame, isTransition, prevFrame);
+
+        controller.subFrame++;
+        if (controller.subFrame >= controller.subFrameMax) {
+          controller.subFrame = 0;
+          controller.frameIndex++;
+          if (controller.frameIndex >= list.length) {
+            advanceOrbit();
+          }
+        }
+      }
+
+      let tickInterval = setInterval(tick, controller.tickMs);
+
+      function resetTickInterval() {
+        clearInterval(tickInterval);
+        tickInterval = setInterval(tick, controller.tickMs);
+      }
+
+      const panel = document.getElementById("controlPanel");
+      const buttons = panel.querySelectorAll("button");
+
+      function updateButtonStates() {
+        buttons.forEach(btn => {
+          btn.classList.remove("active");
+          const phase = btn.getAttribute("data-phase");
+          const R = btn.getAttribute("data-R");
+          const speed = btn.getAttribute("data-speed");
+          if (phase && Number(R) === controller.R && phase === controller.phase) {
+            btn.classList.add("active");
+          }
+          if (speed && speed === controller.speedMode) {
+            btn.classList.add("active");
+          }
+        });
+      }
+
+      panel.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const phase = btn.getAttribute("data-phase");
+        const Rattr = btn.getAttribute("data-R");
+        const speed = btn.getAttribute("data-speed");
+
+        if (phase && Rattr) {
+          const Rnum = Number(Rattr);
+          const idx = ORBIT.findIndex(o => o.phase === phase && o.R === Rnum);
+          if (idx >= 0) {
+            orbitIndex = idx;
+            controller.phase = ORBIT[orbitIndex].phase;
+            controller.R     = ORBIT[orbitIndex].R;
+            controller.frameIndex = 0;
+            controller.subFrame   = 0;
+            updateButtonStates();
+          }
+        }
+
+        if (speed) {
+          controller.speedMode = speed;
+          if (speed === "fast") controller.tickMs = 60;
+          else if (speed === "normal") controller.tickMs = 200;
+          else if (speed === "slow") controller.tickMs = 600;
+          resetTickInterval();
+          updateButtonStates();
+        }
+      });
+
+      updateButtonStates();
+
+      let time = 0;
+      scene.registerBeforeRender(() => {
+        const dt = scene.getEngine().getDeltaTime() * 0.001;
+        time += dt;
+
+        spiralParent.rotation.y += dt * 0.25;
+        torus.rotation.y -= dt * 0.18;
+
+        spiralNodes.forEach(({ mesh, t }, i) => {
+          const phase = time * 1.5 + t * Math.PI * 4;
+          const scale = 0.9 + 0.3 * Math.sin(phase);
+          mesh.scaling.set(scale, scale, scale);
+
+          const baseRadius = 2.0 + 4.0 * t;
+          const angle = t * Math.PI * 6.0;
+          const y = (t - 0.5) * 6.0;
+          const radialOffset = 0.3 * Math.sin(time * 0.8 + i * 0.3);
+          const r = baseRadius + radialOffset;
+
+          mesh.position.x = r * Math.cos(angle);
+          mesh.position.z = r * Math.sin(angle);
+          mesh.position.y = y + 0.2 * Math.sin(time * 0.9 + i * 0.5);
+        });
+
+        glyphPlane.position.y = 3.2 + 0.3 * Math.sin(time * 0.8);
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+  </script>
+</body>
+</html>

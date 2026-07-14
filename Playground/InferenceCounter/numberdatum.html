@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inference Counter – Number Table Viewer</title>
+
+<style>
+    body {
+        background: #111;
+        color: #eee;
+        font-family: Consolas, monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        margin: 20px;
+        font-weight: 400;
+    }
+
+    /* Tabs */
+    .tabs {
+        display: flex;
+        border-bottom: 2px solid #333;
+        margin: 0 20px;
+    }
+
+    .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        background: #222;
+        border: 1px solid #333;
+        border-bottom: none;
+        margin-right: 5px;
+    }
+
+    .tab.active {
+        background: #444;
+        font-weight: bold;
+    }
+
+    /* Table container */
+    .sheet {
+        display: none;
+        padding: 20px;
+    }
+
+    .sheet.active {
+        display: block;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #1a1a1a;
+    }
+
+    th, td {
+        border: 1px solid #333;
+        padding: 6px 10px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    th {
+        background: #333;
+    }
+
+    tr:nth-child(even) {
+        background: #161616;
+    }
+
+    .numcol {
+        font-weight: bold;
+        background: #222;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Inference Counter – Number Table Viewer</h1>
+
+<div class="tabs" id="tabs"></div>
+
+<div id="sheets"></div>
+
+<script>
+// Load numbers.json
+fetch("numbers.json")
+    .then(r => r.json())
+    .then(data => buildSheets(data))
+    .catch(err => {
+        document.body.innerHTML += "<p>Error loading numbers.json</p>";
+    });
+
+function buildSheets(json) {
+    const tabs = document.getElementById("tabs");
+    const sheets = document.getElementById("sheets");
+
+    json.chapters.forEach((chapter, index) => {
+        const R = chapter.R;
+        const numbers = chapter.numbers;
+
+        // Create tab
+        const tab = document.createElement("div");
+        tab.className = "tab" + (index === 0 ? " active" : "");
+        tab.textContent = "R = " + R;
+        tab.onclick = () => activateSheet(index);
+        tabs.appendChild(tab);
+
+        // Create sheet container
+        const sheet = document.createElement("div");
+        sheet.className = "sheet" + (index === 0 ? " active" : "");
+        sheet.id = "sheet" + index;
+
+        // Build table
+        const table = document.createElement("table");
+
+        // Header row
+        const header = document.createElement("tr");
+        header.innerHTML = `
+            <th class="numcol">Decimal</th>
+            <th class="numcol">Laegna</th>
+            <th class="numcol">Wave</th>
+            <th>Decimal.Signed</th>
+            <th>Decimal.Hex</th>
+            <th>Decimal.Bin</th>
+            <th>Laegna.Digits</th>
+            <th>Laegna.Hex</th>
+            <th>Laegna.Bin</th>
+            <th>Wave.Digits</th>
+            <th>Wave.Hex</th>
+            <th>Wave.Bin</th>
+        `;
+        table.appendChild(header);
+
+        // Rows
+        numbers.forEach(entry => {
+            const row = document.createElement("tr");
+
+            const dec = entry.Decimal;
+            const lae = entry.Laegna;
+            const wav = entry.Wave;
+
+            row.innerHTML = `
+                <td class="numcol">${dec.Num}</td>
+                <td class="numcol">${lae.Num}</td>
+                <td class="numcol">${wav.Num}</td>
+
+                <td>${dec.Signed ?? ""}</td>
+                <td>${dec.Hex ?? ""}</td>
+                <td>${dec.Bin ?? ""}</td>
+
+                <td>${JSON.stringify(lae.Digits ?? "")}</td>
+                <td>${lae.Hex ?? ""}</td>
+                <td>${lae.Bin ?? ""}</td>
+
+                <td>${JSON.stringify(wav.Digits ?? "")}</td>
+                <td>${wav.Hex ?? ""}</td>
+                <td>${wav.Bin ?? ""}</td>
+            `;
+
+            table.appendChild(row);
+        });
+
+        sheet.appendChild(table);
+        sheets.appendChild(sheet);
+    });
+}
+
+function activateSheet(index) {
+    document.querySelectorAll(".tab").forEach((t, i) => {
+        t.classList.toggle("active", i === index);
+    });
+    document.querySelectorAll(".sheet").forEach((s, i) => {
+        s.classList.toggle("active", i === index);
+    });
+}
+</script>
+
+</body>
+</html>

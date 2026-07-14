@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SheepCounter JSON Export</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 1.5rem;
+      background: #111;
+      color: #eee;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem 0 1rem 0;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #222;
+      color: #eee;
+    }
+    button:hover {
+      background: #333;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #000;
+      padding: 1rem;
+      border-radius: 4px;
+      border: 1px solid #333;
+      max-height: 80vh;
+      overflow: auto;
+      font-size: 0.85rem;
+    }
+    #status {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>SheepCounter JSON Export (Version 1)</h1>
+  <div id="status">Initializing…</div>
+  <button id="copyJsonBtn">Copy JSON</button>
+  <pre id="jsonOutput"></pre>
+
+  <!-- Your existing logic file -->
+  <script src="sheepcounter.js"></script>
+
+  <script>
+    (function () {
+      const statusEl = document.getElementById("status");
+      const outputEl = document.getElementById("jsonOutput");
+      const copyBtn = document.getElementById("copyJsonBtn");
+
+      function buildJsonFromSheepCounter() {
+        const counter = new window.SheepCounter();
+        // Ensure global times are laid out from 0
+        counter.setStartTime(0);
+
+        const toc = counter.getTOCStructure();
+        const root = {
+          meta: {
+            version: "1",
+            description: "SheepCounter Laegna number system export for AI positioning and analysis"
+          },
+          chapters: []
+        };
+
+        for (const mainDef of toc) {
+          const mainChapter = mainDef.mainChapter;
+          const chapterObj = {
+            typeCode: mainDef.typeCode,          // FREQUENTIAL / OCTAVIAN
+            displayName: mainDef.displayName,    // Human-readable
+            subchapters: []
+          };
+
+          for (const subDef of mainDef.subChapters) {
+            const subChapter = subDef.subChapter;
+            const system = subChapter.system;
+
+            const subObj = {
+              rCode: subDef.rCode,               // R0..R3
+              displayRName: subDef.displayRName, // "R=1" etc.
+              numbers: []
+            };
+
+            // Walk all numbers in this system
+            for (const num of system.numbers) {
+              const d0 = num.displays.d0; // RTS
+              const d1 = num.displays.d1; // signed
+              const d2 = num.displays.d2; // unsigned
+              const dm = num.displays.dm; // main Laegna
+              const ds = num.displays.ds; // secondary (complex / logic)
+
+              const numberObj = {
+                index: num.index,
+
+                // Name: natural number in Laegna, main screen content
+                name: {
+                  laegna: dm.content
+                },
+
+                // Natural: signed/unsigned as strings (no numeric form)
+                natural: {
+                  signed: d1.content,   // e.g. "-3", "+0", "+∞"
+                  unsigned: d2.visible ? d2.content : "" // e.g. "0", "1", "+2∞" or ""
+                },
+
+                // Complex: second screen content (ds)
+                complex: ds.visible ? ds.content : "",
+
+                // Logic: meaning + description from interface
+                logic: {
+                  meaning: dm.meaning || "",
+                  description: dm.description || ""
+                },
+
+                // Frame: global start/end times as used by sheepdebug.html
+                frame: {
+                  start: num.startTime,
+                  end: num.endTime
+                },
+
+                // Math: RTS strings + signed/unsigned ranges as strings
+                math: {
+                  RTS: d0.content,          // e.g. "R=2 T=4 S=±0↦3↦8"
+                  signedRange: d1.title,    // e.g. "-4..+4"
+                  unsignedRange: d2.title,  // e.g. "0..10"
+                  signedValue: d1.content,  // same as natural.signed
+                  unsignedValue: d2.visible ? d2.content : ""
+                }
+              };
+
+              subObj.numbers.push(numberObj);
+            }
+
+            chapterObj.subchapters.push(subObj);
+          }
+
+          root.chapters.push(chapterObj);
+        }
+
+        return root;
+      }
+
+      function renderJson() {
+        try {
+          const jsonObj = buildJsonFromSheepCounter();
+          const jsonText = JSON.stringify(jsonObj, null, 2);
+          outputEl.textContent = jsonText;
+          outputEl.dataset.json = jsonText;
+          statusEl.textContent = "JSON generated from SheepCounter. You can copy it and feed it to other systems.";
+        } catch (e) {
+          statusEl.textContent = "Error while generating JSON: " + e.message;
+          console.error(e);
+        }
+      }
+
+      copyBtn.addEventListener("click", () => {
+        const jsonText = outputEl.dataset.json || outputEl.textContent || "";
+        if (!jsonText.trim()) {
+          statusEl.textContent = "Nothing to copy yet.";
+          return;
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(jsonText)
+            .then(() => {
+              statusEl.textContent = "JSON copied to clipboard.";
+            })
+            .catch(err => {
+              statusEl.textContent = "Clipboard error: " + err.message;
+            });
+        } else {
+          // Fallback: select text manually
+          const range = document.createRange();
+          range.selectNodeContents(outputEl);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          statusEl.textContent = "Clipboard API not available. JSON selected; press Ctrl+C / Cmd+C.";
+        }
+      });
+
+      // Generate JSON once the page + sheepcounter.js are ready
+      window.addEventListener("load", renderJson);
+    })();
+  </script>
+</body>
+</html>

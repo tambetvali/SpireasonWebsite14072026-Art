@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Laegna Numbers – Introduction</title>
+
+  <!-- MathJax for LaTeX rendering (stable CDN) -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0b0c10;
+      color: #e6e6e6;
+      line-height: 1.6;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: radial-gradient(circle at top left, #1f2833, #0b0c10);
+      border-bottom: 1px solid #1f2833;
+    }
+    header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0;
+      max-width: 50rem;
+      color: #c5c6c7;
+    }
+    main {
+      padding: 1.5rem 2rem 3rem 2rem;
+      max-width: 70rem;
+      margin: 0 auto;
+    }
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 1px solid #1f2833;
+      padding-bottom: 0.3rem;
+      font-size: 1.4rem;
+    }
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+    }
+    p {
+      margin: 0.4rem 0 0.8rem 0;
+    }
+    code {
+      background: #1f2833;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .note {
+      border-left: 3px solid #45a29e;
+      padding-left: 0.8rem;
+      margin: 1rem 0;
+      color: #c5c6c7;
+      font-size: 0.95rem;
+    }
+    .panel {
+      border: 1px solid #1f2833;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #0f1117;
+    }
+    .panel-title {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #66fcf1;
+    }
+    .scroll-strip {
+      margin-top: 0.8rem;
+      position: relative;
+      height: 3rem;
+      overflow: hidden;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #1f2833, #0b0c10);
+      border: 1px solid #1f2833;
+    }
+    .scroll-track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 0.9rem;
+      color: #c5c6c7;
+    }
+    .scroll-tick {
+      display: inline-block;
+      padding: 0 1.5rem;
+      color: #66fcf1;
+    }
+    .scroll-tick span {
+      color: #c5c6c7;
+      margin-left: 0.3rem;
+    }
+    .small {
+      font-size: 0.9rem;
+      color: #c5c6c7;
+    }
+    a {
+      color: #66fcf1;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Laegna Numbers – Frequentials and Octavians</h1>
+  <p>
+    Laegna numbers reorganize the familiar idea of “number” into two tightly coupled systems:
+    <strong>Frequential</strong> (base‑4) and <strong>Octavian</strong> (base‑2). They keep
+    number length and value in strict synchronization, expose logarithmic and exponential
+    structure without irrationals, and treat zero as a quantum‑width element rather than
+    a normal interval.
+  </p>
+</header>
+
+<main>
+
+  <h2>1. Hologram vs. fractal numbers</h2>
+
+  <p>
+    In the usual decimal system, numbers behave like a <strong>hologram</strong>:
+    each extra digit can radically change the scale, and the same digit can mean
+    very different things depending on where it appears. The length of the number
+    and the size of the value are only loosely related. This is why decimal expansions
+    naturally support <em>fractals</em>: self‑similar patterns across scales, but with
+    no strict synchronization between digit length and magnitude.
+  </p>
+
+  <p>
+    Laegna numbers are designed to be <strong>non‑fractal in length</strong>:
+    the number of digits \(R\) and the total real range \(T\) are tightly coupled.
+    Length and size are not independent; they are synchronized. This makes Laegna
+    numbers more like a <strong>structured hologram with fixed layers</strong>:
+    each layer (digit) has a precise, predictable role in the global range.
+  </p>
+
+  <div class="note">
+    <strong>Zero as quantum element:</strong> in Laegna, \(-1\) is the interval from
+    \(0\) to \(-1\), and \(+1\) is the interval from \(0\) to \(+1\). Zero itself is
+    a <em>zero‑width quantum point</em>, not a “normal” interval. Digits after the comma
+    are interpreted as percentages on the last digit, not as an infinite fractal tail.
+  </div>
+
+  <h2>2. Frequential Laegna numbers (base‑4)</h2>
+
+  <h3>2.1. Discrete log–exp synchronization</h3>
+
+  <p>
+    In the Frequential system, each digit is one of \(I, O, A, E\), giving
+    \(4^R\) real values for a given length \(R\). We denote:
+  </p>
+
+  <p>
+    
+
+\[
+      T = 4^R
+    \]
+
+
+  </p>
+
+  <p>
+    Here, \(R\) is both:
+  </p>
+  <ul>
+    <li><strong>Digit length</strong> (how many Laegna digits), and</li>
+    <li><strong>Discrete logarithm</strong> of the range: \(\log_4 T = R\).</li>
+  </ul>
+
+  <p>
+    This gives a clean, integer‑only synchronization between <strong>range</strong> and
+    <strong>length</strong>:
+  </p>
+
+  <p>
+    
+
+\[
+      T = 4^R,\quad R = \log_4 T
+    \]
+
+
+  </p>
+
+  <p>
+    No irrational numbers are needed to move between “how long is the number”
+    and “how wide is the real range”. The system behaves like a discrete
+    log–exp pair, with \(R\) and \(T\) as dual coordinates.
+  </p>
+
+  <div class="panel">
+    <div class="panel-title">Clock synchronization of length and value</div>
+    <p class="small">
+      In binary, doubling the range corresponds to adding one bit. In Frequential Laegna,
+      multiplying the range by 4 corresponds to adding one Laegna digit. The “clock” of
+      length and the “clock” of value tick together:
+      
+
+\[
+        T_{R+1} = 4 \cdot T_R
+      \]
+
+
+      This is a discrete, integer‑only analogue of exponential growth, with
+      \(\log_4\) as the matching discrete logarithm.
+    </p>
+  </div>
+
+  <h3>2.2. Fourier‑like positioning and simple encodings</h3>
+
+  <p>
+    Because Frequential numbers are base‑4 and tightly synchronized with range,
+    they map naturally to <strong>Fourier‑like encodings</strong>. A simple way
+    to see this is to treat each Laegna digit as a small alphabet and encode it
+    into phases or amplitudes.
+  </p>
+
+  <p>
+    For example, a simple encoding could map:
+  </p>
+
+  <p>
+    
+
+\[
+      I \mapsto 0,\quad O \mapsto 1,\quad A \mapsto 2,\quad E \mapsto 3
+    \]
+
+
+  </p>
+
+  <p>
+    Then a length‑\(R\) Frequential number corresponds to a vector in
+    \(\mathbb{Z}_4^R\). If we interpret each position as a phase or frequency
+    component, we can assign a Fourier wavelength or amplitude to each digit
+    block of size 4. Because the range \(T\) and length \(R\) are synchronized,
+    the mapping from “digit position” to “frequency band” is clean and regular.
+  </p>
+
+  <div class="panel">
+    <div class="panel-title">Scroll‑tick: Frequential ranges</div>
+    <p class="small">
+      Scroll horizontally to feel how \(R\) and \(T\) grow together:
+    </p>
+    <div class="scroll-strip" id="freqStrip">
+      <div class="scroll-track" id="freqTrack">
+        <span class="scroll-tick">R=1 <span>T=4</span></span>
+        <span class="scroll-tick">R=2 <span>T=16</span></span>
+        <span class="scroll-tick">R=3 <span>T=64</span></span>
+        <span class="scroll-tick">R=4 <span>T=256</span></span>
+        <span class="scroll-tick">R=5 <span>T=1024</span></span>
+        <span class="scroll-tick">R=6 <span>T=4096</span></span>
+        <span class="scroll-tick">R=7 <span>T=16384</span></span>
+        <span class="scroll-tick">R=8 <span>T=65536</span></span>
+      </div>
+    </div>
+    <p class="small">
+      Each step in \(R\) multiplies the real range by 4. This is a discrete,
+      integer‑based exponential ladder, ideal for mapping to frequency bands
+      or Fourier modes without fractal ambiguity.
+    </p>
+  </div>
+
+  <p>
+    In contrast, decimal digits are not synchronized with any simple power of 2 or 4.
+    Their fractal behavior makes them excellent for representing arbitrary real numbers,
+    but less ideal for clean, discrete Fourier‑like positioning. Laegna’s Frequential
+    system is built to align with such structures from the start.
+  </p>
+
+  <h2>3. Octavian Laegna numbers (base‑2)</h2>
+
+  <h3>3.1. Hilbert spaces and dimensional loss</h3>
+
+  <p>
+    Octavian numbers are base‑2 Laegna numbers built from digits \(O\) and \(A\),
+    with the same special symbols \(W, U, V, \cap\). For a given length \(R\),
+    there are \(2^R\) real values:
+  </p>
+
+  <p>
+    
+
+\[
+      T = 2^R
+    \]
+
+
+  </p>
+
+  <p>
+    In functional analysis and quantum theory, <strong>Hilbert spaces</strong>
+    (after David Hilbert) describe infinite‑dimensional spaces where projections
+    from higher to lower dimensions inevitably lose information. A lower‑dimensional
+    space cannot fully represent a higher‑dimensional one.
+  </p>
+
+  <p>
+    Octavian Laegna numbers can be seen as a <strong>digitwise projection</strong>
+    of Frequential numbers: base‑4 structure compressed into base‑2. When operations
+    are performed digitwise between Frequential and Octavian representations, the
+    <strong>loss of information</strong> (or simplification) can be expressed and
+    tracked via the correlation of \(R\) and \(T\).
+  </p>
+
+  <div class="panel">
+    <div class="panel-title">Linearizing Hilbert‑like behavior</div>
+    <p class="small">
+      If we treat Frequential numbers as “complex” and Octavian numbers as a
+      simplification where each Frequential digit is projected into base‑2,
+      then keeping \(R\) aligned across both systems makes the mapping
+      <em>two‑dimensionally linear</em> in a discrete sense. Many phenomena that
+      in continuous Hilbert spaces appear non‑linear or hard to visualize become
+      stepwise and trackable when expressed through Laegna’s \(R\)–\(T\) structure.
+    </p>
+  </div>
+
+  <h3>3.2. Logical structure in Octavian digits</h3>
+
+  <p>
+    Octavian digits also carry logical meaning. For \(R = 1\):
+  </p>
+
+  <p>
+    
+
+\[
+      O \mapsto \text{False} \quad (\text{“Bad takes place”}), \qquad
+      A \mapsto \text{True} \quad (\text{“Good takes place”})
+    \]
+
+
+  </p>
+
+  <p>
+    For \(R \ge 2\), the first two digits encode a 2‑bit logical state:
+  </p>
+
+  <p>
+    
+
+\[
+      \begin{aligned}
+        OO &\mapsto \text{False–False} &\quad& \text{“Disillusion Bad (I)”} \\
+        OA &\mapsto \text{False–True}  && \text{“Illusion Bad (O)”} \\
+        AO &\mapsto \text{True–False}  && \text{“Real Good (A)”} \\
+        AA &\mapsto \text{True–True}   && \text{“Illusion Good Hope (E)”}
+      \end{aligned}
+    \]
+
+
+  </p>
+
+  <p>
+    This gives Octavian numbers a natural interpretation in terms of
+    <strong>logical Hilbert‑like states</strong>, where each number is both
+    a position in a discrete range and a structured logical configuration.
+  </p>
+
+  <h2>4. Central roles of 0, 1, 2, 4, 16 and infinities</h2>
+
+  <p>
+    Laegna numbers emphasize a small set of central relations:
+  </p>
+
+  <ul>
+    <li><strong>0</strong> is a quantum point, not an interval.</li>
+    <li><strong>±1</strong> are the first non‑zero intervals from 0.</li>
+    <li><strong>2</strong> is the base of Octavian growth: \(T = 2^R\).</li>
+    <li><strong>4</strong> is the base of Frequential growth: \(T = 4^R\).</li>
+    <li><strong>16</strong> appears as the Laegna “hex” complex table: \(4^2\).</li>
+    <li><strong>±∞</strong> are explicit boundary symbols \(W\) (−∞) and \(\cap\) (+∞),
+        with structured zero variants \(V\) (log, −0) and \(U\) (exp, +0).</li>
+  </ul>
+
+  <p>
+    These relations make Laegna numbers particularly suitable for:
+  </p>
+
+  <ul>
+    <li>Discrete logarithmic reasoning without irrationals.</li>
+    <li>Fourier‑like encodings where digit positions map cleanly to frequencies.</li>
+    <li>Hilbert‑space‑inspired projections between base‑4 and base‑2 structures.</li>
+    <li>Logical interpretations of number states via Octavian digits.</li>
+  </ul>
+
+  <div class="panel">
+    <div class="panel-title">Logarithmic whole‑number qualities</div>
+    <p class="small">
+      Because \(T = 4^R\) and \(T = 2^R\) are both integer relations, Laegna numbers
+      live in a world where logarithms like \(\log_2 T\) and \(\log_4 T\) are
+      <em>always whole numbers</em> for the ranges considered. This is very different
+      from decimal, where \(\log_{10}\) of a range is rarely an integer. In Laegna,
+      the “logarithmic dimension” is literally the digit length \(R\).
+    </p>
+  </div>
+
+  <h2>5. Frequential numbers and zero as quantum element</h2>
+
+  <p>
+    In Frequential Laegna numbers, zero is not “just another number”. It is a
+    <strong>zero‑width quantum element</strong> between negative and positive
+    intervals. The numbers \(-1\) and \(+1\) are the first intervals from zero,
+    and the special symbols \(V\) and \(U\) represent logarithmic and exponential
+    zero variants (“log” and “exp” in the unsigned scale).
+  </p>
+
+  <p>
+    Digits after the comma are interpreted as <strong>percentages on the last digit</strong>,
+    not as an infinite fractal tail. This keeps the system coherent for advanced
+    mathematics where intuition about coherence and tautology matters more than
+    arbitrary real‑number precision.
+  </p>
+
+  <div class="note">
+    Laegna numbers are built so that many “advanced rules” are not imposed from
+    outside, but <em>emerge naturally</em> from the structure: the way \(R\) and \(T\)
+    relate, the way zero is treated, and the way logical and complex interpretations
+    are layered on top of the same discrete backbone.
+  </div>
+
+</main>
+
+<script>
+  // Simple auto-scrolling for the Frequential R/T strip
+  (function() {
+    const track = document.getElementById('freqTrack');
+    if (!track) return;
+    let offset = 0;
+    function step() {
+      offset -= 0.3;
+      track.style.transform = 'translate(' + offset + 'px, -50%)';
+      // Reset when scrolled far enough
+      if (Math.abs(offset) > track.offsetWidth / 2) {
+        offset = 0;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+</script>
+
+<h2>6. Using the Laegna JSON Database</h2>
+
+<p>
+  The Laegna number system is not only a mathematical structure — it is also a
+  <strong>data structure</strong>. Every number, every range, every special symbol,
+  every signed and unsigned interpretation, every complex value, and every logical
+  state is encoded directly in a machine‑readable form. This is the purpose of the
+  <code>sheepcounter.json</code> dataset.
+</p>
+
+<div class="panel">
+  <div class="panel-title">Where the JSON comes from</div>
+  <p class="small">
+    The complete JSON database is generated by the Laegna engine itself. You can
+    obtain it from:
+    <a href="sheepjason.html" target="_blank">sheepjason.html</a>
+    — a generator page that produces the full dataset exactly as the system defines it.
+    You can copy the JSON directly and paste it into any file or AI system.
+  </p>
+</div>
+
+<h3>6.1. Why this JSON matters</h3>
+
+<p>
+  The JSON is not an approximation or a commentary. It is the <strong>canonical
+  representation</strong> of the Laegna number system. It contains:
+</p>
+
+<ul>
+  <li>Every chapter (Frequential, Octavian)</li>
+  <li>Every subchapter (R=1, R=2, R=3, R=4)</li>
+  <li>Every number in every system</li>
+  <li>Signed and unsigned values as strings</li>
+  <li>Complex values (Laegna hex or OA→IOAE folding)</li>
+  <li>Logical meanings and descriptions</li>
+  <li>RTS strings and mathematical ranges</li>
+  <li>Global animation frames (start/end)</li>
+</ul>
+
+<p>
+  This means the JSON is a <strong>complete map</strong> of the Laegna universe.
+  Nothing is inferred. Nothing is guessed. Everything is explicit.
+</p>
+
+<h3>6.2. How well the structure is understood</h3>
+
+<p>
+  The JSON makes the internal structure of Laegna numbers transparent:
+</p>
+
+<ul>
+  <li>The ordering of numbers (W… → real half → V/U → real half → ∩…)</li>
+  <li>The synchronization of length \(R\) and range \(T\)</li>
+  <li>The dual signed/unsigned interpretation</li>
+  <li>The role of zero variants (“log” and “exp”)</li>
+  <li>The complex encodings for even \(R\)</li>
+  <li>The logical states in Octavian digits</li>
+  <li>The exact global frame positions for animation or indexing</li>
+</ul>
+
+<p>
+  Because the JSON is generated by the same engine that defines the numbers,
+  it reflects the system with <strong>perfect fidelity</strong>.
+</p>
+
+<h3>6.3. Why direct data prevents misunderstanding</h3>
+
+<p>
+  When humans describe a number system verbally, they inevitably introduce
+  interpretation. When an AI reads a description, it must reconstruct the rules
+  from language — and language is ambiguous.
+</p>
+
+<p>
+  But when an AI reads the JSON:
+</p>
+
+<ul>
+  <li>There is no ambiguity.</li>
+  <li>No rule needs to be reconstructed.</li>
+  <li>No interpretation is required.</li>
+  <li>The structure is already explicit.</li>
+</ul>
+
+<p>
+  This shifts the AI’s task from <em>guessing the rules</em> to
+  <strong>pattern‑matching the structure</strong>. The AI sees the system as it is,
+  not as it is described.
+</p>
+
+<div class="note">
+  Direct data eliminates the “translation layer” between human explanation and
+  machine understanding. The AI learns the system by reading the system itself.
+</div>
+
+<h3>6.4. How to use the JSON with AI systems</h3>
+
+<p>
+  To use the JSON with an AI like Copilot, simply:
+</p>
+
+<ol>
+  <li>Open <a href="sheepjason.html" target="_blank">sheepjason.html</a>.</li>
+  <li>Copy the generated JSON.</li>
+  <li>Paste it directly into the AI as a data block.</li>
+</ol>
+
+<p>
+  Once the AI has the JSON, it can:
+</p>
+
+<ul>
+  <li>Understand the ordering of Laegna numbers</li>
+  <li>Interpret signed and unsigned values correctly</li>
+  <li>Use complex values for transformations</li>
+  <li>Use logical meanings for reasoning tasks</li>
+  <li>Map animation frames to number positions</li>
+  <li>Perform operations consistently across R and T</li>
+</ul>
+
+<p>
+  This gives the AI a <strong>structural understanding</strong> that is far deeper
+  than any verbal explanation. Instead of learning “about” Laegna numbers, the AI
+  learns the system <em>from the inside</em>.
+</p>
+
+<h3>6.5. Why this is better than most explanations</h3>
+
+<p>
+  Most number systems are explained verbally, and the AI must infer the rules.
+  With Laegna numbers, the rules are <strong>encoded directly</strong>:
+</p>
+
+<ul>
+  <li>Every number is a node.</li>
+  <li>Every property is a field.</li>
+  <li>Every relation is explicit.</li>
+</ul>
+
+<p>
+  This makes Laegna numbers uniquely suited for AI training:
+</p>
+
+<ul>
+  <li>The structure is finite and complete.</li>
+  <li>The logic is embedded in the data.</li>
+  <li>The ranges are discrete and synchronized.</li>
+  <li>The special values (W, V, U, ∩) are explicit.</li>
+  <li>The system is self‑describing.</li>
+</ul>
+
+<p>
+  In short: the JSON is not just a dataset — it is the <strong>mathematical DNA</strong>
+  of the Laegna system.
+</p>
+
+<div class="panel">
+  <div class="panel-title">Copy, paste, and explore</div>
+  <p class="small">
+    By copying the JSON into an AI, you give it the same structural understanding
+    that the Laegna engine itself uses. This allows the AI to reason about Laegna
+    numbers with precision, consistency, and insight that would be impossible from
+    verbal explanations alone.
+  </p>
+</div>
+
+<h2>7. Laegna Number System Manual</h2>
+
+<p>
+  This chapter provides a formal description of the Laegna number system as implemented
+  in Version 1 of the SheepCounter engine. It is intended for mathematicians, programmers,
+  and AI systems that require a precise, structural understanding of the system rather
+  than a conceptual overview. All definitions here correspond exactly to the JSON
+  representation produced by <a href="sheepjason.html" target="_blank">sheepjason.html</a>.
+</p>
+
+<h3>7.1. Overview</h3>
+
+<p>
+  Laegna numbers exist in two parallel systems:
+</p>
+
+<ul>
+  <li><strong>Frequential</strong> — base‑4, digits I/O/A/E, complex structure, log–exp synchronization.</li>
+  <li><strong>Octavian</strong> — base‑2, digits O/A, logical structure, Hilbert‑like projections.</li>
+</ul>
+
+<p>
+  Both systems share the same special symbols:
+</p>
+
+<ul>
+  <li><strong>W</strong> — minus infinity (−∞)</li>
+  <li><strong>V</strong> — logarithmic zero variant (−0)</li>
+  <li><strong>U</strong> — exponential zero variant (+0)</li>
+  <li><strong>∩</strong> — plus infinity (+∞)</li>
+</ul>
+
+<p>
+  A Laegna number is defined by:
+</p>
+
+<ul>
+  <li>its <strong>digit string</strong> (main label),</li>
+  <li>its <strong>position</strong> in the ordered sequence,</li>
+  <li>its <strong>signed</strong> and <strong>unsigned</strong> interpretations,</li>
+  <li>its <strong>complex</strong> or <strong>logical</strong> interpretation,</li>
+  <li>its <strong>mathematical range</strong> (R, T, S),</li>
+  <li>its <strong>global frame</strong> (start/end),</li>
+  <li>and its <strong>meaning/description</strong> (Logecs or Octavian logic).</li>
+</ul>
+
+<p>
+  All of these appear explicitly in the JSON dataset.
+</p>
+
+<h3>7.2. Digit length and range</h3>
+
+<p>
+  For a given digit length \(R\), the real range \(T\) is:
+</p>
+
+<p>
+  <strong>Frequential:</strong> \(T = 4^R\)<br>
+  <strong>Octavian:</strong> \(T = 2^R\)
+</p>
+
+<p>
+  This creates a discrete log–exp pair:
+</p>
+
+<p>
+  
+
+\[
+    R = \log_4 T \quad \text{(Frequential)}, \qquad
+    R = \log_2 T \quad \text{(Octavian)}
+  \]
+
+
+</p>
+
+<p>
+  No irrational numbers appear in these relations. Length and range are synchronized
+  exactly, making Laegna numbers non‑fractal in structure.
+</p>
+
+<h3>7.3. Ordering of numbers</h3>
+
+<p>
+  For any \(R\), both systems follow the same ordering:
+</p>
+
+<ol>
+  <li><strong>W…</strong> (minus infinity)</li>
+  <li>First half of real naturals</li>
+  <li><strong>V…</strong> (−0, logarithmic zero)</li>
+  <li><strong>U…</strong> (+0, exponential zero)</li>
+  <li>Second half of real naturals</li>
+  <li><strong>∩…</strong> (plus infinity)</li>
+</ol>
+
+<p>
+  This ordering is reflected exactly in the JSON index field.
+</p>
+
+<h3>7.4. Signed and unsigned interpretations</h3>
+
+<p>
+  Every Laegna number has two interpretations:
+</p>
+
+<ul>
+  <li><strong>Signed</strong> — symmetric around zero, skipping 0.</li>
+  <li><strong>Unsigned</strong> — natural numbers from 0 to \(T+2\), with special handling.</li>
+</ul>
+
+<p>
+  Special values:
+</p>
+
+<ul>
+  <li><strong>W…</strong> → signed: −∞, unsigned: 0</li>
+  <li><strong>V…</strong> → signed: −0, unsigned: “log”</li>
+  <li><strong>U…</strong> → signed: +0, unsigned: “exp”</li>
+  <li><strong>∩…</strong> → signed: +∞, unsigned: +2∞</li>
+</ul>
+
+<p>
+  Real naturals map to:
+</p>
+
+<ul>
+  <li><strong>signed</strong>: \(-T/2 - 1\) to \(+T/2 + 1\), skipping 0</li>
+  <li><strong>unsigned</strong>: 1 to \(T\)</li>
+</ul>
+
+<h3>7.5. Complex values</h3>
+
+<p>
+  For even \(R\), Frequential numbers map each pair of digits to a Laegna‑hex symbol:
+</p>
+
+<p>
+  
+
+\[
+    \{I,O,A,E\}^2 \rightarrow \{A,B,C,\dots,H,P,Q,R,\dots\}
+  \]
+
+
+</p>
+
+<p>
+  Octavian numbers map each pair of OA digits to a single IOAE digit, collapsing
+  special pairs (UU→U, VV→V, etc.).
+</p>
+
+<p>
+  These complex values appear in the JSON under <code>complex</code>.
+</p>
+
+<h3>7.6. Logical values</h3>
+
+<p>
+  Frequential logic is based on the first digit (Logecs). Octavian logic is based
+  on the first one or two digits:
+</p>
+
+<ul>
+  <li><strong>R = 1</strong>: O = False (“Bad takes place”), A = True (“Good takes place”)</li>
+  <li><strong>R ≥ 2</strong>: OO, OA, AO, AA → 2‑bit logical states</li>
+</ul>
+
+<p>
+  These appear in the JSON under <code>logic.meaning</code> and
+  <code>logic.description</code>.
+</p>
+
+<h3>7.7. Mathematical ranges (RTS)</h3>
+
+<p>
+  Each number includes:
+</p>
+
+<ul>
+  <li><strong>R</strong> — digit length</li>
+  <li><strong>T</strong> — real range</li>
+  <li><strong>S</strong> — signed operational path</li>
+</ul>
+
+<p>
+  The S‑string has the form:
+</p>
+
+<p>
+  <code>S = ±0↦N↦(T+4)</code>
+</p>
+
+<p>
+  This expresses:
+</p>
+
+<ul>
+  <li>zero as a quantum point,</li>
+  <li>the half‑range,</li>
+  <li>and the extended boundary.</li>
+</ul>
+
+<h3>7.8. Global frames</h3>
+
+<p>
+  Every number has a <strong>start</strong> and <strong>end</strong> frame in the
+  global timeline. These frames are used by the animation engine and by any system
+  that needs to map numbers to continuous time or space.
+</p>
+
+<p>
+  Frames appear in the JSON under <code>frame.start</code> and <code>frame.end</code>.
+</p>
+
+<h3>7.9. JSON as canonical representation</h3>
+
+<p>
+  The JSON dataset is the authoritative description of the Laegna number system.
+  It contains:
+</p>
+
+<ul>
+  <li>the full ordering,</li>
+  <li>all interpretations,</li>
+  <li>all complex and logical values,</li>
+  <li>all ranges,</li>
+  <li>all frames,</li>
+  <li>and all meanings.</li>
+</ul>
+
+<p>
+  It is not a summary — it is the system itself.
+</p>
+
+<div class="panel">
+  <div class="panel-title">Using the JSON with AI</div>
+  <p class="small">
+    When an AI reads the JSON, it does not need to infer rules from text. The structure
+    is explicit. The AI learns the system by reading the system. This eliminates
+    ambiguity and ensures that reasoning about Laegna numbers is grounded in the
+    actual data rather than in interpretation.
+  </p>
+</div>
+
+<p>
+  The JSON can be copied from <a href="sheepjason.html" target="_blank">sheepjason.html</a>
+  and pasted into any AI system for analysis, training, or transformation.
+</p>
+
+</body>
+</html>

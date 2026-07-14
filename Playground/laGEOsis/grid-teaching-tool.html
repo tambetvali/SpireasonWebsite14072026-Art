@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sphere Grid Octaves — Teaching Tool</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #050505;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  #ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: rgba(0,0,0,0.7);
+    padding: 10px 14px;
+    border-radius: 8px;
+    max-width: 320px;
+    font-size: 13px;
+  }
+  #ui h1 {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+  }
+  #ui h2 {
+    margin: 8px 0 4px 0;
+    font-size: 13px;
+  }
+  button {
+    margin: 2px;
+    padding: 4px 8px;
+    background: #222;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  button:hover {
+    background: #444;
+  }
+  label {
+    display: inline-block;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  input[type="radio"] {
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div id="ui">
+  <h1>Sphere Grid Octaves</h1>
+  <div>
+    This tool shows how a sphere can be covered by an x×x square-like grid,
+    and how octaves of 2 (1, 2, 4, 8, 16) subdivide the surface.
+  </div>
+
+  <h2>Grid octave (n×n)</h2>
+  <div>
+    <button onclick="setGrid(1)">1×1</button>
+    <button onclick="setGrid(2)">2×2</button>
+    <button onclick="setGrid(4)">4×4</button>
+    <button onclick="setGrid(8)">8×8</button>
+    <button onclick="setGrid(16)">16×16</button>
+  </div>
+
+  <h2>Grid style</h2>
+  <div>
+    <label><input type="radio" name="style" value="wire" checked onchange="setStyle('wire')">Wireframe lines</label><br>
+    <label><input type="radio" name="style" value="glow" onchange="setStyle('glow')">Glowing lines</label><br>
+    <label><input type="radio" name="style" value="octaves" onchange="setStyle('octaves')">Colored octaves</label><br>
+    <label><input type="radio" name="style" value="filled" onchange="setStyle('filled')">Filled squares</label>
+  </div>
+
+  <h2>Explanation</h2>
+  <div id="explain">
+    The sphere is parameterized by latitude (vertical) and longitude (horizontal).
+    An n×n grid divides latitude and longitude into n bands, forming n² cells.
+    Each cell is a warped “square” on the sphere, connected to its neighbors.
+  </div>
+</div>
+
+<canvas id="sphereCanvas"></canvas>
+
+<script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+
+<script>
+/* -----------------------------------------------------------
+   BASIC SETUP
+----------------------------------------------------------- */
+const canvas = document.getElementById("sphereCanvas");
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(window.devicePixelRatio);
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  renderer.setSize(canvas.width, canvas.height);
+}
+resize();
+window.addEventListener("resize", resize);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+
+const camera = new THREE.PerspectiveCamera(
+  45,
+  canvas.width / canvas.height,
+  0.1,
+  10
+);
+camera.position.set(0,0,3);
+
+scene.add(new THREE.AmbientLight(0x666666));
+const light = new THREE.DirectionalLight(0xffffff, 1.4);
+light.position.set(2,2,3);
+scene.add(light);
+
+/* -----------------------------------------------------------
+   SPHERE
+----------------------------------------------------------- */
+const sphereGeom = new THREE.SphereGeometry(1, 64, 64);
+const sphereMat = new THREE.MeshPhongMaterial({
+  color: 0x111133,
+  shininess: 60,
+  specular: 0x8888ff
+});
+const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+scene.add(sphere);
+
+/* -----------------------------------------------------------
+   GRID OBJECTS
+----------------------------------------------------------- */
+let gridLines = null;
+let gridFaces = null;
+let currentN = 4;
+let currentStyle = "wire";
+
+/* -----------------------------------------------------------
+   PARAMETRIZATION
+   lat = π(t - 0.5), lon = 2π s
+----------------------------------------------------------- */
+function spherePoint(t, s){
+  const lat = (t - 0.5) * Math.PI;
+  const lon = s * 2 * Math.PI;
+  const x = Math.cos(lat) * Math.cos(lon);
+  const y = Math.sin(lat);
+  const z = Math.cos(lat) * Math.sin(lon);
+  return new THREE.Vector3(x,y,z);
+}
+
+/* -----------------------------------------------------------
+   BUILD GRID LINES
+----------------------------------------------------------- */
+function buildGridLines(n, style){
+  if(gridLines){
+    scene.remove(gridLines);
+    gridLines.geometry.dispose();
+    gridLines.material.dispose();
+    gridLines = null;
+  }
+
+  const positions = [];
+  const colors = [];
+
+  const baseColorWire = new THREE.Color(0xffffff);
+  const baseColorGlow = new THREE.Color(0x00ffff);
+
+  // latitude lines
+  for(let i=0;i<=n;i++){
+    const t = i/n;
+    for(let j=0;j<=n;j++){
+      const s = j/n;
+      const p = spherePoint(t, s);
+      positions.push(p.x, p.y, p.z);
+
+      let c;
+      if(style === "glow") c = baseColorGlow;
+      else if(style === "octaves") {
+        const band = i;
+        const hue = band / n;
+        c = new THREE.Color().setHSL(hue, 1.0, 0.5);
+      } else {
+        c = baseColorWire;
+      }
+      colors.push(c.r, c.g, c.b);
+
+      if(j>0){
+        const sPrev = (j-1)/n;
+        const p2 = spherePoint(t, sPrev);
+        positions.push(p2.x, p2.y, p2.z);
+        colors.push(c.r, c.g, c.b);
+      }
+    }
+  }
+
+  // longitude lines
+  for(let j=0;j<=n;j++){
+    const s = j/n;
+    for(let i=0;i<=n;i++){
+      const t = i/n;
+      const p = spherePoint(t, s);
+      positions.push(p.x, p.y, p.z);
+
+      let c;
+      if(style === "glow") c = baseColorGlow;
+      else if(style === "octaves") {
+        const band = j;
+        const hue = band / n;
+        c = new THREE.Color().setHSL(hue, 1.0, 0.5);
+      } else {
+        c = baseColorWire;
+      }
+      colors.push(c.r, c.g, c.b);
+
+      if(i>0){
+        const tPrev = (i-1)/n;
+        const p2 = spherePoint(tPrev, s);
+        positions.push(p2.x, p2.y, p2.z);
+        colors.push(c.r, c.g, c.b);
+      }
+    }
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geom.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+
+  const mat = new THREE.LineBasicMaterial({
+    vertexColors: true,
+    linewidth: 2
+  });
+
+  gridLines = new THREE.LineSegments(geom, mat);
+  scene.add(gridLines);
+}
+
+/* -----------------------------------------------------------
+   BUILD GRID FACES (FILLED SQUARES)
+----------------------------------------------------------- */
+function buildGridFaces(n){
+  if(gridFaces){
+    scene.remove(gridFaces);
+    gridFaces.geometry.dispose();
+    gridFaces.material.dispose();
+    gridFaces = null;
+  }
+
+  const positions = [];
+  const colors = [];
+
+  for(let i=0;i<n;i++){
+    const t0 = i/n;
+    const t1 = (i+1)/n;
+    for(let j=0;j<n;j++){
+      const s0 = j/n;
+      const s1 = (j+1)/n;
+
+      const p00 = spherePoint(t0, s0);
+      const p10 = spherePoint(t1, s0);
+      const p11 = spherePoint(t1, s1);
+      const p01 = spherePoint(t0, s1);
+
+      // two triangles per cell
+      positions.push(p00.x,p00.y,p00.z, p10.x,p10.y,p10.z, p11.x,p11.y,p11.z);
+      positions.push(p00.x,p00.y,p00.z, p11.x,p11.y,p11.z, p01.x,p01.y,p01.z);
+
+      const hue = (i + j) / (2*n);
+      const c = new THREE.Color().setHSL(hue, 0.8, 0.5);
+      for(let k=0;k<6;k++){
+        colors.push(c.r, c.g, c.b);
+      }
+    }
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geom.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+
+  const mat = new THREE.MeshBasicMaterial({
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.35,
+    side: THREE.DoubleSide
+  });
+
+  gridFaces = new THREE.Mesh(geom, mat);
+  scene.add(gridFaces);
+}
+
+/* -----------------------------------------------------------
+   UPDATE GRID
+----------------------------------------------------------- */
+function updateGrid(){
+  if(currentStyle === "filled"){
+    buildGridLines(currentN, "wire");
+    buildGridFaces(currentN);
+  } else {
+    if(gridFaces){
+      scene.remove(gridFaces);
+      gridFaces.geometry.dispose();
+      gridFaces.material.dispose();
+      gridFaces = null;
+    }
+    buildGridLines(currentN, currentStyle);
+  }
+}
+
+/* -----------------------------------------------------------
+   UI HANDLERS
+----------------------------------------------------------- */
+function setGrid(n){
+  currentN = n;
+  updateGrid();
+  const explain = document.getElementById("explain");
+  explain.textContent =
+    `Grid size: ${n}×${n}. Latitude and longitude are each divided into ${n} bands, `
+    + `forming ${n*n} cells. Each cell is a warped square on the sphere, connected `
+    + `to its neighbors. Octaves of 2 (1, 2, 4, 8, 16) show how the grid refines.`;
+}
+
+function setStyle(style){
+  currentStyle = style;
+  updateGrid();
+}
+
+/* -----------------------------------------------------------
+   INTERACTION (ROTATION)
+----------------------------------------------------------- */
+let dragging = false;
+let lastX = 0, lastY = 0;
+
+canvas.addEventListener("mousedown", e=>{
+  dragging = true;
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+canvas.addEventListener("mouseup", ()=> dragging=false);
+canvas.addEventListener("mouseleave", ()=> dragging=false);
+
+canvas.addEventListener("mousemove", e=>{
+  if(!dragging) return;
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+  lastX = e.clientX;
+  lastY = e.clientY;
+
+  sphere.rotation.y += dx * 0.005;
+  sphere.rotation.x += dy * 0.005;
+  if(gridLines){
+    gridLines.rotation.y = sphere.rotation.y;
+    gridLines.rotation.x = sphere.rotation.x;
+  }
+  if(gridFaces){
+    gridFaces.rotation.y = sphere.rotation.y;
+    gridFaces.rotation.x = sphere.rotation.x;
+  }
+});
+
+/* -----------------------------------------------------------
+   ANIMATE
+----------------------------------------------------------- */
+function animate(){
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
+
+/* -----------------------------------------------------------
+   INITIAL STATE
+----------------------------------------------------------- */
+currentN = 4;
+currentStyle = "wire";
+updateGrid();
+</script>
+
+</body>
+</html>

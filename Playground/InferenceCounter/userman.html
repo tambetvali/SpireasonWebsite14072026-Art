@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Number Database Viewer</title>
+
+<!-- Highlight.js for JSON -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+
+<!-- Marked for Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- MathJax for $$ math -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$','$$']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+body {
+    margin: 0;
+    background: #101015;
+    color: #f0f0f0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar (left) */
+#files {
+    width: 260px;
+    background: #171720;
+    border-right: 1px solid #2c2c3a;
+    padding: 18px 14px;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+
+/* File entry */
+.file {
+    padding: 10px 12px;
+    margin: 10px 0;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.file:hover {
+    background: #232334;
+}
+.file.active {
+    background: #2f2f45;
+}
+
+/* Two-line layout: folder + file */
+.file-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+.file-sub {
+    margin-left: 24px;
+    opacity: 0.8;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Main + side info */
+#main {
+    margin-left: 260px;
+    flex: 1;
+    display: flex;
+    height: 100vh;
+}
+
+/* Viewer center */
+#viewer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #2c2c3a;
+}
+
+/* Top bar */
+#topbar {
+    background: #181824;
+    border-bottom: 1px solid #2c2c3a;
+    padding: 10px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+#topbar-main {
+    font-weight: 600;
+}
+#topbar-sub {
+    opacity: 0.8;
+}
+
+/* Content area */
+#content {
+    padding: 18px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Right side info panel */
+#sideinfo {
+    width: 260px;
+    background: #14141f;
+    padding: 14px 14px 18px;
+    overflow-y: auto;
+    font-size: 13px;
+}
+.side-section {
+    margin-bottom: 18px;
+}
+.side-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a0a0ff;
+    margin-bottom: 6px;
+}
+.side-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.side-list li {
+    margin: 3px 0;
+    opacity: 0.9;
+}
+
+/* Code block for JSON */
+pre {
+    background: #1a1a28;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+}
+
+/* Markdown content tweaks */
+#content h1, #content h2, #content h3 {
+    margin-top: 1.2em;
+    margin-bottom: 0.4em;
+}
+#content p {
+    line-height: 1.5;
+    margin: 0.4em 0;
+}
+#content code {
+    background: #222235;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+#content pre code {
+    background: transparent;
+    padding: 0;
+}
+
+/* --- FIX JSON VISIBILITY --- */
+.hljs-string {
+    color: #9cff9c !important;   /* bright green */
+}
+.hljs-number {
+    color: #ffb86c !important;   /* warm orange */
+}
+.hljs-literal {
+    color: #ff79c6 !important;   /* magenta */
+}
+.hljs-keyword {
+    color: #8be9fd !important;   /* cyan */
+}
+.hljs-attr,
+.hljs-attribute {
+    color: #ffd866 !important;   /* yellow */
+}
+.hljs-punctuation,
+.hljs-symbol {
+    color: #e0e0e0 !important;   /* light gray */
+}
+
+/* --- MAKE JSON BACKGROUND MORE VISIBLE --- */
+pre {
+    background: #151520 !important;
+    border: 1px solid #2a2a3a;
+}
+
+/* --- FIX LEFT SIDEBAR OVERLAP --- */
+#viewer {
+    margin-left: 280px !important; /* was 260px */
+}
+
+/* --- ADD BREATHING ROOM TO CONTENT --- */
+#content {
+    padding: 26px !important;
+    line-height: 1.55;
+}
+
+/* --- MAKE LEFT SIDEBAR TEXT LESS CRAMPED --- */
+.file {
+    padding: 12px 14px !important;
+    margin: 14px 0 !important;
+}
+.file-title {
+    font-size: 15px !important;
+}
+.file-sub {
+    font-size: 13px !important;
+    margin-top: 3px;
+}
+
+/* --- OPTIONAL: Slight shadow to separate content visually --- */
+#viewer {
+    box-shadow: inset 2px 0 6px rgba(0,0,0,0.35);
+}
+</style>
+</head>
+<body>
+
+<div id="files"></div>
+
+<div id="main">
+    <div id="viewer">
+        <div id="topbar">
+            <div id="topbar-main"></div>
+            <div id="topbar-sub"></div>
+        </div>
+        <div id="content"></div>
+    </div>
+    <div id="sideinfo"></div>
+</div>
+
+<script>
+marked.setOptions({ breaks: true });
+
+const fileList = [
+    // Core number JSONs
+    {
+        folder: "📂 .",
+        file: "numbers.json",
+        path: "numbers.json",
+        type: "json",
+        label: "Core numbers (generated by decoder)"
+    },
+    {
+        folder: "📂 .",
+        file: "numbers.bin.json",
+        path: "numbers.bin.json",
+        type: "json",
+        label: "Binary exceptions (R=2, manual)"
+    },
+    {
+        folder: "📂 numberdatabase",
+        file: "complete.json",
+        path: "numberdatabase/complete.json",
+        type: "json",
+        label: "Completed numbers (with extensions)"
+    },
+
+    // Animation timeline
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "animation.json",
+        path: "numberdatabase/flatlist/animation.json",
+        type: "json",
+        label: "Animation timeline (Laegna / Waveweaver)"
+    },
+
+    // Markdown views
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "laegna.md",
+        path: "numberdatabase/flatlist/laegna.md",
+        type: "md",
+        label: "Laegna forms"
+    },
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "laeequality.md",
+        path: "numberdatabase/flatlist/laeequality.md",
+        type: "md",
+        label: "Lae equality"
+    },
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "laegnawaves.md",
+        path: "numberdatabase/flatlist/laegnawaves.md",
+        type: "md",
+        label: "Laegna waves"
+    },
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "waveequality.md",
+        path: "numberdatabase/flatlist/waveequality.md",
+        type: "md",
+        label: "Wave equality"
+    },
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "multiline.md",
+        path: "numberdatabase/flatlist/multiline.md",
+        type: "md",
+        label: "Multiline notes"
+    },
+    {
+        folder: "📂 numberdatabase/flatlist",
+        file: "toc.md",
+        path: "numberdatabase/flatlist/toc.md",
+        type: "md",
+        label: "Folder introduction"
+    }
+];
+
+const filesDiv = document.getElementById("files");
+const topMain = document.getElementById("topbar-main");
+const topSub = document.getElementById("topbar-sub");
+const content = document.getElementById("content");
+const sideinfo = document.getElementById("sideinfo");
+
+let currentJson = null;
+
+/* Build sidebar */
+fileList.forEach((f, i) => {
+    const el = document.createElement("div");
+    el.className = "file";
+    el.innerHTML = `
+        <div class="file-title">${f.folder}</div>
+        <div class="file-sub">📄 ${f.file}</div>
+    `;
+    el.onclick = () => selectFile(i);
+    filesDiv.appendChild(el);
+});
+
+/* Select first file by default */
+if (fileList.length > 0) {
+    selectFile(0);
+}
+
+async function selectFile(index) {
+    document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
+    document.querySelectorAll(".file")[index].classList.add("active");
+
+    const f = fileList[index];
+    currentJson = null;
+
+    topMain.textContent = f.label;
+    topSub.textContent = `${f.folder} / ${f.file}`;
+    content.innerHTML = "";
+    sideinfo.innerHTML = "";
+
+    const raw = await fetch(f.path).then(r => r.text());
+
+    if (f.type === "json") {
+        // Show JSON as highlighted code
+        const pre = document.createElement("pre");
+        const code = document.createElement("code");
+        code.className = "language-json";
+        code.textContent = raw;
+        pre.appendChild(code);
+        content.appendChild(pre);
+        hljs.highlightElement(code);
+
+        // Parse for side info
+        try {
+            currentJson = JSON.parse(raw);
+        } catch {
+            currentJson = null;
+        }
+        buildJsonSideInfo(f, currentJson);
+    }
+
+    if (f.type === "md") {
+        const html = marked.parse(raw);
+        content.innerHTML = html;
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+        buildMdSideInfo(f, raw);
+    }
+}
+
+/* Build side info for JSON files */
+function buildJsonSideInfo(file, obj) {
+    if (!obj) {
+        sideinfo.innerHTML = `<div class="side-section"><div class="side-title">Info</div><p>No JSON structure detected.</p></div>`;
+        return;
+    }
+
+    const isAnimation = file.file === "animation.json";
+
+    const container = document.createElement("div");
+
+    // Meta
+    if (obj.meta || obj.Meta) {
+        const meta = obj.meta || obj.Meta;
+        const sec = document.createElement("div");
+        sec.className = "side-section";
+        sec.innerHTML = `<div class="side-title">${isAnimation ? "Timeline meta" : "Meta"}</div>`;
+        const ul = document.createElement("ul");
+        ul.className = "side-list";
+        Object.keys(meta).forEach(k => {
+            const li = document.createElement("li");
+            li.textContent = `${k}: ${meta[k]}`;
+            ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+        container.appendChild(sec);
+    }
+
+    // Chapters / timeline
+    const chapters = obj.chapters || obj.Chapters;
+    if (Array.isArray(chapters)) {
+        const sec = document.createElement("div");
+        sec.className = "side-section";
+        sec.innerHTML = `<div class="side-title">${isAnimation ? "Timeline" : "Chapters"}</div>`;
+        const ul = document.createElement("ul");
+        ul.className = "side-list";
+        chapters.forEach((ch, i) => {
+            const id = ch.id && (ch.id.Num ?? ch.id.num ?? ch.id);
+            const R = ch.R ?? ch.r;
+            const base = ch.base ?? ch.Base;
+            const li = document.createElement("li");
+            li.textContent = `#${i}${id !== undefined ? " (id " + id + ")" : ""} – R=${R !== undefined ? R : "?"}, base=${base !== undefined ? base : "?"}`;
+            ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+        container.appendChild(sec);
+    }
+
+    // Numbers list (generic guess)
+    const numbers = obj.numbers || obj.Numbers || obj.list || obj.items;
+    if (Array.isArray(numbers)) {
+        const sec = document.createElement("div");
+        sec.className = "side-section";
+        sec.innerHTML = `<div class="side-title">Numbers</div>`;
+        const ul = document.createElement("ul");
+        ul.className = "side-list";
+        numbers.slice(0, 64).forEach((n, i) => {
+            const li = document.createElement("li");
+            if (typeof n === "object") {
+                const label = n.name || n.label || n.id || n.Num || n.num || JSON.stringify(n).slice(0, 40) + "...";
+                li.textContent = `${i}: ${label}`;
+            } else {
+                li.textContent = `${i}: ${n}`;
+            }
+            ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+        container.appendChild(sec);
+    }
+
+    if (!container.innerHTML) {
+        container.innerHTML = `<div class="side-section"><div class="side-title">Info</div><p>No chapters or numbers detected.</p></div>`;
+    }
+
+    sideinfo.appendChild(container);
+}
+
+/* Side info for Markdown files */
+function buildMdSideInfo(file, raw) {
+    const container = document.createElement("div");
+
+    // Simple heading extraction
+    const lines = raw.split(/\r?\n/);
+    const headings = lines
+        .filter(l => l.trim().startsWith("#"))
+        .map(l => l.replace(/^#+\s*/, "").trim());
+
+    if (headings.length) {
+        const sec = document.createElement("div");
+        sec.className = "side-section";
+        sec.innerHTML = `<div class="side-title">Sections</div>`;
+        const ul = document.createElement("ul");
+        ul.className = "side-list";
+        headings.forEach(h => {
+            const li = document.createElement("li");
+            li.textContent = h;
+            ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+        container.appendChild(sec);
+    }
+
+    // File role hint
+    const sec2 = document.createElement("div");
+    sec2.className = "side-section";
+    sec2.innerHTML = `<div class="side-title">File</div><p>${file.label}</p>`;
+    container.appendChild(sec2);
+
+    sideinfo.appendChild(container);
+}
+</script>
+
+</body>
+</html>

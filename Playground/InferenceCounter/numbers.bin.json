@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "version": 1,
+    "description": "Laegna / Waveweaver tiny number system"
+  },
+  "chapters": [
+    {
+      "R": 0.5,
+      "base": 2,
+      "special": "binary",
+      "numbers": [
+        {
+          "Decimal": {
+            "Num": "0",
+            "Signed": "-inf",
+            "Hex": "0",
+            "Bin": "0"
+          },
+          "Wave": {
+            "Bin": "W"
+          },
+          "Laegna": {
+            "Bin": "W"
+          }
+        },
+        {
+          "Decimal": {
+            "Num": "1",
+            "Signed": "-1",
+            "Hex": "1",
+            "Bin": "1"
+          },
+          "Wave": {
+            "Bin": "O"
+          },
+          "Laegna": {
+            "Bin": "O"
+          }
+        },
+        {
+          "Decimal": {
+            "Num": 1.5,
+            "Signed": "-0",
+            "Hex": null,
+            "Bin": null
+          },
+          "Wave": {
+            "Bin": "V"
+          },
+          "Laegna": {
+            "Bin": "V"
+          }
+        },
+        {
+          "Decimal": {
+            "Num": 1.5,
+            "Signed": "+0",
+            "Hex": null,
+            "Bin": null
+          },
+          "Wave": {
+            "Bin": "U"
+          },
+          "Laegna": {
+            "Bin": "U"
+          }
+        },
+        {
+          "Decimal": {
+            "Num": "2",
+            "Signed": "+1",
+            "Hex": "2",
+            "Bin": "10"
+          },
+          "Wave": {
+            "Bin": "A"
+          },
+          "Laegna": {
+            "Bin": "A"
+          }
+        },
+        {
+          "Decimal": {
+            "Num": "2inf",
+            "Signed": "+inf",
+            "Hex": null,
+            "Bin": null
+          },
+          "Wave": {
+            "Bin": "∩"
+          },
+          "Laegna": {
+            "Bin": "∩"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inference Counter – Decoder</title>
+
+<style>
+    body {
+        background: #111;
+        color: #eee;
+        font-family: Consolas, monospace;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        margin: 20px;
+        font-weight: 400;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+        height: 80vh; /* top area height */
+    }
+
+    .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 80vh;
+    }
+
+    .buttons {
+        margin-bottom: 10px;
+    }
+
+    button {
+        background: #333;
+        color: #eee;
+        border: 1px solid #555;
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #444;
+    }
+
+    .box {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        padding: 10px;
+        white-space: pre;
+        overflow-x: auto;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .manual {
+        margin: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Inference Counter – Decoder</h1>
+
+<div class="container">
+
+    <!-- LEFT COLUMN: JSON OUTPUT -->
+    <div class="column">
+        <h2>numbers.json (decoder output)</h2>
+        <div class="buttons">
+            <button onclick="openFile('numbers.json')">Open</button>
+            <button onclick="copyJson()">Copy</button>
+        </div>
+        <div id="jsonOutput" class="box">Loading…</div>
+    </div>
+
+    <!-- RIGHT COLUMN: PYTHON CODE -->
+    <div class="column">
+        <h2>decoder.py</h2>
+        <div class="buttons">
+            <button onclick="openFile('decoder.py')">Open</button>
+            <button onclick="copyBox('codeBox')">Copy</button>
+        </div>
+        <div id="codeBox" class="box">Loading…</div>
+    </div>
+
+</div>
+
+<div class="box">
+<h2>Inference Counter Manual</h2>
+
+<h3>1. Overview</h3>
+<p>
+The Inference Counter is a multi-format number system consisting of three parallel
+representations: <b>Laegna</b>, <b>Waveweaver</b>, and <b>Decimal</b>. Each representation is
+independent and never normalized across types. Digits define everything: Num, Digits,
+Hex, Bin, ordering, and classification.
+</p>
+
+<h3>2. Digits and Letters</h3>
+<p><b>Laegna digits:</b></p>
+<pre>
+0 → I
+1 → O
+2 → A
+3 → E
+</pre>
+
+<p><b>Wave digits:</b> identical digits, but Waveweaver uses a different ordering function.
+Digits themselves are never mutated.</p>
+
+<p><b>Binary digits:</b></p>
+<pre>
+O = binary digit 1
+A = binary digit 2
+</pre>
+
+<h3>3. Binary Mapping (Digitwise)</h3>
+<p>
+Binary is the simplest part of the system. It is always digitwise, never calculated,
+never normalized, and never influenced by Waveweaver logic.
+</p>
+
+<pre>
+Digit  Letter  Binary letters  Binary digitlist
+0      I       OO              [1,1]
+1      O       OA              [1,2]
+2      A       AO              [2,1]
+3      E       AA              [2,2]
+</pre>
+
+<p><b>Examples:</b></p>
+<pre>
+Digits [1,1] → O,O → OA OA → "OAOA"
+Digits [1,2] → O,A → OA AO → "OAAO"
+Digits [3,0] → E,I → AA OO → "AAOO"
+</pre>
+
+<h3>4. Hex Mapping</h3>
+<p>
+Hex is computed from digit pairs using a 4×4 table. Hex is defined only when the
+number of digits is even. Hex is per-type: Laegna Hex uses Laegna digits, Wave Hex
+uses Wave digits, Decimal Hex uses Decimal integers.
+</p>
+
+<h3>5. Extreme Values</h3>
+<pre>
+W = −∞
+V = −0
+U = +0
+∩ = +∞
+</pre>
+
+<p><b>Binary for extremes:</b></p>
+<pre>
+W → WW
+V → VV
+U → UU
+∩ → ∩∩
+</pre>
+
+<p><b>Hex for extremes:</b> if R is even, the extreme string is halved; otherwise Hex = null.</p>
+
+<h3>6. Decimal Representation</h3>
+<p>
+Decimal has Num, Signed, Hex, and Bin. Decimal binary is standard base‑2 and only
+exists for discrete integers. Decimal does not influence Laegna or Wave.
+</p>
+
+<h3>7. Ordering and Indexing</h3>
+<p><b>Laegna ordering:</b> lexicographic in base‑4 (I &lt; O &lt; A &lt; E).</p>
+
+<p><b>Waveweaver ordering:</b> uses WaveweaverValueBase4 to compute index, but digits remain
+unchanged.</p>
+
+<p><b>Decimal ordering:</b> symmetric around zero:</p>
+<pre>
+−∞, negative numbers, −0, +0, positive numbers, +∞
+</pre>
+
+<h3>8. JSON Export Structure</h3>
+<pre>
+{
+  "Decimal": { Num, Signed, Hex, Bin },
+  "Wave":    { Num, Digits, Hex, Bin },
+  "Laegna":  { Num, Digits, Hex, Bin }
+}
+</pre>
+
+<p>
+Digits are never shared across types. Num is derived from Digits. Hex and Bin are
+derived from Digits. Decimal has its own Hex/Bin rules. Wave and Laegna use the same
+formulas but different Digits.
+</p>
+
+<h3>9. R-Level Structure</h3>
+<pre>
+{
+  "meta": { ... },
+  "chapters": [
+    { "R": 1, "base": 4, "numbers": [...] },
+    { "R": 2, ... }
+  ]
+}
+</pre>
+
+<h3>10. Algorithms (High-Level)</h3>
+<p><b>Digit → Num:</b></p>
+<pre>
+Num = join(LET[d] for d in Digits)
+</pre>
+
+<p><b>Digit → Binary:</b></p>
+<pre>
+pair = BIN_TABLE[d]
+binary = (O if pair[0]==1 else A) + (O if pair[1]==1 else A)
+</pre>
+
+<p><b>Digit → Hex:</b></p>
+<pre>
+hex = HEX_TABLE[d0][d1]
+</pre>
+
+<p><b>Wave ordering:</b></p>
+<pre>
+index = WaveweaverValueBase4(Digits)
+</pre>
+
+<p><b>Laegna ordering:</b></p>
+<pre>
+index = LaegnaValueBase4(Digits)
+</pre>
+
+<h3>11. Guarantees</h3>
+<ul>
+  <li>No digit mutation</li>
+  <li>No normalization</li>
+  <li>No reinterpretation</li>
+  <li>No cross-type contamination</li>
+  <li>Binary is always digitwise</li>
+  <li>Hex is always pairwise</li>
+  <li>Extremes are always symmetric</li>
+  <li>Decimal is always independent</li>
+</ul>
+
+<h3>12. Manual Completed</h3>
+<p>
+This manual describes the structure, rules, and algorithms of the Inference Counter
+system. It is now ready for use in the documentation page.
+</p>
+</div>
+
+<script>
+// -------------------------------------------------------------
+// Load decoder.py
+// -------------------------------------------------------------
+fetch("decoder.py")
+    .then(r => r.text())
+    .then(t => document.getElementById("codeBox").textContent = t)
+    .catch(() => {
+        document.getElementById("codeBox").textContent =
+            "decoder.py not found.";
+    });
+
+// -------------------------------------------------------------
+// Load numbers.json as output
+// -------------------------------------------------------------
+let rawJson = "";
+
+fetch("numbers.json")
+    .then(r => r.text())
+    .then(t => {
+        rawJson = t; // store original JSON for copy/open
+        const display = t + "\n\n[Process finished]";
+        document.getElementById("jsonOutput").textContent = display;
+    })
+    .catch(() => {
+        document.getElementById("jsonOutput").textContent =
+            "numbers.json not found.\n\n[Process finished]";
+    });
+
+// -------------------------------------------------------------
+// Copy JSON without finish line
+// -------------------------------------------------------------
+function copyJson() {
+    navigator.clipboard.writeText(rawJson);
+}
+
+// -------------------------------------------------------------
+// Copy any box
+// -------------------------------------------------------------
+function copyBox(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+}
+
+// -------------------------------------------------------------
+// Open file
+// -------------------------------------------------------------
+function openFile(name) {
+    window.open(name, "_blank");
+}
+</script>
+
+</body>
+</html>

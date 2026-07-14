@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Octave Hologram Number System — Theory Manual</title>
+
+  <!-- MathJax for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <!-- Basic stable styling -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #050608;
+      color: #e0e0e0;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #080b10;
+      padding: 20px 30px;
+      border-bottom: 1px solid #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+      color: #a8b0c0;
+    }
+
+    #layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: calc(100vh - 80px);
+    }
+
+    nav {
+      background: #07090d;
+      border-right: 1px solid #222;
+      padding: 20px;
+    }
+
+    nav h2 {
+      font-size: 14px;
+      color: #8fd3ff;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    nav a {
+      display: block;
+      color: #c0c8d8;
+      text-decoration: none;
+      font-size: 13px;
+      padding: 4px 0;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    main {
+      padding: 30px 40px;
+      max-width: 900px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 40px;
+      color: #f0f4ff;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 24px;
+      color: #d0e4ff;
+    }
+
+    p {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #d0d4e0;
+    }
+
+    .math-block {
+      background: #10141f;
+      padding: 12px 16px;
+      border-left: 3px solid #3a7bd5;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+
+    footer {
+      padding: 10px 20px;
+      font-size: 12px;
+      color: #8088a0;
+      background: #050608;
+      border-top: 1px solid #111;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Octave Hologram Number System</h1>
+  <p>Complete theoretical exposition — stable, clean, scientific.</p>
+</header>
+
+<div id="layout">
+
+  <nav>
+    <h2>Contents</h2>
+    <a href="#intro">1. Introduction</a>
+    <a href="#octave-identity">2. The Octave Identity</a>
+    <a href="#phase">3. Phase as Universal Parameter</a>
+    <a href="#mapping">4. Spatial Mapping</a>
+    <a href="#linearization">5. Linearization Across Octaves</a>
+    <a href="#laegna">6. Laegna Interpretation</a>
+    <a href="#dimensions">7. Dimensional Extension</a>
+    <a href="#conclusion">8. Conclusion</a>
+  </nav>
+
+  <main>
+
+    <!-- ========================================================= -->
+    <!-- THEORY ARTICLE -->
+    <!-- ========================================================= -->
+
+    <section id="intro">
+      <h2>1. Introduction</h2>
+      <p>
+        The Octave Hologram Number System is a mathematical and conceptual framework
+        that treats numbers as <em>wave‑states</em> embedded in a continuous,
+        octave‑structured geometry. It is inspired by Laegna logic and Spireason’s
+        multi‑layered metaphysics, where every number carries cause, mean, effect,
+        and goal. The system is built to be stable, rational, and infinitely
+        extensible, avoiding irrational distortions that arise in other bases.
+      </p>
+      <p>
+        This document presents the full theoretical foundation in a clean,
+        scientific style, using only LaTeX for mathematical clarity.
+      </p>
+    </section>
+
+    <section id="octave-identity">
+      <h2>2. The Octave Identity</h2>
+      <p>
+        The system begins with the identity:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          N(R) = 4^R, \qquad \text{side}(R) = 2^R, \qquad N(R) = (\text{side}(R))^2.
+        \]
+
+
+      </div>
+
+      <p>
+        This is the only integer‑based structure where the number of states at
+        resolution \( R \) equals the area of a square grid whose side length is
+        also a power of two. The equality
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          4^R = (2^R)^2
+        \]
+
+
+      </div>
+
+      <p>
+        ensures that number and space scale together without distortion. This is
+        the structural requirement for a system where identity is preserved across
+        scales.
+      </p>
+    </section>
+
+    <section id="phase">
+      <h2>3. Phase as Universal Parameter</h2>
+
+      <p>
+        A single global phase \( \theta \in [0,1) \) drives the entire system.
+        For a given resolution \( R \), the phase determines a continuous coordinate:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          x = \theta \cdot 4^R.
+        \]
+
+
+      </div>
+
+      <p>
+        From this we extract the discrete index:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          k = \lfloor x \rfloor,
+        \]
+
+
+      </div>
+
+      <p>
+        and the internal phase:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          \phi = x - k.
+        \]
+
+
+      </div>
+
+      <p>
+        The pair \( (k, \phi) \) describes the identity of a number at resolution
+        \( R \). The index selects the cell in the octave grid, while the internal
+        phase describes the state within that cell.
+      </p>
+    </section>
+
+    <section id="mapping">
+      <h2>4. Spatial Mapping</h2>
+
+      <p>
+        The index \( k \) maps naturally into a two‑dimensional coordinate system.
+        Let:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          \text{side}(R) = 2^R.
+        \]
+
+
+      </div>
+
+      <p>
+        Then the grid coordinates are:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          i = \left\lfloor \frac{k}{2^R} \right\rfloor,
+          \qquad
+          j = k \bmod 2^R.
+        \]
+
+
+      </div>
+
+      <p>
+        The normalized spatial coordinates are:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          u = \frac{j + 0.5}{2^R}, \qquad
+          v = \frac{i + 0.5}{2^R}.
+        \]
+
+
+      </div>
+
+      <p>
+        This mapping is exact, rational, and scale‑invariant. Increasing \( R \)
+        refines the grid without altering the underlying geometry.
+      </p>
+    </section>
+
+    <section id="linearization">
+      <h2>5. Linearization Across Octaves</h2>
+
+      <p>
+        A key property of the system is that it remains linear across octaves.
+        Consider the phase coordinate at resolution \( R \):
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          x_R = \theta \cdot 4^R.
+        \]
+
+
+      </div>
+
+      <p>
+        At resolution \( R+1 \), we have:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          x_{R+1} = \theta \cdot 4^{R+1} = 4 x_R.
+        \]
+
+
+      </div>
+
+      <p>
+        This means that the structure at resolution \( R \) is embedded exactly
+        four times inside the structure at resolution \( R+1 \). The internal
+        phase relationships remain consistent, ensuring smoothness across scales.
+      </p>
+    </section>
+
+    <section id="laegna">
+      <h2>6. Laegna Interpretation</h2>
+
+      <p>
+        In Laegna logic, every number has four aspects:
+      </p>
+
+      <ul>
+        <li><strong>Cause</strong> — what leads into the state</li>
+        <li><strong>Mean</strong> — the internal structure of the state</li>
+        <li><strong>Effect</strong> — the outward identity</li>
+        <li><strong>Goal</strong> — the direction of the state in a larger pattern</li>
+      </ul>
+
+      <p>
+        The octave hologram number system provides a precise mathematical
+        substrate for these aspects:
+      </p>
+
+      <ul>
+        <li>\( \theta \) is the global cause/effect timeline</li>
+        <li>\( k \) is the effect (identity)</li>
+        <li>\( \phi \) is the mean (internal state)</li>
+        <li>\( R \) is the goal (scale or octave)</li>
+      </ul>
+
+      <p>
+        Thus Laegna’s metaphysical structure emerges naturally from the octave
+        mathematics.
+      </p>
+    </section>
+
+    <section id="dimensions">
+      <h2>7. Dimensional Extension</h2>
+
+      <p>
+        Because the octave system is self‑similar, it extends naturally to higher
+        dimensions. A three‑dimensional extension uses:
+      </p>
+
+      <div class="math-block">
+        
+
+\[
+          \text{volume}(R) = (2^R)^3.
+        \]
+
+
+      </div>
+
+      <p>
+        The same phase‑based mapping generalizes to 3D grids and beyond. The key
+        property remains: powers of two and four keep the structure rational and
+        self‑similar. This allows the system to extend infinitely in both
+        directions — toward finer and coarser resolutions — while remaining
+        smooth.
+      </p>
+    </section>
+
+    <section id="conclusion">
+      <h2>8. Conclusion</h2>
+
+      <p>
+        The octave hologram number system unifies number, space, and identity
+        through a simple exponential structure. It preserves linearity across
+        scales, maintains rationality in logarithmic relationships, and provides
+        a natural mathematical foundation for Laegna’s metaphysical framework.
+      </p>
+
+      <p>
+        The system is stable, elegant, and infinitely extensible — a true
+        holographic number universe.
+      </p>
+    </section>
+
+  </main>
+
+</div>
+
+<footer>
+  Octave Hologram Number System — Theory Manual
+</footer>
+
+</body>
+</html>

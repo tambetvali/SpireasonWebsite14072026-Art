@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LaneCounter SC5 — Exact SVG Lane Viewer</title>
+  <style>
+    :root{
+      --bg:#041026; --panel:#071428; --main:#071a2b; --fg:#eaf8ff;
+      --muted:#9fbfd6; --accent:#4df3ff; --accent2:#ff7af5; --accent3:#9cff7a; --accent4:#ffd86b;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#000);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+    .app{display:grid;grid-template-columns:360px 1fr;gap:12px;height:100vh;padding:14px;box-sizing:border-box;}
+    @media (max-width:980px){.app{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:10px}}
+    aside.panel{background:var(--panel);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.04);overflow:auto;min-width:320px}
+    main.panel{background:var(--main);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:10px;min-height:0}
+    h1{font-size:1.05rem;margin:0 0 6px 0;color:var(--fg)}
+    .muted{color:var(--muted);font-size:0.92rem}
+    label{display:block;font-size:0.78rem;color:var(--muted);margin:8px 0 6px 0;text-transform:uppercase;letter-spacing:0.06em}
+    select,input[type=range],button,input[type=text]{width:100%;background:transparent;color:var(--fg);border-radius:8px;border:1px solid rgba(255,255,255,0.04);padding:8px;box-sizing:border-box}
+    .numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+    .num-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:6px;border-radius:6px;color:var(--fg);font-family:var(--mono);cursor:pointer;text-align:center}
+    .num-btn.active{background:linear-gradient(90deg,rgba(77,243,255,0.06),rgba(255,122,245,0.03));border-color:rgba(255,122,245,0.12)}
+    #renderArea{flex:1;position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);min-height:480px;display:flex;align-items:stretch}
+    #svgWrap{flex:1;position:relative;background:linear-gradient(180deg,rgba(0,0,0,0.6),transparent)}
+    #titleOverlay{position:absolute;left:14px;top:14px;z-index:60;background:rgba(0,0,0,0.72);padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+    #titleOverlay .big{font-family:var(--mono);font-size:20px;color:var(--accent2)}
+    #titleOverlay .sub{font-size:12px;color:var(--muted);margin-top:6px}
+    .legendTop{position:absolute;left:14px;top:84px;z-index:70;background:rgba(0,0,0,0.6);padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:center}
+    .format-item{display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;background:transparent;cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
+    .format-dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+    .inspector{margin-top:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);font-family:var(--mono);font-size:12px;white-space:pre-wrap;overflow:auto;max-height:220px}
+    .bottom-controls{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px}
+    .speed-btn{padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .grid-square{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:0.5}
+    .lane-path{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .lane-point{cursor:pointer;stroke:#000;stroke-width:0.6}
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="LaneCounter SC5 exact SVG viewer">
+    <aside class="panel" id="sidePanel" aria-label="Controls and chapter list">
+      <h1>LaneCounter · SC5</h1>
+      <div class="muted">Exact lane points from <code>lanes.json</code>. Click a number to view its lane. X: left→right, Y: bottom→top.</div>
+
+      <label for="selR">Chapter R</label>
+      <select id="selR" aria-label="Select chapter R">
+        <option value="0.5">R = 0.5</option>
+        <option value="1">R = 1</option>
+        <option value="2">R = 2</option>
+        <option value="3">R = 3</option>
+        <option value="4">R = 4</option>
+      </select>
+
+      <label for="searchInput">Search / jump to number</label>
+      <div style="display:flex;gap:8px">
+        <input id="searchInput" placeholder="type digits (I O A E) or index" />
+        <button id="clearSearch" class="pill">Clear</button>
+      </div>
+
+      <label style="margin-top:10px">Numbers (click to open)</label>
+      <div id="chaptersContainer" class="chapters"></div>
+
+      <div class="inspector" id="inspector" aria-live="polite">
+        <div><strong>Inspector</strong></div>
+        <div id="inspectorContent">Select a number to see axis values and exact point lists (with indices).</div>
+      </div>
+    </aside>
+
+    <main class="panel" id="mainPanel" aria-label="Visualization area">
+      <div id="renderArea">
+        <div id="svgWrap">
+          <div id="titleOverlay">
+            <div class="big" id="bigNumber">—</div>
+            <div class="sub" id="bigSub">Exact lane points · connected in order</div>
+          </div>
+
+          <div class="legendTop" id="legendTop" role="toolbar" aria-label="Layer controls">
+            <div class="format-item" data-format="UnSignedTen"><span class="format-dot" style="background:linear-gradient(90deg,var(--accent),#7ff)"></span><span class="fmtName">UnSignedTen</span><input type="checkbox" class="fmtChk" data-format="UnSignedTen" checked></div>
+            <div class="format-item" data-format="SignedTen"><span class="format-dot" style="background:linear-gradient(90deg,var(--accent2),#f9a)"></span><span class="fmtName">SignedTen</span><input type="checkbox" class="fmtChk" data-format="SignedTen"></div>
+            <div class="format-item" data-format="UnSignedDec"><span class="format-dot" style="background:linear-gradient(90deg,var(--accent3),#bff)"></span><span class="fmtName">UnSignedDec</span><input type="checkbox" class="fmtChk" data-format="UnSignedDec"></div>
+            <div class="format-item" data-format="SignedDec"><span class="format-dot" style="background:linear-gradient(90deg,var(--accent4),#ffd)"></span><span class="fmtName">SignedDec</span><input type="checkbox" class="fmtChk" data-format="SignedDec"></div>
+          </div>
+
+          <svg id="svgViewport" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" style="display:block"></svg>
+        </div>
+      </div>
+
+      <div class="bottom-controls">
+        <div class="playbar">
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="speed-btn" data-speed="slow">Slow</button>
+            <button class="speed-btn" data-speed="medium">Medium</button>
+            <button class="speed-btn" data-speed="fast">Fast</button>
+          </div>
+          <button id="playNumbers" class="pill">Play numbers</button>
+          <button id="stopPlay" class="pill">Stop</button>
+          <div class="pill" id="speedLabel">Speed: Medium</div>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="small">Points max</div>
+          <input id="selCount" type="range" min="8" max="8192" value="1024" style="width:220px" />
+          <div class="small" id="countMeta">1024</div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+        <div class="small" id="status">loading lanes.json …</div>
+        <div class="small muted-note">X: left→right · Y: bottom→top · Click a point to inspect</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="lanecounter-sc5.js"></script>
+</body>
+</html>

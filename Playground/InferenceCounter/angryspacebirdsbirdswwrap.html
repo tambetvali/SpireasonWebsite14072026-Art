@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prime Density Grid — Base / Divisor Linearizer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #050510;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #topbar {
+      flex: 0 0 auto;
+      background: #11131c;
+      padding: 0.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #202436;
+    }
+
+    #topbar label {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    #frame {
+      flex: 1 1 auto;
+      padding: 2.5cm;
+      background: #050510;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      background: black;
+    }
+
+    #bottombar {
+      flex: 0 0 auto;
+      background: #0b0d16;
+      padding: 0.5rem 1rem 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #202436;
+    }
+
+    #bottombar label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    select, input[type=range], input[type=number] {
+      accent-color: #8899ff;
+      background: #181a26;
+      border: 1px solid #30344a;
+      color: #eee;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+    }
+
+    input[type=number] {
+      width: 4rem;
+    }
+
+    .dim {
+      opacity: 0.65;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <strong style="letter-spacing:0.5px;">Prime Density Grid</strong>
+
+    <label>
+      Base (b):
+      <input id="baseInput" type="number" min="3" max="37" step="1" value="13" />
+    </label>
+
+    <label>
+      Divisor (prime p):
+      <input id="primeInput" type="number" min="2" max="97" step="1" value="7" />
+    </label>
+
+    <label>
+      Rows factor:
+      <input id="rowsFactor" type="number" min="1" max="8" step="1" value="2" />
+    </label>
+
+    <span class="dim" id="infoShort"></span>
+  </div>
+
+  <div id="frame">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <div id="bottombar">
+    <span id="infoDetail"></span>
+    <span class="dim">
+      n ↦ (x = n mod b, y = ⌊n / b⌋) • color from frac(n / p)
+    </span>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const baseInput = document.getElementById('baseInput');
+    const primeInput = document.getElementById('primeInput');
+    const rowsFactorInput = document.getElementById('rowsFactor');
+    const infoShort = document.getElementById('infoShort');
+    const infoDetail = document.getElementById('infoDetail');
+
+    let base = parseInt(baseInput.value, 10);   // b
+    let prime = parseInt(primeInput.value, 10); // p
+    let rowsFactor = parseInt(rowsFactorInput.value, 10);
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    function updateParams() {
+      base = Math.max(3, parseInt(baseInput.value, 10) || 13);
+      prime = Math.max(2, parseInt(primeInput.value, 10) || 7);
+      rowsFactor = Math.max(1, parseInt(rowsFactorInput.value, 10) || 2);
+
+      if (!isPrime(prime)) {
+        infoShort.textContent = `p=${prime} (not prime) — pattern still valid but not “pure prime”`;
+      } else {
+        infoShort.textContent = `b=${base}, p=${prime}, gcd(b,p)=${gcd(base, prime)}`;
+      }
+
+      drawStatic();
+    }
+
+    baseInput.addEventListener('change', updateParams);
+    primeInput.addEventListener('change', updateParams);
+    rowsFactorInput.addEventListener('change', updateParams);
+
+    function gcd(a, b) {
+      while (b !== 0) {
+        const t = b;
+        b = a % b;
+        a = t;
+      }
+      return Math.abs(a);
+    }
+
+    function drawStatic() {
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+      ctx.clearRect(0, 0, w, h);
+
+      const cols = base;
+      const rows = base * rowsFactor; // how many “lines” of base we show
+      const totalN = cols * rows;
+
+      const cellX = w / cols;
+      const cellY = h / rows;
+
+      // For info: how many distinct fractional values before repetition?
+      const period = prime; // for n/p mod 1, period p when n runs over integers
+      infoDetail.textContent =
+        `showing n=0…${totalN - 1} • grid=${cols}×${rows} • period of n/p is p=${prime}`;
+
+      for (let n = 0; n < totalN; n++) {
+        const x = n % cols;
+        const y = Math.floor(n / cols);
+
+        const frac = ((n / prime) % 1 + 1) % 1; // fractional part in [0,1)
+
+        // Map frac to color: hue from frac, brightness from local density idea
+        const hue = (frac * 360) % 360;
+        const brightness = 20 + frac * 80;
+        const saturation = 60 + (1 - Math.abs(frac - 0.5)) * 40;
+
+        ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${brightness}%)`;
+        ctx.fillRect(x * cellX, y * cellY, cellX + 1, cellY + 1);
+      }
+
+      // Optional: draw subtle grid lines for base structure
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      for (let c = 0; c <= cols; c++) {
+        const x = c * cellX;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let r = 0; r <= rows; r++) {
+        const y = r * cellY;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+    }
+
+    // Initial draw
+    updateParams();
+  </script>
+</body>
+</html>

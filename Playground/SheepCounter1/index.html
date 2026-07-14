@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SheepCounter – Index & Journal</title>
+
+  <!--
+    SheepCounter Index (root: /Playground/SheepCounter1/)
+
+    PURPOSE:
+    - Part 1: "Index" – list of development files (active, evolving).
+    - Part 2: "Journal" – chronological log of architectural milestones.
+      * New journal items are always ADDED TO THE TOP.
+      * Each journal item has a date/time and a short title.
+      * Journal items point to stable snapshot files (in*, ex*, etc.).
+
+    AI / FUTURE EDITOR NOTES:
+    - When adding new development files, update the Index section.
+    - When adding new journal entries:
+      * Insert the new <article> at the TOP of the Journal section.
+      * Include the current date/time in the <header>.
+      * Keep older entries intact.
+  -->
+
+  <!-- Optional syntax highlighting -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-js.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #fafafa;
+      --fg: #222;
+      --accent: #2b6cb0;
+      --accent-soft: #ebf4ff;
+      --border-soft: #ddd;
+      --muted: #666;
+      --muted-soft: #999;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      margin: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      max-width: 980px;
+      color: var(--fg);
+      background: var(--bg);
+    }
+
+    h1, h2, h3 {
+      margin-top: 24px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      padding: 14px 16px;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .file-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .file-list li {
+      margin: 4px 0;
+      padding: 4px 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .file-name {
+      font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
+      font-size: 0.95rem;
+    }
+
+    .file-desc {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .journal-entry {
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: var(--card-bg);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .journal-title { font-weight: 600; font-size: 1.05rem; }
+    .journal-meta { font-size: 0.85rem; color: var(--muted-soft); }
+
+    .highlight-box {
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .file-update {
+      font-size: 0.8rem;
+      color: var(--muted-soft);
+      margin-left: 6px;
+      font-style: italic;
+      vertical-align: baseline;
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+<h1>SheepCounter – Index &amp; Journal</h1>
+
+<p class="small muted">
+  Root folder: <code>/Playground/SheepCounter1/</code>
+</p>
+
+<hr>
+
+<!-- ========================================================= -->
+<!-- INDEX SECTION (DEVELOPMENT FILES ONLY) -->
+<!-- ========================================================= -->
+
+<section id="index">
+  <div class="section-card">
+    <h2>Index of Development Files</h2>
+
+    <p class="small">
+      These files are the active development environment for SheepCounter.
+    </p>
+
+    <ul class="file-list">
+
+      <!-- PRIMARY FILES (unchanged) -->
+      <li>
+        <a href="sheepiotae.html" class="file-name">sheepiotae.html</a>
+        <span class="file-desc">
+          Primary Laegna Number Counter. Main interactive counter for the number system.
+        </span>
+      </li>
+
+      <li>
+        <a href="sheepiotae1.html" class="file-name">sheepiotae1.html</a>
+        <span class="file-desc">
+          Secondary Laegna Logecs Counter. Logic‑based counter companion.
+        </span>
+
+      <!-- SEPARATOR -->
+      <li style="border-bottom: 1px solid #ccc; margin-top: 10px;"></li>
+
+      <li>
+        <a href="sheepcounter.json" class="file-name">sheepcounter.json</a>
+        <span class="file-desc">
+          Alternative "counter" used by an AI to learn the same thing: AI/bot read this first!
+        </span>
+      </li>
+      </li>
+
+      <!-- SEPARATOR -->
+      <li style="border-bottom: 1px solid #ccc; margin-top: 10px;"></li>
+
+      <!-- NEW FILES ADDED HERE -->
+      <li>
+        <a href="manual.html" class="file-name">manual.html</a>
+        <span class="file-desc">
+          Laegna Number System Manual and JSON documentation.
+        </span>
+      </li>
+
+<li>
+  <a href="sheepjason.html" class="file-name">sheepjason.html</a>
+  <span class="file-desc">
+    Laegna number generator producing the animation timeline and indexed number list for all counters and utilities.
+  </span>
+</li>
+
+<li>
+  <a href="sheepcounter.json" class="file-name">sheepcounter.json</a>
+  <span class="file-desc">
+    Exported Laegna number dataset generated by sheepjason.html; used for AI learning and timeline analysis.
+  </span>
+</li>
+
+      <!-- EXISTING SECONDARY DEVELOPMENT FILES -->
+      <li>
+        <a href="sheepcounter.js" class="file-name">sheepcounter.js</a> <span class="file-update">(again, for humans!)</span>
+        <span class="file-desc">
+          Main evolving JavaScript file. Updated to support the new counters.
+        </span>
+      </li>
+
+      <li>
+        <a href="sheepdebug.html" class="file-name">sheepdebug.html</a>
+        <span class="file-desc">
+          Development/debugging interface for testing SheepCounter logic and timeline behavior.
+        </span>
+      </li>
+
+    </ul>
+
+    <div class="highlight-box">
+      <strong>Note:</strong> The etalon files and the in1 snapshot are NOT development files.
+      They are reference materials and appear only in the Journal below.
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ========================================================= -->
+<!-- JOURNAL SECTION -->
+<!-- ========================================================= -->
+
+    <!-- ========================================================= -->
+    <!-- NEW JOURNAL ENTRY (TOPMOST) -->
+    <!-- ========================================================= -->
+
+<article class="journal-entry">
+  <header>
+    <div class="journal-title">
+      AI‑Native Counter Representation Added: sheepcounter.json
+    </div>
+    <div class="journal-meta">
+      2026‑02‑21 10:55 CET — JSON dataset formalized as the AI version of the SheepCounter.
+    </div>
+  </header>
+
+  <div class="journal-body">
+
+    <p><strong>Files involved:</strong></p>
+    <ul>
+      <li><a href="sheepcounter.json">sheepcounter.json</a> – AI‑native representation of the Laegna counter</li>
+      <li><a href="sheepjason.html">sheepjason.html</a> – generator for timelines, indexed lists, and configurable JSON output</li>
+    </ul>
+
+    <p><strong>Summary:</strong></p>
+    <ul>
+      <li>The JSON file now provides a complete machine‑readable version of the SheepCounter experience.</li>
+      <li>It encodes the timeline, indexed number list, animation steps, metadata, and Laegna semantics.</li>
+      <li>For an AI, this is equivalent to watching the interactive widget run — but through structured data instead of a visual UI.</li>
+      <li><code>sheepjason.html</code> can be extended to generate specialized JSON variants (different speeds, subsets, or experimental timelines).</li>
+    </ul>
+
+    <p><strong>Impact:</strong></p>
+    <ul>
+      <li>AI systems can now learn Laegna numbers through pattern recognition rather than language interpretation.</li>
+      <li>The JSON acts as a canonical, unambiguous source of truth for all counters and utilities.</li>
+      <li>This establishes a parallel perception channel: humans use the UI; AIs use the structured timeline.</li>
+      <li>SheepCounter now has a fully defined dual‑layer architecture: visual for humans, structural for machines.</li>
+    </ul>
+
+  </div>
+</article>
+
+<article class="journal-entry">
+  <header>
+    <div class="journal-title">
+      sheepcounter.json generated and added to filesystem
+    </div>
+    <div class="journal-meta">
+      2026‑02‑21 — JSON dataset exported for AI learning and timeline analysis.
+    </div>
+  </header>
+
+  <div class="journal-body">
+
+    <p><strong>File added:</strong></p>
+    <ul>
+      <li><a href="sheepcounter.json">sheepcounter.json</a> – structured Laegna number dataset</li>
+    </ul>
+
+    <p><strong>Summary:</strong></p>
+    <ul>
+      <li>The JSON file was generated using <code>sheepjason.html</code>, the Laegna number JSON generator.</li>
+      <li>It is now saved directly in the filesystem and accessible to bots and crawlers.</li>
+      <li>The file provides a clean, machine‑readable representation of Laegna numbers, including metadata and timeline structure.</li>
+      <li>This ensures that automated systems can learn from concrete examples rather than textual descriptions.</li>
+    </ul>
+
+  </div>
+</article>
+
+<section id="journal">
+  <h2>Journal</h2>
+
+  <div class="journal">
+
+<article class="journal-entry">
+  <header>
+    <div class="journal-title">
+      UI Finalization, Number List Completion, and JSON Generator Added
+    </div>
+    <div class="journal-meta">
+      2026‑02‑20 — Major interface and data‑structure update.
+    </div>
+  </header>
+
+  <div class="journal-body">
+
+    <p><strong>Summary:</strong></p>
+    <ul>
+      <li>UI biases in the counters were fixed and the interface was finalized.</li>
+      <li>The full Laegna number list was completed and validated.</li>
+      <li><code>sheepiotae.html</code> and <code>sheepcounter.js</code> were updated accordingly.</li>
+      <li>A new JSON generator (<code>sheepjason.html</code>) was added.</li>
+    </ul>
+
+    <p><strong>Purpose of the JSON generator:</strong></p>
+    <ul>
+      <li>Provides a simple but powerful database for self‑learning AI systems.</li>
+      <li>Eliminates ambiguity that arises from language‑based explanations.</li>
+      <li>Ensures that all number properties are explicit and machine‑readable.</li>
+      <li>Acts as a single milestone of clarity — “data, not metaphor”.</li>
+      <li>Allows AIs to learn Laegna numbers through pattern‑matching rather than inference.</li>
+    </ul>
+
+    <p><strong>Files added:</strong></p>
+    <ul>
+      <li><a href="manual.html">manual.html</a> — Laegna Number System Manual</li>
+      <li><a href="sheepjason.html">sheepjason.html</a> — JSON generator</li>
+    </ul>
+
+    <p><strong>Impact:</strong></p>
+    <ul>
+      <li>The system now has a stable, canonical data representation.</li>
+      <li>AI systems can ingest the JSON directly for consistent reasoning.</li>
+      <li>The Laegna number system reaches Version 1 completeness.</li>
+    </ul>
+
+  </div>
+</article>
+
+    <article class="journal-entry">
+      <header>
+        <div class="journal-title">
+          Added Laegna Sheep & Logecs Counters; updated sheepcounter.js
+        </div>
+        <div class="journal-meta">
+          2026‑02‑20 — New primary counters created and integrated.
+        </div>
+      </header>
+
+      <div class="journal-body">
+
+        <p><strong>Files added:</strong></p>
+        <ul>
+          <li><a href="sheepiotae.html">sheepiotae.html</a> – main Laegna Number Counter</li>
+          <li><a href="sheepiotae1.html">sheepiotae1.html</a> – main Laegna Logecs Counter</li>
+        </ul>
+
+        <p><strong>File updated:</strong></p>
+        <ul>
+          <li><a href="sheepcounter.js">sheepcounter.js</a> – updated to support the new counters</li>
+        </ul>
+
+        <p><strong>Summary:</strong></p>
+        <ul>
+          <li>Both counters are now functional and linked from the main site.</li>
+          <li>UI still needs refinement; several small issues remain to be fixed.</li>
+          <li>Full testing is required to confirm stability and correctness.</li>
+          <li>Despite pending polish, the counters are usable and integrated.</li>
+        </ul>
+
+        <p><strong>Next steps:</strong></p>
+        <ul>
+          <li>Fix UI inconsistencies and layout issues.</li>
+          <li>Perform full functional testing of both counters.</li>
+          <li>Verify sheepcounter.js logic across both interfaces.</li>
+        </ul>
+
+      </div>
+    </article>
+
+    <article class="journal-entry">
+      <header>
+        <div class="journal-title">
+          Initial setup: 3D etalons &amp; abstract SheepCounter controller
+        </div>
+        <div class="journal-meta">
+          2026‑02‑19 12:28 CET – First architectural snapshot.
+        </div>
+      </header>
+
+      <div class="journal-body">
+
+        <p><strong>Study materials included in this snapshot:</strong></p>
+        <ul>
+          <li><a href="ex1_threedisplayetalon.html">ex1_threedisplayetalon.html</a> – 3D etalon (3 screens)</li>
+          <li><a href="ex2_fivedisplayetalon.html">ex2_fivedisplayetalon.html</a> – 3D etalon (5 screens)</li>
+          <li><a href="in1_sheepcounter.html">in1_sheepcounter.html</a> – abstract controller + debugger + manual</li>
+        </ul>
+
+        <p><strong>Summary of this milestone:</strong></p>
+        <ul>
+          <li>The 3D etalons represent the last “perfect” visual layouts before complexity was removed.</li>
+          <li>The abstract SheepCounter controller is implemented (chapters, subchapters, systems, numbers).</li>
+          <li>No real Laegna number systems yet — only a placeholder 0–10 system.</li>
+          <li>The debugger in <code>in1_sheepcounter.html</code> is essential for understanding the timeline.</li>
+        </ul>
+
+        <p><strong>Next steps:</strong></p>
+        <ul>
+          <li>Integrate the 3D etalon with the abstract SheepCounter.</li>
+          <li>Preserve the beauty of the 3D layout while adding dynamic features.</li>
+          <li>Keep the debugger; later add a function listing all numbers and loading manuals.</li>
+          <li>Add real Laegna number systems (essential).</li>
+        </ul>
+
+        <p><strong>Next iteration goals:</strong></p>
+        <ul>
+          <li>3D + abstract counter integration.</li>
+          <li>Improve 3D fluency: panel toggling, resizing, content changes.</li>
+          <li>Ensure the “toylike” 3D logic never stops.</li>
+          <li>Add TOC navigation for debugging.</li>
+          <li>Test all timeline and integration functions.</li>
+        </ul>
+
+        <p><strong>Long-term direction:</strong></p>
+        <ul>
+          <li>Introduce real Laegna number systems into the interface.</li>
+          <li>Keep the counter simple (KISS) so users can grow into advanced features naturally.</li>
+        </ul>
+
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<hr>
+
+<p class="small muted">
+  This <code>index.html</code> is stable. Extend it with new development files and new journal entries as the project evolves.
+</p>
+
+</body>
+</html>

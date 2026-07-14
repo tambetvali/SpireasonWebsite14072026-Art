@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Octave Resonance Instrument</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #050608;
+            color: #d0d0d0;
+            font-family: "IBM Plex Mono", Consolas, monospace;
+        }
+
+        /* Fullscreen PIXI canvas */
+        #widget {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Unified UI + inference box */
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            max-height: calc(100vh - 20px);
+            overflow-y: auto;
+
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.45;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        /* Bottom UI panel */
+        #ui-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+
+            z-index: 11;
+        }
+
+        #speed-slider {
+            width: 220px;
+        }
+
+        #resolution-label {
+            font-weight: bold;
+            color: #88ffff;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+        /* Scrollbar styling for inference box */
+        #info::-webkit-scrollbar {
+            width: 8px;
+        }
+        #info::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        #info::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+        
+        #resolution-label {
+    position: absolute;
+    right: 20px;      /* keep it aligned with slider */
+    bottom: 100px;   /* move it 100px upward */
+    font-weight: bold;
+    color: #88ffff;
+    font-size: 15px;
+    pointer-events: none; /* optional: prevents blocking clicks */
+}
+
+    </style>
+</head>
+
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+    <!-- PIXI canvas -->
+    <div id="widget"></div>
+
+    <!-- Unified inference + UI info box -->
+    <div id="info"></div>
+
+    <!-- Bottom UI panel -->
+    <div id="ui-panel">
+        <div>
+            <label>Speed:</label>
+            <input id="speed-slider" type="range" min="0" max="1" step="0.001" value="0.5">
+        </div>
+    </div>
+
+    <div id="resolution-label">R = 1</div>
+
+    <!-- PIXI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.2.4/pixi.min.js"></script>
+
+    <!-- Main module -->
+    <script type="module" src="./main.js"></script>
+
+</body>
+</html>

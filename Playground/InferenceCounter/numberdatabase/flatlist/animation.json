@@ -1,0 +1,10599 @@
+{
+  "meta": {
+    "Version": 1, 
+    "description": "Laegna / Waveweaver initial timeline"
+  }, 
+  "chapters": [
+    {
+      "id": {
+        "Num": 0, 
+        "Id0": {
+          "Num": 0
+        }, 
+        "Id1": {
+          "Num": 1
+        }
+      }, 
+      "R": 0.5, 
+      "special": "binary", 
+      "base": 2, 
+      "Bounds": {
+        "bounded": 6, 
+        "full": 2, 
+        "half": 1
+      }
+    }, 
+    {
+      "id": {
+        "Num": 1, 
+        "Id0": {
+          "Num": 1
+        }, 
+        "Id1": {
+          "Num": 2
+        }
+      }, 
+      "R": 1, 
+      "base": 4, 
+      "Bounds": {
+        "bounded": 8, 
+        "full": 4, 
+        "half": 2.0
+      }
+    }, 
+    {
+      "id": {
+        "Num": 2, 
+        "Id0": {
+          "Num": 2
+        }, 
+        "Id1": {
+          "Num": 3
+        }
+      }, 
+      "R": 2, 
+      "base": 4, 
+      "Bounds": {
+        "bounded": 20, 
+        "full": 16, 
+        "half": 8.0
+      }
+    }, 
+    {
+      "id": {
+        "Num": 3, 
+        "Id0": {
+          "Num": 3
+        }, 
+        "Id1": {
+          "Num": 4
+        }
+      }, 
+      "R": 3, 
+      "base": 4, 
+      "Bounds": {
+        "bounded": 68, 
+        "full": 64, 
+        "half": 32.0
+      }
+    }, 
+    {
+      "id": {
+        "Num": 4, 
+        "Id0": {
+          "Num": 4
+        }, 
+        "Id1": {
+          "Num": 5
+        }
+      }, 
+      "R": 4, 
+      "base": 4, 
+      "Bounds": {
+        "bounded": 260, 
+        "full": 256, 
+        "half": 128.0
+      }
+    }
+  ], 
+  "script": [
+    {
+      "id": {
+        "Num": 0, 
+        "Id0": {
+          "Num": 0
+        }, 
+        "Id1": {
+          "Num": 1
+        }
+      }, 
+      "Decimal": {
+        "Num": "0"
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": "0", 
+        "Signed": "-inf", 
+        "Hex": "0", 
+        "Bin": "0", 
+        "Laegna": "W", 
+        "Wave": "W"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 1, 
+        "Id0": {
+          "Num": 1
+        }, 
+        "Id1": {
+          "Num": 2
+        }
+      }, 
+      "Decimal": {
+        "Num": "1"
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": "1", 
+        "Signed": "-1", 
+        "Hex": "1", 
+        "Bin": "1", 
+        "Laegna": "O", 
+        "Wave": "O"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 2, 
+        "Id0": {
+          "Num": 2
+        }, 
+        "Id1": {
+          "Num": 3
+        }
+      }, 
+      "Decimal": {
+        "Num": 1.5
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": 1.5, 
+        "Signed": "-0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "V", 
+        "Wave": "V"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 3, 
+        "Id0": {
+          "Num": 3
+        }, 
+        "Id1": {
+          "Num": 4
+        }
+      }, 
+      "Decimal": {
+        "Num": 1.5
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": 1.5, 
+        "Signed": "+0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "U", 
+        "Wave": "U"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 4, 
+        "Id0": {
+          "Num": 4
+        }, 
+        "Id1": {
+          "Num": 5
+        }
+      }, 
+      "Decimal": {
+        "Num": "2"
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": "2", 
+        "Signed": "+1", 
+        "Hex": "2", 
+        "Bin": "10", 
+        "Laegna": "A", 
+        "Wave": "A"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 5, 
+        "Id0": {
+          "Num": 5
+        }, 
+        "Id1": {
+          "Num": 6
+        }
+      }, 
+      "Decimal": {
+        "Num": "2inf"
+      }, 
+      "Chapter": {
+        "Num": 0, 
+        "id": {
+          "Num": 0
+        }
+      }, 
+      "R": 0.5, 
+      "T": {
+        "Num": "2inf", 
+        "Signed": "+inf", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "\u2229", 
+        "Wave": "\u2229"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 6, 
+        "Id0": {
+          "Num": 6
+        }, 
+        "Id1": {
+          "Num": 7
+        }
+      }, 
+      "Decimal": {
+        "Num": "0"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "0", 
+        "Signed": "-inf", 
+        "Hex": "0", 
+        "Bin": "0", 
+        "Laegna": "W", 
+        "Wave": "W"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 7, 
+        "Id0": {
+          "Num": 7
+        }, 
+        "Id1": {
+          "Num": 8
+        }
+      }, 
+      "Decimal": {
+        "Num": "1"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "1", 
+        "Signed": "-8", 
+        "Hex": "1", 
+        "Bin": "1", 
+        "Laegna": "I", 
+        "Wave": "I"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 8, 
+        "Id0": {
+          "Num": 8
+        }, 
+        "Id1": {
+          "Num": 9
+        }
+      }, 
+      "Decimal": {
+        "Num": "2"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "2", 
+        "Signed": "-7", 
+        "Hex": "2", 
+        "Bin": "10", 
+        "Laegna": "O", 
+        "Wave": "O"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 9, 
+        "Id0": {
+          "Num": 9
+        }, 
+        "Id1": {
+          "Num": 10
+        }
+      }, 
+      "Decimal": {
+        "Num": 2.5
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": 2.5, 
+        "Signed": "-0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "V", 
+        "Wave": "V"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 10, 
+        "Id0": {
+          "Num": 10
+        }, 
+        "Id1": {
+          "Num": 11
+        }
+      }, 
+      "Decimal": {
+        "Num": 2.5
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": 2.5, 
+        "Signed": "+0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "U", 
+        "Wave": "U"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 11, 
+        "Id0": {
+          "Num": 11
+        }, 
+        "Id1": {
+          "Num": 12
+        }
+      }, 
+      "Decimal": {
+        "Num": "3"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "3", 
+        "Signed": "+1", 
+        "Hex": "3", 
+        "Bin": "11", 
+        "Laegna": "A", 
+        "Wave": "A"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 12, 
+        "Id0": {
+          "Num": 12
+        }, 
+        "Id1": {
+          "Num": 13
+        }
+      }, 
+      "Decimal": {
+        "Num": "4"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "4", 
+        "Signed": "+2", 
+        "Hex": "4", 
+        "Bin": "100", 
+        "Laegna": "E", 
+        "Wave": "E"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 13, 
+        "Id0": {
+          "Num": 13
+        }, 
+        "Id1": {
+          "Num": 14
+        }
+      }, 
+      "Decimal": {
+        "Num": "2inf"
+      }, 
+      "Chapter": {
+        "Num": 1, 
+        "id": {
+          "Num": 1
+        }
+      }, 
+      "R": 1, 
+      "T": {
+        "Num": "2inf", 
+        "Signed": "+inf", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "\u2229", 
+        "Wave": "\u2229"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 14, 
+        "Id0": {
+          "Num": 14
+        }, 
+        "Id1": {
+          "Num": 15
+        }
+      }, 
+      "Decimal": {
+        "Num": "0"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "0", 
+        "Signed": "-inf", 
+        "Hex": "0", 
+        "Bin": "0", 
+        "Laegna": "WW", 
+        "Wave": "WW"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 15, 
+        "Id0": {
+          "Num": 15
+        }, 
+        "Id1": {
+          "Num": 16
+        }
+      }, 
+      "Decimal": {
+        "Num": "1"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "1", 
+        "Signed": "-8", 
+        "Hex": "1", 
+        "Bin": "1", 
+        "Laegna": "II", 
+        "Wave": "II"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 16, 
+        "Id0": {
+          "Num": 16
+        }, 
+        "Id1": {
+          "Num": 17
+        }
+      }, 
+      "Decimal": {
+        "Num": "2"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "2", 
+        "Signed": "-7", 
+        "Hex": "2", 
+        "Bin": "10", 
+        "Laegna": "IO", 
+        "Wave": "IO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 17, 
+        "Id0": {
+          "Num": 17
+        }, 
+        "Id1": {
+          "Num": 18
+        }
+      }, 
+      "Decimal": {
+        "Num": "3"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "3", 
+        "Signed": "-6", 
+        "Hex": "3", 
+        "Bin": "11", 
+        "Laegna": "IA", 
+        "Wave": "IA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 18, 
+        "Id0": {
+          "Num": 18
+        }, 
+        "Id1": {
+          "Num": 19
+        }
+      }, 
+      "Decimal": {
+        "Num": "4"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "4", 
+        "Signed": "-5", 
+        "Hex": "4", 
+        "Bin": "100", 
+        "Laegna": "IE", 
+        "Wave": "IE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 19, 
+        "Id0": {
+          "Num": 19
+        }, 
+        "Id1": {
+          "Num": 20
+        }
+      }, 
+      "Decimal": {
+        "Num": "5"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "5", 
+        "Signed": "-4", 
+        "Hex": "5", 
+        "Bin": "101", 
+        "Laegna": "OI", 
+        "Wave": "OA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 20, 
+        "Id0": {
+          "Num": 20
+        }, 
+        "Id1": {
+          "Num": 21
+        }
+      }, 
+      "Decimal": {
+        "Num": "6"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "6", 
+        "Signed": "-3", 
+        "Hex": "6", 
+        "Bin": "110", 
+        "Laegna": "OO", 
+        "Wave": "OI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 21, 
+        "Id0": {
+          "Num": 21
+        }, 
+        "Id1": {
+          "Num": 22
+        }
+      }, 
+      "Decimal": {
+        "Num": "7"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "7", 
+        "Signed": "-2", 
+        "Hex": "7", 
+        "Bin": "111", 
+        "Laegna": "OA", 
+        "Wave": "OE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 22, 
+        "Id0": {
+          "Num": 22
+        }, 
+        "Id1": {
+          "Num": 23
+        }
+      }, 
+      "Decimal": {
+        "Num": "8"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "8", 
+        "Signed": "-1", 
+        "Hex": "8", 
+        "Bin": "1000", 
+        "Laegna": "OE", 
+        "Wave": "OO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 23, 
+        "Id0": {
+          "Num": 23
+        }, 
+        "Id1": {
+          "Num": 24
+        }
+      }, 
+      "Decimal": {
+        "Num": 8.5
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": 8.5, 
+        "Signed": "-0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "VV", 
+        "Wave": "VV"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 24, 
+        "Id0": {
+          "Num": 24
+        }, 
+        "Id1": {
+          "Num": 25
+        }
+      }, 
+      "Decimal": {
+        "Num": 8.5
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": 8.5, 
+        "Signed": "+0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "UU", 
+        "Wave": "UU"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 25, 
+        "Id0": {
+          "Num": 25
+        }, 
+        "Id1": {
+          "Num": 26
+        }
+      }, 
+      "Decimal": {
+        "Num": "9"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "9", 
+        "Signed": "+1", 
+        "Hex": "9", 
+        "Bin": "1001", 
+        "Laegna": "AI", 
+        "Wave": "AA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 26, 
+        "Id0": {
+          "Num": 26
+        }, 
+        "Id1": {
+          "Num": 27
+        }
+      }, 
+      "Decimal": {
+        "Num": "10"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "10", 
+        "Signed": "+2", 
+        "Hex": "A", 
+        "Bin": "1010", 
+        "Laegna": "AO", 
+        "Wave": "AI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 27, 
+        "Id0": {
+          "Num": 27
+        }, 
+        "Id1": {
+          "Num": 28
+        }
+      }, 
+      "Decimal": {
+        "Num": "11"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "11", 
+        "Signed": "+3", 
+        "Hex": "B", 
+        "Bin": "1011", 
+        "Laegna": "AA", 
+        "Wave": "AE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 28, 
+        "Id0": {
+          "Num": 28
+        }, 
+        "Id1": {
+          "Num": 29
+        }
+      }, 
+      "Decimal": {
+        "Num": "12"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "12", 
+        "Signed": "+4", 
+        "Hex": "C", 
+        "Bin": "1100", 
+        "Laegna": "AE", 
+        "Wave": "AO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 29, 
+        "Id0": {
+          "Num": 29
+        }, 
+        "Id1": {
+          "Num": 30
+        }
+      }, 
+      "Decimal": {
+        "Num": "13"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "13", 
+        "Signed": "+5", 
+        "Hex": "D", 
+        "Bin": "1101", 
+        "Laegna": "EI", 
+        "Wave": "EI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 30, 
+        "Id0": {
+          "Num": 30
+        }, 
+        "Id1": {
+          "Num": 31
+        }
+      }, 
+      "Decimal": {
+        "Num": "14"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "14", 
+        "Signed": "+6", 
+        "Hex": "E", 
+        "Bin": "1110", 
+        "Laegna": "EO", 
+        "Wave": "EO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 31, 
+        "Id0": {
+          "Num": 31
+        }, 
+        "Id1": {
+          "Num": 32
+        }
+      }, 
+      "Decimal": {
+        "Num": "15"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "15", 
+        "Signed": "+7", 
+        "Hex": "F", 
+        "Bin": "1111", 
+        "Laegna": "EA", 
+        "Wave": "EA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 32, 
+        "Id0": {
+          "Num": 32
+        }, 
+        "Id1": {
+          "Num": 33
+        }
+      }, 
+      "Decimal": {
+        "Num": "16"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "16", 
+        "Signed": "+8", 
+        "Hex": "10", 
+        "Bin": "10000", 
+        "Laegna": "EE", 
+        "Wave": "EE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 33, 
+        "Id0": {
+          "Num": 33
+        }, 
+        "Id1": {
+          "Num": 34
+        }
+      }, 
+      "Decimal": {
+        "Num": "2inf"
+      }, 
+      "Chapter": {
+        "Num": 2, 
+        "id": {
+          "Num": 2
+        }
+      }, 
+      "R": 2, 
+      "T": {
+        "Num": "2inf", 
+        "Signed": "+inf", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "\u2229\u2229", 
+        "Wave": "\u2229\u2229"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 34, 
+        "Id0": {
+          "Num": 34
+        }, 
+        "Id1": {
+          "Num": 35
+        }
+      }, 
+      "Decimal": {
+        "Num": "0"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "0", 
+        "Signed": "-inf", 
+        "Hex": "0", 
+        "Bin": "0", 
+        "Laegna": "WWW", 
+        "Wave": "WWW"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 35, 
+        "Id0": {
+          "Num": 35
+        }, 
+        "Id1": {
+          "Num": 36
+        }
+      }, 
+      "Decimal": {
+        "Num": "1"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "1", 
+        "Signed": "-8", 
+        "Hex": "1", 
+        "Bin": "1", 
+        "Laegna": "III", 
+        "Wave": "III"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 36, 
+        "Id0": {
+          "Num": 36
+        }, 
+        "Id1": {
+          "Num": 37
+        }
+      }, 
+      "Decimal": {
+        "Num": "2"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "2", 
+        "Signed": "-7", 
+        "Hex": "2", 
+        "Bin": "10", 
+        "Laegna": "IIO", 
+        "Wave": "IIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 37, 
+        "Id0": {
+          "Num": 37
+        }, 
+        "Id1": {
+          "Num": 38
+        }
+      }, 
+      "Decimal": {
+        "Num": "3"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "3", 
+        "Signed": "-6", 
+        "Hex": "3", 
+        "Bin": "11", 
+        "Laegna": "IIA", 
+        "Wave": "IIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 38, 
+        "Id0": {
+          "Num": 38
+        }, 
+        "Id1": {
+          "Num": 39
+        }
+      }, 
+      "Decimal": {
+        "Num": "4"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "4", 
+        "Signed": "-5", 
+        "Hex": "4", 
+        "Bin": "100", 
+        "Laegna": "IIE", 
+        "Wave": "IIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 39, 
+        "Id0": {
+          "Num": 39
+        }, 
+        "Id1": {
+          "Num": 40
+        }
+      }, 
+      "Decimal": {
+        "Num": "5"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "5", 
+        "Signed": "-4", 
+        "Hex": "5", 
+        "Bin": "101", 
+        "Laegna": "IOI", 
+        "Wave": "IOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 40, 
+        "Id0": {
+          "Num": 40
+        }, 
+        "Id1": {
+          "Num": 41
+        }
+      }, 
+      "Decimal": {
+        "Num": "6"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "6", 
+        "Signed": "-3", 
+        "Hex": "6", 
+        "Bin": "110", 
+        "Laegna": "IOO", 
+        "Wave": "IOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 41, 
+        "Id0": {
+          "Num": 41
+        }, 
+        "Id1": {
+          "Num": 42
+        }
+      }, 
+      "Decimal": {
+        "Num": "7"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "7", 
+        "Signed": "-2", 
+        "Hex": "7", 
+        "Bin": "111", 
+        "Laegna": "IOA", 
+        "Wave": "IOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 42, 
+        "Id0": {
+          "Num": 42
+        }, 
+        "Id1": {
+          "Num": 43
+        }
+      }, 
+      "Decimal": {
+        "Num": "8"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "8", 
+        "Signed": "-1", 
+        "Hex": "8", 
+        "Bin": "1000", 
+        "Laegna": "IOE", 
+        "Wave": "IOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 43, 
+        "Id0": {
+          "Num": 43
+        }, 
+        "Id1": {
+          "Num": 44
+        }
+      }, 
+      "Decimal": {
+        "Num": "9"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "9", 
+        "Signed": "0", 
+        "Hex": "9", 
+        "Bin": "1001", 
+        "Laegna": "IAI", 
+        "Wave": "IAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 44, 
+        "Id0": {
+          "Num": 44
+        }, 
+        "Id1": {
+          "Num": 45
+        }
+      }, 
+      "Decimal": {
+        "Num": "10"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "10", 
+        "Signed": "1", 
+        "Hex": "A", 
+        "Bin": "1010", 
+        "Laegna": "IAO", 
+        "Wave": "IAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 45, 
+        "Id0": {
+          "Num": 45
+        }, 
+        "Id1": {
+          "Num": 46
+        }
+      }, 
+      "Decimal": {
+        "Num": "11"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "11", 
+        "Signed": "2", 
+        "Hex": "B", 
+        "Bin": "1011", 
+        "Laegna": "IAA", 
+        "Wave": "IAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 46, 
+        "Id0": {
+          "Num": 46
+        }, 
+        "Id1": {
+          "Num": 47
+        }
+      }, 
+      "Decimal": {
+        "Num": "12"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "12", 
+        "Signed": "3", 
+        "Hex": "C", 
+        "Bin": "1100", 
+        "Laegna": "IAE", 
+        "Wave": "IAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 47, 
+        "Id0": {
+          "Num": 47
+        }, 
+        "Id1": {
+          "Num": 48
+        }
+      }, 
+      "Decimal": {
+        "Num": "13"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "13", 
+        "Signed": "4", 
+        "Hex": "D", 
+        "Bin": "1101", 
+        "Laegna": "IEI", 
+        "Wave": "IEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 48, 
+        "Id0": {
+          "Num": 48
+        }, 
+        "Id1": {
+          "Num": 49
+        }
+      }, 
+      "Decimal": {
+        "Num": "14"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "14", 
+        "Signed": "5", 
+        "Hex": "E", 
+        "Bin": "1110", 
+        "Laegna": "IEO", 
+        "Wave": "IEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 49, 
+        "Id0": {
+          "Num": 49
+        }, 
+        "Id1": {
+          "Num": 50
+        }
+      }, 
+      "Decimal": {
+        "Num": "15"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "15", 
+        "Signed": "6", 
+        "Hex": "F", 
+        "Bin": "1111", 
+        "Laegna": "IEA", 
+        "Wave": "IEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 50, 
+        "Id0": {
+          "Num": 50
+        }, 
+        "Id1": {
+          "Num": 51
+        }
+      }, 
+      "Decimal": {
+        "Num": "16"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "16", 
+        "Signed": "7", 
+        "Hex": "10", 
+        "Bin": "10000", 
+        "Laegna": "IEE", 
+        "Wave": "IEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 51, 
+        "Id0": {
+          "Num": 51
+        }, 
+        "Id1": {
+          "Num": 52
+        }
+      }, 
+      "Decimal": {
+        "Num": "17"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "17", 
+        "Signed": "8", 
+        "Hex": "11", 
+        "Bin": "10001", 
+        "Laegna": "OII", 
+        "Wave": "OAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 52, 
+        "Id0": {
+          "Num": 52
+        }, 
+        "Id1": {
+          "Num": 53
+        }
+      }, 
+      "Decimal": {
+        "Num": "18"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "18", 
+        "Signed": "9", 
+        "Hex": "12", 
+        "Bin": "10010", 
+        "Laegna": "OIO", 
+        "Wave": "OAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 53, 
+        "Id0": {
+          "Num": 53
+        }, 
+        "Id1": {
+          "Num": 54
+        }
+      }, 
+      "Decimal": {
+        "Num": "19"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "19", 
+        "Signed": "10", 
+        "Hex": "13", 
+        "Bin": "10011", 
+        "Laegna": "OIA", 
+        "Wave": "OAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 54, 
+        "Id0": {
+          "Num": 54
+        }, 
+        "Id1": {
+          "Num": 55
+        }
+      }, 
+      "Decimal": {
+        "Num": "20"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "20", 
+        "Signed": "11", 
+        "Hex": "14", 
+        "Bin": "10100", 
+        "Laegna": "OIE", 
+        "Wave": "OAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 55, 
+        "Id0": {
+          "Num": 55
+        }, 
+        "Id1": {
+          "Num": 56
+        }
+      }, 
+      "Decimal": {
+        "Num": "21"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "21", 
+        "Signed": "12", 
+        "Hex": "15", 
+        "Bin": "10101", 
+        "Laegna": "OOI", 
+        "Wave": "OII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 56, 
+        "Id0": {
+          "Num": 56
+        }, 
+        "Id1": {
+          "Num": 57
+        }
+      }, 
+      "Decimal": {
+        "Num": "22"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "22", 
+        "Signed": "13", 
+        "Hex": "16", 
+        "Bin": "10110", 
+        "Laegna": "OOO", 
+        "Wave": "OIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 57, 
+        "Id0": {
+          "Num": 57
+        }, 
+        "Id1": {
+          "Num": 58
+        }
+      }, 
+      "Decimal": {
+        "Num": "23"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "23", 
+        "Signed": "14", 
+        "Hex": "17", 
+        "Bin": "10111", 
+        "Laegna": "OOA", 
+        "Wave": "OIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 58, 
+        "Id0": {
+          "Num": 58
+        }, 
+        "Id1": {
+          "Num": 59
+        }
+      }, 
+      "Decimal": {
+        "Num": "24"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "24", 
+        "Signed": "15", 
+        "Hex": "18", 
+        "Bin": "11000", 
+        "Laegna": "OOE", 
+        "Wave": "OIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 59, 
+        "Id0": {
+          "Num": 59
+        }, 
+        "Id1": {
+          "Num": 60
+        }
+      }, 
+      "Decimal": {
+        "Num": "25"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "25", 
+        "Signed": "16", 
+        "Hex": "19", 
+        "Bin": "11001", 
+        "Laegna": "OAI", 
+        "Wave": "OEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 60, 
+        "Id0": {
+          "Num": 60
+        }, 
+        "Id1": {
+          "Num": 61
+        }
+      }, 
+      "Decimal": {
+        "Num": "26"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "26", 
+        "Signed": "17", 
+        "Hex": "1A", 
+        "Bin": "11010", 
+        "Laegna": "OAO", 
+        "Wave": "OEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 61, 
+        "Id0": {
+          "Num": 61
+        }, 
+        "Id1": {
+          "Num": 62
+        }
+      }, 
+      "Decimal": {
+        "Num": "27"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "27", 
+        "Signed": "18", 
+        "Hex": "1B", 
+        "Bin": "11011", 
+        "Laegna": "OAA", 
+        "Wave": "OEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 62, 
+        "Id0": {
+          "Num": 62
+        }, 
+        "Id1": {
+          "Num": 63
+        }
+      }, 
+      "Decimal": {
+        "Num": "28"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "28", 
+        "Signed": "19", 
+        "Hex": "1C", 
+        "Bin": "11100", 
+        "Laegna": "OAE", 
+        "Wave": "OEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 63, 
+        "Id0": {
+          "Num": 63
+        }, 
+        "Id1": {
+          "Num": 64
+        }
+      }, 
+      "Decimal": {
+        "Num": "29"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "29", 
+        "Signed": "20", 
+        "Hex": "1D", 
+        "Bin": "11101", 
+        "Laegna": "OEI", 
+        "Wave": "OOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 64, 
+        "Id0": {
+          "Num": 64
+        }, 
+        "Id1": {
+          "Num": 65
+        }
+      }, 
+      "Decimal": {
+        "Num": "30"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "30", 
+        "Signed": "21", 
+        "Hex": "1E", 
+        "Bin": "11110", 
+        "Laegna": "OEO", 
+        "Wave": "OOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 65, 
+        "Id0": {
+          "Num": 65
+        }, 
+        "Id1": {
+          "Num": 66
+        }
+      }, 
+      "Decimal": {
+        "Num": "31"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "31", 
+        "Signed": "22", 
+        "Hex": "1F", 
+        "Bin": "11111", 
+        "Laegna": "OEA", 
+        "Wave": "OOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 66, 
+        "Id0": {
+          "Num": 66
+        }, 
+        "Id1": {
+          "Num": 67
+        }
+      }, 
+      "Decimal": {
+        "Num": "32"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "32", 
+        "Signed": "23", 
+        "Hex": "20", 
+        "Bin": "100000", 
+        "Laegna": "OEE", 
+        "Wave": "OOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 67, 
+        "Id0": {
+          "Num": 67
+        }, 
+        "Id1": {
+          "Num": 68
+        }
+      }, 
+      "Decimal": {
+        "Num": 32.5
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": 32.5, 
+        "Signed": "-0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "VVV", 
+        "Wave": "VVV"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 68, 
+        "Id0": {
+          "Num": 68
+        }, 
+        "Id1": {
+          "Num": 69
+        }
+      }, 
+      "Decimal": {
+        "Num": 32.5
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": 32.5, 
+        "Signed": "+0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "UUU", 
+        "Wave": "UUU"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 69, 
+        "Id0": {
+          "Num": 69
+        }, 
+        "Id1": {
+          "Num": 70
+        }
+      }, 
+      "Decimal": {
+        "Num": "33"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "33", 
+        "Signed": "+1", 
+        "Hex": "21", 
+        "Bin": "100001", 
+        "Laegna": "AII", 
+        "Wave": "AAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 70, 
+        "Id0": {
+          "Num": 70
+        }, 
+        "Id1": {
+          "Num": 71
+        }
+      }, 
+      "Decimal": {
+        "Num": "34"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "34", 
+        "Signed": "+2", 
+        "Hex": "22", 
+        "Bin": "100010", 
+        "Laegna": "AIO", 
+        "Wave": "AAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 71, 
+        "Id0": {
+          "Num": 71
+        }, 
+        "Id1": {
+          "Num": 72
+        }
+      }, 
+      "Decimal": {
+        "Num": "35"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "35", 
+        "Signed": "+3", 
+        "Hex": "23", 
+        "Bin": "100011", 
+        "Laegna": "AIA", 
+        "Wave": "AAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 72, 
+        "Id0": {
+          "Num": 72
+        }, 
+        "Id1": {
+          "Num": 73
+        }
+      }, 
+      "Decimal": {
+        "Num": "36"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "36", 
+        "Signed": "+4", 
+        "Hex": "24", 
+        "Bin": "100100", 
+        "Laegna": "AIE", 
+        "Wave": "AAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 73, 
+        "Id0": {
+          "Num": 73
+        }, 
+        "Id1": {
+          "Num": 74
+        }
+      }, 
+      "Decimal": {
+        "Num": "37"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "37", 
+        "Signed": "+5", 
+        "Hex": "25", 
+        "Bin": "100101", 
+        "Laegna": "AOI", 
+        "Wave": "AII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 74, 
+        "Id0": {
+          "Num": 74
+        }, 
+        "Id1": {
+          "Num": 75
+        }
+      }, 
+      "Decimal": {
+        "Num": "38"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "38", 
+        "Signed": "+6", 
+        "Hex": "26", 
+        "Bin": "100110", 
+        "Laegna": "AOO", 
+        "Wave": "AIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 75, 
+        "Id0": {
+          "Num": 75
+        }, 
+        "Id1": {
+          "Num": 76
+        }
+      }, 
+      "Decimal": {
+        "Num": "39"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "39", 
+        "Signed": "+7", 
+        "Hex": "27", 
+        "Bin": "100111", 
+        "Laegna": "AOA", 
+        "Wave": "AIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 76, 
+        "Id0": {
+          "Num": 76
+        }, 
+        "Id1": {
+          "Num": 77
+        }
+      }, 
+      "Decimal": {
+        "Num": "40"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "40", 
+        "Signed": "+8", 
+        "Hex": "28", 
+        "Bin": "101000", 
+        "Laegna": "AOE", 
+        "Wave": "AIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 77, 
+        "Id0": {
+          "Num": 77
+        }, 
+        "Id1": {
+          "Num": 78
+        }
+      }, 
+      "Decimal": {
+        "Num": "41"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "41", 
+        "Signed": "+9", 
+        "Hex": "29", 
+        "Bin": "101001", 
+        "Laegna": "AAI", 
+        "Wave": "AEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 78, 
+        "Id0": {
+          "Num": 78
+        }, 
+        "Id1": {
+          "Num": 79
+        }
+      }, 
+      "Decimal": {
+        "Num": "42"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "42", 
+        "Signed": "+10", 
+        "Hex": "2A", 
+        "Bin": "101010", 
+        "Laegna": "AAO", 
+        "Wave": "AEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 79, 
+        "Id0": {
+          "Num": 79
+        }, 
+        "Id1": {
+          "Num": 80
+        }
+      }, 
+      "Decimal": {
+        "Num": "43"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "43", 
+        "Signed": "+11", 
+        "Hex": "2B", 
+        "Bin": "101011", 
+        "Laegna": "AAA", 
+        "Wave": "AEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 80, 
+        "Id0": {
+          "Num": 80
+        }, 
+        "Id1": {
+          "Num": 81
+        }
+      }, 
+      "Decimal": {
+        "Num": "44"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "44", 
+        "Signed": "+12", 
+        "Hex": "2C", 
+        "Bin": "101100", 
+        "Laegna": "AAE", 
+        "Wave": "AEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 81, 
+        "Id0": {
+          "Num": 81
+        }, 
+        "Id1": {
+          "Num": 82
+        }
+      }, 
+      "Decimal": {
+        "Num": "45"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "45", 
+        "Signed": "+13", 
+        "Hex": "2D", 
+        "Bin": "101101", 
+        "Laegna": "AEI", 
+        "Wave": "AOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 82, 
+        "Id0": {
+          "Num": 82
+        }, 
+        "Id1": {
+          "Num": 83
+        }
+      }, 
+      "Decimal": {
+        "Num": "46"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "46", 
+        "Signed": "+14", 
+        "Hex": "2E", 
+        "Bin": "101110", 
+        "Laegna": "AEO", 
+        "Wave": "AOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 83, 
+        "Id0": {
+          "Num": 83
+        }, 
+        "Id1": {
+          "Num": 84
+        }
+      }, 
+      "Decimal": {
+        "Num": "47"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "47", 
+        "Signed": "+15", 
+        "Hex": "2F", 
+        "Bin": "101111", 
+        "Laegna": "AEA", 
+        "Wave": "AOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 84, 
+        "Id0": {
+          "Num": 84
+        }, 
+        "Id1": {
+          "Num": 85
+        }
+      }, 
+      "Decimal": {
+        "Num": "48"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "48", 
+        "Signed": "+16", 
+        "Hex": "30", 
+        "Bin": "110000", 
+        "Laegna": "AEE", 
+        "Wave": "AOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 85, 
+        "Id0": {
+          "Num": 85
+        }, 
+        "Id1": {
+          "Num": 86
+        }
+      }, 
+      "Decimal": {
+        "Num": "49"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "49", 
+        "Signed": "+17", 
+        "Hex": "31", 
+        "Bin": "110001", 
+        "Laegna": "EII", 
+        "Wave": "EII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 86, 
+        "Id0": {
+          "Num": 86
+        }, 
+        "Id1": {
+          "Num": 87
+        }
+      }, 
+      "Decimal": {
+        "Num": "50"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "50", 
+        "Signed": "+18", 
+        "Hex": "32", 
+        "Bin": "110010", 
+        "Laegna": "EIO", 
+        "Wave": "EIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 87, 
+        "Id0": {
+          "Num": 87
+        }, 
+        "Id1": {
+          "Num": 88
+        }
+      }, 
+      "Decimal": {
+        "Num": "51"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "51", 
+        "Signed": "+19", 
+        "Hex": "33", 
+        "Bin": "110011", 
+        "Laegna": "EIA", 
+        "Wave": "EIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 88, 
+        "Id0": {
+          "Num": 88
+        }, 
+        "Id1": {
+          "Num": 89
+        }
+      }, 
+      "Decimal": {
+        "Num": "52"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "52", 
+        "Signed": "+20", 
+        "Hex": "34", 
+        "Bin": "110100", 
+        "Laegna": "EIE", 
+        "Wave": "EIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 89, 
+        "Id0": {
+          "Num": 89
+        }, 
+        "Id1": {
+          "Num": 90
+        }
+      }, 
+      "Decimal": {
+        "Num": "53"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "53", 
+        "Signed": "+21", 
+        "Hex": "35", 
+        "Bin": "110101", 
+        "Laegna": "EOI", 
+        "Wave": "EOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 90, 
+        "Id0": {
+          "Num": 90
+        }, 
+        "Id1": {
+          "Num": 91
+        }
+      }, 
+      "Decimal": {
+        "Num": "54"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "54", 
+        "Signed": "+22", 
+        "Hex": "36", 
+        "Bin": "110110", 
+        "Laegna": "EOO", 
+        "Wave": "EOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 91, 
+        "Id0": {
+          "Num": 91
+        }, 
+        "Id1": {
+          "Num": 92
+        }
+      }, 
+      "Decimal": {
+        "Num": "55"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "55", 
+        "Signed": "+23", 
+        "Hex": "37", 
+        "Bin": "110111", 
+        "Laegna": "EOA", 
+        "Wave": "EOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 92, 
+        "Id0": {
+          "Num": 92
+        }, 
+        "Id1": {
+          "Num": 93
+        }
+      }, 
+      "Decimal": {
+        "Num": "56"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "56", 
+        "Signed": "+24", 
+        "Hex": "38", 
+        "Bin": "111000", 
+        "Laegna": "EOE", 
+        "Wave": "EOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 93, 
+        "Id0": {
+          "Num": 93
+        }, 
+        "Id1": {
+          "Num": 94
+        }
+      }, 
+      "Decimal": {
+        "Num": "57"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "57", 
+        "Signed": "+25", 
+        "Hex": "39", 
+        "Bin": "111001", 
+        "Laegna": "EAI", 
+        "Wave": "EAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 94, 
+        "Id0": {
+          "Num": 94
+        }, 
+        "Id1": {
+          "Num": 95
+        }
+      }, 
+      "Decimal": {
+        "Num": "58"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "58", 
+        "Signed": "+26", 
+        "Hex": "3A", 
+        "Bin": "111010", 
+        "Laegna": "EAO", 
+        "Wave": "EAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 95, 
+        "Id0": {
+          "Num": 95
+        }, 
+        "Id1": {
+          "Num": 96
+        }
+      }, 
+      "Decimal": {
+        "Num": "59"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "59", 
+        "Signed": "+27", 
+        "Hex": "3B", 
+        "Bin": "111011", 
+        "Laegna": "EAA", 
+        "Wave": "EAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 96, 
+        "Id0": {
+          "Num": 96
+        }, 
+        "Id1": {
+          "Num": 97
+        }
+      }, 
+      "Decimal": {
+        "Num": "60"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "60", 
+        "Signed": "+28", 
+        "Hex": "3C", 
+        "Bin": "111100", 
+        "Laegna": "EAE", 
+        "Wave": "EAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 97, 
+        "Id0": {
+          "Num": 97
+        }, 
+        "Id1": {
+          "Num": 98
+        }
+      }, 
+      "Decimal": {
+        "Num": "61"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "61", 
+        "Signed": "+29", 
+        "Hex": "3D", 
+        "Bin": "111101", 
+        "Laegna": "EEI", 
+        "Wave": "EEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 98, 
+        "Id0": {
+          "Num": 98
+        }, 
+        "Id1": {
+          "Num": 99
+        }
+      }, 
+      "Decimal": {
+        "Num": "62"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "62", 
+        "Signed": "+30", 
+        "Hex": "3E", 
+        "Bin": "111110", 
+        "Laegna": "EEO", 
+        "Wave": "EEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 99, 
+        "Id0": {
+          "Num": 99
+        }, 
+        "Id1": {
+          "Num": 100
+        }
+      }, 
+      "Decimal": {
+        "Num": "63"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "63", 
+        "Signed": "+31", 
+        "Hex": "3F", 
+        "Bin": "111111", 
+        "Laegna": "EEA", 
+        "Wave": "EEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 100, 
+        "Id0": {
+          "Num": 100
+        }, 
+        "Id1": {
+          "Num": 101
+        }
+      }, 
+      "Decimal": {
+        "Num": "64"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "64", 
+        "Signed": "+32", 
+        "Hex": "40", 
+        "Bin": "1000000", 
+        "Laegna": "EEE", 
+        "Wave": "EEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 101, 
+        "Id0": {
+          "Num": 101
+        }, 
+        "Id1": {
+          "Num": 102
+        }
+      }, 
+      "Decimal": {
+        "Num": "2inf"
+      }, 
+      "Chapter": {
+        "Num": 3, 
+        "id": {
+          "Num": 3
+        }
+      }, 
+      "R": 3, 
+      "T": {
+        "Num": "2inf", 
+        "Signed": "+inf", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "\u2229\u2229\u2229", 
+        "Wave": "\u2229\u2229\u2229"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 102, 
+        "Id0": {
+          "Num": 102
+        }, 
+        "Id1": {
+          "Num": 103
+        }
+      }, 
+      "Decimal": {
+        "Num": "0"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "0", 
+        "Signed": "-inf", 
+        "Hex": "0", 
+        "Bin": "0", 
+        "Laegna": "WWWW", 
+        "Wave": "WWWW"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 103, 
+        "Id0": {
+          "Num": 103
+        }, 
+        "Id1": {
+          "Num": 104
+        }
+      }, 
+      "Decimal": {
+        "Num": "1"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "1", 
+        "Signed": "-8", 
+        "Hex": "1", 
+        "Bin": "1", 
+        "Laegna": "IIII", 
+        "Wave": "IIII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 104, 
+        "Id0": {
+          "Num": 104
+        }, 
+        "Id1": {
+          "Num": 105
+        }
+      }, 
+      "Decimal": {
+        "Num": "2"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "2", 
+        "Signed": "-7", 
+        "Hex": "2", 
+        "Bin": "10", 
+        "Laegna": "IIIO", 
+        "Wave": "IIIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 105, 
+        "Id0": {
+          "Num": 105
+        }, 
+        "Id1": {
+          "Num": 106
+        }
+      }, 
+      "Decimal": {
+        "Num": "3"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "3", 
+        "Signed": "-6", 
+        "Hex": "3", 
+        "Bin": "11", 
+        "Laegna": "IIIA", 
+        "Wave": "IIIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 106, 
+        "Id0": {
+          "Num": 106
+        }, 
+        "Id1": {
+          "Num": 107
+        }
+      }, 
+      "Decimal": {
+        "Num": "4"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "4", 
+        "Signed": "-5", 
+        "Hex": "4", 
+        "Bin": "100", 
+        "Laegna": "IIIE", 
+        "Wave": "IIIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 107, 
+        "Id0": {
+          "Num": 107
+        }, 
+        "Id1": {
+          "Num": 108
+        }
+      }, 
+      "Decimal": {
+        "Num": "5"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "5", 
+        "Signed": "-4", 
+        "Hex": "5", 
+        "Bin": "101", 
+        "Laegna": "IIOI", 
+        "Wave": "IIOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 108, 
+        "Id0": {
+          "Num": 108
+        }, 
+        "Id1": {
+          "Num": 109
+        }
+      }, 
+      "Decimal": {
+        "Num": "6"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "6", 
+        "Signed": "-3", 
+        "Hex": "6", 
+        "Bin": "110", 
+        "Laegna": "IIOO", 
+        "Wave": "IIOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 109, 
+        "Id0": {
+          "Num": 109
+        }, 
+        "Id1": {
+          "Num": 110
+        }
+      }, 
+      "Decimal": {
+        "Num": "7"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "7", 
+        "Signed": "-2", 
+        "Hex": "7", 
+        "Bin": "111", 
+        "Laegna": "IIOA", 
+        "Wave": "IIOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 110, 
+        "Id0": {
+          "Num": 110
+        }, 
+        "Id1": {
+          "Num": 111
+        }
+      }, 
+      "Decimal": {
+        "Num": "8"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "8", 
+        "Signed": "-1", 
+        "Hex": "8", 
+        "Bin": "1000", 
+        "Laegna": "IIOE", 
+        "Wave": "IIOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 111, 
+        "Id0": {
+          "Num": 111
+        }, 
+        "Id1": {
+          "Num": 112
+        }
+      }, 
+      "Decimal": {
+        "Num": "9"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "9", 
+        "Signed": "0", 
+        "Hex": "9", 
+        "Bin": "1001", 
+        "Laegna": "IIAI", 
+        "Wave": "IIAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 112, 
+        "Id0": {
+          "Num": 112
+        }, 
+        "Id1": {
+          "Num": 113
+        }
+      }, 
+      "Decimal": {
+        "Num": "10"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "10", 
+        "Signed": "1", 
+        "Hex": "A", 
+        "Bin": "1010", 
+        "Laegna": "IIAO", 
+        "Wave": "IIAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 113, 
+        "Id0": {
+          "Num": 113
+        }, 
+        "Id1": {
+          "Num": 114
+        }
+      }, 
+      "Decimal": {
+        "Num": "11"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "11", 
+        "Signed": "2", 
+        "Hex": "B", 
+        "Bin": "1011", 
+        "Laegna": "IIAA", 
+        "Wave": "IIAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 114, 
+        "Id0": {
+          "Num": 114
+        }, 
+        "Id1": {
+          "Num": 115
+        }
+      }, 
+      "Decimal": {
+        "Num": "12"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "12", 
+        "Signed": "3", 
+        "Hex": "C", 
+        "Bin": "1100", 
+        "Laegna": "IIAE", 
+        "Wave": "IIAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 115, 
+        "Id0": {
+          "Num": 115
+        }, 
+        "Id1": {
+          "Num": 116
+        }
+      }, 
+      "Decimal": {
+        "Num": "13"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "13", 
+        "Signed": "4", 
+        "Hex": "D", 
+        "Bin": "1101", 
+        "Laegna": "IIEI", 
+        "Wave": "IIEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 116, 
+        "Id0": {
+          "Num": 116
+        }, 
+        "Id1": {
+          "Num": 117
+        }
+      }, 
+      "Decimal": {
+        "Num": "14"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "14", 
+        "Signed": "5", 
+        "Hex": "E", 
+        "Bin": "1110", 
+        "Laegna": "IIEO", 
+        "Wave": "IIEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 117, 
+        "Id0": {
+          "Num": 117
+        }, 
+        "Id1": {
+          "Num": 118
+        }
+      }, 
+      "Decimal": {
+        "Num": "15"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "15", 
+        "Signed": "6", 
+        "Hex": "F", 
+        "Bin": "1111", 
+        "Laegna": "IIEA", 
+        "Wave": "IIEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 118, 
+        "Id0": {
+          "Num": 118
+        }, 
+        "Id1": {
+          "Num": 119
+        }
+      }, 
+      "Decimal": {
+        "Num": "16"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "16", 
+        "Signed": "7", 
+        "Hex": "10", 
+        "Bin": "10000", 
+        "Laegna": "IIEE", 
+        "Wave": "IIEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 119, 
+        "Id0": {
+          "Num": 119
+        }, 
+        "Id1": {
+          "Num": 120
+        }
+      }, 
+      "Decimal": {
+        "Num": "17"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "17", 
+        "Signed": "8", 
+        "Hex": "11", 
+        "Bin": "10001", 
+        "Laegna": "IOII", 
+        "Wave": "IOAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 120, 
+        "Id0": {
+          "Num": 120
+        }, 
+        "Id1": {
+          "Num": 121
+        }
+      }, 
+      "Decimal": {
+        "Num": "18"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "18", 
+        "Signed": "9", 
+        "Hex": "12", 
+        "Bin": "10010", 
+        "Laegna": "IOIO", 
+        "Wave": "IOAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 121, 
+        "Id0": {
+          "Num": 121
+        }, 
+        "Id1": {
+          "Num": 122
+        }
+      }, 
+      "Decimal": {
+        "Num": "19"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "19", 
+        "Signed": "10", 
+        "Hex": "13", 
+        "Bin": "10011", 
+        "Laegna": "IOIA", 
+        "Wave": "IOAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 122, 
+        "Id0": {
+          "Num": 122
+        }, 
+        "Id1": {
+          "Num": 123
+        }
+      }, 
+      "Decimal": {
+        "Num": "20"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "20", 
+        "Signed": "11", 
+        "Hex": "14", 
+        "Bin": "10100", 
+        "Laegna": "IOIE", 
+        "Wave": "IOAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 123, 
+        "Id0": {
+          "Num": 123
+        }, 
+        "Id1": {
+          "Num": 124
+        }
+      }, 
+      "Decimal": {
+        "Num": "21"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "21", 
+        "Signed": "12", 
+        "Hex": "15", 
+        "Bin": "10101", 
+        "Laegna": "IOOI", 
+        "Wave": "IOII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 124, 
+        "Id0": {
+          "Num": 124
+        }, 
+        "Id1": {
+          "Num": 125
+        }
+      }, 
+      "Decimal": {
+        "Num": "22"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "22", 
+        "Signed": "13", 
+        "Hex": "16", 
+        "Bin": "10110", 
+        "Laegna": "IOOO", 
+        "Wave": "IOIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 125, 
+        "Id0": {
+          "Num": 125
+        }, 
+        "Id1": {
+          "Num": 126
+        }
+      }, 
+      "Decimal": {
+        "Num": "23"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "23", 
+        "Signed": "14", 
+        "Hex": "17", 
+        "Bin": "10111", 
+        "Laegna": "IOOA", 
+        "Wave": "IOIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 126, 
+        "Id0": {
+          "Num": 126
+        }, 
+        "Id1": {
+          "Num": 127
+        }
+      }, 
+      "Decimal": {
+        "Num": "24"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "24", 
+        "Signed": "15", 
+        "Hex": "18", 
+        "Bin": "11000", 
+        "Laegna": "IOOE", 
+        "Wave": "IOIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 127, 
+        "Id0": {
+          "Num": 127
+        }, 
+        "Id1": {
+          "Num": 128
+        }
+      }, 
+      "Decimal": {
+        "Num": "25"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "25", 
+        "Signed": "16", 
+        "Hex": "19", 
+        "Bin": "11001", 
+        "Laegna": "IOAI", 
+        "Wave": "IOEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 128, 
+        "Id0": {
+          "Num": 128
+        }, 
+        "Id1": {
+          "Num": 129
+        }
+      }, 
+      "Decimal": {
+        "Num": "26"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "26", 
+        "Signed": "17", 
+        "Hex": "1A", 
+        "Bin": "11010", 
+        "Laegna": "IOAO", 
+        "Wave": "IOEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 129, 
+        "Id0": {
+          "Num": 129
+        }, 
+        "Id1": {
+          "Num": 130
+        }
+      }, 
+      "Decimal": {
+        "Num": "27"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "27", 
+        "Signed": "18", 
+        "Hex": "1B", 
+        "Bin": "11011", 
+        "Laegna": "IOAA", 
+        "Wave": "IOEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 130, 
+        "Id0": {
+          "Num": 130
+        }, 
+        "Id1": {
+          "Num": 131
+        }
+      }, 
+      "Decimal": {
+        "Num": "28"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "28", 
+        "Signed": "19", 
+        "Hex": "1C", 
+        "Bin": "11100", 
+        "Laegna": "IOAE", 
+        "Wave": "IOEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 131, 
+        "Id0": {
+          "Num": 131
+        }, 
+        "Id1": {
+          "Num": 132
+        }
+      }, 
+      "Decimal": {
+        "Num": "29"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "29", 
+        "Signed": "20", 
+        "Hex": "1D", 
+        "Bin": "11101", 
+        "Laegna": "IOEI", 
+        "Wave": "IOOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 132, 
+        "Id0": {
+          "Num": 132
+        }, 
+        "Id1": {
+          "Num": 133
+        }
+      }, 
+      "Decimal": {
+        "Num": "30"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "30", 
+        "Signed": "21", 
+        "Hex": "1E", 
+        "Bin": "11110", 
+        "Laegna": "IOEO", 
+        "Wave": "IOOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 133, 
+        "Id0": {
+          "Num": 133
+        }, 
+        "Id1": {
+          "Num": 134
+        }
+      }, 
+      "Decimal": {
+        "Num": "31"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "31", 
+        "Signed": "22", 
+        "Hex": "1F", 
+        "Bin": "11111", 
+        "Laegna": "IOEA", 
+        "Wave": "IOOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 134, 
+        "Id0": {
+          "Num": 134
+        }, 
+        "Id1": {
+          "Num": 135
+        }
+      }, 
+      "Decimal": {
+        "Num": "32"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "32", 
+        "Signed": "23", 
+        "Hex": "20", 
+        "Bin": "100000", 
+        "Laegna": "IOEE", 
+        "Wave": "IOOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 135, 
+        "Id0": {
+          "Num": 135
+        }, 
+        "Id1": {
+          "Num": 136
+        }
+      }, 
+      "Decimal": {
+        "Num": "33"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "33", 
+        "Signed": "24", 
+        "Hex": "21", 
+        "Bin": "100001", 
+        "Laegna": "IAII", 
+        "Wave": "IAAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 136, 
+        "Id0": {
+          "Num": 136
+        }, 
+        "Id1": {
+          "Num": 137
+        }
+      }, 
+      "Decimal": {
+        "Num": "34"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "34", 
+        "Signed": "25", 
+        "Hex": "22", 
+        "Bin": "100010", 
+        "Laegna": "IAIO", 
+        "Wave": "IAAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 137, 
+        "Id0": {
+          "Num": 137
+        }, 
+        "Id1": {
+          "Num": 138
+        }
+      }, 
+      "Decimal": {
+        "Num": "35"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "35", 
+        "Signed": "26", 
+        "Hex": "23", 
+        "Bin": "100011", 
+        "Laegna": "IAIA", 
+        "Wave": "IAAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 138, 
+        "Id0": {
+          "Num": 138
+        }, 
+        "Id1": {
+          "Num": 139
+        }
+      }, 
+      "Decimal": {
+        "Num": "36"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "36", 
+        "Signed": "27", 
+        "Hex": "24", 
+        "Bin": "100100", 
+        "Laegna": "IAIE", 
+        "Wave": "IAAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 139, 
+        "Id0": {
+          "Num": 139
+        }, 
+        "Id1": {
+          "Num": 140
+        }
+      }, 
+      "Decimal": {
+        "Num": "37"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "37", 
+        "Signed": "28", 
+        "Hex": "25", 
+        "Bin": "100101", 
+        "Laegna": "IAOI", 
+        "Wave": "IAII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 140, 
+        "Id0": {
+          "Num": 140
+        }, 
+        "Id1": {
+          "Num": 141
+        }
+      }, 
+      "Decimal": {
+        "Num": "38"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "38", 
+        "Signed": "29", 
+        "Hex": "26", 
+        "Bin": "100110", 
+        "Laegna": "IAOO", 
+        "Wave": "IAIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 141, 
+        "Id0": {
+          "Num": 141
+        }, 
+        "Id1": {
+          "Num": 142
+        }
+      }, 
+      "Decimal": {
+        "Num": "39"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "39", 
+        "Signed": "30", 
+        "Hex": "27", 
+        "Bin": "100111", 
+        "Laegna": "IAOA", 
+        "Wave": "IAIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 142, 
+        "Id0": {
+          "Num": 142
+        }, 
+        "Id1": {
+          "Num": 143
+        }
+      }, 
+      "Decimal": {
+        "Num": "40"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "40", 
+        "Signed": "31", 
+        "Hex": "28", 
+        "Bin": "101000", 
+        "Laegna": "IAOE", 
+        "Wave": "IAIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 143, 
+        "Id0": {
+          "Num": 143
+        }, 
+        "Id1": {
+          "Num": 144
+        }
+      }, 
+      "Decimal": {
+        "Num": "41"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "41", 
+        "Signed": "32", 
+        "Hex": "29", 
+        "Bin": "101001", 
+        "Laegna": "IAAI", 
+        "Wave": "IAEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 144, 
+        "Id0": {
+          "Num": 144
+        }, 
+        "Id1": {
+          "Num": 145
+        }
+      }, 
+      "Decimal": {
+        "Num": "42"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "42", 
+        "Signed": "33", 
+        "Hex": "2A", 
+        "Bin": "101010", 
+        "Laegna": "IAAO", 
+        "Wave": "IAEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 145, 
+        "Id0": {
+          "Num": 145
+        }, 
+        "Id1": {
+          "Num": 146
+        }
+      }, 
+      "Decimal": {
+        "Num": "43"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "43", 
+        "Signed": "34", 
+        "Hex": "2B", 
+        "Bin": "101011", 
+        "Laegna": "IAAA", 
+        "Wave": "IAEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 146, 
+        "Id0": {
+          "Num": 146
+        }, 
+        "Id1": {
+          "Num": 147
+        }
+      }, 
+      "Decimal": {
+        "Num": "44"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "44", 
+        "Signed": "35", 
+        "Hex": "2C", 
+        "Bin": "101100", 
+        "Laegna": "IAAE", 
+        "Wave": "IAEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 147, 
+        "Id0": {
+          "Num": 147
+        }, 
+        "Id1": {
+          "Num": 148
+        }
+      }, 
+      "Decimal": {
+        "Num": "45"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "45", 
+        "Signed": "36", 
+        "Hex": "2D", 
+        "Bin": "101101", 
+        "Laegna": "IAEI", 
+        "Wave": "IAOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 148, 
+        "Id0": {
+          "Num": 148
+        }, 
+        "Id1": {
+          "Num": 149
+        }
+      }, 
+      "Decimal": {
+        "Num": "46"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "46", 
+        "Signed": "37", 
+        "Hex": "2E", 
+        "Bin": "101110", 
+        "Laegna": "IAEO", 
+        "Wave": "IAOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 149, 
+        "Id0": {
+          "Num": 149
+        }, 
+        "Id1": {
+          "Num": 150
+        }
+      }, 
+      "Decimal": {
+        "Num": "47"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "47", 
+        "Signed": "38", 
+        "Hex": "2F", 
+        "Bin": "101111", 
+        "Laegna": "IAEA", 
+        "Wave": "IAOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 150, 
+        "Id0": {
+          "Num": 150
+        }, 
+        "Id1": {
+          "Num": 151
+        }
+      }, 
+      "Decimal": {
+        "Num": "48"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "48", 
+        "Signed": "39", 
+        "Hex": "30", 
+        "Bin": "110000", 
+        "Laegna": "IAEE", 
+        "Wave": "IAOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 151, 
+        "Id0": {
+          "Num": 151
+        }, 
+        "Id1": {
+          "Num": 152
+        }
+      }, 
+      "Decimal": {
+        "Num": "49"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "49", 
+        "Signed": "40", 
+        "Hex": "31", 
+        "Bin": "110001", 
+        "Laegna": "IEII", 
+        "Wave": "IEII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 152, 
+        "Id0": {
+          "Num": 152
+        }, 
+        "Id1": {
+          "Num": 153
+        }
+      }, 
+      "Decimal": {
+        "Num": "50"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "50", 
+        "Signed": "41", 
+        "Hex": "32", 
+        "Bin": "110010", 
+        "Laegna": "IEIO", 
+        "Wave": "IEIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 153, 
+        "Id0": {
+          "Num": 153
+        }, 
+        "Id1": {
+          "Num": 154
+        }
+      }, 
+      "Decimal": {
+        "Num": "51"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "51", 
+        "Signed": "42", 
+        "Hex": "33", 
+        "Bin": "110011", 
+        "Laegna": "IEIA", 
+        "Wave": "IEIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 154, 
+        "Id0": {
+          "Num": 154
+        }, 
+        "Id1": {
+          "Num": 155
+        }
+      }, 
+      "Decimal": {
+        "Num": "52"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "52", 
+        "Signed": "43", 
+        "Hex": "34", 
+        "Bin": "110100", 
+        "Laegna": "IEIE", 
+        "Wave": "IEIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 155, 
+        "Id0": {
+          "Num": 155
+        }, 
+        "Id1": {
+          "Num": 156
+        }
+      }, 
+      "Decimal": {
+        "Num": "53"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "53", 
+        "Signed": "44", 
+        "Hex": "35", 
+        "Bin": "110101", 
+        "Laegna": "IEOI", 
+        "Wave": "IEOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 156, 
+        "Id0": {
+          "Num": 156
+        }, 
+        "Id1": {
+          "Num": 157
+        }
+      }, 
+      "Decimal": {
+        "Num": "54"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "54", 
+        "Signed": "45", 
+        "Hex": "36", 
+        "Bin": "110110", 
+        "Laegna": "IEOO", 
+        "Wave": "IEOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 157, 
+        "Id0": {
+          "Num": 157
+        }, 
+        "Id1": {
+          "Num": 158
+        }
+      }, 
+      "Decimal": {
+        "Num": "55"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "55", 
+        "Signed": "46", 
+        "Hex": "37", 
+        "Bin": "110111", 
+        "Laegna": "IEOA", 
+        "Wave": "IEOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 158, 
+        "Id0": {
+          "Num": 158
+        }, 
+        "Id1": {
+          "Num": 159
+        }
+      }, 
+      "Decimal": {
+        "Num": "56"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "56", 
+        "Signed": "47", 
+        "Hex": "38", 
+        "Bin": "111000", 
+        "Laegna": "IEOE", 
+        "Wave": "IEOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 159, 
+        "Id0": {
+          "Num": 159
+        }, 
+        "Id1": {
+          "Num": 160
+        }
+      }, 
+      "Decimal": {
+        "Num": "57"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "57", 
+        "Signed": "48", 
+        "Hex": "39", 
+        "Bin": "111001", 
+        "Laegna": "IEAI", 
+        "Wave": "IEAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 160, 
+        "Id0": {
+          "Num": 160
+        }, 
+        "Id1": {
+          "Num": 161
+        }
+      }, 
+      "Decimal": {
+        "Num": "58"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "58", 
+        "Signed": "49", 
+        "Hex": "3A", 
+        "Bin": "111010", 
+        "Laegna": "IEAO", 
+        "Wave": "IEAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 161, 
+        "Id0": {
+          "Num": 161
+        }, 
+        "Id1": {
+          "Num": 162
+        }
+      }, 
+      "Decimal": {
+        "Num": "59"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "59", 
+        "Signed": "50", 
+        "Hex": "3B", 
+        "Bin": "111011", 
+        "Laegna": "IEAA", 
+        "Wave": "IEAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 162, 
+        "Id0": {
+          "Num": 162
+        }, 
+        "Id1": {
+          "Num": 163
+        }
+      }, 
+      "Decimal": {
+        "Num": "60"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "60", 
+        "Signed": "51", 
+        "Hex": "3C", 
+        "Bin": "111100", 
+        "Laegna": "IEAE", 
+        "Wave": "IEAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 163, 
+        "Id0": {
+          "Num": 163
+        }, 
+        "Id1": {
+          "Num": 164
+        }
+      }, 
+      "Decimal": {
+        "Num": "61"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "61", 
+        "Signed": "52", 
+        "Hex": "3D", 
+        "Bin": "111101", 
+        "Laegna": "IEEI", 
+        "Wave": "IEEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 164, 
+        "Id0": {
+          "Num": 164
+        }, 
+        "Id1": {
+          "Num": 165
+        }
+      }, 
+      "Decimal": {
+        "Num": "62"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "62", 
+        "Signed": "53", 
+        "Hex": "3E", 
+        "Bin": "111110", 
+        "Laegna": "IEEO", 
+        "Wave": "IEEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 165, 
+        "Id0": {
+          "Num": 165
+        }, 
+        "Id1": {
+          "Num": 166
+        }
+      }, 
+      "Decimal": {
+        "Num": "63"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "63", 
+        "Signed": "54", 
+        "Hex": "3F", 
+        "Bin": "111111", 
+        "Laegna": "IEEA", 
+        "Wave": "IEEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 166, 
+        "Id0": {
+          "Num": 166
+        }, 
+        "Id1": {
+          "Num": 167
+        }
+      }, 
+      "Decimal": {
+        "Num": "64"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "64", 
+        "Signed": "55", 
+        "Hex": "40", 
+        "Bin": "1000000", 
+        "Laegna": "IEEE", 
+        "Wave": "IEEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 167, 
+        "Id0": {
+          "Num": 167
+        }, 
+        "Id1": {
+          "Num": 168
+        }
+      }, 
+      "Decimal": {
+        "Num": "65"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "65", 
+        "Signed": "56", 
+        "Hex": "41", 
+        "Bin": "1000001", 
+        "Laegna": "OIII", 
+        "Wave": "OAAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 168, 
+        "Id0": {
+          "Num": 168
+        }, 
+        "Id1": {
+          "Num": 169
+        }
+      }, 
+      "Decimal": {
+        "Num": "66"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "66", 
+        "Signed": "57", 
+        "Hex": "42", 
+        "Bin": "1000010", 
+        "Laegna": "OIIO", 
+        "Wave": "OAAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 169, 
+        "Id0": {
+          "Num": 169
+        }, 
+        "Id1": {
+          "Num": 170
+        }
+      }, 
+      "Decimal": {
+        "Num": "67"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "67", 
+        "Signed": "58", 
+        "Hex": "43", 
+        "Bin": "1000011", 
+        "Laegna": "OIIA", 
+        "Wave": "OAAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 170, 
+        "Id0": {
+          "Num": 170
+        }, 
+        "Id1": {
+          "Num": 171
+        }
+      }, 
+      "Decimal": {
+        "Num": "68"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "68", 
+        "Signed": "59", 
+        "Hex": "44", 
+        "Bin": "1000100", 
+        "Laegna": "OIIE", 
+        "Wave": "OAAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 171, 
+        "Id0": {
+          "Num": 171
+        }, 
+        "Id1": {
+          "Num": 172
+        }
+      }, 
+      "Decimal": {
+        "Num": "69"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "69", 
+        "Signed": "60", 
+        "Hex": "45", 
+        "Bin": "1000101", 
+        "Laegna": "OIOI", 
+        "Wave": "OAII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 172, 
+        "Id0": {
+          "Num": 172
+        }, 
+        "Id1": {
+          "Num": 173
+        }
+      }, 
+      "Decimal": {
+        "Num": "70"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "70", 
+        "Signed": "61", 
+        "Hex": "46", 
+        "Bin": "1000110", 
+        "Laegna": "OIOO", 
+        "Wave": "OAIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 173, 
+        "Id0": {
+          "Num": 173
+        }, 
+        "Id1": {
+          "Num": 174
+        }
+      }, 
+      "Decimal": {
+        "Num": "71"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "71", 
+        "Signed": "62", 
+        "Hex": "47", 
+        "Bin": "1000111", 
+        "Laegna": "OIOA", 
+        "Wave": "OAIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 174, 
+        "Id0": {
+          "Num": 174
+        }, 
+        "Id1": {
+          "Num": 175
+        }
+      }, 
+      "Decimal": {
+        "Num": "72"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "72", 
+        "Signed": "63", 
+        "Hex": "48", 
+        "Bin": "1001000", 
+        "Laegna": "OIOE", 
+        "Wave": "OAIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 175, 
+        "Id0": {
+          "Num": 175
+        }, 
+        "Id1": {
+          "Num": 176
+        }
+      }, 
+      "Decimal": {
+        "Num": "73"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "73", 
+        "Signed": "64", 
+        "Hex": "49", 
+        "Bin": "1001001", 
+        "Laegna": "OIAI", 
+        "Wave": "OAEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 176, 
+        "Id0": {
+          "Num": 176
+        }, 
+        "Id1": {
+          "Num": 177
+        }
+      }, 
+      "Decimal": {
+        "Num": "74"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "74", 
+        "Signed": "65", 
+        "Hex": "4A", 
+        "Bin": "1001010", 
+        "Laegna": "OIAO", 
+        "Wave": "OAEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 177, 
+        "Id0": {
+          "Num": 177
+        }, 
+        "Id1": {
+          "Num": 178
+        }
+      }, 
+      "Decimal": {
+        "Num": "75"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "75", 
+        "Signed": "66", 
+        "Hex": "4B", 
+        "Bin": "1001011", 
+        "Laegna": "OIAA", 
+        "Wave": "OAEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 178, 
+        "Id0": {
+          "Num": 178
+        }, 
+        "Id1": {
+          "Num": 179
+        }
+      }, 
+      "Decimal": {
+        "Num": "76"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "76", 
+        "Signed": "67", 
+        "Hex": "4C", 
+        "Bin": "1001100", 
+        "Laegna": "OIAE", 
+        "Wave": "OAEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 179, 
+        "Id0": {
+          "Num": 179
+        }, 
+        "Id1": {
+          "Num": 180
+        }
+      }, 
+      "Decimal": {
+        "Num": "77"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "77", 
+        "Signed": "68", 
+        "Hex": "4D", 
+        "Bin": "1001101", 
+        "Laegna": "OIEI", 
+        "Wave": "OAOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 180, 
+        "Id0": {
+          "Num": 180
+        }, 
+        "Id1": {
+          "Num": 181
+        }
+      }, 
+      "Decimal": {
+        "Num": "78"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "78", 
+        "Signed": "69", 
+        "Hex": "4E", 
+        "Bin": "1001110", 
+        "Laegna": "OIEO", 
+        "Wave": "OAOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 181, 
+        "Id0": {
+          "Num": 181
+        }, 
+        "Id1": {
+          "Num": 182
+        }
+      }, 
+      "Decimal": {
+        "Num": "79"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "79", 
+        "Signed": "70", 
+        "Hex": "4F", 
+        "Bin": "1001111", 
+        "Laegna": "OIEA", 
+        "Wave": "OAOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 182, 
+        "Id0": {
+          "Num": 182
+        }, 
+        "Id1": {
+          "Num": 183
+        }
+      }, 
+      "Decimal": {
+        "Num": "80"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "80", 
+        "Signed": "71", 
+        "Hex": "50", 
+        "Bin": "1010000", 
+        "Laegna": "OIEE", 
+        "Wave": "OAOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 183, 
+        "Id0": {
+          "Num": 183
+        }, 
+        "Id1": {
+          "Num": 184
+        }
+      }, 
+      "Decimal": {
+        "Num": "81"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "81", 
+        "Signed": "72", 
+        "Hex": "51", 
+        "Bin": "1010001", 
+        "Laegna": "OOII", 
+        "Wave": "OIII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 184, 
+        "Id0": {
+          "Num": 184
+        }, 
+        "Id1": {
+          "Num": 185
+        }
+      }, 
+      "Decimal": {
+        "Num": "82"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "82", 
+        "Signed": "73", 
+        "Hex": "52", 
+        "Bin": "1010010", 
+        "Laegna": "OOIO", 
+        "Wave": "OIIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 185, 
+        "Id0": {
+          "Num": 185
+        }, 
+        "Id1": {
+          "Num": 186
+        }
+      }, 
+      "Decimal": {
+        "Num": "83"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "83", 
+        "Signed": "74", 
+        "Hex": "53", 
+        "Bin": "1010011", 
+        "Laegna": "OOIA", 
+        "Wave": "OIIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 186, 
+        "Id0": {
+          "Num": 186
+        }, 
+        "Id1": {
+          "Num": 187
+        }
+      }, 
+      "Decimal": {
+        "Num": "84"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "84", 
+        "Signed": "75", 
+        "Hex": "54", 
+        "Bin": "1010100", 
+        "Laegna": "OOIE", 
+        "Wave": "OIIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 187, 
+        "Id0": {
+          "Num": 187
+        }, 
+        "Id1": {
+          "Num": 188
+        }
+      }, 
+      "Decimal": {
+        "Num": "85"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "85", 
+        "Signed": "76", 
+        "Hex": "55", 
+        "Bin": "1010101", 
+        "Laegna": "OOOI", 
+        "Wave": "OIOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 188, 
+        "Id0": {
+          "Num": 188
+        }, 
+        "Id1": {
+          "Num": 189
+        }
+      }, 
+      "Decimal": {
+        "Num": "86"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "86", 
+        "Signed": "77", 
+        "Hex": "56", 
+        "Bin": "1010110", 
+        "Laegna": "OOOO", 
+        "Wave": "OIOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 189, 
+        "Id0": {
+          "Num": 189
+        }, 
+        "Id1": {
+          "Num": 190
+        }
+      }, 
+      "Decimal": {
+        "Num": "87"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "87", 
+        "Signed": "78", 
+        "Hex": "57", 
+        "Bin": "1010111", 
+        "Laegna": "OOOA", 
+        "Wave": "OIOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 190, 
+        "Id0": {
+          "Num": 190
+        }, 
+        "Id1": {
+          "Num": 191
+        }
+      }, 
+      "Decimal": {
+        "Num": "88"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "88", 
+        "Signed": "79", 
+        "Hex": "58", 
+        "Bin": "1011000", 
+        "Laegna": "OOOE", 
+        "Wave": "OIOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 191, 
+        "Id0": {
+          "Num": 191
+        }, 
+        "Id1": {
+          "Num": 192
+        }
+      }, 
+      "Decimal": {
+        "Num": "89"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "89", 
+        "Signed": "80", 
+        "Hex": "59", 
+        "Bin": "1011001", 
+        "Laegna": "OOAI", 
+        "Wave": "OIAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 192, 
+        "Id0": {
+          "Num": 192
+        }, 
+        "Id1": {
+          "Num": 193
+        }
+      }, 
+      "Decimal": {
+        "Num": "90"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "90", 
+        "Signed": "81", 
+        "Hex": "5A", 
+        "Bin": "1011010", 
+        "Laegna": "OOAO", 
+        "Wave": "OIAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 193, 
+        "Id0": {
+          "Num": 193
+        }, 
+        "Id1": {
+          "Num": 194
+        }
+      }, 
+      "Decimal": {
+        "Num": "91"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "91", 
+        "Signed": "82", 
+        "Hex": "5B", 
+        "Bin": "1011011", 
+        "Laegna": "OOAA", 
+        "Wave": "OIAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 194, 
+        "Id0": {
+          "Num": 194
+        }, 
+        "Id1": {
+          "Num": 195
+        }
+      }, 
+      "Decimal": {
+        "Num": "92"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "92", 
+        "Signed": "83", 
+        "Hex": "5C", 
+        "Bin": "1011100", 
+        "Laegna": "OOAE", 
+        "Wave": "OIAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 195, 
+        "Id0": {
+          "Num": 195
+        }, 
+        "Id1": {
+          "Num": 196
+        }
+      }, 
+      "Decimal": {
+        "Num": "93"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "93", 
+        "Signed": "84", 
+        "Hex": "5D", 
+        "Bin": "1011101", 
+        "Laegna": "OOEI", 
+        "Wave": "OIEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 196, 
+        "Id0": {
+          "Num": 196
+        }, 
+        "Id1": {
+          "Num": 197
+        }
+      }, 
+      "Decimal": {
+        "Num": "94"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "94", 
+        "Signed": "85", 
+        "Hex": "5E", 
+        "Bin": "1011110", 
+        "Laegna": "OOEO", 
+        "Wave": "OIEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 197, 
+        "Id0": {
+          "Num": 197
+        }, 
+        "Id1": {
+          "Num": 198
+        }
+      }, 
+      "Decimal": {
+        "Num": "95"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "95", 
+        "Signed": "86", 
+        "Hex": "5F", 
+        "Bin": "1011111", 
+        "Laegna": "OOEA", 
+        "Wave": "OIEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 198, 
+        "Id0": {
+          "Num": 198
+        }, 
+        "Id1": {
+          "Num": 199
+        }
+      }, 
+      "Decimal": {
+        "Num": "96"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "96", 
+        "Signed": "87", 
+        "Hex": "60", 
+        "Bin": "1100000", 
+        "Laegna": "OOEE", 
+        "Wave": "OIEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 199, 
+        "Id0": {
+          "Num": 199
+        }, 
+        "Id1": {
+          "Num": 200
+        }
+      }, 
+      "Decimal": {
+        "Num": "97"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "97", 
+        "Signed": "88", 
+        "Hex": "61", 
+        "Bin": "1100001", 
+        "Laegna": "OAII", 
+        "Wave": "OEII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 200, 
+        "Id0": {
+          "Num": 200
+        }, 
+        "Id1": {
+          "Num": 201
+        }
+      }, 
+      "Decimal": {
+        "Num": "98"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "98", 
+        "Signed": "89", 
+        "Hex": "62", 
+        "Bin": "1100010", 
+        "Laegna": "OAIO", 
+        "Wave": "OEIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 201, 
+        "Id0": {
+          "Num": 201
+        }, 
+        "Id1": {
+          "Num": 202
+        }
+      }, 
+      "Decimal": {
+        "Num": "99"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "99", 
+        "Signed": "90", 
+        "Hex": "63", 
+        "Bin": "1100011", 
+        "Laegna": "OAIA", 
+        "Wave": "OEIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 202, 
+        "Id0": {
+          "Num": 202
+        }, 
+        "Id1": {
+          "Num": 203
+        }
+      }, 
+      "Decimal": {
+        "Num": "100"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "100", 
+        "Signed": "91", 
+        "Hex": "64", 
+        "Bin": "1100100", 
+        "Laegna": "OAIE", 
+        "Wave": "OEIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 203, 
+        "Id0": {
+          "Num": 203
+        }, 
+        "Id1": {
+          "Num": 204
+        }
+      }, 
+      "Decimal": {
+        "Num": "101"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "101", 
+        "Signed": "92", 
+        "Hex": "65", 
+        "Bin": "1100101", 
+        "Laegna": "OAOI", 
+        "Wave": "OEOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 204, 
+        "Id0": {
+          "Num": 204
+        }, 
+        "Id1": {
+          "Num": 205
+        }
+      }, 
+      "Decimal": {
+        "Num": "102"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "102", 
+        "Signed": "93", 
+        "Hex": "66", 
+        "Bin": "1100110", 
+        "Laegna": "OAOO", 
+        "Wave": "OEOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 205, 
+        "Id0": {
+          "Num": 205
+        }, 
+        "Id1": {
+          "Num": 206
+        }
+      }, 
+      "Decimal": {
+        "Num": "103"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "103", 
+        "Signed": "94", 
+        "Hex": "67", 
+        "Bin": "1100111", 
+        "Laegna": "OAOA", 
+        "Wave": "OEOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 206, 
+        "Id0": {
+          "Num": 206
+        }, 
+        "Id1": {
+          "Num": 207
+        }
+      }, 
+      "Decimal": {
+        "Num": "104"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "104", 
+        "Signed": "95", 
+        "Hex": "68", 
+        "Bin": "1101000", 
+        "Laegna": "OAOE", 
+        "Wave": "OEOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 207, 
+        "Id0": {
+          "Num": 207
+        }, 
+        "Id1": {
+          "Num": 208
+        }
+      }, 
+      "Decimal": {
+        "Num": "105"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "105", 
+        "Signed": "96", 
+        "Hex": "69", 
+        "Bin": "1101001", 
+        "Laegna": "OAAI", 
+        "Wave": "OEAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 208, 
+        "Id0": {
+          "Num": 208
+        }, 
+        "Id1": {
+          "Num": 209
+        }
+      }, 
+      "Decimal": {
+        "Num": "106"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "106", 
+        "Signed": "97", 
+        "Hex": "6A", 
+        "Bin": "1101010", 
+        "Laegna": "OAAO", 
+        "Wave": "OEAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 209, 
+        "Id0": {
+          "Num": 209
+        }, 
+        "Id1": {
+          "Num": 210
+        }
+      }, 
+      "Decimal": {
+        "Num": "107"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "107", 
+        "Signed": "98", 
+        "Hex": "6B", 
+        "Bin": "1101011", 
+        "Laegna": "OAAA", 
+        "Wave": "OEAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 210, 
+        "Id0": {
+          "Num": 210
+        }, 
+        "Id1": {
+          "Num": 211
+        }
+      }, 
+      "Decimal": {
+        "Num": "108"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "108", 
+        "Signed": "99", 
+        "Hex": "6C", 
+        "Bin": "1101100", 
+        "Laegna": "OAAE", 
+        "Wave": "OEAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 211, 
+        "Id0": {
+          "Num": 211
+        }, 
+        "Id1": {
+          "Num": 212
+        }
+      }, 
+      "Decimal": {
+        "Num": "109"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "109", 
+        "Signed": "100", 
+        "Hex": "6D", 
+        "Bin": "1101101", 
+        "Laegna": "OAEI", 
+        "Wave": "OEEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 212, 
+        "Id0": {
+          "Num": 212
+        }, 
+        "Id1": {
+          "Num": 213
+        }
+      }, 
+      "Decimal": {
+        "Num": "110"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "110", 
+        "Signed": "101", 
+        "Hex": "6E", 
+        "Bin": "1101110", 
+        "Laegna": "OAEO", 
+        "Wave": "OEEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 213, 
+        "Id0": {
+          "Num": 213
+        }, 
+        "Id1": {
+          "Num": 214
+        }
+      }, 
+      "Decimal": {
+        "Num": "111"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "111", 
+        "Signed": "102", 
+        "Hex": "6F", 
+        "Bin": "1101111", 
+        "Laegna": "OAEA", 
+        "Wave": "OEEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 214, 
+        "Id0": {
+          "Num": 214
+        }, 
+        "Id1": {
+          "Num": 215
+        }
+      }, 
+      "Decimal": {
+        "Num": "112"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "112", 
+        "Signed": "103", 
+        "Hex": "70", 
+        "Bin": "1110000", 
+        "Laegna": "OAEE", 
+        "Wave": "OEEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 215, 
+        "Id0": {
+          "Num": 215
+        }, 
+        "Id1": {
+          "Num": 216
+        }
+      }, 
+      "Decimal": {
+        "Num": "113"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "113", 
+        "Signed": "104", 
+        "Hex": "71", 
+        "Bin": "1110001", 
+        "Laegna": "OEII", 
+        "Wave": "OOAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 216, 
+        "Id0": {
+          "Num": 216
+        }, 
+        "Id1": {
+          "Num": 217
+        }
+      }, 
+      "Decimal": {
+        "Num": "114"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "114", 
+        "Signed": "105", 
+        "Hex": "72", 
+        "Bin": "1110010", 
+        "Laegna": "OEIO", 
+        "Wave": "OOAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 217, 
+        "Id0": {
+          "Num": 217
+        }, 
+        "Id1": {
+          "Num": 218
+        }
+      }, 
+      "Decimal": {
+        "Num": "115"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "115", 
+        "Signed": "106", 
+        "Hex": "73", 
+        "Bin": "1110011", 
+        "Laegna": "OEIA", 
+        "Wave": "OOAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 218, 
+        "Id0": {
+          "Num": 218
+        }, 
+        "Id1": {
+          "Num": 219
+        }
+      }, 
+      "Decimal": {
+        "Num": "116"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "116", 
+        "Signed": "107", 
+        "Hex": "74", 
+        "Bin": "1110100", 
+        "Laegna": "OEIE", 
+        "Wave": "OOAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 219, 
+        "Id0": {
+          "Num": 219
+        }, 
+        "Id1": {
+          "Num": 220
+        }
+      }, 
+      "Decimal": {
+        "Num": "117"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "117", 
+        "Signed": "108", 
+        "Hex": "75", 
+        "Bin": "1110101", 
+        "Laegna": "OEOI", 
+        "Wave": "OOII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 220, 
+        "Id0": {
+          "Num": 220
+        }, 
+        "Id1": {
+          "Num": 221
+        }
+      }, 
+      "Decimal": {
+        "Num": "118"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "118", 
+        "Signed": "109", 
+        "Hex": "76", 
+        "Bin": "1110110", 
+        "Laegna": "OEOO", 
+        "Wave": "OOIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 221, 
+        "Id0": {
+          "Num": 221
+        }, 
+        "Id1": {
+          "Num": 222
+        }
+      }, 
+      "Decimal": {
+        "Num": "119"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "119", 
+        "Signed": "110", 
+        "Hex": "77", 
+        "Bin": "1110111", 
+        "Laegna": "OEOA", 
+        "Wave": "OOIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 222, 
+        "Id0": {
+          "Num": 222
+        }, 
+        "Id1": {
+          "Num": 223
+        }
+      }, 
+      "Decimal": {
+        "Num": "120"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "120", 
+        "Signed": "111", 
+        "Hex": "78", 
+        "Bin": "1111000", 
+        "Laegna": "OEOE", 
+        "Wave": "OOIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 223, 
+        "Id0": {
+          "Num": 223
+        }, 
+        "Id1": {
+          "Num": 224
+        }
+      }, 
+      "Decimal": {
+        "Num": "121"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "121", 
+        "Signed": "112", 
+        "Hex": "79", 
+        "Bin": "1111001", 
+        "Laegna": "OEAI", 
+        "Wave": "OOEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 224, 
+        "Id0": {
+          "Num": 224
+        }, 
+        "Id1": {
+          "Num": 225
+        }
+      }, 
+      "Decimal": {
+        "Num": "122"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "122", 
+        "Signed": "113", 
+        "Hex": "7A", 
+        "Bin": "1111010", 
+        "Laegna": "OEAO", 
+        "Wave": "OOEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 225, 
+        "Id0": {
+          "Num": 225
+        }, 
+        "Id1": {
+          "Num": 226
+        }
+      }, 
+      "Decimal": {
+        "Num": "123"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "123", 
+        "Signed": "114", 
+        "Hex": "7B", 
+        "Bin": "1111011", 
+        "Laegna": "OEAA", 
+        "Wave": "OOEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 226, 
+        "Id0": {
+          "Num": 226
+        }, 
+        "Id1": {
+          "Num": 227
+        }
+      }, 
+      "Decimal": {
+        "Num": "124"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "124", 
+        "Signed": "115", 
+        "Hex": "7C", 
+        "Bin": "1111100", 
+        "Laegna": "OEAE", 
+        "Wave": "OOEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 227, 
+        "Id0": {
+          "Num": 227
+        }, 
+        "Id1": {
+          "Num": 228
+        }
+      }, 
+      "Decimal": {
+        "Num": "125"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "125", 
+        "Signed": "116", 
+        "Hex": "7D", 
+        "Bin": "1111101", 
+        "Laegna": "OEEI", 
+        "Wave": "OOOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 228, 
+        "Id0": {
+          "Num": 228
+        }, 
+        "Id1": {
+          "Num": 229
+        }
+      }, 
+      "Decimal": {
+        "Num": "126"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "126", 
+        "Signed": "117", 
+        "Hex": "7E", 
+        "Bin": "1111110", 
+        "Laegna": "OEEO", 
+        "Wave": "OOOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 229, 
+        "Id0": {
+          "Num": 229
+        }, 
+        "Id1": {
+          "Num": 230
+        }
+      }, 
+      "Decimal": {
+        "Num": "127"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "127", 
+        "Signed": "118", 
+        "Hex": "7F", 
+        "Bin": "1111111", 
+        "Laegna": "OEEA", 
+        "Wave": "OOOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 230, 
+        "Id0": {
+          "Num": 230
+        }, 
+        "Id1": {
+          "Num": 231
+        }
+      }, 
+      "Decimal": {
+        "Num": "128"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "128", 
+        "Signed": "119", 
+        "Hex": "80", 
+        "Bin": "10000000", 
+        "Laegna": "OEEE", 
+        "Wave": "OOOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 231, 
+        "Id0": {
+          "Num": 231
+        }, 
+        "Id1": {
+          "Num": 232
+        }
+      }, 
+      "Decimal": {
+        "Num": 128.5
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": 128.5, 
+        "Signed": "-0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "VVVV", 
+        "Wave": "VVVV"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 232, 
+        "Id0": {
+          "Num": 232
+        }, 
+        "Id1": {
+          "Num": 233
+        }
+      }, 
+      "Decimal": {
+        "Num": 128.5
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": 128.5, 
+        "Signed": "+0", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "UUUU", 
+        "Wave": "UUUU"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 233, 
+        "Id0": {
+          "Num": 233
+        }, 
+        "Id1": {
+          "Num": 234
+        }
+      }, 
+      "Decimal": {
+        "Num": "129"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "129", 
+        "Signed": "+1", 
+        "Hex": "81", 
+        "Bin": "10000001", 
+        "Laegna": "AIII", 
+        "Wave": "AAAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 234, 
+        "Id0": {
+          "Num": 234
+        }, 
+        "Id1": {
+          "Num": 235
+        }
+      }, 
+      "Decimal": {
+        "Num": "130"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "130", 
+        "Signed": "+2", 
+        "Hex": "82", 
+        "Bin": "10000010", 
+        "Laegna": "AIIO", 
+        "Wave": "AAAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 235, 
+        "Id0": {
+          "Num": 235
+        }, 
+        "Id1": {
+          "Num": 236
+        }
+      }, 
+      "Decimal": {
+        "Num": "131"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "131", 
+        "Signed": "+3", 
+        "Hex": "83", 
+        "Bin": "10000011", 
+        "Laegna": "AIIA", 
+        "Wave": "AAAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 236, 
+        "Id0": {
+          "Num": 236
+        }, 
+        "Id1": {
+          "Num": 237
+        }
+      }, 
+      "Decimal": {
+        "Num": "132"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "132", 
+        "Signed": "+4", 
+        "Hex": "84", 
+        "Bin": "10000100", 
+        "Laegna": "AIIE", 
+        "Wave": "AAAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 237, 
+        "Id0": {
+          "Num": 237
+        }, 
+        "Id1": {
+          "Num": 238
+        }
+      }, 
+      "Decimal": {
+        "Num": "133"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "133", 
+        "Signed": "+5", 
+        "Hex": "85", 
+        "Bin": "10000101", 
+        "Laegna": "AIOI", 
+        "Wave": "AAII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 238, 
+        "Id0": {
+          "Num": 238
+        }, 
+        "Id1": {
+          "Num": 239
+        }
+      }, 
+      "Decimal": {
+        "Num": "134"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "134", 
+        "Signed": "+6", 
+        "Hex": "86", 
+        "Bin": "10000110", 
+        "Laegna": "AIOO", 
+        "Wave": "AAIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 239, 
+        "Id0": {
+          "Num": 239
+        }, 
+        "Id1": {
+          "Num": 240
+        }
+      }, 
+      "Decimal": {
+        "Num": "135"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "135", 
+        "Signed": "+7", 
+        "Hex": "87", 
+        "Bin": "10000111", 
+        "Laegna": "AIOA", 
+        "Wave": "AAIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 240, 
+        "Id0": {
+          "Num": 240
+        }, 
+        "Id1": {
+          "Num": 241
+        }
+      }, 
+      "Decimal": {
+        "Num": "136"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "136", 
+        "Signed": "+8", 
+        "Hex": "88", 
+        "Bin": "10001000", 
+        "Laegna": "AIOE", 
+        "Wave": "AAIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 241, 
+        "Id0": {
+          "Num": 241
+        }, 
+        "Id1": {
+          "Num": 242
+        }
+      }, 
+      "Decimal": {
+        "Num": "137"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "137", 
+        "Signed": "+9", 
+        "Hex": "89", 
+        "Bin": "10001001", 
+        "Laegna": "AIAI", 
+        "Wave": "AAEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 242, 
+        "Id0": {
+          "Num": 242
+        }, 
+        "Id1": {
+          "Num": 243
+        }
+      }, 
+      "Decimal": {
+        "Num": "138"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "138", 
+        "Signed": "+10", 
+        "Hex": "8A", 
+        "Bin": "10001010", 
+        "Laegna": "AIAO", 
+        "Wave": "AAEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 243, 
+        "Id0": {
+          "Num": 243
+        }, 
+        "Id1": {
+          "Num": 244
+        }
+      }, 
+      "Decimal": {
+        "Num": "139"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "139", 
+        "Signed": "+11", 
+        "Hex": "8B", 
+        "Bin": "10001011", 
+        "Laegna": "AIAA", 
+        "Wave": "AAEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 244, 
+        "Id0": {
+          "Num": 244
+        }, 
+        "Id1": {
+          "Num": 245
+        }
+      }, 
+      "Decimal": {
+        "Num": "140"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "140", 
+        "Signed": "+12", 
+        "Hex": "8C", 
+        "Bin": "10001100", 
+        "Laegna": "AIAE", 
+        "Wave": "AAEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 245, 
+        "Id0": {
+          "Num": 245
+        }, 
+        "Id1": {
+          "Num": 246
+        }
+      }, 
+      "Decimal": {
+        "Num": "141"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "141", 
+        "Signed": "+13", 
+        "Hex": "8D", 
+        "Bin": "10001101", 
+        "Laegna": "AIEI", 
+        "Wave": "AAOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 246, 
+        "Id0": {
+          "Num": 246
+        }, 
+        "Id1": {
+          "Num": 247
+        }
+      }, 
+      "Decimal": {
+        "Num": "142"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "142", 
+        "Signed": "+14", 
+        "Hex": "8E", 
+        "Bin": "10001110", 
+        "Laegna": "AIEO", 
+        "Wave": "AAOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 247, 
+        "Id0": {
+          "Num": 247
+        }, 
+        "Id1": {
+          "Num": 248
+        }
+      }, 
+      "Decimal": {
+        "Num": "143"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "143", 
+        "Signed": "+15", 
+        "Hex": "8F", 
+        "Bin": "10001111", 
+        "Laegna": "AIEA", 
+        "Wave": "AAOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 248, 
+        "Id0": {
+          "Num": 248
+        }, 
+        "Id1": {
+          "Num": 249
+        }
+      }, 
+      "Decimal": {
+        "Num": "144"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "144", 
+        "Signed": "+16", 
+        "Hex": "90", 
+        "Bin": "10010000", 
+        "Laegna": "AIEE", 
+        "Wave": "AAOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 249, 
+        "Id0": {
+          "Num": 249
+        }, 
+        "Id1": {
+          "Num": 250
+        }
+      }, 
+      "Decimal": {
+        "Num": "145"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "145", 
+        "Signed": "+17", 
+        "Hex": "91", 
+        "Bin": "10010001", 
+        "Laegna": "AOII", 
+        "Wave": "AIII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 250, 
+        "Id0": {
+          "Num": 250
+        }, 
+        "Id1": {
+          "Num": 251
+        }
+      }, 
+      "Decimal": {
+        "Num": "146"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "146", 
+        "Signed": "+18", 
+        "Hex": "92", 
+        "Bin": "10010010", 
+        "Laegna": "AOIO", 
+        "Wave": "AIIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 251, 
+        "Id0": {
+          "Num": 251
+        }, 
+        "Id1": {
+          "Num": 252
+        }
+      }, 
+      "Decimal": {
+        "Num": "147"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "147", 
+        "Signed": "+19", 
+        "Hex": "93", 
+        "Bin": "10010011", 
+        "Laegna": "AOIA", 
+        "Wave": "AIIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 252, 
+        "Id0": {
+          "Num": 252
+        }, 
+        "Id1": {
+          "Num": 253
+        }
+      }, 
+      "Decimal": {
+        "Num": "148"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "148", 
+        "Signed": "+20", 
+        "Hex": "94", 
+        "Bin": "10010100", 
+        "Laegna": "AOIE", 
+        "Wave": "AIIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 253, 
+        "Id0": {
+          "Num": 253
+        }, 
+        "Id1": {
+          "Num": 254
+        }
+      }, 
+      "Decimal": {
+        "Num": "149"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "149", 
+        "Signed": "+21", 
+        "Hex": "95", 
+        "Bin": "10010101", 
+        "Laegna": "AOOI", 
+        "Wave": "AIOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 254, 
+        "Id0": {
+          "Num": 254
+        }, 
+        "Id1": {
+          "Num": 255
+        }
+      }, 
+      "Decimal": {
+        "Num": "150"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "150", 
+        "Signed": "+22", 
+        "Hex": "96", 
+        "Bin": "10010110", 
+        "Laegna": "AOOO", 
+        "Wave": "AIOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 255, 
+        "Id0": {
+          "Num": 255
+        }, 
+        "Id1": {
+          "Num": 256
+        }
+      }, 
+      "Decimal": {
+        "Num": "151"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "151", 
+        "Signed": "+23", 
+        "Hex": "97", 
+        "Bin": "10010111", 
+        "Laegna": "AOOA", 
+        "Wave": "AIOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 256, 
+        "Id0": {
+          "Num": 256
+        }, 
+        "Id1": {
+          "Num": 257
+        }
+      }, 
+      "Decimal": {
+        "Num": "152"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "152", 
+        "Signed": "+24", 
+        "Hex": "98", 
+        "Bin": "10011000", 
+        "Laegna": "AOOE", 
+        "Wave": "AIOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 257, 
+        "Id0": {
+          "Num": 257
+        }, 
+        "Id1": {
+          "Num": 258
+        }
+      }, 
+      "Decimal": {
+        "Num": "153"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "153", 
+        "Signed": "+25", 
+        "Hex": "99", 
+        "Bin": "10011001", 
+        "Laegna": "AOAI", 
+        "Wave": "AIAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 258, 
+        "Id0": {
+          "Num": 258
+        }, 
+        "Id1": {
+          "Num": 259
+        }
+      }, 
+      "Decimal": {
+        "Num": "154"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "154", 
+        "Signed": "+26", 
+        "Hex": "9A", 
+        "Bin": "10011010", 
+        "Laegna": "AOAO", 
+        "Wave": "AIAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 259, 
+        "Id0": {
+          "Num": 259
+        }, 
+        "Id1": {
+          "Num": 260
+        }
+      }, 
+      "Decimal": {
+        "Num": "155"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "155", 
+        "Signed": "+27", 
+        "Hex": "9B", 
+        "Bin": "10011011", 
+        "Laegna": "AOAA", 
+        "Wave": "AIAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 260, 
+        "Id0": {
+          "Num": 260
+        }, 
+        "Id1": {
+          "Num": 261
+        }
+      }, 
+      "Decimal": {
+        "Num": "156"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "156", 
+        "Signed": "+28", 
+        "Hex": "9C", 
+        "Bin": "10011100", 
+        "Laegna": "AOAE", 
+        "Wave": "AIAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 261, 
+        "Id0": {
+          "Num": 261
+        }, 
+        "Id1": {
+          "Num": 262
+        }
+      }, 
+      "Decimal": {
+        "Num": "157"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "157", 
+        "Signed": "+29", 
+        "Hex": "9D", 
+        "Bin": "10011101", 
+        "Laegna": "AOEI", 
+        "Wave": "AIEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 262, 
+        "Id0": {
+          "Num": 262
+        }, 
+        "Id1": {
+          "Num": 263
+        }
+      }, 
+      "Decimal": {
+        "Num": "158"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "158", 
+        "Signed": "+30", 
+        "Hex": "9E", 
+        "Bin": "10011110", 
+        "Laegna": "AOEO", 
+        "Wave": "AIEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 263, 
+        "Id0": {
+          "Num": 263
+        }, 
+        "Id1": {
+          "Num": 264
+        }
+      }, 
+      "Decimal": {
+        "Num": "159"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "159", 
+        "Signed": "+31", 
+        "Hex": "9F", 
+        "Bin": "10011111", 
+        "Laegna": "AOEA", 
+        "Wave": "AIEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 264, 
+        "Id0": {
+          "Num": 264
+        }, 
+        "Id1": {
+          "Num": 265
+        }
+      }, 
+      "Decimal": {
+        "Num": "160"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "160", 
+        "Signed": "+32", 
+        "Hex": "A0", 
+        "Bin": "10100000", 
+        "Laegna": "AOEE", 
+        "Wave": "AIEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 265, 
+        "Id0": {
+          "Num": 265
+        }, 
+        "Id1": {
+          "Num": 266
+        }
+      }, 
+      "Decimal": {
+        "Num": "161"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "161", 
+        "Signed": "+33", 
+        "Hex": "A1", 
+        "Bin": "10100001", 
+        "Laegna": "AAII", 
+        "Wave": "AEII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 266, 
+        "Id0": {
+          "Num": 266
+        }, 
+        "Id1": {
+          "Num": 267
+        }
+      }, 
+      "Decimal": {
+        "Num": "162"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "162", 
+        "Signed": "+34", 
+        "Hex": "A2", 
+        "Bin": "10100010", 
+        "Laegna": "AAIO", 
+        "Wave": "AEIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 267, 
+        "Id0": {
+          "Num": 267
+        }, 
+        "Id1": {
+          "Num": 268
+        }
+      }, 
+      "Decimal": {
+        "Num": "163"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "163", 
+        "Signed": "+35", 
+        "Hex": "A3", 
+        "Bin": "10100011", 
+        "Laegna": "AAIA", 
+        "Wave": "AEIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 268, 
+        "Id0": {
+          "Num": 268
+        }, 
+        "Id1": {
+          "Num": 269
+        }
+      }, 
+      "Decimal": {
+        "Num": "164"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "164", 
+        "Signed": "+36", 
+        "Hex": "A4", 
+        "Bin": "10100100", 
+        "Laegna": "AAIE", 
+        "Wave": "AEIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 269, 
+        "Id0": {
+          "Num": 269
+        }, 
+        "Id1": {
+          "Num": 270
+        }
+      }, 
+      "Decimal": {
+        "Num": "165"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "165", 
+        "Signed": "+37", 
+        "Hex": "A5", 
+        "Bin": "10100101", 
+        "Laegna": "AAOI", 
+        "Wave": "AEOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 270, 
+        "Id0": {
+          "Num": 270
+        }, 
+        "Id1": {
+          "Num": 271
+        }
+      }, 
+      "Decimal": {
+        "Num": "166"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "166", 
+        "Signed": "+38", 
+        "Hex": "A6", 
+        "Bin": "10100110", 
+        "Laegna": "AAOO", 
+        "Wave": "AEOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 271, 
+        "Id0": {
+          "Num": 271
+        }, 
+        "Id1": {
+          "Num": 272
+        }
+      }, 
+      "Decimal": {
+        "Num": "167"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "167", 
+        "Signed": "+39", 
+        "Hex": "A7", 
+        "Bin": "10100111", 
+        "Laegna": "AAOA", 
+        "Wave": "AEOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 272, 
+        "Id0": {
+          "Num": 272
+        }, 
+        "Id1": {
+          "Num": 273
+        }
+      }, 
+      "Decimal": {
+        "Num": "168"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "168", 
+        "Signed": "+40", 
+        "Hex": "A8", 
+        "Bin": "10101000", 
+        "Laegna": "AAOE", 
+        "Wave": "AEOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 273, 
+        "Id0": {
+          "Num": 273
+        }, 
+        "Id1": {
+          "Num": 274
+        }
+      }, 
+      "Decimal": {
+        "Num": "169"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "169", 
+        "Signed": "+41", 
+        "Hex": "A9", 
+        "Bin": "10101001", 
+        "Laegna": "AAAI", 
+        "Wave": "AEAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 274, 
+        "Id0": {
+          "Num": 274
+        }, 
+        "Id1": {
+          "Num": 275
+        }
+      }, 
+      "Decimal": {
+        "Num": "170"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "170", 
+        "Signed": "+42", 
+        "Hex": "AA", 
+        "Bin": "10101010", 
+        "Laegna": "AAAO", 
+        "Wave": "AEAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 275, 
+        "Id0": {
+          "Num": 275
+        }, 
+        "Id1": {
+          "Num": 276
+        }
+      }, 
+      "Decimal": {
+        "Num": "171"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "171", 
+        "Signed": "+43", 
+        "Hex": "AB", 
+        "Bin": "10101011", 
+        "Laegna": "AAAA", 
+        "Wave": "AEAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 276, 
+        "Id0": {
+          "Num": 276
+        }, 
+        "Id1": {
+          "Num": 277
+        }
+      }, 
+      "Decimal": {
+        "Num": "172"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "172", 
+        "Signed": "+44", 
+        "Hex": "AC", 
+        "Bin": "10101100", 
+        "Laegna": "AAAE", 
+        "Wave": "AEAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 277, 
+        "Id0": {
+          "Num": 277
+        }, 
+        "Id1": {
+          "Num": 278
+        }
+      }, 
+      "Decimal": {
+        "Num": "173"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "173", 
+        "Signed": "+45", 
+        "Hex": "AD", 
+        "Bin": "10101101", 
+        "Laegna": "AAEI", 
+        "Wave": "AEEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 278, 
+        "Id0": {
+          "Num": 278
+        }, 
+        "Id1": {
+          "Num": 279
+        }
+      }, 
+      "Decimal": {
+        "Num": "174"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "174", 
+        "Signed": "+46", 
+        "Hex": "AE", 
+        "Bin": "10101110", 
+        "Laegna": "AAEO", 
+        "Wave": "AEEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 279, 
+        "Id0": {
+          "Num": 279
+        }, 
+        "Id1": {
+          "Num": 280
+        }
+      }, 
+      "Decimal": {
+        "Num": "175"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "175", 
+        "Signed": "+47", 
+        "Hex": "AF", 
+        "Bin": "10101111", 
+        "Laegna": "AAEA", 
+        "Wave": "AEEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 280, 
+        "Id0": {
+          "Num": 280
+        }, 
+        "Id1": {
+          "Num": 281
+        }
+      }, 
+      "Decimal": {
+        "Num": "176"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "176", 
+        "Signed": "+48", 
+        "Hex": "B0", 
+        "Bin": "10110000", 
+        "Laegna": "AAEE", 
+        "Wave": "AEEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 281, 
+        "Id0": {
+          "Num": 281
+        }, 
+        "Id1": {
+          "Num": 282
+        }
+      }, 
+      "Decimal": {
+        "Num": "177"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "177", 
+        "Signed": "+49", 
+        "Hex": "B1", 
+        "Bin": "10110001", 
+        "Laegna": "AEII", 
+        "Wave": "AOAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 282, 
+        "Id0": {
+          "Num": 282
+        }, 
+        "Id1": {
+          "Num": 283
+        }
+      }, 
+      "Decimal": {
+        "Num": "178"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "178", 
+        "Signed": "+50", 
+        "Hex": "B2", 
+        "Bin": "10110010", 
+        "Laegna": "AEIO", 
+        "Wave": "AOAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 283, 
+        "Id0": {
+          "Num": 283
+        }, 
+        "Id1": {
+          "Num": 284
+        }
+      }, 
+      "Decimal": {
+        "Num": "179"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "179", 
+        "Signed": "+51", 
+        "Hex": "B3", 
+        "Bin": "10110011", 
+        "Laegna": "AEIA", 
+        "Wave": "AOAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 284, 
+        "Id0": {
+          "Num": 284
+        }, 
+        "Id1": {
+          "Num": 285
+        }
+      }, 
+      "Decimal": {
+        "Num": "180"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "180", 
+        "Signed": "+52", 
+        "Hex": "B4", 
+        "Bin": "10110100", 
+        "Laegna": "AEIE", 
+        "Wave": "AOAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 285, 
+        "Id0": {
+          "Num": 285
+        }, 
+        "Id1": {
+          "Num": 286
+        }
+      }, 
+      "Decimal": {
+        "Num": "181"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "181", 
+        "Signed": "+53", 
+        "Hex": "B5", 
+        "Bin": "10110101", 
+        "Laegna": "AEOI", 
+        "Wave": "AOII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 286, 
+        "Id0": {
+          "Num": 286
+        }, 
+        "Id1": {
+          "Num": 287
+        }
+      }, 
+      "Decimal": {
+        "Num": "182"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "182", 
+        "Signed": "+54", 
+        "Hex": "B6", 
+        "Bin": "10110110", 
+        "Laegna": "AEOO", 
+        "Wave": "AOIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 287, 
+        "Id0": {
+          "Num": 287
+        }, 
+        "Id1": {
+          "Num": 288
+        }
+      }, 
+      "Decimal": {
+        "Num": "183"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "183", 
+        "Signed": "+55", 
+        "Hex": "B7", 
+        "Bin": "10110111", 
+        "Laegna": "AEOA", 
+        "Wave": "AOIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 288, 
+        "Id0": {
+          "Num": 288
+        }, 
+        "Id1": {
+          "Num": 289
+        }
+      }, 
+      "Decimal": {
+        "Num": "184"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "184", 
+        "Signed": "+56", 
+        "Hex": "B8", 
+        "Bin": "10111000", 
+        "Laegna": "AEOE", 
+        "Wave": "AOIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 289, 
+        "Id0": {
+          "Num": 289
+        }, 
+        "Id1": {
+          "Num": 290
+        }
+      }, 
+      "Decimal": {
+        "Num": "185"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "185", 
+        "Signed": "+57", 
+        "Hex": "B9", 
+        "Bin": "10111001", 
+        "Laegna": "AEAI", 
+        "Wave": "AOEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 290, 
+        "Id0": {
+          "Num": 290
+        }, 
+        "Id1": {
+          "Num": 291
+        }
+      }, 
+      "Decimal": {
+        "Num": "186"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "186", 
+        "Signed": "+58", 
+        "Hex": "BA", 
+        "Bin": "10111010", 
+        "Laegna": "AEAO", 
+        "Wave": "AOEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 291, 
+        "Id0": {
+          "Num": 291
+        }, 
+        "Id1": {
+          "Num": 292
+        }
+      }, 
+      "Decimal": {
+        "Num": "187"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "187", 
+        "Signed": "+59", 
+        "Hex": "BB", 
+        "Bin": "10111011", 
+        "Laegna": "AEAA", 
+        "Wave": "AOEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 292, 
+        "Id0": {
+          "Num": 292
+        }, 
+        "Id1": {
+          "Num": 293
+        }
+      }, 
+      "Decimal": {
+        "Num": "188"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "188", 
+        "Signed": "+60", 
+        "Hex": "BC", 
+        "Bin": "10111100", 
+        "Laegna": "AEAE", 
+        "Wave": "AOEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 293, 
+        "Id0": {
+          "Num": 293
+        }, 
+        "Id1": {
+          "Num": 294
+        }
+      }, 
+      "Decimal": {
+        "Num": "189"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "189", 
+        "Signed": "+61", 
+        "Hex": "BD", 
+        "Bin": "10111101", 
+        "Laegna": "AEEI", 
+        "Wave": "AOOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 294, 
+        "Id0": {
+          "Num": 294
+        }, 
+        "Id1": {
+          "Num": 295
+        }
+      }, 
+      "Decimal": {
+        "Num": "190"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "190", 
+        "Signed": "+62", 
+        "Hex": "BE", 
+        "Bin": "10111110", 
+        "Laegna": "AEEO", 
+        "Wave": "AOOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 295, 
+        "Id0": {
+          "Num": 295
+        }, 
+        "Id1": {
+          "Num": 296
+        }
+      }, 
+      "Decimal": {
+        "Num": "191"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "191", 
+        "Signed": "+63", 
+        "Hex": "BF", 
+        "Bin": "10111111", 
+        "Laegna": "AEEA", 
+        "Wave": "AOOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 296, 
+        "Id0": {
+          "Num": 296
+        }, 
+        "Id1": {
+          "Num": 297
+        }
+      }, 
+      "Decimal": {
+        "Num": "192"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "192", 
+        "Signed": "+64", 
+        "Hex": "C0", 
+        "Bin": "11000000", 
+        "Laegna": "AEEE", 
+        "Wave": "AOOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 297, 
+        "Id0": {
+          "Num": 297
+        }, 
+        "Id1": {
+          "Num": 298
+        }
+      }, 
+      "Decimal": {
+        "Num": "193"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "193", 
+        "Signed": "+65", 
+        "Hex": "C1", 
+        "Bin": "11000001", 
+        "Laegna": "EIII", 
+        "Wave": "EIII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 298, 
+        "Id0": {
+          "Num": 298
+        }, 
+        "Id1": {
+          "Num": 299
+        }
+      }, 
+      "Decimal": {
+        "Num": "194"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "194", 
+        "Signed": "+66", 
+        "Hex": "C2", 
+        "Bin": "11000010", 
+        "Laegna": "EIIO", 
+        "Wave": "EIIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 299, 
+        "Id0": {
+          "Num": 299
+        }, 
+        "Id1": {
+          "Num": 300
+        }
+      }, 
+      "Decimal": {
+        "Num": "195"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "195", 
+        "Signed": "+67", 
+        "Hex": "C3", 
+        "Bin": "11000011", 
+        "Laegna": "EIIA", 
+        "Wave": "EIIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 300, 
+        "Id0": {
+          "Num": 300
+        }, 
+        "Id1": {
+          "Num": 301
+        }
+      }, 
+      "Decimal": {
+        "Num": "196"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "196", 
+        "Signed": "+68", 
+        "Hex": "C4", 
+        "Bin": "11000100", 
+        "Laegna": "EIIE", 
+        "Wave": "EIIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 301, 
+        "Id0": {
+          "Num": 301
+        }, 
+        "Id1": {
+          "Num": 302
+        }
+      }, 
+      "Decimal": {
+        "Num": "197"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "197", 
+        "Signed": "+69", 
+        "Hex": "C5", 
+        "Bin": "11000101", 
+        "Laegna": "EIOI", 
+        "Wave": "EIOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 302, 
+        "Id0": {
+          "Num": 302
+        }, 
+        "Id1": {
+          "Num": 303
+        }
+      }, 
+      "Decimal": {
+        "Num": "198"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "198", 
+        "Signed": "+70", 
+        "Hex": "C6", 
+        "Bin": "11000110", 
+        "Laegna": "EIOO", 
+        "Wave": "EIOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 303, 
+        "Id0": {
+          "Num": 303
+        }, 
+        "Id1": {
+          "Num": 304
+        }
+      }, 
+      "Decimal": {
+        "Num": "199"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "199", 
+        "Signed": "+71", 
+        "Hex": "C7", 
+        "Bin": "11000111", 
+        "Laegna": "EIOA", 
+        "Wave": "EIOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 304, 
+        "Id0": {
+          "Num": 304
+        }, 
+        "Id1": {
+          "Num": 305
+        }
+      }, 
+      "Decimal": {
+        "Num": "200"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "200", 
+        "Signed": "+72", 
+        "Hex": "C8", 
+        "Bin": "11001000", 
+        "Laegna": "EIOE", 
+        "Wave": "EIOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 305, 
+        "Id0": {
+          "Num": 305
+        }, 
+        "Id1": {
+          "Num": 306
+        }
+      }, 
+      "Decimal": {
+        "Num": "201"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "201", 
+        "Signed": "+73", 
+        "Hex": "C9", 
+        "Bin": "11001001", 
+        "Laegna": "EIAI", 
+        "Wave": "EIAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 306, 
+        "Id0": {
+          "Num": 306
+        }, 
+        "Id1": {
+          "Num": 307
+        }
+      }, 
+      "Decimal": {
+        "Num": "202"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "202", 
+        "Signed": "+74", 
+        "Hex": "CA", 
+        "Bin": "11001010", 
+        "Laegna": "EIAO", 
+        "Wave": "EIAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 307, 
+        "Id0": {
+          "Num": 307
+        }, 
+        "Id1": {
+          "Num": 308
+        }
+      }, 
+      "Decimal": {
+        "Num": "203"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "203", 
+        "Signed": "+75", 
+        "Hex": "CB", 
+        "Bin": "11001011", 
+        "Laegna": "EIAA", 
+        "Wave": "EIAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 308, 
+        "Id0": {
+          "Num": 308
+        }, 
+        "Id1": {
+          "Num": 309
+        }
+      }, 
+      "Decimal": {
+        "Num": "204"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "204", 
+        "Signed": "+76", 
+        "Hex": "CC", 
+        "Bin": "11001100", 
+        "Laegna": "EIAE", 
+        "Wave": "EIAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 309, 
+        "Id0": {
+          "Num": 309
+        }, 
+        "Id1": {
+          "Num": 310
+        }
+      }, 
+      "Decimal": {
+        "Num": "205"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "205", 
+        "Signed": "+77", 
+        "Hex": "CD", 
+        "Bin": "11001101", 
+        "Laegna": "EIEI", 
+        "Wave": "EIEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 310, 
+        "Id0": {
+          "Num": 310
+        }, 
+        "Id1": {
+          "Num": 311
+        }
+      }, 
+      "Decimal": {
+        "Num": "206"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "206", 
+        "Signed": "+78", 
+        "Hex": "CE", 
+        "Bin": "11001110", 
+        "Laegna": "EIEO", 
+        "Wave": "EIEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 311, 
+        "Id0": {
+          "Num": 311
+        }, 
+        "Id1": {
+          "Num": 312
+        }
+      }, 
+      "Decimal": {
+        "Num": "207"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "207", 
+        "Signed": "+79", 
+        "Hex": "CF", 
+        "Bin": "11001111", 
+        "Laegna": "EIEA", 
+        "Wave": "EIEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 312, 
+        "Id0": {
+          "Num": 312
+        }, 
+        "Id1": {
+          "Num": 313
+        }
+      }, 
+      "Decimal": {
+        "Num": "208"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "208", 
+        "Signed": "+80", 
+        "Hex": "D0", 
+        "Bin": "11010000", 
+        "Laegna": "EIEE", 
+        "Wave": "EIEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 313, 
+        "Id0": {
+          "Num": 313
+        }, 
+        "Id1": {
+          "Num": 314
+        }
+      }, 
+      "Decimal": {
+        "Num": "209"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "209", 
+        "Signed": "+81", 
+        "Hex": "D1", 
+        "Bin": "11010001", 
+        "Laegna": "EOII", 
+        "Wave": "EOAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 314, 
+        "Id0": {
+          "Num": 314
+        }, 
+        "Id1": {
+          "Num": 315
+        }
+      }, 
+      "Decimal": {
+        "Num": "210"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "210", 
+        "Signed": "+82", 
+        "Hex": "D2", 
+        "Bin": "11010010", 
+        "Laegna": "EOIO", 
+        "Wave": "EOAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 315, 
+        "Id0": {
+          "Num": 315
+        }, 
+        "Id1": {
+          "Num": 316
+        }
+      }, 
+      "Decimal": {
+        "Num": "211"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "211", 
+        "Signed": "+83", 
+        "Hex": "D3", 
+        "Bin": "11010011", 
+        "Laegna": "EOIA", 
+        "Wave": "EOAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 316, 
+        "Id0": {
+          "Num": 316
+        }, 
+        "Id1": {
+          "Num": 317
+        }
+      }, 
+      "Decimal": {
+        "Num": "212"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "212", 
+        "Signed": "+84", 
+        "Hex": "D4", 
+        "Bin": "11010100", 
+        "Laegna": "EOIE", 
+        "Wave": "EOAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 317, 
+        "Id0": {
+          "Num": 317
+        }, 
+        "Id1": {
+          "Num": 318
+        }
+      }, 
+      "Decimal": {
+        "Num": "213"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "213", 
+        "Signed": "+85", 
+        "Hex": "D5", 
+        "Bin": "11010101", 
+        "Laegna": "EOOI", 
+        "Wave": "EOII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 318, 
+        "Id0": {
+          "Num": 318
+        }, 
+        "Id1": {
+          "Num": 319
+        }
+      }, 
+      "Decimal": {
+        "Num": "214"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "214", 
+        "Signed": "+86", 
+        "Hex": "D6", 
+        "Bin": "11010110", 
+        "Laegna": "EOOO", 
+        "Wave": "EOIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 319, 
+        "Id0": {
+          "Num": 319
+        }, 
+        "Id1": {
+          "Num": 320
+        }
+      }, 
+      "Decimal": {
+        "Num": "215"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "215", 
+        "Signed": "+87", 
+        "Hex": "D7", 
+        "Bin": "11010111", 
+        "Laegna": "EOOA", 
+        "Wave": "EOIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 320, 
+        "Id0": {
+          "Num": 320
+        }, 
+        "Id1": {
+          "Num": 321
+        }
+      }, 
+      "Decimal": {
+        "Num": "216"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "216", 
+        "Signed": "+88", 
+        "Hex": "D8", 
+        "Bin": "11011000", 
+        "Laegna": "EOOE", 
+        "Wave": "EOIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 321, 
+        "Id0": {
+          "Num": 321
+        }, 
+        "Id1": {
+          "Num": 322
+        }
+      }, 
+      "Decimal": {
+        "Num": "217"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "217", 
+        "Signed": "+89", 
+        "Hex": "D9", 
+        "Bin": "11011001", 
+        "Laegna": "EOAI", 
+        "Wave": "EOEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 322, 
+        "Id0": {
+          "Num": 322
+        }, 
+        "Id1": {
+          "Num": 323
+        }
+      }, 
+      "Decimal": {
+        "Num": "218"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "218", 
+        "Signed": "+90", 
+        "Hex": "DA", 
+        "Bin": "11011010", 
+        "Laegna": "EOAO", 
+        "Wave": "EOEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 323, 
+        "Id0": {
+          "Num": 323
+        }, 
+        "Id1": {
+          "Num": 324
+        }
+      }, 
+      "Decimal": {
+        "Num": "219"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "219", 
+        "Signed": "+91", 
+        "Hex": "DB", 
+        "Bin": "11011011", 
+        "Laegna": "EOAA", 
+        "Wave": "EOEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 324, 
+        "Id0": {
+          "Num": 324
+        }, 
+        "Id1": {
+          "Num": 325
+        }
+      }, 
+      "Decimal": {
+        "Num": "220"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "220", 
+        "Signed": "+92", 
+        "Hex": "DC", 
+        "Bin": "11011100", 
+        "Laegna": "EOAE", 
+        "Wave": "EOEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 325, 
+        "Id0": {
+          "Num": 325
+        }, 
+        "Id1": {
+          "Num": 326
+        }
+      }, 
+      "Decimal": {
+        "Num": "221"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "221", 
+        "Signed": "+93", 
+        "Hex": "DD", 
+        "Bin": "11011101", 
+        "Laegna": "EOEI", 
+        "Wave": "EOOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 326, 
+        "Id0": {
+          "Num": 326
+        }, 
+        "Id1": {
+          "Num": 327
+        }
+      }, 
+      "Decimal": {
+        "Num": "222"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "222", 
+        "Signed": "+94", 
+        "Hex": "DE", 
+        "Bin": "11011110", 
+        "Laegna": "EOEO", 
+        "Wave": "EOOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 327, 
+        "Id0": {
+          "Num": 327
+        }, 
+        "Id1": {
+          "Num": 328
+        }
+      }, 
+      "Decimal": {
+        "Num": "223"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "223", 
+        "Signed": "+95", 
+        "Hex": "DF", 
+        "Bin": "11011111", 
+        "Laegna": "EOEA", 
+        "Wave": "EOOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 328, 
+        "Id0": {
+          "Num": 328
+        }, 
+        "Id1": {
+          "Num": 329
+        }
+      }, 
+      "Decimal": {
+        "Num": "224"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "224", 
+        "Signed": "+96", 
+        "Hex": "E0", 
+        "Bin": "11100000", 
+        "Laegna": "EOEE", 
+        "Wave": "EOOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 329, 
+        "Id0": {
+          "Num": 329
+        }, 
+        "Id1": {
+          "Num": 330
+        }
+      }, 
+      "Decimal": {
+        "Num": "225"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "225", 
+        "Signed": "+97", 
+        "Hex": "E1", 
+        "Bin": "11100001", 
+        "Laegna": "EAII", 
+        "Wave": "EAAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 330, 
+        "Id0": {
+          "Num": 330
+        }, 
+        "Id1": {
+          "Num": 331
+        }
+      }, 
+      "Decimal": {
+        "Num": "226"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "226", 
+        "Signed": "+98", 
+        "Hex": "E2", 
+        "Bin": "11100010", 
+        "Laegna": "EAIO", 
+        "Wave": "EAAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 331, 
+        "Id0": {
+          "Num": 331
+        }, 
+        "Id1": {
+          "Num": 332
+        }
+      }, 
+      "Decimal": {
+        "Num": "227"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "227", 
+        "Signed": "+99", 
+        "Hex": "E3", 
+        "Bin": "11100011", 
+        "Laegna": "EAIA", 
+        "Wave": "EAAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 332, 
+        "Id0": {
+          "Num": 332
+        }, 
+        "Id1": {
+          "Num": 333
+        }
+      }, 
+      "Decimal": {
+        "Num": "228"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "228", 
+        "Signed": "+100", 
+        "Hex": "E4", 
+        "Bin": "11100100", 
+        "Laegna": "EAIE", 
+        "Wave": "EAAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 333, 
+        "Id0": {
+          "Num": 333
+        }, 
+        "Id1": {
+          "Num": 334
+        }
+      }, 
+      "Decimal": {
+        "Num": "229"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "229", 
+        "Signed": "+101", 
+        "Hex": "E5", 
+        "Bin": "11100101", 
+        "Laegna": "EAOI", 
+        "Wave": "EAII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 334, 
+        "Id0": {
+          "Num": 334
+        }, 
+        "Id1": {
+          "Num": 335
+        }
+      }, 
+      "Decimal": {
+        "Num": "230"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "230", 
+        "Signed": "+102", 
+        "Hex": "E6", 
+        "Bin": "11100110", 
+        "Laegna": "EAOO", 
+        "Wave": "EAIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 335, 
+        "Id0": {
+          "Num": 335
+        }, 
+        "Id1": {
+          "Num": 336
+        }
+      }, 
+      "Decimal": {
+        "Num": "231"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "231", 
+        "Signed": "+103", 
+        "Hex": "E7", 
+        "Bin": "11100111", 
+        "Laegna": "EAOA", 
+        "Wave": "EAIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 336, 
+        "Id0": {
+          "Num": 336
+        }, 
+        "Id1": {
+          "Num": 337
+        }
+      }, 
+      "Decimal": {
+        "Num": "232"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "232", 
+        "Signed": "+104", 
+        "Hex": "E8", 
+        "Bin": "11101000", 
+        "Laegna": "EAOE", 
+        "Wave": "EAIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 337, 
+        "Id0": {
+          "Num": 337
+        }, 
+        "Id1": {
+          "Num": 338
+        }
+      }, 
+      "Decimal": {
+        "Num": "233"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "233", 
+        "Signed": "+105", 
+        "Hex": "E9", 
+        "Bin": "11101001", 
+        "Laegna": "EAAI", 
+        "Wave": "EAEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 338, 
+        "Id0": {
+          "Num": 338
+        }, 
+        "Id1": {
+          "Num": 339
+        }
+      }, 
+      "Decimal": {
+        "Num": "234"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "234", 
+        "Signed": "+106", 
+        "Hex": "EA", 
+        "Bin": "11101010", 
+        "Laegna": "EAAO", 
+        "Wave": "EAEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 339, 
+        "Id0": {
+          "Num": 339
+        }, 
+        "Id1": {
+          "Num": 340
+        }
+      }, 
+      "Decimal": {
+        "Num": "235"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "235", 
+        "Signed": "+107", 
+        "Hex": "EB", 
+        "Bin": "11101011", 
+        "Laegna": "EAAA", 
+        "Wave": "EAEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 340, 
+        "Id0": {
+          "Num": 340
+        }, 
+        "Id1": {
+          "Num": 341
+        }
+      }, 
+      "Decimal": {
+        "Num": "236"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "236", 
+        "Signed": "+108", 
+        "Hex": "EC", 
+        "Bin": "11101100", 
+        "Laegna": "EAAE", 
+        "Wave": "EAEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 341, 
+        "Id0": {
+          "Num": 341
+        }, 
+        "Id1": {
+          "Num": 342
+        }
+      }, 
+      "Decimal": {
+        "Num": "237"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "237", 
+        "Signed": "+109", 
+        "Hex": "ED", 
+        "Bin": "11101101", 
+        "Laegna": "EAEI", 
+        "Wave": "EAOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 342, 
+        "Id0": {
+          "Num": 342
+        }, 
+        "Id1": {
+          "Num": 343
+        }
+      }, 
+      "Decimal": {
+        "Num": "238"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "238", 
+        "Signed": "+110", 
+        "Hex": "EE", 
+        "Bin": "11101110", 
+        "Laegna": "EAEO", 
+        "Wave": "EAOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 343, 
+        "Id0": {
+          "Num": 343
+        }, 
+        "Id1": {
+          "Num": 344
+        }
+      }, 
+      "Decimal": {
+        "Num": "239"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "239", 
+        "Signed": "+111", 
+        "Hex": "EF", 
+        "Bin": "11101111", 
+        "Laegna": "EAEA", 
+        "Wave": "EAOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 344, 
+        "Id0": {
+          "Num": 344
+        }, 
+        "Id1": {
+          "Num": 345
+        }
+      }, 
+      "Decimal": {
+        "Num": "240"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "240", 
+        "Signed": "+112", 
+        "Hex": "F0", 
+        "Bin": "11110000", 
+        "Laegna": "EAEE", 
+        "Wave": "EAOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 345, 
+        "Id0": {
+          "Num": 345
+        }, 
+        "Id1": {
+          "Num": 346
+        }
+      }, 
+      "Decimal": {
+        "Num": "241"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "241", 
+        "Signed": "+113", 
+        "Hex": "F1", 
+        "Bin": "11110001", 
+        "Laegna": "EEII", 
+        "Wave": "EEII"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 346, 
+        "Id0": {
+          "Num": 346
+        }, 
+        "Id1": {
+          "Num": 347
+        }
+      }, 
+      "Decimal": {
+        "Num": "242"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "242", 
+        "Signed": "+114", 
+        "Hex": "F2", 
+        "Bin": "11110010", 
+        "Laegna": "EEIO", 
+        "Wave": "EEIO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 347, 
+        "Id0": {
+          "Num": 347
+        }, 
+        "Id1": {
+          "Num": 348
+        }
+      }, 
+      "Decimal": {
+        "Num": "243"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "243", 
+        "Signed": "+115", 
+        "Hex": "F3", 
+        "Bin": "11110011", 
+        "Laegna": "EEIA", 
+        "Wave": "EEIA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 348, 
+        "Id0": {
+          "Num": 348
+        }, 
+        "Id1": {
+          "Num": 349
+        }
+      }, 
+      "Decimal": {
+        "Num": "244"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "244", 
+        "Signed": "+116", 
+        "Hex": "F4", 
+        "Bin": "11110100", 
+        "Laegna": "EEIE", 
+        "Wave": "EEIE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 349, 
+        "Id0": {
+          "Num": 349
+        }, 
+        "Id1": {
+          "Num": 350
+        }
+      }, 
+      "Decimal": {
+        "Num": "245"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "245", 
+        "Signed": "+117", 
+        "Hex": "F5", 
+        "Bin": "11110101", 
+        "Laegna": "EEOI", 
+        "Wave": "EEOA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 350, 
+        "Id0": {
+          "Num": 350
+        }, 
+        "Id1": {
+          "Num": 351
+        }
+      }, 
+      "Decimal": {
+        "Num": "246"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "246", 
+        "Signed": "+118", 
+        "Hex": "F6", 
+        "Bin": "11110110", 
+        "Laegna": "EEOO", 
+        "Wave": "EEOI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 351, 
+        "Id0": {
+          "Num": 351
+        }, 
+        "Id1": {
+          "Num": 352
+        }
+      }, 
+      "Decimal": {
+        "Num": "247"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "247", 
+        "Signed": "+119", 
+        "Hex": "F7", 
+        "Bin": "11110111", 
+        "Laegna": "EEOA", 
+        "Wave": "EEOE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 352, 
+        "Id0": {
+          "Num": 352
+        }, 
+        "Id1": {
+          "Num": 353
+        }
+      }, 
+      "Decimal": {
+        "Num": "248"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "248", 
+        "Signed": "+120", 
+        "Hex": "F8", 
+        "Bin": "11111000", 
+        "Laegna": "EEOE", 
+        "Wave": "EEOO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 353, 
+        "Id0": {
+          "Num": 353
+        }, 
+        "Id1": {
+          "Num": 354
+        }
+      }, 
+      "Decimal": {
+        "Num": "249"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "249", 
+        "Signed": "+121", 
+        "Hex": "F9", 
+        "Bin": "11111001", 
+        "Laegna": "EEAI", 
+        "Wave": "EEAA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 354, 
+        "Id0": {
+          "Num": 354
+        }, 
+        "Id1": {
+          "Num": 355
+        }
+      }, 
+      "Decimal": {
+        "Num": "250"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "250", 
+        "Signed": "+122", 
+        "Hex": "FA", 
+        "Bin": "11111010", 
+        "Laegna": "EEAO", 
+        "Wave": "EEAI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 355, 
+        "Id0": {
+          "Num": 355
+        }, 
+        "Id1": {
+          "Num": 356
+        }
+      }, 
+      "Decimal": {
+        "Num": "251"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "251", 
+        "Signed": "+123", 
+        "Hex": "FB", 
+        "Bin": "11111011", 
+        "Laegna": "EEAA", 
+        "Wave": "EEAE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 356, 
+        "Id0": {
+          "Num": 356
+        }, 
+        "Id1": {
+          "Num": 357
+        }
+      }, 
+      "Decimal": {
+        "Num": "252"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "252", 
+        "Signed": "+124", 
+        "Hex": "FC", 
+        "Bin": "11111100", 
+        "Laegna": "EEAE", 
+        "Wave": "EEAO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 357, 
+        "Id0": {
+          "Num": 357
+        }, 
+        "Id1": {
+          "Num": 358
+        }
+      }, 
+      "Decimal": {
+        "Num": "253"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "253", 
+        "Signed": "+125", 
+        "Hex": "FD", 
+        "Bin": "11111101", 
+        "Laegna": "EEEI", 
+        "Wave": "EEEI"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 358, 
+        "Id0": {
+          "Num": 358
+        }, 
+        "Id1": {
+          "Num": 359
+        }
+      }, 
+      "Decimal": {
+        "Num": "254"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "254", 
+        "Signed": "+126", 
+        "Hex": "FE", 
+        "Bin": "11111110", 
+        "Laegna": "EEEO", 
+        "Wave": "EEEO"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 359, 
+        "Id0": {
+          "Num": 359
+        }, 
+        "Id1": {
+          "Num": 360
+        }
+      }, 
+      "Decimal": {
+        "Num": "255"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "255", 
+        "Signed": "+127", 
+        "Hex": "FF", 
+        "Bin": "11111111", 
+        "Laegna": "EEEA", 
+        "Wave": "EEEA"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 360, 
+        "Id0": {
+          "Num": 360
+        }, 
+        "Id1": {
+          "Num": 361
+        }
+      }, 
+      "Decimal": {
+        "Num": "256"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "256", 
+        "Signed": "+128", 
+        "Hex": "100", 
+        "Bin": "100000000", 
+        "Laegna": "EEEE", 
+        "Wave": "EEEE"
+      }
+    }, 
+    {
+      "id": {
+        "Num": 361, 
+        "Id0": {
+          "Num": 361
+        }, 
+        "Id1": {
+          "Num": 362
+        }
+      }, 
+      "Decimal": {
+        "Num": "2inf"
+      }, 
+      "Chapter": {
+        "Num": 4, 
+        "id": {
+          "Num": 4
+        }
+      }, 
+      "R": 4, 
+      "T": {
+        "Num": "2inf", 
+        "Signed": "+inf", 
+        "Hex": null, 
+        "Bin": null, 
+        "Laegna": "\u2229\u2229\u2229\u2229", 
+        "Wave": "\u2229\u2229\u2229\u2229"
+      }
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spireason Wavefield — 4ⁿ Octave Symmetry</title>
+
+  <style>
+    /* --- GLOBAL LAYOUT --- */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;              /* absolutely no scroll */
+      background: #050510;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- TOP CONTROL BAR --- */
+    #topbar {
+      flex: 0 0 auto;
+      background: #11131c;
+      padding: 0.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #202436;
+    }
+
+    #topbar label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* --- DARK FRAME AROUND CANVAS --- */
+    #frame {
+      flex: 1 1 auto;
+      padding: 2.5cm;                /* expressive dark frame */
+      background: #050510;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* --- CANVAS --- */
+    canvas {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      background: black;
+    }
+
+    /* --- BOTTOM BAR --- */
+    #bottombar {
+      flex: 0 0 auto;
+      background: #0b0d16;
+      padding: 0.5rem 1rem 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #202436;
+    }
+
+    #bottombar label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    #octaveSlider {
+      width: 220px;
+    }
+
+    /* --- SMALL AESTHETIC TOUCHES --- */
+    select, input[type=range] {
+      accent-color: #8899ff;
+    }
+  </style>
+</head>
+
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+  <!-- TOP CONTROLS -->
+  <div id="topbar">
+    <strong style="letter-spacing:0.5px;">Spireason Wavefield</strong>
+
+    <label>
+      Span (4ⁿ):
+      <select id="spanSelect">
+        <option value="1">4¹ = 4</option>
+        <option value="2">4² = 16</option>
+        <option value="3" selected>4³ = 64</option>
+        <option value="4">4⁴ = 256</option>
+        <option value="5">4⁵ = 1024</option>
+        <option value="6">4⁶ = 4096</option>
+        <option value="7">4⁷ = 16384</option>
+      </select>
+    </label>
+
+    <label>
+      Mode:
+      <select id="modeSelect">
+        <option value="simple">Simple sinusoid</option>
+        <option value="complex" selected>Complex sin/cos field</option>
+      </select>
+    </label>
+
+    <label>
+      Time speed:
+      <input id="speedRange" type="range" min="0" max="3" step="0.01" value="1" />
+    </label>
+
+    <span style="opacity:0.6; margin-left:auto;">
+      4ⁿ resolution • octave symmetry • quadratic resonance
+    </span>
+  </div>
+
+  <!-- DARK FRAME + CANVAS -->
+  <div id="frame">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- BOTTOM CONTROLS -->
+  <div id="bottombar">
+    <label>
+      Octave position (0 → 1):
+      <input id="octaveSlider" type="range" min="0" max="1" step="0.01" value="0.5" />
+    </label>
+
+    <span id="octaveInfo" style="opacity:0.85;"></span>
+
+    <span style="opacity:0.6;">
+      q(s)=1−(2s−1)² • m=2^q(s)
+    </span>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const spanSelect = document.getElementById('spanSelect');
+    const modeSelect = document.getElementById('modeSelect');
+    const speedRange = document.getElementById('speedRange');
+    const octaveSlider = document.getElementById('octaveSlider');
+    const octaveInfo = document.getElementById('octaveInfo');
+
+    let N = Math.pow(4, parseInt(spanSelect.value, 10));
+    let mode = modeSelect.value;
+    let speed = parseFloat(speedRange.value);
+    let s = parseFloat(octaveSlider.value);
+
+    let lastTime = performance.now();
+
+    /* --- RESPONSIVE CANVAS --- */
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    /* --- CONTROL EVENTS --- */
+    spanSelect.addEventListener('change', () => {
+      N = Math.pow(4, parseInt(spanSelect.value, 10));
+    });
+
+    modeSelect.addEventListener('change', () => {
+      mode = modeSelect.value;
+    });
+
+    speedRange.addEventListener('input', () => {
+      speed = parseFloat(speedRange.value);
+    });
+
+    octaveSlider.addEventListener('input', () => {
+      s = parseFloat(octaveSlider.value);
+      updateOctaveInfo();
+    });
+
+    /* --- OCTAVE MAPPING INFO --- */
+    function updateOctaveInfo() {
+      const q = 1 - Math.pow(2 * s - 1, 2);   // symmetric quadratic
+      const m = Math.pow(2, q);               // inside-octave multiplier
+      octaveInfo.textContent =
+        `s=${s.toFixed(2)} • q=${q.toFixed(3)} • m≈${m.toFixed(3)}`;
+    }
+    updateOctaveInfo();
+
+    /* --- MAIN DRAW LOOP --- */
+    function drawFrame(time) {
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+
+      const cellX = w / N;
+      const cellY = h / N;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const t = time * 0.001 * speed;
+
+      /* BASE FREQUENCIES */
+      const base = 1;
+      const oct = 2;
+      const oct2 = 4;
+
+      /* QUADRATIC OCTAVE SYMMETRY */
+      const q = 1 - Math.pow(2 * s - 1, 2);
+      const mult = Math.pow(2, q);
+
+      const f1 = base * mult;
+      const f2 = oct * mult;
+      const f3 = oct2 * mult;
+
+      /* DRAW GRID */
+      for (let i = 0; i < N; i++) {
+        const xNorm = i / (N - 1 || 1);
+        for (let j = 0; j < N; j++) {
+          const yNorm = j / (N - 1 || 1);
+
+          let value;
+
+          if (mode === 'simple') {
+            value = Math.sin(2 * Math.PI * (f1 * (xNorm + t)));
+          } else {
+            const a = Math.sin(2 * Math.PI * (f1 * xNorm + 0.5 * t));
+            const b = Math.cos(2 * Math.PI * (f2 * yNorm - 0.3 * t));
+            const c = Math.sin(2 * Math.PI * (f3 * (xNorm + yNorm) + 0.2 * t));
+            value = (a + b + c) / 3;
+          }
+
+          const norm = (value + 1) / 2;
+
+          const hue = (xNorm * 360 + t * 40) % 360;
+          const brightness = 20 + norm * 80;
+          const saturation = 60 + (1 - Math.abs(value)) * 40;
+
+          ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${brightness}%)`;
+          ctx.fillRect(i * cellX, j * cellY, cellX + 1, cellY + 1);
+        }
+      }
+
+      requestAnimationFrame(drawFrame);
+    }
+
+    requestAnimationFrame(drawFrame);
+  </script>
+
+</body>
+</html>

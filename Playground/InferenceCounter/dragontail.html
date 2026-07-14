@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spireason — Sheep Number Field</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #050510;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #topbar {
+      flex: 0 0 auto;
+      background: #11131c;
+      padding: 0.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #202436;
+    }
+
+    #topbar strong {
+      letter-spacing: 0.5px;
+    }
+
+    #frame {
+      flex: 1 1 auto;
+      padding: 2.5cm;
+      background: #050510;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      background: black;
+    }
+
+    #bottombar {
+      flex: 0 0 auto;
+      background: #0b0d16;
+      padding: 0.5rem 1rem 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #202436;
+    }
+
+    #bottombar label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    #sheepSlider {
+      width: 260px;
+    }
+
+    select, input[type=range] {
+      accent-color: #8899ff;
+    }
+
+    .dim {
+      opacity: 0.65;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <strong>#sheep — number field</strong>
+    <span class="dim">counting as a way to feel structure</span>
+  </div>
+
+  <div id="frame">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <div id="bottombar">
+    <label>
+      Sheep count:
+      <input id="sheepSlider" type="range" min="1" max="256" step="1" value="16" />
+    </label>
+    <span id="sheepInfo"></span>
+    <span class="dim">
+      grid from nearest 4ⁿ • octave from fractional part
+    </span>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const sheepSlider = document.getElementById('sheepSlider');
+    const sheepInfo = document.getElementById('sheepInfo');
+
+    let sheep = parseInt(sheepSlider.value, 10);
+    let lastTime = performance.now();
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * window.devicePixelRatio;
+      canvas.height = rect.height * window.devicePixelRatio;
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    sheepSlider.addEventListener('input', () => {
+      sheep = parseInt(sheepSlider.value, 10);
+      updateSheepInfo();
+    });
+
+    function nearestPowerOf4(n) {
+      const log4 = Math.log(n) / Math.log(4);
+      const k = Math.round(log4);
+      return { k, value: Math.pow(4, k) };
+    }
+
+    function updateSheepInfo() {
+      const { k, value } = nearestPowerOf4(sheep);
+      const ratio = sheep / value;
+      const frac = ratio - Math.floor(ratio);
+      sheepInfo.textContent =
+        `n=${sheep} • 4^${k}=${value} • ratio≈${ratio.toFixed(3)} • frac≈${frac.toFixed(3)}`;
+    }
+    updateSheepInfo();
+
+    function drawFrame(time) {
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+
+      const w = canvas.width / window.devicePixelRatio;
+      const h = canvas.height / window.devicePixelRatio;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const { k, value: gridSize } = nearestPowerOf4(sheep);
+      const ratio = sheep / gridSize;
+      const frac = ratio - Math.floor(ratio);
+
+      const N = gridSize; // grid resolution = nearest 4^k
+      const cellX = w / N;
+      const cellY = h / N;
+
+      const t = time * 0.0007; // slow, dreamy
+
+      // octave position from fractional part in [0,1)
+      const s = frac;
+      const q = 1 - Math.pow(2 * s - 1, 2); // symmetric quadratic
+      const mult = Math.pow(2, q);          // inside-octave multiplier
+
+      const base = 1;
+      const oct = 2;
+      const f1 = base * mult;
+      const f2 = oct * mult;
+
+      for (let i = 0; i < N; i++) {
+        const xNorm = i / (N - 1 || 1);
+        for (let j = 0; j < N; j++) {
+          const yNorm = j / (N - 1 || 1);
+
+          // simple but layered: one horizontal, one diagonal
+          const a = Math.sin(2 * Math.PI * (f1 * (xNorm + t)));
+          const b = Math.cos(2 * Math.PI * (f2 * (xNorm + yNorm) - 0.3 * t));
+          const value = (a + b) / 2;
+
+          const norm = (value + 1) / 2;
+
+          const hue = (xNorm * 360 + k * 40) % 360;
+          const brightness = 18 + norm * 82;
+          const saturation = 55 + (1 - Math.abs(value)) * 45;
+
+          ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${brightness}%)`;
+          ctx.fillRect(i * cellX, j * cellY, cellX + 1, cellY + 1);
+        }
+      }
+
+      requestAnimationFrame(drawFrame);
+    }
+
+    requestAnimationFrame(drawFrame);
+  </script>
+</body>
+</html>

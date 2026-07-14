@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LaGEOsis — Laegna Sphere & Squarefield</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+  #container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  canvas {
+    display: block;
+    background: #111;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <canvas id="sphereCanvas"></canvas>
+  <canvas id="squareCanvas"></canvas>
+</div>
+
+<script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+
+<script>
+/* -----------------------------------------------------------
+   BASIC VECTOR HELPERS
+----------------------------------------------------------- */
+function vec3(x,y,z){ return {x,y,z}; }
+function mid(a,b){ return vec3((a.x+b.x)/2,(a.y+b.y)/2,(a.z+b.z)/2); }
+function norm(v){
+  const L = Math.sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+  return L===0 ? vec3(0,0,0) : vec3(v.x/L, v.y/L, v.z/L);
+}
+
+/* -----------------------------------------------------------
+   BUILD OCTAHEDRON + SUBDIVISION
+----------------------------------------------------------- */
+function buildOctahedron(){
+  const V = [
+    vec3(1,0,0), vec3(-1,0,0),
+    vec3(0,1,0), vec3(0,-1,0),
+    vec3(0,0,1), vec3(0,0,-1)
+  ];
+  const T = [
+    [0,2,4],[2,1,4],[1,3,4],[3,0,4],
+    [2,0,5],[1,2,5],[3,1,5],[0,3,5]
+  ];
+  return {V,T};
+}
+
+function subdivide(V,T,depth){
+  for(let d=0; d<depth; d++){
+    const midCache = new Map();
+    const newT = [];
+    function key(a,b){ return a<b ? a+"_"+b : b+"_"+a; }
+    function getMid(i,j){
+      const k = key(i,j);
+      if(midCache.has(k)) return midCache.get(k);
+      const m = norm(mid(V[i],V[j]));
+      const idx = V.length;
+      V.push(m);
+      midCache.set(k,idx);
+      return idx;
+    }
+    for(const tri of T){
+      const [a,b,c] = tri;
+      const ab = getMid(a,b);
+      const bc = getMid(b,c);
+      const ca = getMid(c,a);
+      newT.push([a,ab,ca]);
+      newT.push([b,bc,ab]);
+      newT.push([c,ca,bc]);
+      newT.push([ab,bc,ca]);
+    }
+    T = newT;
+  }
+  return {V,T};
+}
+
+/* -----------------------------------------------------------
+   ADJACENCY
+----------------------------------------------------------- */
+function buildAdjacency(V,T){
+  const vertTris = Array(V.length).fill(0).map(()=>[]);
+  const edgeTris = new Map();
+  function edgeKey(a,b){ return a<b ? a+"_"+b : b+"_"+a; }
+
+  T.forEach((tri,tid)=>{
+    const [a,b,c] = tri;
+    vertTris[a].push(tid);
+    vertTris[b].push(tid);
+    vertTris[c].push(tid);
+
+    [[a,b],[b,c],[c,a]].forEach(([i,j])=>{
+      const k = edgeKey(i,j);
+      if(!edgeTris.has(k)) edgeTris.set(k,[]);
+      edgeTris.get(k).push(tid);
+    });
+  });
+
+  return {vertTris,edgeTris};
+}
+
+/* -----------------------------------------------------------
+   TANGENT BASIS FOR SQUARE EXTRACTION
+----------------------------------------------------------- */
+function tangentBasis(v){
+  const n = norm(v);
+  let tx = Math.abs(n.x)<0.9 ? vec3(1,0,0) : vec3(0,1,0);
+  const dot = tx.x*n.x + tx.y*n.y + tx.z*n.z;
+  tx = norm(vec3(tx.x - n.x*dot, tx.y - n.y*dot, tx.z - n.z*dot));
+  const ty = norm(vec3(
+    n.y*tx.z - n.z*tx.y,
+    n.z*tx.x - n.x*tx.z,
+    n.x*tx.y - n.y*tx.x
+  ));
+  return {tx,ty};
+}
+
+function projectToTangent(v,center,tx,ty){
+  const d = vec3(v.x-center.x, v.y-center.y, v.z-center.z);
+  return {
+    x: d.x*tx.x + d.y*tx.y + d.z*tx.z,
+    y: d.x*ty.x + d.y*ty.y + d.z*ty.z
+  };
+}
+
+/* -----------------------------------------------------------
+   EXTRACT PERFECT SQUARES (VALENCE 4)
+----------------------------------------------------------- */
+function extractSquares(V,vertTris,T){
+  const squares = [];
+  vertTris.forEach((tris,vid)=>{
+    if(tris.length!==4) return;
+    const center = V[vid];
+    const {tx,ty} = tangentBasis(center);
+
+    const triInfos = tris.map(tid=>{
+      const tri = T[tid];
+      const others = tri.filter(i=>i!==vid);
+      const p1 = projectToTangent(V[others[0]],center,tx,ty);
+      const p2 = projectToTangent(V[others[1]],center,tx,ty);
+      const cx = (p1.x+p2.x)/2;
+      const cy = (p1.y+p2.y)/2;
+      const angle = Math.atan2(cy,cx);
+      return {tid,angle};
+    });
+
+    triInfos.sort((a,b)=>a.angle-b.angle);
+
+    squares.push({
+      vertex: vid,
+      triangles: triInfos.map(t=>t.tid),
+      neighbors: []
+    });
+  });
+  return squares;
+}
+
+/* -----------------------------------------------------------
+   LINK SQUARES BY NEIGHBORING TRIANGLES
+----------------------------------------------------------- */
+function linkSquares(squares,T,edgeTris){
+  const triToSquare = new Map();
+  squares.forEach((sq,i)=>{
+    sq.triangles.forEach(tid=>triToSquare.set(tid,i));
+  });
+
+  function edgeKey(a,b){ return a<b ? a+"_"+b : b+"_"+a; }
+
+  squares.forEach((sq,i)=>{
+    const neigh = new Set();
+    for(const tid of sq.triangles){
+      const tri = T[tid];
+      const edges = [[tri[0],tri[1]],[tri[1],tri[2]],[tri[2],tri[0]]];
+      for(const [a,b] of edges){
+        const k = edgeKey(a,b);
+        const trisOnEdge = edgeTris.get(k) || [];
+        for(const otherTid of trisOnEdge){
+          if(otherTid===tid) continue;
+          const otherSq = triToSquare.get(otherTid);
+          if(otherSq!==undefined && otherSq!==i){
+            neigh.add(otherSq);
+          }
+        }
+      }
+    }
+    sq.neighbors = Array.from(neigh);
+  });
+
+  return squares;
+}
+
+/* -----------------------------------------------------------
+   BUILD N×N GRID OF SQUARES
+----------------------------------------------------------- */
+function buildSquareGrid(squares,n){
+  if(squares.length < n*n) return null;
+
+  const grid = Array(n).fill(0).map(()=>Array(n).fill(-1));
+  const used = new Set();
+
+  grid[0][0] = 0;
+  used.add(0);
+
+  for(let y=0;y<n;y++){
+    for(let x=0;x<n;x++){
+      const cur = grid[y][x];
+      if(cur===-1) continue;
+
+      const sq = squares[cur];
+
+      if(x+1<n && grid[y][x+1]===-1){
+        const right = sq.neighbors.find(nb=>!used.has(nb));
+        if(right!==undefined){
+          grid[y][x+1] = right;
+          used.add(right);
+        }
+      }
+
+      if(y+1<n && grid[y+1][x]===-1){
+        const down = sq.neighbors.find(nb=>!used.has(nb));
+        if(down!==undefined){
+          grid[y+1][x] = down;
+          used.add(down);
+        }
+      }
+    }
+  }
+
+  for(let y=0;y<n;y++){
+    for(let x=0;x<n;x++){
+      if(grid[y][x]===-1) return null;
+    }
+  }
+
+  return grid;
+}
+
+/* -----------------------------------------------------------
+   LAEGNA COORDINATES (STABLE)
+----------------------------------------------------------- */
+function laegnaCoordsForTriangle(V,tri){
+  const v0 = V[tri[0]];
+  const v1 = V[tri[1]];
+  const v2 = V[tri[2]];
+  const avgZ = (v0.z+v1.z+v2.z)/3;
+
+  const v = (avgZ+1)*2; // [0,4]
+  const T_lin = v;
+
+  let R_exp;
+  if(Math.abs(avgZ)<0.2){
+    const p = v/4;
+    R_exp = 0.5*p;
+  } else {
+    const k = Math.floor(v);
+    const p = v-k;
+    R_exp = Math.pow(2,k)*p;
+  }
+
+  if(!isFinite(R_exp)) R_exp = 1e-6;
+  if(Math.abs(R_exp)<1e-6) R_exp = 1e-6;
+
+  return {T_lin,R_exp};
+}
+
+function isInterlace(T_lin,R_exp){
+  const bandLin = Math.floor(T_lin);
+  const safeExp = Math.max(Math.abs(R_exp),1e-6);
+  const bandExp = Math.floor(Math.log2(safeExp));
+
+  const bLin = Math.max(-3,Math.min(3,bandLin));
+  const bExp = Math.max(-3,Math.min(3,bandExp));
+
+  return bLin===bExp || (bLin===0 && bExp===-1);
+}
+
+/* -----------------------------------------------------------
+   DISC PROJECTION (STABLE)
+----------------------------------------------------------- */
+function projectVertexToDisc(v){
+  const denom = Math.max(1+v.z,0.05);
+  return {u:v.x/denom, v:v.y/denom};
+}
+
+/* -----------------------------------------------------------
+   GLOBALS
+----------------------------------------------------------- */
+let sphereMesh=null;
+let sphereData=null;
+let triToSquare=null;
+let hoveredSquareId=-1;
+let hoveredTriangleIndex=-1;
+let squareGrid=null;
+const GRID_N = 4;
+
+/* -----------------------------------------------------------
+   BUILD SPHERE
+----------------------------------------------------------- */
+function buildLaegnaSphere(level){
+  let {V,T} = buildOctahedron();
+  ({V,T} = subdivide(V,T,level));
+  const {vertTris,edgeTris} = buildAdjacency(V,T);
+  let squares = extractSquares(V,vertTris,T);
+  squares = linkSquares(squares,T,edgeTris);
+  return {V,T,squares};
+}
+
+/* -----------------------------------------------------------
+   RENDER SETUP
+----------------------------------------------------------- */
+const sphereCanvas = document.getElementById("sphereCanvas");
+const squareCanvas = document.getElementById("squareCanvas");
+const squareCtx = squareCanvas.getContext("2d");
+
+function resize(){
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  sphereCanvas.width = w/2;
+  sphereCanvas.height = h;
+  squareCanvas.width = w/2;
+  squareCanvas.height = h;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const renderer = new THREE.WebGLRenderer({canvas:sphereCanvas,antialias:true});
+renderer.setPixelRatio(window.devicePixelRatio);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x222222);
+
+const camera = new THREE.PerspectiveCamera(
+  45,
+  sphereCanvas.width/sphereCanvas.height,
+  0.1,10
+);
+camera.position.set(0,0,3);
+
+scene.add(new THREE.AmbientLight(0x808080));
+const dirLight = new THREE.DirectionalLight(0xffffff,1.2);
+dirLight.position.set(2,2,3);
+scene.add(dirLight);
+
+/* -----------------------------------------------------------
+   BUILD SPHERE GEOMETRY
+----------------------------------------------------------- */
+function buildSphere(level){
+  sphereData = buildLaegnaSphere(level);
+  const V = sphereData.V;
+  const T = sphereData.T;
+  const squares = sphereData.squares;
+
+  triToSquare = new Array(T.length).fill(null);
+  squares.forEach((sq,sid)=>{
+    sq.triangles.forEach((tid,idx)=>{
+      triToSquare[tid] = {squareId:sid,triIndex:idx};
+    });
+  });
+
+  squareGrid = buildSquareGrid(squares,GRID_N);
+
+  const triCount = T.length;
+  const positions = new Float32Array(triCount*9);
+  const triIds = new Float32Array(triCount*3);
+  const triColors = new Float32Array(triCount*9);
+
+  for(let tid=0; tid<triCount; tid++){
+    const tri = T[tid];
+    const coords = laegnaCoordsForTriangle(V,tri);
+    const inter = isInterlace(coords.T_lin,coords.R_exp);
+    const baseColor = inter ? [1,0,0] : [0.6,0.6,0.6];
+
+    for(let k=0;k<3;k++){
+      const vi = tri[k];
+      const v = V[vi];
+      const idx = tid*9 + k*3;
+      positions[idx] = v.x;
+      positions[idx+1] = v.y;
+      positions[idx+2] = v.z;
+      triColors[idx] = baseColor[0];
+      triColors[idx+1] = baseColor[1];
+      triColors[idx+2] = baseColor[2];
+      triIds[tid*3+k] = tid;
+    }
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  geom.setAttribute('triId',new THREE.BufferAttribute(triIds,1));
+  geom.setAttribute('triColor',new THREE.BufferAttribute(triColors,3));
+  geom.computeVertexNormals();
+
+  const vertexShader = `
+    attribute float triId;
+    attribute vec3 triColor;
+    flat varying float vTriId;
+    varying vec3 vTriColor;
+    varying vec3 vNormal;
+    void main(){
+      vTriId = triId;
+      vTriColor = triColor;
+      vNormal = normalize(normalMatrix * normal);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+    }
+  `;
+  const fragmentShader = `
+    precision highp float;
+    flat varying float vTriId;
+    varying vec3 vTriColor;
+    varying vec3 vNormal;
+    uniform float uSelectedTri;
+    uniform vec3 uLightDir;
+    void main(){
+      vec3 base = vTriColor;
+      if(abs(vTriId - uSelectedTri) < 0.5){
+        base = mix(base, vec3(1.0,1.0,0.0), 0.7);
+      }
+      float diff = max(dot(normalize(vNormal), normalize(uLightDir)), 0.0);
+      vec3 col = base * (0.2 + 0.8*diff);
+      gl_FragColor = vec4(col,1.0);
+    }
+  `;
+  const mat = new THREE.ShaderMaterial({
+    vertexShader,
+    fragmentShader,
+    uniforms:{
+      uSelectedTri:{value:-1},
+      uLightDir:{value:new THREE.Vector3(2,2,3).normalize()}
+    },
+    side:THREE.DoubleSide
+  });
+
+  if(sphereMesh){
+    scene.remove(sphereMesh);
+    sphereMesh.geometry.dispose();
+    sphereMesh.material.dispose();
+  }
+  sphereMesh = new THREE.Mesh(geom,mat);
+  scene.add(sphereMesh);
+
+  drawSquarefield();
+}
+
+/* -----------------------------------------------------------
+   DRAW SQUAREFIELD
+----------------------------------------------------------- */
+function drawSquarefield(){
+  if(!sphereData) return;
+  const V = sphereData.V;
+  const squares = sphereData.squares;
+
+  const w = squareCanvas.width;
+  const h = squareCanvas.height;
+  squareCtx.clearRect(0,0,w,h);
+
+  squareCtx.fillStyle="#111";
+  squareCtx.fillRect(0,0,w,h);
+
+  const cx0 = w/2, cy0 = h/2;
+  const R0 = Math.min(w,h)*0.45;
+
+  squareCtx.beginPath();
+  squareCtx.arc(cx0,cy0,R0,0,Math.PI*2);
+  squareCtx.strokeStyle="#555";
+  squareCtx.lineWidth=2;
+  squareCtx.stroke();
+
+  const r = R0*0.08;
+
+  const iterateSquares = squareGrid
+    ? function*(){
+        for(let y=0;y<squareGrid.length;y++){
+          for(let x=0;x<squareGrid[0].length;x++){
+            yield squares[squareGrid[y][x]];
+          }
+        }
+      }
+    : function*(){
+        for(let i=0;i<squares.length;i++) yield squares[i];
+      };
+
+  let index = 0;
+  for(const sq of iterateSquares()){
+    const v = V[sq.vertex];
+    const proj = projectVertexToDisc(v);
+    const cx = cx0 + proj.u*R0;
+    const cy = cy0 + proj.v*R0;
+
+    const dist2 = (cx-cx0)*(cx-cx0)+(cy-cy0)*(cy-cy0);
+    if(dist2>R0*R0) continue;
+
+    const corners = [
+      [cx-r,cy-r],[cx+r,cy-r],[cx+r,cy+r],[cx-r,cy+r]
+    ];
+    const tris = [
+      [cx,cy,corners[0][0],corners[0][1],corners[1][0],corners[1][1]],
+      [cx,cy,corners[1][0],corners[1][1],corners[2][0],corners[2][1]],
+      [cx,cy,corners[2][0],corners[2][1],corners[3][0],corners[3][1]],
+      [cx,cy,corners[3][0],corners[3][1],corners[0][0],corners[0][1]]
+    ];
+
+    const triIds = sq.triangles;
+
+    squareCtx.strokeStyle="#888";
+    squareCtx.lineWidth=1.5;
+    squareCtx.strokeRect(cx-r,cy-r,2*r,2*r);
+
+    const mx = cx, my = cy;
+    squareCtx.beginPath();
+    squareCtx.moveTo(mx, cy-r);
+    squareCtx.lineTo(cx+r, my);
+    squareCtx.lineTo(mx, cy+r);
+    squareCtx.lineTo(cx-r, my);
+    squareCtx.closePath();
+    squareCtx.strokeStyle="#666";
+    squareCtx.lineWidth=1;
+    squareCtx.stroke();
+
+    for(let t=0;t<4;t++){
+      const triId = triIds[t];
+      const tri = sphereData.T[triId];
+      const coords = laegnaCoordsForTriangle(V, tri);
+      const inter = isInterlace(coords.T_lin,coords.R_exp);
+
+      const [ax,ay,bx,by,cx2,cy2]=tris[t];
+      squareCtx.beginPath();
+      squareCtx.moveTo(ax,ay);
+      squareCtx.lineTo(bx,by);
+      squareCtx.lineTo(cx2,cy2);
+      squareCtx.closePath();
+
+      if(inter){
+        squareCtx.fillStyle="#ff0000";
+        squareCtx.fill();
+      }
+
+      const selectedTri = sphereMesh.material.uniforms.uSelectedTri.value;
+      if(selectedTri === triId){
+        squareCtx.fillStyle="rgba(255,255,0,0.6)";
+        squareCtx.fill();
+        squareCtx.strokeStyle="#ffff00";
+        squareCtx.lineWidth=2;
+      } else {
+        squareCtx.strokeStyle="#444";
+        squareCtx.lineWidth=1;
+      }
+
+      squareCtx.stroke();
+    }
+
+    if(index===hoveredSquareId && hoveredTriangleIndex>=0){
+      const [ax,ay,bx,by,cx2,cy2]=tris[hoveredTriangleIndex];
+      squareCtx.beginPath();
+      squareCtx.moveTo(ax,ay);
+      squareCtx.lineTo(bx,by);
+      squareCtx.lineTo(cx2,cy2);
+      squareCtx.closePath();
+      squareCtx.fillStyle="rgba(255,255,0,0.6)";
+      squareCtx.fill();
+      squareCtx.strokeStyle="#ffff00";
+      squareCtx.lineWidth=2;
+      squareCtx.stroke();
+    }
+
+    index++;
+  }
+}
+
+/* -----------------------------------------------------------
+   SPHERE ROTATION
+----------------------------------------------------------- */
+let isDragging=false,lastX=0,lastY=0;
+sphereCanvas.addEventListener("mousedown",e=>{
+  isDragging=true; lastX=e.clientX; lastY=e.clientY;
+});
+sphereCanvas.addEventListener("mouseup",()=>isDragging=false);
+sphereCanvas.addEventListener("mouseleave",()=>isDragging=false);
+sphereCanvas.addEventListener("mousemove",e=>{
+  if(!sphereMesh) return;
+  if(!isDragging) return;
+  const dx=e.clientX-lastX, dy=e.clientY-lastY;
+  lastX=e.clientX; lastY=e.clientY;
+  sphereMesh.rotation.y += dx*0.005;
+  sphereMesh.rotation.x += dy*0.005;
+});
+
+/* -----------------------------------------------------------
+   HOVER: SPHERE → DISC
+----------------------------------------------------------- */
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+sphereCanvas.addEventListener("mousemove",e=>{
+  if(!sphereMesh || !sphereData) return;
+  const rect = sphereCanvas.getBoundingClientRect();
+  mouse.x = ((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y = -((e.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits = raycaster.intersectObject(sphereMesh);
+  if(hits.length>0){
+    const tid = hits[0].faceIndex;
+    sphereMesh.material.uniforms.uSelectedTri.value = tid;
+    hoveredSquareId = triToSquare[tid]?.squareId ?? -1;
+    hoveredTriangleIndex = triToSquare[tid]?.triIndex ?? -1;
+  } else {
+    sphereMesh.material.uniforms.uSelectedTri.value = -1;
+    hoveredSquareId = -1;
+    hoveredTriangleIndex = -1;
+  }
+  drawSquarefield();
+});
+
+/* -----------------------------------------------------------
+   HOVER: DISC → SPHERE
+----------------------------------------------------------- */
+squareCanvas.addEventListener("mousemove", e => {
+  if(!sphereData) return;
+  const rect = squareCanvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const w = squareCanvas.width;
+  const h = squareCanvas.height;
+  const cx0 = w/2, cy0 = h/2;
+  const R0 = Math.min(w,h)*0.45;
+
+  let foundSq = -1;
+  let foundTriIndex = -1;
+
+  const iterateSquares = squareGrid
+    ? function*(){
+        for(let yy=0;yy<squareGrid.length;yy++){
+          for(let xx=0;xx<squareGrid[0].length;xx++){
+            yield {sqId:squareGrid[yy][xx], index:yy*squareGrid[0].length+xx};
+          }
+        }
+      }
+    : function*(){
+        for(let i=0;i<sphereData.squares.length;i++) yield {sqId:i,index:i};
+      };
+
+  for(const item of iterateSquares()){
+    const sqId = item.sqId;
+    const sqIndex = item.index;
+    const sq = sphereData.squares[sqId];
+    const v = sphereData.V[sq.vertex];
+    const proj = projectVertexToDisc(v);
+    const cx = cx0 + proj.u*R0;
+    const cy = cy0 + proj.v*R0;
+    const r = Math.min(w,h)*0.03;
+
+    const corners = [
+      [cx-r,cy-r],[cx+r,cy-r],[cx+r,cy+r],[cx-r,cy+r]
+    ];
+    const tris = [
+      [cx,cy,corners[0][0],corners[0][1],corners[1][0],corners[1][1]],
+      [cx,cy,corners[1][0],corners[1][1],corners[2][0],corners[2][1]],
+      [cx,cy,corners[2][0],corners[2][1],corners[3][0],corners[3][1]],
+      [cx,cy,corners[3][0],corners[3][1],corners[0][0],corners[0][1]]
+    ];
+
+    for(let t=0;t<4;t++){
+      const [ax,ay,bx,by,cx2,cy2] = tris[t];
+      const area = (bx-ax)*(cy2-ay) - (cx2-ax)*(by-ay);
+      const area1 = (bx-ax)*(y-ay) - (x-ax)*(by-ay);
+      const area2 = (cx2-bx)*(y-by) - (x-bx)*(cy2-by);
+      const area3 = (ax-cx2)*(y-cy2) - (x-cx2)*(ay-cy2);
+      const hasSameSign =
+        (area>=0 && area1>=0 && area2>=0 && area3>=0) ||
+        (area<=0 && area1<=0 && area2<=0 && area3<=0);
+
+      if(hasSameSign){
+        foundSq = sqIndex;
+        foundTriIndex = t;
+        break;
+      }
+    }
+    if(foundSq>=0) break;
+  }
+
+  if(foundSq>=0){
+    hoveredSquareId = foundSq;
+    hoveredTriangleIndex = foundTriIndex;
+
+    const sqId = squareGrid
+      ? squareGrid[Math.floor(foundSq/squareGrid[0].length)][foundSq%squareGrid[0].length]
+      : foundSq;
+
+    const triId = sphereData.squares[sqId].triangles[foundTriIndex];
+    sphereMesh.material.uniforms.uSelectedTri.value = triId;
+  } else {
+    hoveredSquareId = -1;
+    hoveredTriangleIndex = -1;
+    sphereMesh.material.uniforms.uSelectedTri.value = -1;
+  }
+
+  drawSquarefield();
+});
+
+/* -----------------------------------------------------------
+   INITIALIZE
+----------------------------------------------------------- */
+window.addEventListener('load', () => {
+  buildSphere(3);
+
+  function animate(){
+    requestAnimationFrame(animate);
+    renderer.render(scene,camera);
+  }
+  animate();
+});
+</script>
+</body>
+</html>

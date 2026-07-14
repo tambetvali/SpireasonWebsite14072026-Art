@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sheep Counter Debugger</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 20px;
+      padding-bottom: 260px;
+    }
+    h1 {
+      margin-top: 30px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+    }
+    h2 {
+      margin-top: 18px;
+      color: #444;
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 8px;
+      margin-bottom: 18px;
+      width: 100%;
+      max-width: 900px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 4px 6px;
+      font-size: 13px;
+    }
+    th {
+      background: #f5f5f5;
+    }
+    tr:hover {
+      background: #e7f3ff;
+      cursor: pointer;
+    }
+    tr.selected {
+      background: #ffe5e5 !important;
+    }
+    #debugPanel {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #111;
+      color: #eee;
+      font-family: monospace;
+      font-size: 12px;
+      padding: 6px 10px 8px;
+      max-height: 25%;
+      overflow: auto;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    #debugHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #debugPanelTitle {
+      font-weight: bold;
+    }
+    #debugClose {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #b33;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      visibility: hidden;
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sheep Counter Debugger</h1>
+  <p>
+    This page builds the timeline from <code>SheepCounter</code> and shows main chapters,
+    subchapters, and numbers with timing. Hover a row to preview its JSON; click to lock it.
+  </p>
+
+  <div id="content"></div>
+
+  <div id="debugPanel">
+    <div id="debugHeader">
+      <div id="debugPanelTitle">Global: SheepCounter</div>
+      <div id="debugClose">×</div>
+    </div>
+    <pre><code id="debugPanelBody" class="language-json"></code></pre>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="sheepcounter.js"></script>
+  <script>
+    const counter = new SheepCounter();
+    const content = document.getElementById('content');
+    const debugTitle = document.getElementById('debugPanelTitle');
+    const debugBody = document.getElementById('debugPanelBody');
+    const debugClose = document.getElementById('debugClose');
+
+    let locked = false;
+    let lockedRow = null;
+
+    function setDebug(title, obj) {
+      debugTitle.textContent = title;
+      debugBody.textContent = JSON.stringify(obj, null, 2);
+      Prism.highlightElement(debugBody);
+    }
+
+    function clearLock() {
+      locked = false;
+      debugClose.style.visibility = 'hidden';
+      if (lockedRow) {
+        lockedRow.classList.remove('selected');
+        lockedRow = null;
+      }
+      setDebug("Global: SheepCounter", counter.toDebugJSON());
+    }
+
+    debugClose.addEventListener('click', clearLock);
+
+    function attachRowEvents(row, title, obj) {
+      row.addEventListener('mouseover', () => {
+        if (!locked) {
+          setDebug(title, obj);
+        }
+      });
+
+      row.addEventListener('click', () => {
+        if (lockedRow === row) {
+          // toggle off
+          clearLock();
+          return;
+        }
+        if (lockedRow) {
+          lockedRow.classList.remove('selected');
+        }
+        lockedRow = row;
+        lockedRow.classList.add('selected');
+        locked = true;
+        debugClose.style.visibility = 'visible';
+        setDebug(title + " (locked)", obj);
+      });
+    }
+
+    function buildDebugView() {
+      const toc = counter.getTOCStructure();
+
+      toc.forEach(typeEntry => {
+        const main = typeEntry.mainChapter;
+
+        const h1 = document.createElement('h1');
+        h1.textContent = typeEntry.displayName + " (" + typeEntry.typeCode + ")";
+        content.appendChild(h1);
+
+        const typeInfo = document.createElement('p');
+        typeInfo.textContent = `Main chapter timing: start=${main.startTime.toFixed(3)}s, end=${main.endTime.toFixed(3)}s, length=${main.length.toFixed(3)}s`;
+        typeInfo.style.fontSize = "12px";
+        typeInfo.style.color = "#555";
+        attachRowEvents(
+          typeInfo,
+          "MainChapter: " + typeEntry.displayName,
+          main.toDebugJSON()
+        );
+        content.appendChild(typeInfo);
+
+        typeEntry.subChapters.forEach(subEntry => {
+          const sub = subEntry.subChapter;
+
+          const h2 = document.createElement('h2');
+          h2.textContent = subEntry.displayRName + " (" + subEntry.rCode + ")";
+          content.appendChild(h2);
+
+          const chInfo = document.createElement('p');
+          chInfo.textContent = `Subchapter timing: start=${sub.startTime.toFixed(3)}s, end=${sub.endTime.toFixed(3)}s, length=${sub.length.toFixed(3)}s`;
+          chInfo.style.fontSize = "12px";
+          chInfo.style.color = "#555";
+          attachRowEvents(
+            chInfo,
+            "SubChapter: " + typeEntry.displayName + " / " + subEntry.displayRName,
+            sub.toDebugJSON()
+          );
+          content.appendChild(chInfo);
+
+          const table = document.createElement('table');
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+          ["#", "Start (s)", "End (s)", "Length (s)", "Value"].forEach(txt => {
+            const th = document.createElement('th');
+            th.textContent = txt;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+
+          const tbody = document.createElement('tbody');
+          const sys = sub.system;
+
+          if (sys) {
+            for (let i = 0; i < sys.numbers.length; i++) {
+              const num = sys.numbers[i];
+              const tr = document.createElement('tr');
+
+              const tdIndex = document.createElement('td');
+              tdIndex.textContent = num.index;
+              tr.appendChild(tdIndex);
+
+              const tdStart = document.createElement('td');
+              tdStart.textContent = num.startTime.toFixed(3);
+              tr.appendChild(tdStart);
+
+              const tdEnd = document.createElement('td');
+              tdEnd.textContent = num.endTime.toFixed(3);
+              tr.appendChild(tdEnd);
+
+              const tdLen = document.createElement('td');
+              tdLen.textContent = num.length.toFixed(3);
+              tr.appendChild(tdLen);
+
+              const tdVal = document.createElement('td');
+              tdVal.textContent = num.valueStr;
+              tr.appendChild(tdVal);
+
+              attachRowEvents(
+                tr,
+                `Number ${num.valueStr} in ${typeEntry.displayName} / ${subEntry.displayRName}`,
+                num.toDebugJSON()
+              );
+
+              tbody.appendChild(tr);
+            }
+          }
+
+          table.appendChild(tbody);
+          content.appendChild(table);
+        });
+      });
+
+      setDebug("Global: SheepCounter", counter.toDebugJSON());
+    }
+
+    buildDebugView();
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpiReason – Programming</title>
+  <meta name="description" content="Programming texts and books by SpiReason – reflections and technical writings blending logic, creativity, and meditation.">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #fafafa;
+      color: #222;
+      font-family: "Segoe UI", "Noto Sans", sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      margin: 0.2em 0;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    main {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 0 1rem 4rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.6s ease both;
+    }
+
+    section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #333;
+    }
+
+    .read-time {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #666;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+    }
+
+    .timer {
+      opacity: 0.25;
+      display: inline-block;
+      transition: opacity 0.5s ease;
+      cursor: help;
+    }
+
+    .timer:hover {
+      opacity: 1;
+      animation: rotate 3s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .read-time span {
+      cursor: default;
+      position: relative;
+    }
+
+    .read-time span::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 0.3em 0.6em;
+      border-radius: 0.4em;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .read-time span:hover::after {
+      opacity: 0.95;
+    }
+
+    .links {
+      margin-top: 0.8rem;
+    }
+
+    .book-link {
+      display: inline-block;
+      margin: 0.4rem 0.4rem 0 0;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.6rem;
+      text-decoration: none;
+      color: #222;
+      background: linear-gradient(135deg, #fff, #f2f2f2);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .book-link:hover {
+      background: linear-gradient(135deg, #f8f8f8, #eaeaea);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <header>
+    <h1>Programming</h1>
+    <p>Books and writings connecting structured thought and creative flow.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Book 1 – Introduction to Structural Thinking</h2>
+      <div class="read-time">
+        <span class="timer" title="Estimated reading time">⏲️</span>
+        <span data-tooltip="Approx. one calm evening’s reading">🌞 1 evening</span>
+      </div>
+
+      <div class="links">
+        <a href="mission.pdf" class="book-link">📘 Local</a>
+        <a href="https://github.com/tambetvali/LaeArve/tree/main/History/Laegna/Books/Book1Mission" class="book-link">🌐 GitHub</a>
+      </div>
+
+      <p>
+        A concise initiation into logical structure and conceptual elegance — where programming meets philosophy. 
+        Designed for a relaxed, reflective reading rhythm rather than a technical rush.
+      </p>
+    </section>
+
+    <section>
+      <h2>Book 2 – Expanded Systems & Reflections</h2>
+      <div class="read-time">
+        <span class="timer" title="Estimated reading time">⏲️</span>
+        <span data-tooltip="Approx. two evenings — deeper reflection">🌞🌙 2 evenings</span>
+      </div>
+
+      <div class="links">
+        <a href="Programming%20Matters.pdf" class="book-link">📘 Local</a>
+        <a href="https://github.com/tambetvali/LaeArve/tree/main/History/Laegna/Books/Book2ProgrammingMatters" class="book-link">🌐 GitHub</a>
+      </div>
+
+      <p>
+        Extending the principles of the first book into systems, self-reference, and creative recursion.
+        Written to invite both contemplation and curiosity — the long evening’s exploration.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © SpiReason – reflections by Tambet Väli · 
+    <a href="https://spireason.neocities.org/" style="color:#555;">Main site</a>
+  </footer>
+</body>
+</html>

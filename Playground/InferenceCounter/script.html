@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Laegna Animation Sheets</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #111;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      padding: 1rem 1.5rem;
+      background: #181818;
+      border-bottom: 1px solid #333;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+    }
+    header .subtitle {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 0.25rem;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #333;
+      background: #151515;
+    }
+    .tab {
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-right: 1px solid #333;
+      color: #aaa;
+      white-space: nowrap;
+    }
+    .tab.active {
+      background: #222;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .sheet {
+      display: none;
+      padding: 1rem 1.5rem 2rem;
+    }
+    .sheet.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    th, td {
+      border-bottom: 1px solid #333;
+      padding: 0.35rem 0.5rem;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+    th {
+      background: #202020;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    tr:nth-child(even) td {
+      background: #181818;
+    }
+    tr:nth-child(odd) td {
+      background: #141414;
+    }
+
+    .script-row {
+      font-family: "Fira Code", monospace;
+    }
+    .script-id { color: #7fdcff; }
+    .script-chapter { color: #ffdf7f; }
+    .script-laegna { color: #9dff7f; }
+    .script-decimal { color: #ff7f7f; }
+    .script-wave { color: #c79fff; }
+
+    .sheet-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ccc;
+    }
+    .sheet-subtitle {
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .chapter-header {
+      font-family: "Fira Code", monospace;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: #ffdf7f;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Laegna Animation Sheets</h1>
+  <div class="subtitle">Frames · Timeline · Chapters — script-like view of the number system</div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div id="sheets"></div>
+
+<script>
+(async function () {
+  const ANIM_PATH = "animation.json";
+
+  async function loadJSON(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Cannot load " + url);
+    return await res.json();
+  }
+
+  const data = await loadJSON(ANIM_PATH);
+  const animation = data.animation || [];
+  const chapters = data.animation_chapters || [];
+  const numbers = data.numbers || [];
+
+  const tabsEl = document.getElementById("tabs");
+  const sheetsEl = document.getElementById("sheets");
+  const sheets = [];
+
+  function addTab(id, label) {
+    const tab = document.createElement("div");
+    tab.className = "tab";
+    tab.textContent = label;
+    tab.dataset.sheetId = id;
+    tabsEl.appendChild(tab);
+    return tab;
+  }
+
+  function addSheet(id) {
+    const sheet = document.createElement("div");
+    sheet.className = "sheet";
+    sheet.id = id;
+    sheetsEl.appendChild(sheet);
+    sheets.push(sheet);
+    return sheet;
+  }
+
+  function activateSheet(id) {
+    document.querySelectorAll(".tab").forEach(t => {
+      t.classList.toggle("active", t.dataset.sheetId === id);
+    });
+    sheets.forEach(s => {
+      s.classList.toggle("active", s.id === id);
+    });
+  }
+
+  // Follow id/zid → numbers[zid] → full data
+  function extractFields(frame) {
+    const zid = frame.Id?.Zerobased?.Num ?? null;
+    const num = (zid !== null && numbers[zid]) ? numbers[zid] : {};
+
+    const dec = num.Decimal || {};
+    const wave = num.Wave || {};
+    const laegna = num.Laegna || {};
+    const fl = num.Float || {};
+    const flVal = fl.Value || {};
+    const oct = num.Octave || {};
+
+    return {
+      id: frame.Id?.Num ?? "",
+      zid: zid ?? "",
+      chapter: frame.Chapter ?? "",
+      wave: wave.Bin ?? "",
+      decimalUnsigned: dec.Num ?? "",
+      decimalSigned: dec.Signed ?? "",
+      laegnaNum: oct.Num ?? "",
+      laegnaComplex: flVal.Units ?? ""
+    };
+  }
+
+  // Sheet 1: Frames
+  {
+    const sheetId = "sheet-frames";
+    addTab(sheetId, "Frames");
+    const sheet = addSheet(sheetId);
+
+    sheet.innerHTML = `
+      <div class="sheet-title">Frames</div>
+      <div class="sheet-subtitle">Every frame in order — Id, Chapter, Laegna, Decimal, Wave.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>zId</th>
+            <th>Chapter</th>
+            <th>Laegna Complex</th>
+            <th>Laegna Num</th>
+            <th>Wave</th>
+            <th>Decimal</th>
+            <th>Signed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    `;
+
+    const tbody = sheet.querySelector("tbody");
+
+    animation.forEach((frame, idx) => {
+      const f = extractFields(frame);
+
+      const tr = document.createElement("tr");
+      tr.className = "script-row";
+      tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td class="script-id">${f.id}</td>
+        <td>${f.zid}</td>
+        <td class="script-chapter">${f.chapter}</td>
+        <td class="script-laegna">${f.laegnaComplex}</td>
+        <td>${f.laegnaNum}</td>
+        <td class="script-wave">${f.wave}</td>
+        <td class="script-decimal">${f.decimalUnsigned}</td>
+        <td>${f.decimalSigned}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Sheet 2: Timeline
+  {
+    const sheetId = "sheet-timeline";
+    addTab(sheetId, "Timeline");
+    const sheet = addSheet(sheetId);
+
+    sheet.innerHTML = `
+      <div class="sheet-title">Timeline</div>
+      <div class="sheet-subtitle">Script-like view — each frame as a beat in the sequence.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Beat</th>
+            <th>Script</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    `;
+
+    const tbody = sheet.querySelector("tbody");
+
+    animation.forEach((frame, idx) => {
+      const f = extractFields(frame);
+
+      const line = [
+        `[${f.id}/${f.zid}]`,
+        `R:${f.chapter}`,
+        `L:${f.laegnaNum}`,
+        `C:${f.laegnaComplex}`,
+        `W:${f.wave}`,
+        `D:${f.decimalUnsigned} (${f.decimalSigned})`
+      ].join("  ·  ");
+
+      const tr = document.createElement("tr");
+      tr.className = "script-row";
+      tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td>${line}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Sheets 3+: per chapter
+  chapters.slice(0, 10).forEach(ch => {
+    const name = ch.Name || "Chapter";
+    const sheetId = `sheet-ch-${ch.Id?.Num ?? name}`;
+
+    addTab(sheetId, name);
+    const sheet = addSheet(sheetId);
+
+    const chapterFrames = animation.filter(f => f.Chapter === name);
+
+    sheet.innerHTML = `
+      <div class="sheet-title">${name}</div>
+      <div class="sheet-subtitle">Frames belonging to this chapter — local script view.</div>
+      <div class="chapter-header">Chapter ${ch.Id?.Num ?? "?"} — ${name}</div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Global Id</th>
+            <th>zId</th>
+            <th>Laegna Complex</th>
+            <th>Laegna Num</th>
+            <th>Wave</th>
+            <th>Decimal</th>
+            <th>Signed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    `;
+
+    const tbody = sheet.querySelector("tbody");
+
+    chapterFrames.forEach((frame, idx) => {
+      const f = extractFields(frame);
+
+      const tr = document.createElement("tr");
+      tr.className = "script-row";
+      tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td class="script-id">${f.id}</td>
+        <td>${f.zid}</td>
+        <td class="script-laegna">${f.laegnaComplex}</td>
+        <td>${f.laegnaNum}</td>
+        <td class="script-wave">${f.wave}</td>
+        <td class="script-decimal">${f.decimalUnsigned}</td>
+        <td>${f.decimalSigned}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+
+  tabsEl.addEventListener("click", e => {
+    const tab = e.target.closest(".tab");
+    if (!tab) return;
+    activateSheet(tab.dataset.sheetId);
+  });
+
+  const firstTab = tabsEl.querySelector(".tab");
+  if (firstTab) activateSheet(firstTab.dataset.sheetId);
+
+})();
+</script>
+
+</body>
+</html>

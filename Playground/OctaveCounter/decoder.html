@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Laegna / Octave JSON & Generator – Reference</title>
+
+<!-- MathJax 3 -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\
+
+\[', '\\]
+
+'], ['$$', '$$']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    color: #222;
+  }
+  article {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  header, footer {
+    margin-bottom: 1.5rem;
+  }
+  h1, h2, h3 {
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+  pre {
+    background: #f4f4f4;
+    padding: 0.8rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+  }
+  code {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+
+  /* JSON structure explorer */
+  #json-structure {
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+  }
+  .json-line {
+    padding: 0.35rem 0.7rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .json-line:last-child {
+    border-bottom: none;
+  }
+  .json-line:hover {
+    background: #f0f7ff;
+  }
+  .json-line-path {
+    font-weight: 500;
+  }
+  .json-line-type {
+    opacity: 0.7;
+    font-size: 0.85rem;
+  }
+  .json-doc {
+    display: none;
+    padding: 0.5rem 0.9rem 0.7rem 0.9rem;
+    border-top: 1px dashed #ddd;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  .json-doc p {
+    margin: 0.2rem 0;
+  }
+  .json-doc strong {
+    font-weight: 600;
+  }
+
+  .hint {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 0.4rem;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<article>
+
+<header>
+  <h1>Laegna / Octave Selector – JSON, Code & Math Reference</h1>
+  <p>
+    This page contains the complete Python generator for <code>octaves.json</code>, a clickable
+    JSON structure reference, and a compact mathematical explanation of the ZXY base‑3 octave
+    system. Everything is in one place: copyable code, inspectable schema, and open‑source math.
+  </p>
+</header>
+
+<section>
+  <h2>1. Generator code for <code>octaves.json</code></h2>
+  <p class="hint">
+    Copy this block as‑is into a <code>.py</code> file and run it. It prints the full JSON to stdout.
+  </p>
+  <pre><code># Count numbers in digit to create initial data
+def countR(R = 1, prefix = None):
+    if prefix == None: prefix = []
+
+    for dig in range(3):
+        if R == 1:
+            yield prefix + [dig - 1]
+        else:
+            for num in countR(R-1, prefix + [dig - 1]):
+                yield num
+
+# Find length, elements in given R
+def len4R(R = 1):
+    return 3**R
+
+# Find properties for single number
+def numprop(number):
+    k, L, zoom = octave_props(number["Expr"]["Digits"])
+
+    number["Simp"] = {
+      "D": octave_D(number["Expr"]["Digits"])
+    }
+
+    number["Props"] = {
+      "k": k,
+      "L": L,
+      "zoom": zoom
+    }
+
+    number["Visual"]  = visualization_props(number["Expr"]["Digits"])
+
+    number["BinSig"]  = bin_signature(number["Expr"]["Digits"])
+    number["BinProps"] = bin_props(number["Expr"]["Digits"])
+    number["BinAxis"] = bin_axis_sign(number["Expr"]["Digits"])
+
+    return number
+
+def octave_D(digits):
+    """
+    digits: list of -1, 0, 1
+            where -1 = Z, 0 = X, 1 = Y
+    returns: integer D = sum of digit values
+    """
+    return sum(digits)
+
+def octave_props(digits):  # digits in {-1, 0, 1} for Z, X, Y
+    k = 0
+    L = 0
+    mult = 1  # 2^0, 2^1, ...
+
+    for dig in reversed(digits):  # rightmost = 2^0
+        if dig == -1:   # Z
+            k -= 1
+            L -= mult
+        elif dig == 1:  # Y
+            k += 1
+            L += mult
+        # X (0) does nothing to k or L directly
+
+        mult *= 2
+
+    zoom = 2 ** k
+    return k, L, zoom
+
+def bin_props(digits):
+    """
+    digits: list of -1, 0, 1
+            -1 = Z, 0 = X, 1 = Y
+    returns: dict with binary masks and counts
+    """
+
+    # Build binary strings
+    X_mask    = ''.join('1' if d == 0  else '0' for d in digits)
+    notX_mask = ''.join('1' if d != 0  else '0' for d in digits)
+    Z_mask    = ''.join('1' if d == -1 else '0' for d in digits)
+    Y_mask    = ''.join('1' if d == 1  else '0' for d in digits)
+
+    # Decimal counts
+    X_count    = X_mask.count('1')
+    notX_count = notX_mask.count('1')
+    Z_count    = Z_mask.count('1')
+    Y_count    = Y_mask.count('1')
+
+    return {
+        "ZoomFactor": notX_count - X_count,
+        "Direction": Y_count - Z_count,
+        "Decimal": {
+            "X": X_count,
+            "notX": notX_count,
+            "Z": Z_count,
+            "Y": Y_count
+        },
+        "Boolean": {
+            "X": X_mask,
+            "notX": notX_mask,
+            "Z": Z_mask,
+            "Y": Y_mask
+        }
+    }
+
+def bin_axis_sign(digits):
+    PosMask = ''.join('1' if d == 1  else '0' for d in digits)
+    NegMask = ''.join('1' if d == -1 else '0' for d in digits)
+    SignMask = ''.join('1' if d != 0 else '0' for d in digits)
+
+    PosCount = PosMask.count('1')
+    NegCount = NegMask.count('1')
+
+    return {
+        "Num": PosCount - NegCount,
+        "Decimal": {
+            "Pos": PosCount,
+            "Neg": NegCount
+        },
+        "Boolean": {
+            "Pos": PosMask,
+            "Neg": NegMask,
+            "Sign": SignMask
+        }
+    }
+
+def visualization_props(digits):
+    k, L, zoom = octave_props(digits)
+    D = octave_D(digits)
+
+    Num = zoom
+    NumExp = zoom * zoom
+    NumLog = k
+    ScaledMult = D
+
+    # Signed boundaries
+    signed_bounds = {
+        "MinusTwo":  -2.0,
+        "MinusOne":  -1.0,
+        "Zero":       0.0,
+        "PlusOne":    1.0,
+        "PlusTwo":    2.0
+    }
+
+    # Unsigned boundaries
+    unsigned_bounds = {
+        "Zero":   0.0,
+        "One":    1.0,
+        "Two":    2.0,
+        "Three":  3.0,
+        "Four":   4.0
+    }
+
+    # Percent helpers
+    def pct(x):
+        return f"{int(x * 100)}%"
+
+    return {
+        "Num": Num,
+        "NumExp": NumExp,
+        "NumLog": NumLog,
+        "ScaledMult": ScaledMult,
+
+        "Signed": {
+            "Boundaries": {
+                key: {
+                    "Float": val,
+                    "Percent": pct(val)
+                }
+                for key, val in signed_bounds.items()
+            },
+            "DigitValues": {
+                key: val * Num
+                for key, val in signed_bounds.items()
+            }
+        },
+
+        "Unsigned": {
+            "Boundaries": {
+                key: {
+                    "Float": val,
+                    "Percent": pct(val / 4)
+                }
+                for key, val in unsigned_bounds.items()
+            },
+            "DigitValues": {
+                key: val * Num
+                for key, val in unsigned_bounds.items()
+            }
+        }
+    }
+
+def bin_signature(digits):
+    code = {
+        -1: "10",  # Z
+         0: "00",  # X
+         1: "01"   # Y
+    }
+
+    signature = ''.join(code[d] for d in digits)
+
+    return {
+        "Num": signature,
+        "Map": {
+            "Z": "10",
+            "X": "00",
+            "Y": "01"
+        }
+    }
+
+# Find whole list for single R
+def numberlist(R = 1):
+    numbers = []
+    
+    for num in countR(R):
+        number = { }
+        number["Expr"] = { }
+        number["Expr"]["Digits"] = num
+
+        numbers += [numprop(number)]
+
+    return numbers
+
+class RibX:
+    def __init__(self, R, b = 3):
+        self.R = R
+        self.b = b
+        self.numbers = numberlist(R)
+
+    def to_json(self):
+        return {
+            "R": self.R,
+            "base": self.b,
+            "numbers": self.numbers
+        }
+
+class DbX:
+    def __init__(self):
+        self.Res = []
+        for R in range(4):
+            self.Res.append(RibX(R + 1))
+
+    def to_json(self):
+        return {
+            "meta": {
+                "version": 1,
+                "description": "Laegna / Octave selector number system of Z, X and Y"
+            },
+            "chapters": [ ribx.to_json() for ribx in self.Res ]
+        }
+
+if __name__ == '__main__':
+  import json
+  
+  dbx = DbX()
+  print(json.dumps(dbx.to_json(), indent=2))</code></pre>
+</section>
+
+<section>
+  <h2>2. JSON structure explorer</h2>
+  <p class="hint">
+    Click any line to toggle its documentation. Lines are single‑line, no layout tricks; this is
+    meant to be readable on wide screens and small devices alike.
+  </p>
+
+  <section id="json-structure">
+    <!-- Filled by JavaScript -->
+  </section>
+</section>
+
+<section>
+  <h2>3. Mathematical background (compact)</h2>
+  <p>
+    Digits live in \(\{-1,0,1\}\) and are mapped as \(Z=-1\), \(X=0\), \(Y=1\). A number is a
+    finite word of these digits, e.g. <code>[Z,X,Y]</code> or in shorthand <code>ZXY</code>.
+  </p>
+  <p>
+    The octave exponent \(k\) and linear offset \(L\) are computed by scanning digits from right
+    to left. Each position has weight \(2^n\). For each \(Z\) we subtract from \(k\) and \(L\),
+    for each \(Y\) we add:
+  </p>
+  <p>
+    
+
+\[
+      k = \sum_i d_i,\quad
+      L = \sum_i d_i \cdot 2^i,\quad
+      \text{zoom} = 2^k
+    \]
+
+
+    where \(d_i \in \{-1,0,1\}\) is the digit at position \(i\) (rightmost \(i=0\)).
+  </p>
+  <p>
+    The visualization layer uses:
+    
+
+\[
+      \text{Num} = 2^k,\quad
+      \text{NumExp} = (2^k)^2,\quad
+      \text{NumLog} = k,\quad
+      \text{ScaledMult} = \sum_i d_i
+    \]
+
+
+    and projects this onto signed \([-2,2]\) and unsigned \([0,1]\) ranges via fixed boundaries.
+  </p>
+  <p>
+    Binary masks (<code>BinProps</code>, <code>BinAxis</code>) encode where Z, X, Y occur and
+    count them, giving directional and zoom‑related summaries that are easy to recompute in any
+    language.
+  </p>
+</section>
+
+<footer>
+  <p>
+    This reference is intentionally minimal but complete: you can regenerate the JSON, understand
+    its tree, and reimplement the primitives in any language from the math and structure given here.
+  </p>
+</footer>
+
+</article>
+
+<script>
+const jsonSchema = [
+  {
+    path: "meta",
+    type: "dict",
+    content: "top-level metadata",
+    doc: "Global metadata for the file. Versioning and human-readable description of this Laegna / octave selector dataset."
+  },
+  {
+    path: "meta.version",
+    type: "int",
+    content: "e.g. 1",
+    doc: "Integer version of the JSON format. Use this to evolve the schema without breaking older tools."
+  },
+  {
+    path: "meta.description",
+    type: "string",
+    content: "free text",
+    doc: "Human-readable description of the number system and purpose of this file."
+  },
+  {
+    path: "chapters",
+    type: "list",
+    content: "list of chapter objects",
+    doc: "Each chapter corresponds to a fixed digit length R in base 3 (Z, X, Y)."
+  },
+  {
+    path: "chapters[].R",
+    type: "int",
+    content: "1,2,3,4,…",
+    doc: "Digit length R for this chapter. For R=3, numbers are 3-digit ZXY words."
+  },
+  {
+    path: "chapters[].base",
+    type: "int",
+    content: "3",
+    doc: "Base of the digit system. Here always 3 (Z, X, Y)."
+  },
+  {
+    path: "chapters[].numbers",
+    type: "list",
+    content: "list of number objects",
+    doc: "All ZXY numbers of length R, each with expression, octave props, visualization and binary views."
+  },
+  {
+    path: "chapters[].numbers[].Expr",
+    type: "dict",
+    content: "expression",
+    doc: "Expression-level representation of the number, currently just the digit list."
+  },
+  {
+    path: "chapters[].numbers[].Expr.Digits",
+    type: "list[int]",
+    content: "values in {-1,0,1}",
+    doc: "Digits of the number: -1=Z, 0=X, 1=Y. This is the core symbolic representation."
+  },
+  {
+    path: "chapters[].numbers[].Simp",
+    type: "dict",
+    content: "simplified scalar",
+    doc: "Simplified scalar view of the number, currently D = sum of digits."
+  },
+  {
+    path: "chapters[].numbers[].Simp.D",
+    type: "int",
+    content: "sum(digits)",
+    doc: "D = Σ digits. A simple signed measure of how many Y vs Z digits the number has."
+  },
+  {
+    path: "chapters[].numbers[].Props",
+    type: "dict",
+    content: "octave properties",
+    doc: "Octave-related properties derived from digits: exponent k, linear offset L, and zoom = 2^k."
+  },
+  {
+    path: "chapters[].numbers[].Props.k",
+    type: "int",
+    content: "…,-2,-1,0,1,2,…",
+    doc: "Octave exponent. Each Y increments k, each Z decrements k. Zoom = 2^k."
+  },
+  {
+    path: "chapters[].numbers[].Props.L",
+    type: "int",
+    content: "integer",
+    doc: "Linear offset computed with powers of 2 per digit position. Encodes where Z/Y occur in the word."
+  },
+  {
+    path: "chapters[].numbers[].Props.zoom",
+    type: "float",
+    content: "2^k",
+    doc: "Octave multiplier: zoom = 2^k. This is the main scale factor used in visualization."
+  },
+  {
+    path: "chapters[].numbers[].Visual",
+    type: "dict",
+    content: "visualization scalars",
+    doc: "Precomputed scalars for visualization: Num, NumExp, NumLog, ScaledMult, and signed/unsigned projections."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Num",
+    type: "float",
+    content: "zoom",
+    doc: "Num = zoom = 2^k. Base multiplier for projections."
+  },
+  {
+    path: "chapters[].numbers[].Visual.NumExp",
+    type: "float",
+    content: "zoom^2",
+    doc: "NumExp = (2^k)^2. A quadratic variant of the octave multiplier."
+  },
+  {
+    path: "chapters[].numbers[].Visual.NumLog",
+    type: "int",
+    content: "k",
+    doc: "NumLog = k. Logarithmic view of zoom, directly the octave exponent."
+  },
+  {
+    path: "chapters[].numbers[].Visual.ScaledMult",
+    type: "int",
+    content: "sum(digits)",
+    doc: "ScaledMult = D. A symmetric measure where negative means more Z, positive more Y."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Signed",
+    type: "dict",
+    content: "signed projection",
+    doc: "Projection of Num onto signed range [-2,2], with fixed boundaries and digit values scaled by Num."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Signed.Boundaries",
+    type: "dict",
+    content: "keys MinusTwo..PlusTwo",
+    doc: "Named boundary points for signed projection: -2,-1,0,1,2 with float and percent views."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Signed.Boundaries.*.Float",
+    type: "float",
+    content: "-2.0..2.0",
+    doc: "Raw signed boundary value in [-2,2]."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Signed.Boundaries.*.Percent",
+    type: "string",
+    content: "\"-200%\"..\"200%\"",
+    doc: "Human-facing percent string for the signed range, not a scientific unit."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Signed.DigitValues",
+    type: "dict",
+    content: "scaled values",
+    doc: "Each boundary key mapped to Float * Num. This is the actual projected value for that digit boundary."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Unsigned",
+    type: "dict",
+    content: "unsigned projection",
+    doc: "Projection of Num onto unsigned range [0,1] via 0..4, with percent strings for UI."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Unsigned.Boundaries",
+    type: "dict",
+    content: "keys Zero..Four",
+    doc: "Unsigned boundary points 0,1,2,3,4 with float and percent (0%..100%) views."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Unsigned.Boundaries.*.Float",
+    type: "float",
+    content: "0.0..4.0",
+    doc: "Raw unsigned boundary value before normalization to [0,1]."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Unsigned.Boundaries.*.Percent",
+    type: "string",
+    content: "\"0%\"..\"100%\"",
+    doc: "Human-facing percent string for the unsigned range, used in UI."
+  },
+  {
+    path: "chapters[].numbers[].Visual.Unsigned.DigitValues",
+    type: "dict",
+    content: "scaled values",
+    doc: "Each boundary key mapped to Float * Num. Unsigned analogue of the signed DigitValues."
+  },
+  {
+    path: "chapters[].numbers[].BinSig",
+    type: "dict",
+    content: "binary signature",
+    doc: "Compact binary encoding of the digit word using 2 bits per digit: Z=10, X=00, Y=01."
+  },
+  {
+    path: "chapters[].numbers[].BinSig.Num",
+    type: "string",
+    content: "e.g. \"100001\"",
+    doc: "Concatenated binary signature string for the whole digit word."
+  },
+  {
+    path: "chapters[].numbers[].BinSig.Map",
+    type: "dict",
+    content: "Z/X/Y → 2-bit codes",
+    doc: "Static mapping: Z→\"10\", X→\"00\", Y→\"01\"."
+  },
+  {
+    path: "chapters[].numbers[].BinProps",
+    type: "dict",
+    content: "binary masks & counts",
+    doc: "Binary masks for where X, notX, Z, Y occur, plus counts and derived ZoomFactor/Direction."
+  },
+  {
+    path: "chapters[].numbers[].BinProps.ZoomFactor",
+    type: "int",
+    content: "notX_count - X_count",
+    doc: "ZoomFactor = (#non-X digits) - (#X digits). A rough measure of how many active vs neutral digits."
+  },
+  {
+    path: "chapters[].numbers[].BinProps.Direction",
+    type: "int",
+    content: "Y_count - Z_count",
+    doc: "Direction = (#Y) - (#Z). Positive means more Y, negative more Z."
+  },
+  {
+    path: "chapters[].numbers[].BinProps.Decimal",
+    type: "dict",
+    content: "counts",
+    doc: "Decimal counts of X, notX, Z, Y digits."
+  },
+  {
+    path: "chapters[].numbers[].BinProps.Boolean",
+    type: "dict",
+    content: "bitmasks",
+    doc: "Binary strings marking positions of X, notX, Z, Y."
+  },
+  {
+    path: "chapters[].numbers[].BinAxis",
+    type: "dict",
+    content: "axis sign summary",
+    doc: "Summarizes positive vs negative digits and sign mask."
+  },
+  {
+    path: "chapters[].numbers[].BinAxis.Num",
+    type: "int",
+    content: "PosCount - NegCount",
+    doc: "Net sign count: positive minus negative digits."
+  },
+  {
+    path: "chapters[].numbers[].BinAxis.Decimal",
+    type: "dict",
+    content: "Pos/Neg counts",
+    doc: "Counts of positive (Y) and negative (Z) digits."
+  },
+  {
+    path: "chapters[].numbers[].BinAxis.Boolean",
+    type: "dict",
+    content: "Pos/Neg/Sign masks",
+    doc: "Bitmasks for positive digits, negative digits, and any non-zero digit."
+  }
+];
+
+const container = document.getElementById("json-structure");
+
+jsonSchema.forEach((item, idx) => {
+  const line = document.createElement("div");
+  line.className = "json-line";
+  line.dataset.index = idx;
+
+  const left = document.createElement("span");
+  left.className = "json-line-path";
+  left.textContent = item.path;
+
+  const right = document.createElement("span");
+  right.className = "json-line-type";
+  right.textContent = item.type + " | " + item.content;
+
+  line.appendChild(left);
+  line.appendChild(right);
+
+  const doc = document.createElement("div");
+  doc.className = "json-doc";
+  doc.innerHTML = `
+    <p><strong>Path:</strong> ${item.path}</p>
+    <p><strong>Type:</strong> ${item.type}</p>
+    <p><strong>Content:</strong> ${item.content}</p>
+    <p><strong>Description:</strong> ${item.doc}</p>
+  `;
+
+  line.addEventListener("click", () => {
+    doc.style.display = (doc.style.display === "block") ? "none" : "block";
+  });
+
+  container.appendChild(line);
+  container.appendChild(doc);
+});
+</script>
+
+</body>
+</html>
