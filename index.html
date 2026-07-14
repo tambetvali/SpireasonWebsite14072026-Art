@@ -921,259 +921,425 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<!-- ========================= -->
-<!--      LAEGNA MINI-ATLAS    -->
-<!-- ========================= -->
+<div class="lx-widget">
+  <div class="lx-left">
+    <div class="lx-grid">
+      <div class="lx-cell" data-col="0" data-row="0" data-mode="cell"></div>
+      <div class="lx-cell" data-col="1" data-row="0" data-mode="tall"></div>
+      <div class="lx-cell" data-col="2" data-row="0" data-mode="cell"></div>
+      <div class="lx-cell" data-col="3" data-row="0" data-mode="tall"></div>
+      <div class="lx-cell" data-col="4" data-row="0" data-mode="cell"></div>
+      <div class="lx-cell" data-col="5" data-row="0" data-mode="tall"></div>
 
-<div id="laegna-atlas-wrapper">
-
-  <div id="laegna-surrounder">
-
-    <!-- ICON GRID -->
-    <div id="laegna-atlas">
-
-      <!-- Row A -->
-      <div class="atlas-row">
-        <div class="pair" data-text="🐱 Daisy & Elise play with forces, melting dark and loving light.">
-          <button class="icon-btn icon-a1" data-img="Atlas/LaegnaMythos/DaisyEliseRulingTheCosmos.jpg">🐱</button>
-        </div>
-        <div class="pair" data-text="🌳 Each cell is half self, half all, Daisy–Elise roots in one fractal tree.">
-          <button class="icon-btn icon-a2" data-img="Atlas/LaegnaMythos/FractalFerrieInHologramRootWithIndividualCellsElisesAndDaysies.jpg">🌳</button>
-        </div>
-        <div class="pair" data-text="🌀 Freya’s hologram head holds tiny people, each a warm exponent of cosmic growth.">
-          <button class="icon-btn icon-a3" data-img="Atlas/LaegnaMythos/FractalHeadOfFreyaCosmosDaysiesAndElises.jpg">🌀</button>
-        </div>
-        <div class="pair" data-text="🌍 Dark-walker Daisy and light-walker Elise quietly guard Freya’s Earth path.">
-          <button class="icon-btn icon-a4" data-img="Atlas/LaegnaMythos/FreyaDaisyAndElise.jpg">🌍</button>
-        </div>
-        <div class="pair" data-text="🐉 Cats and dragons forge IOAE, a living Tao of four letters and four colors.">
-          <button class="icon-btn icon-a5" data-img="Atlas/LaegnaMythos/LaegnaLettersInLaeTaoSymbolCatsAndDragonsIOAE.jpg">🐉</button>
-        </div>
-        <div class="pair" data-text="🚢 Mathematical cats shape the Laegna Ship and gently carry Freya into new skies.">
-          <button class="icon-btn icon-a6" data-img="Atlas/LaegnaMythos/LaegnaShipDaisyEliseMathCatsWithFreyaGoddess.jpg">🚢</button>
-        </div>
-      </div>
-
-      <!-- Row B -->
-      <div class="atlas-row">
-        <div class="pair" data-text="🐱 Daisy & Elise play with forces, melting dark and loving light.">
-          <button class="icon-btn icon-b1" data-img="Atlas/LaegnaMythos/DaisyEliseRulingTheCosmosB.jpg">🌌</button>
-        </div>
-        <div class="pair" data-text="🌳 Each cell is half self, half all, Daisy–Elise roots in one fractal tree.">
-          <button class="icon-btn icon-b2" data-img="Atlas/LaegnaMythos/FractalFerrieInHologramRootWithIndividualCellsElisesAndDaysiesB.jpg">🪵</button>
-        </div>
-        <div class="pair" data-text="🌀 Freya’s hologram head holds tiny people, each a warm exponent of cosmic growth.">
-          <button class="icon-btn icon-b3" data-img="Atlas/LaegnaMythos/FractalHeadOfFreyaCosmosDaysiesAndElisesB.jpg">💫</button>
-        </div>
-        <div class="pair" data-text="🌍 Dark-walker Daisy and light-walker Elise quietly guard Freya’s Earth path.">
-          <button class="icon-btn icon-b4" data-img="Atlas/LaegnaMythos/FreyaDaisyAndEliseB.jpg">🌺</button>
-        </div>
-        <div class="pair" data-text="🐉 Cats and dragons forge IOAE, a living Tao of four letters and four colors.">
-          <button class="icon-btn icon-b5" data-img="Atlas/LaegnaMythos/LaegnaLettersInLaeTaoSymbolCatsAndDragonsIOAEB.jpg">🔮</button>
-        </div>
-        <div class="pair" data-text="🚢 Mathematical cats shape the Laegna Ship and gently carry Freya into new skies.">
-          <button class="icon-btn icon-b6" data-img="Atlas/LaegnaMythos/LaegnaShipDaisyEliseMathCatsWithFreyaGoddessB.jpg">🌅</button>
-        </div>
-      </div>
-
+      <div class="lx-cell" data-col="0" data-row="1" data-mode="cell"></div>
+      <div class="lx-cell" data-col="1" data-row="1" data-mode="tall"></div>
+      <div class="lx-cell" data-col="2" data-row="1" data-mode="cell"></div>
+      <div class="lx-cell" data-col="3" data-row="1" data-mode="tall"></div>
+      <div class="lx-cell" data-col="4" data-row="1" data-mode="cell"></div>
+      <div class="lx-cell" data-col="5" data-row="1" data-mode="tall"></div>
     </div>
 
-    <!-- PREVIEW (tiny, right) -->
-    <div id="atlas-preview">
-      <img id="atlas-preview-img" src="" alt="">
-    </div>
+    <div class="lx-math-text"></div>
+  </div>
 
-    <!-- CONSOLE -->
-    <div id="atlas-console"></div>
-
+  <div class="lx-right">
+    <div class="lx-screen"></div>
   </div>
 </div>
 
-<!-- ========================= -->
-<!--           CSS             -->
-<!-- ========================= -->
+<!-- POPUP -->
+<div id="lx-popup">
+  <div id="lx-popup-inner">
+    <img id="lx-popup-img" src="">
+    <div id="lx-popup-text"></div>
+  </div>
+</div>
 
 <style>
-#laegna-atlas-wrapper {
-  width: 40%;
-  margin-left: 0;
-}
+  :root {
+    --lx-width: 20vw;
+    --lx-cols: 6;
+    --lx-rows: 2;
+    --lx-cell: calc(var(--lx-width) / var(--lx-cols));
+    --lx-height: calc(var(--lx-cell) * var(--lx-rows));
 
-/* Surrounder: static, never moves layout */
-#laegna-surrounder {
-  background: transparent;
-  border-radius: 0.5rem;
-  padding: 0.2rem;
-  transition: background 0.15s ease;
-  display: inline-block;
-}
+    --lx-phase: 0;
+    --lx-tilt: 0;
+    --lx-alpha: 0.2;
+  }
 
-/* ICON GRID */
-#laegna-atlas {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 15px;
-}
+  .lx-widget {
+    display: flex;
+    width: calc(var(--lx-width) * 1.8);
+    margin-left: 2vw;
+    padding: 1vh 0;
+    font-family: system-ui, sans-serif;
+  }
 
-.atlas-row {
-  display: flex;
-  gap: 0.1rem; /* spacing twice smaller */
-  margin-bottom: 0.1rem;
-}
+  .lx-left {
+    width: var(--lx-width);
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+  }
 
-/* Pair area */
-.pair {
-  padding: 0.05rem 0.15rem;
-}
+  .lx-grid {
+    width: var(--lx-width);
+    height: var(--lx-height);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.4vh;
+    cursor: pointer;
+    background:
+      linear-gradient(90deg,
+        #00aa55, #00bb88, #00c0aa, #00b5cc, #0090dd, #0060ee, #0040ff),
+      linear-gradient(90deg,
+        #ffcc33, #ffb022, #ff9020, #ff7030, #ff5038, #ff3038, #ff1020);
+    background-size: 100% 50%, 100% 50%;
+    background-position: 0% 0%, 0% 100%;
+    opacity: 0;
+    transition: opacity 260ms ease-out;
+  }
 
-/* Artistic icon buttons */
-.icon-btn {
-  width: 1.2rem;   /* 20% smaller */
-  height: 1.2rem;
-  border-radius: 0.35rem;
-  border: 1px solid #304866;
-  cursor: pointer;
-  font-size: 0.85rem; /* 20% smaller */
-  display: flex;
-  justify-content: center; /* EXACT CENTER */
-  align-items: center;     /* EXACT CENTER */
-  color: #fff;
-  padding: 0;
-}
+  .lx-widget.lx-active .lx-grid {
+    opacity: 1;
+    transition: opacity 180ms ease-out;
+  }
 
-/* NEW artistic fractal/hologram-like backgrounds */
-.icon-a1 { background: radial-gradient(circle at 30% 30%, #4a6cff, #1b2a55); }
-.icon-a2 { background: radial-gradient(circle at 70% 40%, #3fb86f, #0f3d2a); }
-.icon-a3 { background: radial-gradient(circle at 40% 60%, #b83fb8, #2a0f3d); }
-.icon-a4 { background: radial-gradient(circle at 60% 30%, #e0a84a, #4a3510); }
-.icon-a5 { background: radial-gradient(circle at 50% 50%, #ff5c5c, #3d0f0f); }
-.icon-a6 { background: radial-gradient(circle at 30% 70%, #3fb8b8, #0f3d3d); }
+  .lx-cell {
+    position: relative;
+    border-radius: 0.7vh;
+    border: 1px solid rgba(255,255,255,0.5);
+    overflow: hidden;
+    opacity: var(--lx-alpha);
+    transition: opacity 180ms ease-out, transform 120ms ease-out, border-color 180ms ease-out;
+  }
 
-.icon-b1 { background: radial-gradient(circle at 60% 40%, #ff8c3c, #5a1f0f); }
-.icon-b2 { background: radial-gradient(circle at 40% 40%, #d89c5c, #3d2a0f); }
-.icon-b3 { background: radial-gradient(circle at 50% 50%, #f26cb8, #3d0f2a); }
-.icon-b4 { background: radial-gradient(circle at 70% 60%, #f26c8c, #3d0f1f); }
-.icon-b5 { background: radial-gradient(circle at 30% 30%, #7c3fb8, #1f0f3d); }
-.icon-b6 { background: radial-gradient(circle at 50% 50%, #f2b83c, #3d2a0f); }
+  .lx-widget.lx-active .lx-cell {
+    opacity: 1;
+    border-color: rgba(255,255,255,0.8);
+  }
 
-/* PREVIEW: tiny, right, static */
-#atlas-preview {
-  width: 3.5rem;
-  height: 3.5rem;
-  background: rgba(255,120,80,0.15); /* soft, not covering thumbnail */
-  border: 2px solid #0b1f33;
-  border-radius: 0.4rem;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  margin-left: 0.4rem;
-  vertical-align: top;
-}
+  /* OGIVAL DOOR RIPPLE */
+  .lx-cell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      conic-gradient(
+        from -90deg at 50% 33%,
+        rgba(255,255,255,0.32) 0deg,
+        rgba(255,255,255,0.26) 28deg,
+        rgba(255,255,255,0.18) 64deg,
+        rgba(255,255,255,0.10) 108deg,
+        rgba(255,255,255,0.05) 150deg,
+        transparent 180deg
+      );
+    mix-blend-mode: screen;
+    opacity: 1;
+    transform-origin: 50% 33%;
+    transform: rotate(calc(var(--lx-tilt) * 0.03deg));
+    transition: opacity 180ms ease-out;
+  }
 
-#atlas-preview-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
+  .lx-cell[data-mode="cell"]::before {
+    background:
+      conic-gradient(
+        from -90deg at 50% 33%,
+        rgba(255,255,255,0.36) 0deg,
+        rgba(255,255,255,0.28) 32deg,
+        rgba(255,255,255,0.20) 72deg,
+        rgba(255,255,255,0.12) 118deg,
+        rgba(255,255,255,0.06) 158deg,
+        transparent 180deg
+      );
+  }
 
-/* CONSOLE */
-#atlas-console {
-  background: #b5331f;
-  color: #fff;
-  padding: 0.2rem 0.3rem;
-  font-size: 0.7rem;
-  border-radius: 0.3rem;
-  display: none;
-  margin-top: 0.2rem;
-}
+  .lx-cell[data-mode="tall"][data-row="0"]::before {
+    background-size: 100% 220%;
+    background-position: 50% 0%;
+  }
 
-/* POPUP */
-#atlas-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #0b1f33;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  display: none;
-  z-index: 9999;
-}
+  .lx-cell[data-mode="tall"][data-row="1"]::before {
+    background-size: 100% 220%;
+    background-position: 50% 100%;
+  }
 
-#atlas-popup img {
-  max-width: 90vw;
-  max-height: 80vh;
-}
+  /* hue-following overlay */
+  .lx-cell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        hsla(calc(var(--lx-phase) - 40), 80%, 60%, 0.35),
+        hsla(calc(var(--lx-phase) + 40), 80%, 60%, 0.35)
+      );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 180ms ease-out;
+  }
 
-#atlas-popup button {
-  margin-top: 0.5rem;
-  background: #b5331f;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.6rem;
-  cursor: pointer;
-  margin-right: 0.4rem;
-}
+  /* BACKGROUND disappears when not hovered */
+  .lx-widget:not(.lx-active) .lx-cell::before,
+  .lx-widget:not(.lx-active) .lx-cell::after {
+    opacity: 0;
+    transition: opacity 260ms ease-out;
+  }
+
+  /* row highlight */
+  .lx-cell[data-row-active="1"] {
+    box-shadow:
+      inset 0 0 0.6vh rgba(255,255,255,0.4),
+      0 0 1.2vh rgba(255,255,255,0.3);
+  }
+
+  /* cell highlight */
+  .lx-cell[data-active="1"] {
+    transform: translateY(-0.2vh);
+    box-shadow:
+      inset 0 0 0.8vh rgba(255,255,255,0.7),
+      0 0 1.6vh hsla(calc(var(--lx-phase)), 90%, 60%, 0.9);
+  }
+
+  /* Thumbnail scaling */
+  .lx-cell img {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
+    pointer-events: none;
+  }
+
+  /* math text block */
+  .lx-math-text {
+    height: var(--lx-cell);
+    border-radius: 0.6vh;
+    border: 1px solid rgba(255,80,80,0.9);
+    background:
+      radial-gradient(circle at 0% 0%, rgba(80,0,0,0.95), rgba(20,0,0,1)),
+      linear-gradient(90deg, rgba(140,0,0,0.8), rgba(80,0,0,0.8));
+    box-shadow:
+      inset 0 0 1.1vh rgba(0,0,0,1),
+      0 0 1.6vh rgba(255,80,80,0.7);
+    font-family: "STIX Two Text", "Cambria Math", serif;
+    font-size: 2.4vh;
+    letter-spacing: 0.04em;
+    color: #ff5555;
+    padding: 0.7vh 1vh;
+    opacity: 0;
+    transform: translateY(0.4vh);
+    transition: opacity 180ms ease-out, transform 180ms ease-out;
+  }
+
+  .lx-widget.lx-active .lx-math-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* popup */
+  #lx-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  #lx-popup-inner {
+    background: #0b1f33;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #lx-popup-img {
+    max-width: 90vw;
+    max-height: 70vh;
+    object-fit: contain;
+  }
+
+  #lx-popup-text {
+    margin-top: 0.6rem;
+    font-family: "STIX Two Text", "Cambria Math", serif;
+    font-size: 2.2vh;
+    color: #ffaaaa;
+    text-align: center;
+  }
 </style>
 
-<!-- ========================= -->
-<!--            JS             -->
-<!-- ========================= -->
-
 <script>
-const wrapper = document.getElementById('laegna-atlas-wrapper');
-const surrounder = document.getElementById('laegna-surrounder');
-const preview = document.getElementById('atlas-preview');
-const previewImg = document.getElementById('atlas-preview-img');
-const consoleBox = document.getElementById('atlas-console');
-
-function ensurePopup() {
-  let popup = document.getElementById('atlas-popup');
-  if (!popup) {
-    popup = document.createElement('div');
-    popup.id = 'atlas-popup';
-    document.body.appendChild(popup);
+const mythosColumns = [
+  {
+    column: 0,
+    text: "🐱 Daisy & Elise play with forces, melting dark and loving light.",
+    images: [
+      "Atlas/LaegnaMythos/DaisyEliseRulingTheCosmos.jpg",
+      "Atlas/LaegnaMythos/DaisyEliseRulingTheCosmosB.jpg"
+    ]
+  },
+  {
+    column: 1,
+    text: "🌳 Each cell is half self, half all, Daisy–Elise roots in one fractal tree.",
+    images: [
+      "Atlas/LaegnaMythos/FractalFerrieInHologramRootWithIndividualCellsElisesAndDaysies.jpg",
+      "Atlas/LaegnaMythos/FractalFerrieInHologramRootWithIndividualCellsElisesAndDaysiesB.jpg"
+    ]
+  },
+  {
+    column: 2,
+    text: "🌀 Freya’s hologram head holds tiny people, tesimals of cosmic growth.",
+    images: [
+      "Atlas/LaegnaMythos/FractalHeadOfFreyaCosmosDaysiesAndElises.jpg",
+      "Atlas/LaegnaMythos/FractalHeadOfFreyaCosmosDaysiesAndElisesB.jpg"
+    ]
+  },
+  {
+    column: 3,
+    text: "🌍 Dark-walker Daisy and light-walker Elise guard Freya’s path.",
+    images: [
+      "Atlas/LaegnaMythos/FreyaDaisyAndElise.jpg",
+      "Atlas/LaegnaMythos/FreyaDaisyAndEliseB.jpg"
+    ]
+  },
+  {
+    column: 4,
+    text: "🐉 Cats and dragons forge IOAE, Tao of four letters and colors.",
+    images: [
+      "Atlas/LaegnaMythos/LaegnaLettersInLaeTaoSymbolCatsAndDragonsIOAE.jpg",
+      "Atlas/LaegnaMythos/LaegnaLettersInLaeTaoSymbolCatsAndDragonsIOAEB.jpg"
+    ]
+  },
+  {
+    column: 5,
+    text: "🚢 Mathematical cats shape the Ferry and carry Freya into new skies.",
+    images: [
+      "Atlas/LaegnaMythos/LaegnaShipDaisyEliseMathCatsWithFreyaGoddess.jpg",
+      "Atlas/LaegnaMythos/LaegnaShipDaisyEliseMathCatsWithFreyaGoddessB.jpg"
+    ]
   }
-  return popup;
-}
+];
 
-/* LEVEL 1 — ATLAS HOVER */
-wrapper.addEventListener('mouseenter', () => {
-  surrounder.style.background = 'rgba(255,120,80,0.18)';
-  preview.style.display = 'flex';
-  consoleBox.style.display = 'block';
-});
+(function(){
+  const widget = document.querySelector('.lx-widget');
+  const grid   = document.querySelector('.lx-grid');
+  const cells  = Array.from(document.querySelectorAll('.lx-cell'));
+  const mathText = document.querySelector('.lx-math-text');
 
-wrapper.addEventListener('mouseleave', () => {
-  surrounder.style.background = 'transparent';
-  preview.style.display = 'none';
-  consoleBox.style.display = 'none';
-  previewImg.src = '';
-});
+  const popup = document.getElementById('lx-popup');
+  const popupImg = document.getElementById('lx-popup-img');
+  const popupText = document.getElementById('lx-popup-text');
 
-/* LEVEL 2 — PAIR HOVER */
-document.querySelectorAll('.pair').forEach(pair => {
-  pair.addEventListener('mouseenter', () => {
-    consoleBox.textContent = pair.dataset.text;
+  let currentColumn = null;
+  let currentVariant = 0;
+
+  function clearHighlights() {
+    cells.forEach(c => {
+      c.dataset.active = "0";
+      c.dataset.rowActive = "0";
+    });
+  }
+
+  function update(e){
+    const rect = grid.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      widget.classList.remove('lx-active');
+      widget.style.setProperty('--lx-phase', '0');
+      widget.style.setProperty('--lx-tilt', '0');
+      clearHighlights();
+      return;
+    }
+
+    widget.classList.add('lx-active');
+
+    const nx = (x - rect.left) / rect.width;
+    const ny = (y - rect.top) / rect.height;
+    const phase = (nx * 180) - 90;
+    const tilt  = (ny * 40) - 20;
+    widget.style.setProperty('--lx-phase', phase.toFixed(1));
+    widget.style.setProperty('--lx-tilt', tilt.toFixed(1));
+
+    clearHighlights();
+
+    const el = document.elementFromPoint(x, y);
+    const cell = el && el.closest('.lx-cell');
+
+    if (!cell) return;
+
+    const col = Number(cell.getAttribute('data-col'));
+    const row = cell.getAttribute('data-row');
+
+    currentColumn = col;
+
+    mathText.textContent = mythosColumns[col].text;
+
+    cells.forEach(c => {
+      if (c.getAttribute('data-row') === row) {
+        c.dataset.rowActive = "1";
+      }
+    });
+
+    cell.dataset.active = "1";
+
+    const img = document.createElement('img');
+    img.src = mythosColumns[col].images[row === "0" ? 0 : 1];
+
+    cell.innerHTML = "";
+    cell.appendChild(img);
+  }
+
+  grid.addEventListener('mousemove', update);
+  grid.addEventListener('mouseenter', () => widget.classList.add('lx-active'));
+  grid.addEventListener('mouseleave', () => {
+    widget.classList.remove('lx-active');
+    widget.style.setProperty('--lx-phase', '0');
+    widget.style.setProperty('--lx-tilt', '0');
+    clearHighlights();
+    cells.forEach(c => c.innerHTML = "");
   });
-});
 
-/* LEVEL 3 — ICON HOVER + CLICK */
-document.querySelectorAll('.icon-btn').forEach(btn => {
-  btn.addEventListener('mouseenter', () => {
-    previewImg.src = btn.dataset.img;
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      const col = Number(cell.getAttribute('data-col'));
+      const row = Number(cell.getAttribute('data-row'));
+
+      currentColumn = col;
+      currentVariant = row;
+
+      popupImg.src = mythosColumns[col].images[row];
+      popupText.textContent = mythosColumns[col].text;
+
+      popup.style.display = "flex";
+    });
   });
 
-  btn.addEventListener('click', () => {
-    const popup = ensurePopup();
-    popup.innerHTML = `
-      <img src="${btn.dataset.img}">
-      <button onclick="window.open('${btn.dataset.img}', '_blank')">Download</button>
-      <button onclick="document.getElementById('atlas-popup').style.display='none'">Close</button>
-    `;
-    popup.style.display = 'block';
+  popup.addEventListener('click', (e) => {
+    const rect = popupImg.getBoundingClientRect();
+    const x = e.clientX;
+
+    if (x < rect.left || x > rect.right) {
+      popup.style.display = "none";
+      return;
+    }
+
+    currentVariant = 1 - currentVariant;
+    popupImg.src = mythosColumns[currentColumn].images[currentVariant];
   });
-});
+})();
 </script>
 
 
