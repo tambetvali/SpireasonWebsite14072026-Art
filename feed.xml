@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Spireason Updates</title>
+    <link>https://spireason.neocities.org/</link>
+    <description>Hand-made references and progress notes for spireason.neocities.org and related work.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 04 Mar 2026 10:42:00 +0100</lastBuildDate>
+
+    <item>
+      <title>About the RSS Feed</title>
+      <link>https://spireason.neocities.org/</link>
+      <guid>https://spireason.neocities.org/feed/intro</guid>
+      <pubDate>Wed, 04 Mar 2026 10:42:00 +0100</pubDate>
+      <description>
+        Because I update the website and associated websites, I made this RSS feed. 
+        Anyone interested in keeping track of progress can read hand-made references here.
+      </description>
+    </item>
+
+    <item>
+      <title>Counter (1)(1) — boundary and reference system note</title>
+      <link>https://spireason.neocities.org/</link>
+      <guid>https://spireason.neocities.org/feed/counter-1-1</guid>
+      <pubDate>Wed, 04 Mar 2026 10:42:00 +0100</pubDate>
+      <description>
+        Counter (1)(1) contains misinformation in its boundary and reference system. 
+        I need to decide about some strong math to be basic before updating it, 
+        because the whole complex is mathematically too much: a collection of theories 
+        where I tested whether I can build constructs on this.
+      </description>
+    </item>
+
+    <item>
+      <title>Quiet Shift — the Site Crosses Its Own Threshold</title>
+      <link>https://spireason.neocities.org/</link>
+      <guid>https://spireason.neocities.org/feed/quiet-shift</guid>
+      <pubDate>Thu, 05 Mar 2026 09:12:00 +0100</pubDate>
+      <description>
+        Today the site crossed a threshold that is not visible in its structure, 
+        but clear in its cognition. Nothing dramatic changed in the material: 
+        the pages grew as they always do, slowly and by hand. But the whole 
+        system — Spireason, Laegna, the symbolic grammar, the quiet Taoist 
+        engineering behind it — aligned into something coherent.
+
+        It is the kind of shift that Zen calls an ordinary moment, and Vikings 
+        call a change in the wind: the same landscape, but suddenly navigable. 
+        The site feels less like a plan and more like a field, a living 
+        reference system where Genius, Talent and Prosperity can be understood 
+        without force.
+
+        This note simply marks the moment. No enlightenment claimed; only a 
+        recognition that the structure now stands on its own legs, and the next 
+        steps will grow from this clarity.
+      </description>
+    </item>
+
+    <item>
+      <title>Spireason Epoch: Completion of the Infinity Collection</title>
+      <link>https://spireason.neocities.org/#infinity</link>
+      <guid isPermaLink="false">spireason-infinity-epoch</guid>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <description>
+        The Infinity section of Spireason has reached completion. After a long cycle
+        of iterations—AI-assisted writing, GitHub repositories, and conceptual
+        refinement—the project returns to its original purpose. The early PDF
+        collection is now fully restored and complete, supported by new materials
+        that emerged during development. Two Physical Infinity resources extend the
+        work into natural science: https://5xflzsyae1.zite.so and
+        https://laegna-physics-and-spireason-red-star.reflex.run.
+      </description>
+    </item>
+
+    <item>
+      <title>Laegna-SpiReason acquired SpiBody</title>
+      <link>https://spireason.neocities.org/#laemedics</link>
+      <guid>https://spireason.neocities.org/feed/spibody</guid>
+      <pubDate>Tue, 09 Jun 2026 10:30:00 +0200</pubDate>
+      <description>
+        SpiBody was originally intended as a separate work, but it has revealed itself as the practical dimension of the Laegna–SpiReason ecosystem. Because of this, I added the SpiBody links to the meditation room and formed a unified group of content.
+      </description>
+      <content>
+        I discovered that SpiBody is not a separate or isolated project, but already fits naturally into the Laegna–SpiReason ecosystem. It was originally intended as a separate work with only a loose thematic connection, but it has revealed itself as the practical dimension of the system.
+
+        The structure is now clear:
+        Z - SpiBody: practical, material
+        X - Laegna: theoretical, mental
+        Y - SpiReason: spiritual, intuitive
+
+        Because of this, I added SpiBody to the Laegna main site and placed the links into the meditation room, forming a unified group of content. The meditation room now contains the links to SpiBody, Zen meditation, and Taoist exercise and development, creating a single coherent entity.
+
+        Read more at:
+        https://spireason.neocities.org/#laemedics
+      </content>
+    </item>
+
+  </channel>
+</rss>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paths to Enlightenment</title>
+
+    <style>
+        /* =========
+           GLOBAL BASE
+           ========= */
+
+        :root {
+            --bg-main: radial-gradient(circle at top, #1b1b2f 0, #050510 55%, #000000 100%);
+            --bg-panel: rgba(10, 10, 25, 0.92);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --text-main: #f5f7ff;
+            --text-muted: #a5b0d8;
+            --accent-1: #6a8cff;
+            --accent-2: #ff8c6a;
+            --accent-3: #6affb0;
+            --accent-4: #ff6ad5;
+            --accent-5: #ffd86a;
+            --glow-soft: 0 0 25px rgba(120, 180, 255, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-main);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            display: flex;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* =========
+           SIDE MENU
+           ========= */
+
+        #side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            padding: 24px 20px 32px;
+            background:
+                radial-gradient(circle at 0 0, rgba(120, 180, 255, 0.25), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 106, 213, 0.18), transparent 55%),
+                linear-gradient(145deg, #050510 0, #050515 40%, #050510 100%);
+            border-right: 1px solid var(--border-soft);
+            box-shadow: 12px 0 40px rgba(0, 0, 0, 0.6);
+            z-index: 10;
+        }
+
+        #side-menu h1 {
+            margin: 0 0 4px;
+            font-size: 1.25rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        #side-menu p.subtitle {
+            margin: 0 0 18px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        #side-menu hr {
+            border: none;
+            border-top: 1px solid var(--border-soft);
+            margin: 12px 0 16px;
+        }
+
+        #side-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #side-menu li {
+            margin-bottom: 8px;
+        }
+
+        #side-menu a {
+            display: block;
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.04), transparent 55%);
+            border: 1px solid transparent;
+            transition:
+                color 0.18s ease,
+                background 0.18s ease,
+                border-color 0.18s ease,
+                transform 0.12s ease;
+        }
+
+        #side-menu a:hover {
+            color: var(--text-main);
+            transform: translateX(3px);
+        }
+
+        /* Unique menu accents (base + unique) */
+
+        .menu-type-1 a {
+            border-color: rgba(106, 140, 255, 0.45);
+            box-shadow: 0 0 12px rgba(106, 140, 255, 0.35);
+        }
+
+        .menu-type-1 a:hover {
+            background: radial-gradient(circle at 0 0, rgba(106, 140, 255, 0.35), transparent 60%);
+        }
+
+        .menu-type-2 a {
+            border-color: rgba(255, 140, 106, 0.45);
+            box-shadow: 0 0 12px rgba(255, 140, 106, 0.35);
+        }
+
+        .menu-type-2 a:hover {
+            background: radial-gradient(circle at 0 0, rgba(255, 140, 106, 0.35), transparent 60%);
+        }
+
+        .menu-type-3 a {
+            border-color: rgba(106, 255, 176, 0.45);
+            box-shadow: 0 0 12px rgba(106, 255, 176, 0.35);
+        }
+
+        .menu-type-3 a:hover {
+            background: radial-gradient(circle at 0 0, rgba(106, 255, 176, 0.35), transparent 60%);
+        }
+
+        .menu-type-4 a {
+            border-color: rgba(255, 106, 213, 0.45);
+            box-shadow: 0 0 12px rgba(255, 106, 213, 0.35);
+        }
+
+        .menu-type-4 a:hover {
+            background: radial-gradient(circle at 0 0, rgba(255, 106, 213, 0.35), transparent 60%);
+        }
+
+        .menu-type-5 a {
+            border-color: rgba(255, 216, 106, 0.45);
+            box-shadow: 0 0 12px rgba(255, 216, 106, 0.35);
+        }
+
+        .menu-type-5 a:hover {
+            background: radial-gradient(circle at 0 0, rgba(255, 216, 106, 0.35), transparent 60%);
+        }
+
+        /* =========
+           MAIN AREA
+           ========= */
+
+        #content {
+            margin-left: 260px;
+            padding: 40px 32px 60px;
+            width: calc(100% - 260px);
+            position: relative;
+        }
+
+        /* Holographic / fractal-ish background overlay (pure CSS) */
+
+        #content::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            margin-left: 260px;
+            pointer-events: none;
+            opacity: 0.35;
+            background:
+                conic-gradient(from 0deg at 20% 10%, rgba(106, 140, 255, 0.15), transparent 40%, rgba(255, 106, 213, 0.2), transparent 80%, rgba(106, 255, 176, 0.15)),
+                conic-gradient(from 180deg at 80% 90%, rgba(255, 216, 106, 0.18), transparent 35%, rgba(106, 255, 176, 0.18), transparent 75%, rgba(106, 140, 255, 0.18));
+            mix-blend-mode: screen;
+            z-index: -1;
+        }
+
+        header.page-intro {
+            max-width: 780px;
+            margin-bottom: 40px;
+        }
+
+        header.page-intro h2 {
+            margin: 0 0 10px;
+            font-size: 1.6rem;
+        }
+
+        header.page-intro p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* =========
+           BLOCKS BASE
+           ========= */
+
+        .enlightenment-block {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 26px 24px 24px;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.04), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.03), transparent 55%),
+                linear-gradient(145deg, rgba(10, 10, 25, 0.96), rgba(5, 5, 18, 0.98));
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .enlightenment-block::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            opacity: 0.25;
+            background:
+                conic-gradient(from 0deg, transparent 0 30%, rgba(255, 255, 255, 0.08) 35%, transparent 40% 70%, rgba(255, 255, 255, 0.06) 75%, transparent 80%);
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .enlightenment-block h3 {
+            margin: 0 0 8px;
+            font-size: 1.3rem;
+        }
+
+        .enlightenment-block .tagline {
+            margin: 0 0 14px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+
+        .enlightenment-block p {
+            margin: 0 0 10px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .enlightenment-block p.note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* =========
+           UNIQUE BLOCK STYLES (base + unique)
+           ========= */
+
+        .type-1 {
+            border-left: 4px solid var(--accent-1);
+            box-shadow: var(--glow-soft);
+        }
+
+        .type-1::after {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(106, 140, 255, 0.45), transparent 60%);
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+
+        .type-2 {
+            border-left: 4px solid var(--accent-2);
+            box-shadow: 0 0 25px rgba(255, 140, 106, 0.35);
+        }
+
+        .type-2::after {
+            content: "";
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255, 140, 106, 0.45), transparent 60%);
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+
+        .type-3 {
+            border-left: 4px solid var(--accent-3);
+            box-shadow: 0 0 25px rgba(106, 255, 176, 0.35);
+        }
+
+        .type-3::after {
+            content: "";
+            position: absolute;
+            top: 20%;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background:
+                conic-gradient(from 90deg, rgba(106, 255, 176, 0.4), transparent 40%, rgba(106, 255, 176, 0.2), transparent 80%);
+            filter: blur(6px);
+            opacity: 0.7;
+        }
+
+        .type-4 {
+            border-left: 4px solid var(--accent-4);
+            box-shadow: 0 0 25px rgba(255, 106, 213, 0.35);
+        }
+
+        .type-4::after {
+            content: "";
+            position: absolute;
+            bottom: 10%;
+            left: 40%;
+            width: 220px;
+            height: 220px;
+            background:
+                conic-gradient(from 0deg, rgba(255, 106, 213, 0.4), transparent 35%, rgba(255, 106, 213, 0.2), transparent 75%);
+            filter: blur(8px);
+            opacity: 0.7;
+        }
+
+        .type-5 {
+            border-left: 4px solid var(--accent-5);
+            box-shadow: 0 0 25px rgba(255, 216, 106, 0.35);
+        }
+
+        .type-5::after {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: 20%;
+            width: 260px;
+            height: 260px;
+            background:
+                radial-gradient(circle, rgba(255, 216, 106, 0.4), transparent 60%),
+                conic-gradient(from 180deg, rgba(255, 216, 106, 0.3), transparent 40%, rgba(255, 216, 106, 0.15), transparent 80%);
+            filter: blur(10px);
+            opacity: 0.7;
+        }
+
+        /* =========
+           RESPONSIVE
+           ========= */
+
+        @media (max-width: 800px) {
+            #side-menu {
+                position: fixed;
+                width: 220px;
+                transform: translateX(-100%);
+                transition: transform 0.2s ease;
+            }
+
+            #side-menu.open {
+                transform: translateX(0);
+            }
+
+            #content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 16px 40px;
+            }
+
+            #content::before {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 12px;
+                left: 12px;
+                z-index: 20;
+                padding: 6px 10px;
+                border-radius: 999px;
+                border: 1px solid var(--border-soft);
+                background: rgba(5, 5, 18, 0.9);
+                color: var(--text-muted);
+                font-size: 0.8rem;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FIXED SIDE MENU (internal navigation) -->
+    <nav id="side-menu">
+        <h1>Enlightenment</h1>
+        <p class="subtitle">Internal map of luminous states</p>
+        <hr>
+
+        <ul>
+          <li class="menu-type-1"><a href="#royal-enlightenment">Royal Enlightenment</a></li>
+          <li class="menu-type-2"><a href="#hindu-enlightenment">Hindu Enlightenment</a></li>
+          <li class="menu-type-3"><a href="#zen-enlightenment">Zen Enlightenment</a></li>
+          <li class="menu-type-4"><a href="#tao-enlightenment">Tao Enlightenment</a></li>
+          <li class="menu-type-5"><a href="#viking-enlightenment">Viking Enlightenment</a></li>
+          <li class="menu-type-1"><a href="#illumination-modern">Illumination (Modern)</a></li>
+          <li class="menu-type-2"><a href="#scientific-enlightenment">Scientific Enlightenment</a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main id="content">
+
+        <header class="page-intro">
+            <h2>Various Types of Enlightenment</h2>
+            <p>
+                This page is a living outline. Each block below sketches a different flavor of enlightenment.
+                The side menu on the left is wired to each block for internal navigation. Styles are generated
+                entirely with CSS gradients and holographic overlays—no external files, no images.
+            </p>
+        </header>
+
+<article id="royal-enlightenment" class="enlightenment-block type-1">
+    <h3>Royal Enlightenment</h3>
+    <p class="tagline">The Archetype of Leadership and Divine Responsibility</p>
+
+    <p>
+        Royal Enlightenment is the path of the Leader Archetype — the one who carries the weight of
+        civilization on their shoulders. Its mythic model is Solomon, whose life unfolds in phases:
+        innocence, wisdom, power, downfall, and renewal. Each phase teaches a different dimension of
+        enlightened rulership.
+    </p>
+
+    <p>
+        At birth, the Royal is “spoken to” by Nature, Animals, Humans, and Gods. Whether this is
+        literal, symbolic, or genetic does not matter; the archetype expresses a natural ability to
+        communicate across layers of existence. The Royal mind is multilingual in the deepest sense:
+        it understands ecosystems, societies, and spiritual forces.
+    </p>
+
+    <p>
+        At forty, the Royal is traditionally “awakened to material life.” This is the moment when
+        spiritual clarity must meet worldly responsibility. The Royal learns that enlightenment is
+        not escape — it is stewardship. It is the ability to hold power without corruption, to
+        govern without domination, and to guide without coercion.
+    </p>
+
+    <p class="note">
+        This archetype can be trained. Even if one is not born into it, the qualities of the Royal —
+        clarity, responsibility, communication with all layers of life — can be cultivated through
+        discipline, humility, and service.
+    </p>
+</article>
+
+
+
+<article id="hindu-enlightenment" class="enlightenment-block type-2">
+    <h3>Hindu Enlightenment</h3>
+    <p class="tagline">Flow of Prana and Cycles of the Cosmos</p>
+
+    <p>
+        Hindu Enlightenment is the path of flow — the recognition that everything moves in cycles:
+        seasons, reincarnations, cosmic ages, and the breath itself. Nothing is static. Nothing is
+        final. Everything is part of a rhythm that stretches from the smallest atom to the largest
+        universe.
+    </p>
+
+    <p>
+        This path trains the practitioner to become intimate with nature. Not as an observer, but as
+        a participant. The wind, the rivers, the monsoon, the dry season — all become teachers. The
+        body becomes a microcosm of the world, and the world becomes a macrocosm of the body.
+    </p>
+
+    <p>
+        Prana, the life-force, is the central metaphor and reality. Enlightenment here is not a
+        single moment but a continuous alignment with the flow of Prana. One becomes a conduit
+        through which the universe breathes.
+    </p>
+
+    <p class="note">
+        This path is ideal for those who feel the world as movement, rhythm, and breath.
+    </p>
+</article>
+
+
+
+<article id="zen-enlightenment" class="enlightenment-block type-3">
+    <h3>Zen Enlightenment</h3>
+    <p class="tagline">Mind Aligned with Reality</p>
+
+    <p>
+        Zen Enlightenment is the path of direct mind. It teaches that the mind is not a problem to
+        be solved but a tool to be sharpened. Through meditation, simplicity, and direct experience,
+        the mind gradually aligns itself with reality.
+    </p>
+
+    <p>
+        Consciousness becomes a mirror — not distorting, not interpreting, simply reflecting what is.
+        This is not abstraction. Zen rejects the idea that enlightenment is a philosophical puzzle.
+        Instead, it is a way to live: chop wood, carry water, breathe, walk, sit.
+    </p>
+
+    <p>
+        When the mind aligns with reality, suffering dissolves. Not because life becomes easier, but
+        because the mind stops resisting what is already true.
+    </p>
+
+    <p class="note">
+        Zen is the path for those who seek clarity through simplicity and presence.
+    </p>
+</article>
+
+
+
+<article id="tao-enlightenment" class="enlightenment-block type-4">
+    <h3>Tao Enlightenment</h3>
+    <p class="tagline">The Body as a Unified, Balanced System</p>
+
+    <p>
+        Tao Enlightenment is the path of the body — not the physical body alone, but the energetic,
+        emotional, and structural body as a single holistic system. It is deeply connected to Hindu
+        Kundalini practices, yet it expands them into a broader philosophy of balance and natural
+        harmony.
+    </p>
+
+    <p>
+        The Taoist body is a landscape of rivers, mountains, and winds. Energy flows through meridians
+        like water through valleys. Muscles and bones form the architecture of mountains. Breath
+        becomes weather.
+    </p>
+
+    <p>
+        Enlightenment here is not a mental realization but a physical integration. When the body is
+        balanced, the mind becomes clear. When the breath is smooth, the emotions settle. When the
+        posture aligns, the spirit rises.
+    </p>
+
+    <p class="note">
+        This path is ideal for those who feel truth through movement, sensation, and embodied
+        practice.
+    </p>
+</article>
+
+
+
+<article id="viking-enlightenment" class="enlightenment-block type-5">
+    <h3>Viking Enlightenment</h3>
+    <p class="tagline">The Fractal Self Rooted in Yggdrasil</p>
+
+    <p>
+        Viking Enlightenment is the path of the fractal self — the recognition that each human is a
+        living branch of Yggdrasil, the World Tree. Roots extend into ancestry. The crown reaches
+        toward future generations. The trunk is the present self, standing between past and future.
+    </p>
+
+    <p>
+        In this vision, the individual is a hologram of the whole. A single cell contains the entire
+        pattern. The archetypal image is a warrior standing on a small mountain, shield and sword in
+        hand, sky and nature behind him. This is not merely a warrior image — it is a symbol of
+        fractal identity: one cell, one human, one tree, one cosmos.
+    </p>
+
+    <p>
+        Yggdrasil is not just a mythic tree; it is the Viking expression of enlightenment. It teaches
+        that strength, ancestry, courage, and destiny are woven into a single living system.
+    </p>
+
+    <p class="note">
+        This path is ideal for those who feel connected to lineage, heritage, and the deep roots of
+        time.
+    </p>
+</article>
+
+
+
+<article id="illumination-modern" class="enlightenment-block type-1">
+    <h3>Illumination (Modern)</h3>
+    <p class="tagline">Enlightenment in the Age of Technology</p>
+
+    <p>
+        Illumination is the modern expression of enlightenment — the integration of ancient wisdom
+        with contemporary life. It recognizes that humans today live in a world of machines, symbols,
+        screens, networks, and rapid communication. Enlightenment must adapt.
+    </p>
+
+    <p>
+        The mind becomes a symbolic machine, interfacing with digital systems, social structures, and
+        global information flows. This is not a loss of spirituality; it is a transformation. The
+        modern enlightened mind can navigate both meditation and metadata, both silence and
+        circuitry.
+    </p>
+
+    <p>
+        Illumination connects to the “wide stream” — the collective symbolic network of humanity. It
+        resembles the Cabbalistic Tree of Life, but updated for a world of algorithms and global
+        consciousness.
+    </p>
+
+    <p class="note">
+        This path is ideal for those who live in cities, work with technology, or feel that
+        enlightenment must evolve with civilization.
+    </p>
+</article>
+
+
+
+<article id="scientific-enlightenment" class="enlightenment-block type-2">
+    <h3>Scientific Enlightenment</h3>
+    <p class="tagline">The Networked Mind of Rational Humanity</p>
+
+    <p>
+        Scientific Enlightenment is the path of intellectual integration. It recognizes that science
+        is not merely a method but a collective mind — a network of researchers, thinkers, and
+        explorers who build knowledge together across generations.
+    </p>
+
+    <p>
+        Enlightenment here means understanding the world through evidence, logic, and shared inquiry.
+        It is not cold or mechanical; it is a celebration of curiosity. The scientific mind sees
+        patterns, structures, and laws that reveal the beauty of the universe.
+    </p>
+
+    <p>
+        Like all other paths, this one must be repeated. As science evolves, so must the individual.
+        Enlightenment becomes a continuous process of updating one’s worldview, refining one’s
+        understanding, and participating in the collective intelligence of humanity.
+    </p>
+
+    <p class="note">
+        This path is ideal for those who find truth in reason, experimentation, and the pursuit of
+        knowledge.
+    </p>
+</article>
+    </main>
+
+    <script>
+        // Optional tiny enhancement: highlight active menu item on scroll (no external files)
+
+        (function () {
+            const sections = Array.from(document.querySelectorAll('.enlightenment-block'));
+            const menuLinks = Array.from(document.querySelectorAll('#side-menu a'));
+
+            function onScroll() {
+                const scrollPos = window.scrollY + 120; // offset for header
+                let currentId = null;
+
+                for (const sec of sections) {
+                    if (sec.offsetTop <= scrollPos) {
+                        currentId = sec.id;
+                    }
+                }
+
+                menuLinks.forEach(link => {
+                    const hrefId = link.getAttribute('href').slice(1);
+                    if (hrefId === currentId) {
+                        link.style.fontWeight = '600';
+                        link.style.color = '#ffffff';
+                    } else {
+                        link.style.fontWeight = '400';
+                        link.style.color = '';
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+    </script>
+
+</body>
+</html>

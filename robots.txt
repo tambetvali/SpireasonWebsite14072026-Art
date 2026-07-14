@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://spireason.neocities.org/sitemap.xml

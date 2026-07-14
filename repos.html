@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Spireason repositories – tambetvali</title>
+<style>
+  :root {
+    --bg: #0e0f12;
+    --text: #e9ecf1;
+    --muted: #b6bdc8;
+    --card: #15171c;
+    --accent: #62d0ff;
+    --accent-2: #9bffaf;
+    --ring: rgba(98,208,255,.35);
+    --border: #2a2f39;
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+  header { display: grid; gap: 10px; margin-bottom: 28px; }
+  header h1 { font-size: 28px; line-height: 1.25; margin: 0; letter-spacing: .5px; }
+  header p { margin: 0; color: var(--muted); }
+  .profile { display: inline-flex; align-items: center; gap: 10px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .repo { grid-column: span 12; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; position: relative; }
+  @media (min-width: 720px) { .repo { grid-column: span 6; } }
+  .top { padding: 18px 18px 12px; display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: center; }
+  .icon { width: 56px; height: 56px; border-radius: 12px; display: grid; place-items: center; color: #fff; }
+  .title { font-weight: 700; font-size: 18px; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 8px; }
+  .desc { color: var(--muted); margin-top: 6px; font-size: 14.5px; line-height: 1.35; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 18px 18px; border-top: 1px solid var(--border); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #111318; color: var(--text); font-size: 14px; transition: background .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  .btn:hover { background: #0d1016; border-color: #3a4150; box-shadow: 0 0 0 6px var(--ring); }
+  .btn.primary { background: linear-gradient(135deg, #19354a, #142034); border-color: #1e3a4f; }
+  .btn.primary:hover { background: linear-gradient(135deg, #224a67, #16243b); border-color: #28526a; }
+  .btn.copy { background: #13161e; }
+  .btn svg { width: 18px; height: 18px; }
+  .tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+  .bg-1 { background: radial-gradient(120px 100px at -10% -20%, rgba(98,208,255,.14), transparent 60%), radial-gradient(300px 200px at 120% 0%, rgba(154,255,174,.10), transparent 60%), var(--card); }
+  .bg-2 { background: radial-gradient(140px 110px at 0% 0%, rgba(242,197,105,.14), transparent 60%), radial-gradient(300px 200px at 110% 0%, rgba(124,163,255,.10), transparent 60%), var(--card); }
+  .bg-3 { background: radial-gradient(140px 110px at -10% 20%, rgba(255,124,124,.16), transparent 60%), radial-gradient(300px 200px at 110% 0%, rgba(124,255,196,.10), transparent 60%), var(--card); }
+  .bg-4 { background: radial-gradient(140px 110px at 0% 0%, rgba(190,156,255,.16), transparent 60%), radial-gradient(300px 200px at 110% 0%, rgba(255,203,139,.10), transparent 60%), var(--card); }
+  .bg-5 { background: radial-gradient(140px 110px at -10% 20%, rgba(255,213,139,.16), transparent 60%), radial-gradient(300px 200px at 110% 0%, rgba(123,194,255,.10), transparent 60%), var(--card); }
+  .bg-6 { background: radial-gradient(140px 110px at 0% 0%, rgba(126,255,207,.16), transparent 60%), radial-gradient(300px 200px at 110% 0%, rgba(255,146,146,.10), transparent 60%), var(--card); }
+  .icon svg { filter: drop-shadow(0 1px 10px rgba(0,0,0,.25)); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+  
+  
+/* Highlight the first two featured repos */
+.repo.featured {
+  background: radial-gradient(160px 120px at -10% -20%, rgba(255,255,255,.18), transparent 60%),
+              radial-gradient(300px 200px at 120% 0%, rgba(255,255,255,.10), transparent 60%),
+              #1c1f26;
+  border-color: #3a4455;
+  box-shadow: 0 0 22px rgba(255,255,255,.06);
+}
+
+/* Larger, more prominent title */
+.repo.featured .title {
+  font-size: 22px;
+  letter-spacing: .4px;
+  color: #ffffff;
+}
+
+/* Slightly brighter description */
+.repo.featured .desc {
+  color: #e4e8ef;
+}
+
+/* Icon glow enhancement */
+.repo.featured .icon svg {
+  filter: drop-shadow(0 2px 12px rgba(255,255,255,.35));
+}
+
+/* Optional: subtle border glow on hover */
+.repo.featured:hover {
+  border-color: #4c5a70;
+  box-shadow: 0 0 28px rgba(255,255,255,.10);
+}
+
+  
+  
+  
+</style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <div class="wrap">
+    <header>
+      <h1>Spireason repository index</h1>
+      <p class="profile">
+        <span>Author: <a href="https://github.com/tambetvali" target="_blank" rel="noopener">github.com/tambetvali</a></span>
+        <span class="tag">Barcelona, ES</span>
+        <span class="tag">Spireason</span>
+        <span class="tag">Laegna</span>
+      </p>
+      <p>Single-page directory for key repositories: quick links, ZIP downloads, and copy-ready clone commands.</p>
+    </header>
+
+    <section class="grid" id="repos">
+      <!-- SpireasonWebsite31122025 -->
+      <article class="repo bg-1 featured" data-repo="SpireasonWebsite31122025">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#ff8a00,#ffce00);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="6.2" stroke="#fff" stroke-width="1.3"/>
+              <path d="M12 6v12M8 9h8M8 15h8" stroke="#fff7d6" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/SpireasonWebsite31122025" target="_blank" rel="noopener">
+              SpireasonWebsite31122025
+            </a> (Laegna 1)
+            <div class="desc">
+              Source for the main website
+              <a href="https://spireason.neocities.org/" target="_blank">spireason.neocities.org</a>,
+              offering a clean, readable entry point to Spireason &amp; Laegna materials.
+            </div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/SpireasonWebsite31122025" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Open repository</span>
+          </a>
+        
+          <a class="btn zip-link" href="#" data-repo="SpireasonWebsite31122025" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/>
+              <path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+        
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/SpireasonWebsite31122025.git">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+              <rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+            </svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- ObsidianLaegna31122025 -->
+      <article class="repo bg-2 featured" data-repo="ObsidianLaegna31122025">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#1e90ff,#00c6ff);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 5.5 12 3l5 2.5v6.2L12 18 7 11.7V5.5Z" stroke="#fff" stroke-width="1.2"/>
+              <path d="M9.2 7.2 12 6l2.8 1.2v3.9L12 13.6 9.2 11.1V7.2Z" stroke="#d8f5ff" stroke-width="1.1"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/ObsidianLaegna31122025" target="_blank" rel="noopener">
+              ObsidianLaegna31122025
+            </a> (Laegna 2)
+            <div class="desc">
+              Laegna knowledge vault in Markdown, converted from Notion for Obsidian, VS Code, and GitHub.  
+              Original source:
+              <a href="https://assorted-canopy-961.notion.site/Laegna-1a575bfc115480a38129e9a9787ab565" target="_blank">Notion workspace</a>.  
+              User‑readable documentation:
+              <a href="https://laegna.notaku.site/" target="_blank">Laegna Notaku site</a>.
+            </div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/ObsidianLaegna31122025" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Open repository</span>
+          </a>
+        
+          <a class="btn zip-link" href="#" data-repo="ObsidianLaegna31122025" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/>
+              <path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+        
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/ObsidianLaegna31122025.git">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+              <rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+            </svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaeArve -->
+      <article class="repo bg-1" data-repo="LaeArve">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#0d3b55,#168aad);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l8 4-8 4-8-4 8-4Z" stroke="#fff" stroke-width="1.2"/>
+              <path d="M4 10l8 4 8-4" stroke="#bff3ff" stroke-opacity=".9" stroke-width="1.2"/>
+              <path d="M4 14l8 4 8-4" stroke="#8deaff" stroke-opacity=".7" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaeArve" target="_blank" rel="noopener">LaeArve</a> (Laegna 3 tech-contrib.)
+            <div class="desc">AI-first decentralized database source to collaborate on Laegna logic and math.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaeArve" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaeArve" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaeArve.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaeSpiEssentialTheorems -->
+      <article class="repo bg-2" data-repo="LaeSpiEssentialTheorems">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#3a2e65,#6b5acd);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3l6 10H6l6-10Z" stroke="#fff" stroke-width="1.2"/>
+              <circle cx="12" cy="17.5" r="3.2" stroke="#e9d88a" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaeSpiEssentialTheorems" target="_blank" rel="noopener">LaeSpiEssentialTheorems</a>
+            <div class="desc">Core scientific theorems for Laegna and Spireason, foundational logic and axiomatics.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaeSpiEssentialTheorems" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaeSpiEssentialTheorems" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaeSpiEssentialTheorems.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- SpiBody -->
+      <article class="repo bg-3" data-repo="SpiBody">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#6a0f1f,#c84c5a);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 4c3 0 6 2 6 6 0 4-3 7-6 10-3-3-6-6-6-10 0-4 3-6 6-6Z" stroke="#fff" stroke-width="1.2"/>
+              <circle cx="12" cy="10" r="2.8" stroke="#ffd2d2" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/SpiBody" target="_blank" rel="noopener">SpiBody</a>
+            <div class="desc">Practical applications for personal and collective body–mind methods and somatic process.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/SpiBody" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="SpiBody" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/SpiBody.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaegnaDocumentation -->
+      <article class="repo bg-4" data-repo="LaegnaDocumentation">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#3e295a,#b58cff);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 4h9l3 3v13H6z" stroke="#fff" stroke-width="1.2"/>
+              <path d="M9 9h6M9 12h6M9 15h6" stroke="#e8ddff" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaegnaDocumentation" target="_blank" rel="noopener">LaegnaDocumentation</a>
+            <div class="desc">Documentation hub unifying texts and code across Laegna-related repositories.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaegnaDocumentation" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaegnaDocumentation" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaegnaDocumentation.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaeGNAfantasy123 -->
+      <article class="repo bg-5" data-repo="LaeGNAfantasy123">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#5a3d0e,#f2a444);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#fff" stroke-width="1.2"/>
+              <path d="M8 12h8M12 8v8" stroke="#ffe3bf" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaeGNAfantasy123" target="_blank" rel="noopener">LaeGNAfantasy123</a>
+            <div class="desc">Simple implementation guide for custom number systems, step-by-step starter.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaeGNAfantasy123" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaeGNAfantasy123" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaeGNAfantasy123.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaegnaAIBasics -->
+      <article class="repo bg-6" data-repo="LaegnaAIBasics">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#0c3d2f,#24c48b);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="8" cy="12" r="3" stroke="#fff" stroke-width="1.2"/>
+              <circle cx="16" cy="8" r="3" stroke="#d2fff1" stroke-width="1.2"/>
+              <path d="M11 12h2M9 9l4-4" stroke="#a7ffe1" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaegnaAIBasics" target="_blank" rel="noopener">LaegnaAIBasics</a> (<a href="https://spireason.neocities.org/Programming/chatdoc">AI 1</a>)
+            <div class="desc">Learn the basics of artificial intelligence and deep learning, hands-on.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaegnaAIBasics" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaegnaAIBasics" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/><path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/></svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaegnaAIBasics.git">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/></svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaegnaPracticalAI -->
+      <article class="repo bg-7" data-repo="LaegnaPracticalAI">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#2b4a7a,#6fb3ff);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="2.5" stroke="#fff" stroke-width="1.2"/>
+              <path d="M8 10h8M8 14h5" stroke="#dff1ff" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaegnaPracticalAI" target="_blank" rel="noopener">LaegnaPracticalAI</a> (<a href="https://spireason.neocities.org/Programming/chatdoc">AI 2</a>)
+            <div class="desc">Practical AI ecosystem showing how to build and use Document Collections for real AI workflows.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaegnaPracticalAI" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaegnaPracticalAI" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/>
+              <path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaegnaPracticalAI.git">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+              <rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+            </svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaegnaAITraining -->
+      <article class="repo bg-8" data-repo="LaegnaAITraining">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#7a2b2b,#ff8c8c);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="1.2"/>
+              <path d="M12 8v4l3 2" stroke="#ffeaea" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaegnaAITraining" target="_blank" rel="noopener">LaegnaAITraining</a> (<a href="https://spireason.neocities.org/Programming/chatdoc">AI 3</a>)
+            <div class="desc">Training-focused repository for Laegna AI materials, exercises, and structured learning flows.</div>
+          </div>
+        </div>
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaegnaAITraining" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Open repository</span>
+          </a>
+          <a class="btn zip-link" href="#" data-repo="LaegnaAITraining" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/>
+              <path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaegnaAITraining.git">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+              <rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+            </svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- LaegnaAIExperiments -->
+      <article class="repo bg-9" data-repo="LaegnaAIExperiments">
+        <div class="top">
+          <div class="icon" style="background: linear-gradient(135deg,#4a2b7a,#b07bff);">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="5" y="5" width="14" height="14" rx="2.5" stroke="#fff" stroke-width="1.2"/>
+              <path d="M8 9h8M8 12h6M8 15h4" stroke="#f2e6ff" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <a class="title" href="https://github.com/tambetvali/LaegnaAIExperiments" target="_blank" rel="noopener">
+              LaegnaAIExperiments
+            </a> (<a href="https://mind-sculptor-engine.lovable.app/appendix#experiments" target="_blank">AI Appendix</a>)
+            <div class="desc">
+              Experimental appendix for Laegna AI: tools, drafts, prototypes, and advanced ecosystem extensions.
+            </div>
+          </div>
+        </div>
+      
+        <div class="bar">
+          <a class="btn primary repo-link" href="https://github.com/tambetvali/LaegnaAIExperiments" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#d8f5ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Open repository</span>
+          </a>
+      
+          <a class="btn zip-link" href="#" data-repo="LaegnaAIExperiments" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 4h10v8H7z" stroke="#9bffaf" stroke-width="1.5"/>
+              <path d="M12 12v8M8 20h8" stroke="#9bffaf" stroke-width="1.5"/>
+            </svg>
+            <span>Download ZIP</span>
+          </a>
+      
+          <button class="btn copy" data-copy="git clone https://github.com/tambetvali/LaegnaAIExperiments.git">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+              <rect x="5" y="5" width="10" height="10" rx="2" stroke="#c9d2df" stroke-width="1.5"/>
+            </svg>
+            <span>Copy git clone</span>
+          </button>
+        </div>
+      </article>
+
+
+    </section>
+
+    <footer>
+      <p>Tip: git clone works on Linux and Windows if Git is installed. ZIP links auto-detect main/master default branch.</p>
+    </footer>
+  </div>
+
+<script>
+  // Resolve ZIP download URL: try main, then master
+  function probeZip(repo, cb) {
+    const mainUrl = `https://github.com/tambetvali/${repo}/archive/refs/heads/main.zip`;
+    const masterUrl = `https://github.com/tambetvali/${repo}/archive/refs/heads/master.zip`;
+    // Use HEAD to check existence; fallback on error
+    fetch(mainUrl, { method: 'HEAD' })
+      .then(r => {
+        if (r.ok) cb(mainUrl);
+        else return fetch(masterUrl, { method: 'HEAD' }).then(rr => cb(rr.ok ? masterUrl : mainUrl));
+      })
+      .catch(() => {
+        fetch(masterUrl, { method: 'HEAD' })
+          .then(rr => cb(rr.ok ? masterUrl : mainUrl))
+          .catch(() => cb(mainUrl));
+      });
+  }
+
+  // Initialize ZIP links
+  document.querySelectorAll('.zip-link').forEach(a => {
+    const repo = a.dataset.repo;
+    a.setAttribute('aria-busy', 'true');
+    probeZip(repo, url => {
+      a.href = url;
+      a.removeAttribute('aria-busy');
+    });
+  });
+
+  // Copy handlers
+  function copyText(txt) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(txt);
+    }
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  function flash(btn) {
+    const orig = btn.querySelector('span').textContent;
+    btn.querySelector('span').textContent = 'Copied!';
+    btn.style.boxShadow = '0 0 0 8px var(--ring)';
+    setTimeout(() => {
+      btn.querySelector('span').textContent = orig;
+      btn.style.boxShadow = 'none';
+    }, 1100);
+  }
+
+  document.querySelectorAll('.btn.copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const txt = btn.dataset.copy;
+      copyText(txt).then(() => flash(btn));
+    });
+  });
+</script>
+</body>
+</html>

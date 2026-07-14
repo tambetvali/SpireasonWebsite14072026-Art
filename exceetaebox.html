@@ -1,0 +1,3348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZXY Scientific–Spiritual Template</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root {
+  --bar-side-padding: 40px;
+  --letter-radius: 14px;
+  --scroll-factor: 0;
+}
+
+/* BASIC PAGE */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #F4F4F4;
+  font-family: "IBM Plex Mono", monospace;
+  color: #111;
+  scroll-behavior: smooth;
+}
+
+/* TOP LETTERS */
+#top-Z, #top-X, #top-Y {
+  position: fixed;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  -webkit-text-stroke: 4px rgba(0,0,0,0.4);
+  z-index: 1000;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Z on left — growth / fractal symbolic pattern */
+#top-Z {
+  left: var(--bar-side-padding);
+  font-size: 72px;
+  width: 100px;
+  height: 96px;
+  background:
+    repeating-linear-gradient(45deg, rgba(0,128,0,0.1) 0, rgba(0,128,0,0.1) 2px, transparent 2px, transparent 6px),
+    radial-gradient(circle at 30% 30%, rgba(255,255,0,0.5), #FFFF00 70%);
+  color: #008000;
+}
+
+/* X center — balance / axes symbolic pattern, fixed width */
+#top-X {
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 72px;
+  width: 100px; /* fixed width equal to Z/Y */
+  height: 96px;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 8px),
+    #FFFFFF;
+  color: #000000;
+}
+
+/* Y on right — wave / interference symbolic pattern */
+#top-Y {
+  right: var(--bar-side-padding);
+  font-size: 72px;
+  width: 100px;
+  height: 96px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,0,0,0.1) 0, rgba(255,0,0,0.1) 2px, transparent 2px, transparent 6px),
+    radial-gradient(circle at 70% 40%, rgba(0,0,255,0.5), #0000FF 70%);
+  color: #FF0000;
+}
+
+/* RIGHT NAV */
+#left-nav {
+  top: 120px;
+  right: 10px;
+  left: unset;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 900;
+}
+.nav-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #222;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  cursor: pointer;
+  transition: 0.2s;
+  user-select: none;
+}
+.nav-icon:hover {
+  background: #555;
+  transform: scale(1.1);
+}
+
+/* MAIN CONTENT */
+#content {
+  padding: 120px 60px 120px 60px;
+  max-width: 900px;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+/* Placeholder tall box */
+.placeholder {
+  height: 80em;
+  border: 1px dashed #999;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(0,0,0,0.02) 0,
+    rgba(0,0,0,0.02) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* BOTTOM FOOTER BAR */
+#bottom-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px var(--bar-side-padding);
+  border-radius: 20px 20px 0 0;
+  background: transparent;
+  box-sizing: border-box;
+  z-index: 1000;
+  gap: 20px;
+}
+.footer-left, .footer-right {
+  display: flex;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 18px;
+  border: 2px solid rgba(0,0,0,0.3);
+  background: #EAEAEA;
+}
+.footer-left span, .footer-right span {
+  font-size: 28px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: var(--letter-radius);
+  display: inline-block;
+  min-width: 36px;
+  text-align: center;
+}
+.footer-left .Z { background: #FFFF00; color: #008000; }
+.footer-left .X { background: #FFFFFF; color: #000000; }
+.footer-left .Y { background: #0000FF; color: #FF0000; }
+.footer-right .z { background: #008000; color: #FFFF00; }
+.footer-right .x { background: #000000; color: #FFFFFF; }
+.footer-right .y { background: #FF0000; color: #0000FF; }
+</style>
+</head>
+<body>
+
+
+<br><br><br><br>
+
+<style>
+/* ————————————————————————————————————————————————
+   Laegna Popular Article Design
+   ———————————————————————————————————————————————— */
+
+.laegna-pop {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  color: #1f2937;
+  background: #fdfdfd;
+}
+
+.laegna-pop h1,
+.laegna-pop h2,
+.laegna-pop h3 {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-weight: 700;
+  color: #111827;
+}
+
+.laegna-pop h1 {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+.laegna-pop h2 {
+  font-size: 1.45rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.3rem;
+}
+
+.laegna-pop h3 {
+  font-size: 1.15rem;
+  margin-top: 1.4rem;
+}
+
+.laegna-pop p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0.7rem 0;
+}
+
+.laegna-pop .intro {
+  background: #eef2ff;
+  border-left: 5px solid #6366f1;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+  border-radius: 0.4rem;
+}
+
+.laegna-pop .highlight {
+  background: #fef3c7;
+  border-left: 5px solid #f59e0b;
+  padding: 1rem 1.2rem;
+  margin: 1.4rem 0;
+  border-radius: 0.4rem;
+}
+
+.laegna-pop .quote {
+  font-style: italic;
+  color: #374151;
+  border-left: 4px solid #9ca3af;
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+
+.laegna-pop .math {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0.4rem;
+  font-family: "STIX Two Text", serif;
+}
+
+.laegna-pop .summary {
+  background: #ecfdf5;
+  border-left: 5px solid #10b981;
+  padding: 1.2rem 1.4rem;
+  margin-top: 2rem;
+  border-radius: 0.4rem;
+}
+
+</style>
+
+<div class="laegna-pop">
+
+<h1>Three Windows Into Laegna:  
+How Dimensions, Infinity, and Units Change What Numbers Mean</h1>
+
+<section class="intro">
+  <p>
+    Mathematics usually treats numbers as points on a line. Infinity is “just big,” units are
+    “just labels,” and dimensions are “just geometry.”  
+    Laegna turns these assumptions inside out.
+  </p>
+  <p>
+    In Laegna, a number is a <strong>dimensional object</strong>, infinity has
+    <strong>density</strong>, and units create <strong>different kinds of limits</strong>.
+    This article introduces these ideas in three approachable parts.
+  </p>
+</section>
+
+
+<!-- ————————————————————————————————————————————————
+     ARTICLE 1 — Dimensional Infinity
+     ———————————————————————————————————————————————— -->
+<section>
+  <h2>Article 1 — What Does It Mean for Infinity to Have a Dimension?</h2>
+
+  <p>
+    Imagine a 1‑centimeter line. It contains infinitely many points.  
+    Now imagine a 1‑cm² square. It also contains infinitely many points.  
+    And a 1‑cm³ cube? Same story.
+  </p>
+
+  <p class="quote">
+    “If all these shapes have the same number of points, why do they feel so different?”
+  </p>
+
+  <p>
+    Laegna answers: because their infinities have <strong>different dimensional orders</strong>.
+  </p>
+
+  <div class="math">
+    
+
+\[
+    \inf^1 u^1 \quad\text{(line)},\qquad
+    \inf^2 u^2 \quad\text{(square)},\qquad
+    \inf^3 u^3 \quad\text{(cube)}.
+    \]
+
+
+  </div>
+
+  <p>
+    Even though the sets have the same cardinality, their <strong>measures</strong> live in
+    different unit spaces:
+  </p>
+
+  <ul>
+    <li>length → cm</li>
+    <li>area → cm²</li>
+    <li>volume → cm³</li>
+  </ul>
+
+  <p>
+    These units are not interchangeable. A square centimeter is not “just more centimeters.”
+    It is a <strong>different kind of quantity</strong>.
+  </p>
+
+  <div class="highlight">
+    <p>
+      Laegna treats each dimensional infinity as a different “species” of infinity.  
+      They cannot be compared directly, but they can be related by a
+      <strong>dimensional multiplier</strong>.
+    </p>
+  </div>
+
+  <p>
+    This multiplier is what lets you “lift” a 1D infinity into 2D, or compress a 3D infinity into
+    a 1D projection. It is the engine behind Laegna’s dimensional arithmetic.
+  </p>
+</section>
+
+
+<!-- ————————————————————————————————————————————————
+     ARTICLE 2 — How Dimensions Create New Orderings
+     ———————————————————————————————————————————————— -->
+<section>
+  <h2>Article 2 — Why a Square Has a Different Ordering Than a Line</h2>
+
+  <p>
+    A line has a simple order: left to right.  
+    A square does not. It has two independent directions.
+  </p>
+
+  <p>
+    When you project a square onto a line using:
+  </p>
+
+  <div class="math">
+    
+
+\[
+    s = x + y,
+    \]
+
+
+  </div>
+
+  <p>
+    you collapse a 2D world into a 1D shadow.  
+    Many different points in the square map to the same number.
+  </p>
+
+  <p class="quote">
+    “A square centimeter is not just a bigger line. It is a different ordering of infinity.”
+  </p>
+
+  <p>
+    This is why Laegna says that each dimension creates a new <strong>ordering</strong> of numbers.
+    The line’s order is not the square’s order, and the square’s order is not the cube’s.
+  </p>
+
+  <h3>The dimensional hinge at 2</h3>
+
+  <p>
+    There is a special value where addition and multiplication coincide:
+  </p>
+
+  <div class="math">
+    
+
+\[
+    2 + 2 = 2 \cdot 2 = 4.
+    \]
+
+
+  </div>
+
+  <p>
+    This value marks the boundary between:
+  </p>
+
+  <ul>
+    <li>filling a dimension (0 → 2)</li>
+    <li>unfolding a dimension (2 → 4)</li>
+  </ul>
+
+  <p>
+    This is why Laegna treats the interval 2..4 as a “linearized exponent” — a way to walk through
+    infinity using a finite scale.
+  </p>
+</section>
+
+
+<!-- ————————————————————————————————————————————————
+     ARTICLE 3 — Why Units Make Limits Distinct
+     ———————————————————————————————————————————————— -->
+<section>
+  <h2>Article 3 — Why a Limit in cm Is Not the Same as a Limit in cm²</h2>
+
+  <p>
+    Suppose you have two sequences:
+  </p>
+
+  <div class="math">
+    
+
+\[
+    a_n \text{ cm}, \qquad b_n \text{ cm}^2.
+    \]
+
+
+  </div>
+
+  <p>
+    Even if the numbers \(a_n\) and \(b_n\) are tightly correlated — even if they share a perfect
+    symmetry at infinity — their limits live in <strong>different dimensional spaces</strong>.
+  </p>
+
+  <p class="quote">
+    “A limit in centimeters cannot equal a limit in square centimeters,  
+    even if the numbers look the same.”
+  </p>
+
+  <p>
+    This is because:
+  </p>
+
+  <ul>
+    <li>cm is a 1D unit</li>
+    <li>cm² is a 2D unit</li>
+  </ul>
+
+  <p>
+    And these units cannot be converted without introducing a dimensional multiplier — the same
+    multiplier that relates \(\inf^1\) to \(\inf^2\).
+  </p>
+
+  <div class="highlight">
+    <p>
+      In Laegna, units are not decorations.  
+      They are <strong>dimensional identities</strong> that determine what a number is allowed to
+      equal.
+    </p>
+  </div>
+
+  <p>
+    So even if:
+  </p>
+
+  <div class="math">
+    
+
+\[
+    \lim_{n\to\infty} a_n = A, \qquad
+    \lim_{n\to\infty} b_n = A,
+    \]
+
+
+  </div>
+
+  <p>
+    the quantities:
+  </p>
+
+  <div class="math">
+    
+
+\[
+    A\text{ cm} \neq A\text{ cm}^2.
+    \]
+
+
+  </div>
+
+  <p>
+    They are different kinds of objects.  
+    Their equality is not even a meaningful question.
+  </p>
+</section>
+
+
+<section class="summary">
+  <h3>What These Three Articles Add Up To</h3>
+  <p>
+    Laegna gives numbers a body, not just a position.  
+    It treats infinity as a layered structure, not a single idea.  
+    And it treats units as dimensional identities, not labels.
+  </p>
+  <p>
+    Together, these ideas form a new way to think about mathematics — one where geometry,
+    infinity, and arithmetic are all part of the same dimensional language.
+  </p>
+</section>
+
+</div>
+
+
+
+
+
+
+<style>
+  .laegna-paper {
+    font-family: "STIX Two Text", "Georgia", serif;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    color: #1a1a1a;
+    background: #fafafa;
+    border-left: 6px solid #4c1d95;
+  }
+
+  .laegna-paper h1,
+  .laegna-paper h2,
+  .laegna-paper h3 {
+    font-family: "STIX Two Text", "Georgia", serif;
+    font-weight: 600;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  .laegna-paper h1 {
+    font-size: 1.9rem;
+    margin-top: 0;
+  }
+
+  .laegna-paper h2 {
+    font-size: 1.4rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.3rem;
+  }
+
+  .laegna-paper h3 {
+    font-size: 1.15rem;
+    margin-top: 1.6rem;
+  }
+
+  .laegna-paper p {
+    font-size: 1.02rem;
+    line-height: 1.62;
+    margin: 0.7rem 0;
+  }
+
+  .laegna-paper .abstract {
+    background: #f3e8ff;
+    border-left: 4px solid #6d28d9;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.98rem;
+  }
+
+  .laegna-paper .theorem,
+  .laegna-paper .definition,
+  .laegna-paper .proposition,
+  .laegna-paper .lemma {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    padding: 1rem 1.2rem;
+    margin: 1.4rem 0;
+    border-left: 4px solid #4c1d95;
+  }
+
+  .laegna-paper .theorem-title,
+  .laegna-paper .definition-title,
+  .laegna-paper .proposition-title,
+  .laegna-paper .lemma-title {
+    font-weight: 600;
+    color: #4c1d95;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .laegna-paper .proof {
+    border-left: 3px solid #9ca3af;
+    padding-left: 0.9rem;
+    margin: 0.6rem 0 1.2rem;
+    font-size: 0.96rem;
+  }
+
+  .laegna-paper .proof-title {
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .laegna-paper .summary {
+    background: #eef2ff;
+    border-left: 4px solid #4338ca;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+  }
+</style>
+
+<div class="laegna-paper">
+
+  <header>
+    <h1>Dimensional Infinities, Units, and Distinct Limits in Laegna</h1>
+    <section class="abstract">
+      <strong>Abstract.</strong>
+      We formalize the idea that infinities of different dimensional orders
+      \(\inf^1 u^1, \inf^2 u^2, \inf^3 u^3\) (for a base unit \(u\)) are qualitatively distinct,
+      even when their underlying point sets have equal cardinality. We show how dimensional
+      multipliers compare these infinities, and prove that limits of sequences with different units
+      (e.g. \(a_n\,\text{cm}\) and \(b_n\,\text{cm}^2\)) remain distinct values, even when their
+      numeric parts are correlated and share symmetry at infinity.
+    </section>
+  </header>
+
+  <section>
+    <h2>1. Dimensional infinities and units</h2>
+
+    <p>
+      Fix a base unit \(u\) (e.g. \(u = 1\text{ cm}\)). Consider the following spaces:
+    </p>
+
+    <p>
+      <span class="math-block">
+        
+
+\[
+        L^1 = [0,1]u \subset \mathbb{R}^1,\quad
+        L^2 = [0,1]^2 u^2 \subset \mathbb{R}^2,\quad
+        L^3 = [0,1]^3 u^3 \subset \mathbb{R}^3.
+        \]
+
+
+      </span>
+    </p>
+
+    <p>
+      Each carries a natural measure: length on \(L^1\), area on \(L^2\), volume on \(L^3\).
+      We denote these measures by \(\mu_1, \mu_2, \mu_3\).
+    </p>
+
+    <div class="definition">
+      <div class="definition-title">Definition 1 (Dimensional infinity of order \(k\))</div>
+      <p>
+        For \(k \in \{1,2,3\}\), define the <em>dimensional infinity of order \(k\)</em> as the
+        unbounded family of disjoint copies of \(L^k\) along a ray:
+      </p>
+      <p>
+        
+
+\[
+        \inf^k u^k := \{ L^k_n \mid n \in \mathbb{N} \}, \quad
+        L^k_n \cong L^k,\quad L^k_n \cap L^k_m = \emptyset \text{ for } n \neq m.
+        \]
+
+
+      </p>
+      <p>
+        The total measure of this family is
+        
+
+\[
+        \mu_k(\inf^k u^k) = \sum_{n=1}^{\infty} \mu_k(L^k_n) = \infty \cdot u^k.
+        \]
+
+
+      </p>
+    </div>
+
+    <div class="proposition">
+      <div class="proposition-title">Proposition 1 (Dimensional distinction)</div>
+      <p>
+        For \(k \neq \ell\), the infinities \(\inf^k u^k\) and \(\inf^\ell u^\ell\) are
+        incomparable as measures, but are related by a dimensional multiplier when embedded into a
+        higher‑dimensional system.
+      </p>
+      <div class="proof">
+        <div class="proof-title">Proof.</div>
+        <p>
+          As sets, \(L^1, L^2, L^3\) all have the same cardinality (that of the continuum).
+          However, their measures \(\mu_1, \mu_2, \mu_3\) take values in different unit spaces:
+          \(\mathbb{R}u^1, \mathbb{R}u^2, \mathbb{R}u^3\). There is no unit‑preserving isomorphism
+          between \(\mathbb{R}u^k\) and \(\mathbb{R}u^\ell\) for \(k \neq \ell\).
+        </p>
+        <p>
+          When we embed \(L^1\) into \(L^3\) as a line segment inside a cube, we obtain a
+          <em>dimensional multiplier</em>: a factor that converts length into volume by attaching
+          two additional orthogonal infinitesimal directions. This multiplier is not a scalar in
+          \(\mathbb{R}\), but a change of unit from \(u^1\) to \(u^3\).
+        </p>
+        <p>
+          Thus \(\inf^1 u^1\) and \(\inf^3 u^3\) cannot be compared as pure measures, but can be
+          related via a dimensional shift that tracks how many orthogonal infinitesimal directions
+          are attached. This is the Laegna dimensional multiplier. \(\square\)
+        </p>
+      </div>
+    </div>
+
+    <p>
+      In Laegna terms: the <strong>ordering</strong> of points inside \(L^1\) and \(L^2\) is
+      different because the measure space and unit space are different, even though the underlying
+      cardinality is the same.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. New ordering induced by square and cube units</h2>
+
+    <p>
+      The passage from \(u^1\) to \(u^2\) and \(u^3\) does more than change units: it changes the
+      way infinities are <em>organized</em>.
+    </p>
+
+    <div class="lemma">
+      <div class="lemma-title">Lemma 1 (Square units induce a new ordering)</div>
+      <p>
+        Let \(x \in L^1\) and \((x,y) \in L^2\). The projection
+        
+
+\[
+        \pi(x,y) = x + y \in [0,2]u
+        \]
+
+
+        defines a linear order on the square, but this order is not equivalent to the original
+        order on the line \(L^1\).
+      </p>
+      <div class="proof">
+        <div class="proof-title">Proof.</div>
+        <p>
+          The line \(L^1\) has its natural order inherited from \(\mathbb{R}\). The square \(L^2\)
+          has a partial order (product order) and many possible linear extensions. The map
+          \(\pi(x,y) = x + y\) collapses the 2D structure into a 1D interval, but different pairs
+          \((x_1,y_1)\) and \((x_2,y_2)\) with the same sum are identified:
+          
+
+\[
+          x_1 + y_1 = x_2 + y_2 \quad \Rightarrow \quad \pi(x_1,y_1) = \pi(x_2,y_2).
+          \]
+
+
+        </p>
+        <p>
+          Thus the induced order on \(L^2\) via \(\pi\) is not isomorphic to the original order on
+          \(L^1\); it is a quotient order that encodes 2D structure in a different way. This is a
+          genuinely new ordering, arising from the square unit \(u^2\). \(\square\)
+        </p>
+      </div>
+    </div>
+
+    <div class="proposition">
+      <div class="proposition-title">Proposition 2 (Dimensional multiplier as reusable infinity)</div>
+      <p>
+        Once a dimensional infinity \(\inf^2 u^2\) is introduced, it can be reused as a building
+        block for higher dimensions, yielding \(\inf^3 u^3, \inf^4 u^4,\dots\) via repeated
+        attachment of orthogonal infinitesimal directions.
+      </p>
+      <div class="proof">
+        <div class="proof-title">Proof.</div>
+        <p>
+          Consider \(L^2 = [0,1]^2 u^2\). To obtain \(L^3\), we attach a new orthogonal axis
+          \(z \in [0,1]\) with unit \(u\), forming
+          
+
+\[
+          L^3 = L^2 \times [0,1]u.
+          \]
+
+
+          The measure satisfies
+          
+
+\[
+          \mu_3(L^3) = \mu_2(L^2) \cdot u.
+          \]
+
+
+        </p>
+        <p>
+          Repeating this construction, each new dimension multiplies the existing infinity by an
+          additional infinitesimal direction. Thus \(\inf^2 u^2\) serves as a reusable “module” for
+          constructing \(\inf^3 u^3\), \(\inf^4 u^4\), etc., each with its own unit and ordering.
+          \(\square\)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Limits with units: distinct values under correlation</h2>
+
+    <p>
+      Now consider sequences with units:
+    </p>
+
+    <p>
+      <span class="math-block">
+        
+
+\[
+        a_n u \in \mathbb{R}u,\qquad b_n u^2 \in \mathbb{R}u^2.
+        \]
+
+
+      </span>
+    </p>
+
+    <p>
+      Suppose the numeric parts \(a_n, b_n\) are correlated, for example
+      
+
+\[
+      b_n = f(a_n)
+      \]
+
+
+      for some function \(f\), and both sequences have limits:
+      
+
+\[
+      \lim_{n\to\infty} a_n = A,\qquad \lim_{n\to\infty} b_n = B.
+      \]
+
+
+    </p>
+
+    <div class="theorem">
+      <div class="theorem-title">Theorem 1 (Unit‑separated limits are distinct)</div>
+      <p>
+        Even if the numeric limits satisfy a relation \(B = f(A)\), the limits
+        \(\lim a_n u\) and \(\lim b_n u^2\) are distinct elements of different unit spaces and
+        cannot be equal as quantities.
+      </p>
+      <div class="proof">
+        <div class="proof-title">Proof.</div>
+        <p>
+          The limit \(\lim a_n u\) is an element of the 1‑dimensional quantity space
+          \(\mathbb{R}u\). The limit \(\lim b_n u^2\) is an element of the 2‑dimensional quantity
+          space \(\mathbb{R}u^2\).
+        </p>
+        <p>
+          There is no unit‑preserving isomorphism between \(\mathbb{R}u\) and \(\mathbb{R}u^2\):
+          any map identifying \(Au\) with \(Bu^2\) would have to send a length to an area, which
+          contradicts dimensional analysis. Therefore, even if \(B = f(A)\) numerically, the
+          quantities \(Au\) and \(Bu^2\) are distinct and incomparable as elements of a single
+          ordered field.
+        </p>
+        <p>
+          Hence the limits remain distinct values in their respective unit spaces. \(\square\)
+        </p>
+      </div>
+    </div>
+
+    <h3>3.1. Infinity symmetries of correlations</h3>
+
+    <p>
+      Suppose further that the correlation between \(a_n\) and \(b_n\) has a symmetry at infinity,
+      e.g.
+      
+
+\[
+      \lim_{n\to\infty} \frac{b_n}{a_n^2} = C
+      \]
+
+
+      for some constant \(C\). This expresses a stable relationship between the <em>growth rates</em>
+      of the sequences.
+    </p>
+
+    <div class="proposition">
+      <div class="proposition-title">Proposition 3 (Symmetric correlations still preserve dimensional distinction)</div>
+      <p>
+        Even when the correlation between \(a_n\) and \(b_n\) has a well‑defined symmetry at
+        infinity, the limits \(\lim a_n u\) and \(\lim b_n u^2\) remain distinct quantities with
+        different dimensional values.
+      </p>
+      <div class="proof">
+        <div class="proof-title">Proof.</div>
+        <p>
+          The ratio
+          
+
+\[
+          \frac{b_n}{a_n^2}
+          \]
+
+
+          is dimensionless if \(b_n u^2\) scales like \((a_n u)^2\). Its limit \(C\) describes a
+          stable proportionality between the <em>numeric parts</em> of the sequences.
+        </p>
+        <p>
+          However, the quantities themselves live in different spaces:
+          
+
+\[
+          a_n u \in \mathbb{R}u,\qquad b_n u^2 \in \mathbb{R}u^2.
+          \]
+
+
+          The symmetry at infinity constrains how fast one grows relative to the other, but does not
+          collapse the dimensional distinction between length and area.
+        </p>
+        <p>
+          Therefore, even under such symmetric correlations, the limits are distinct numbers in
+          Laegna’s sense: they occupy different dimensional layers of the quantity hierarchy.
+          \(\square\)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Summary: why limits and infinities stay distinct</h2>
+
+    <div class="summary">
+      <p>
+        <strong>(1)</strong> Infinities \(\inf^k u^k\) of different dimensional orders are
+        qualitatively distinct: they live in different unit spaces and induce different orderings,
+        even when their underlying point sets have equal cardinality.
+      </p>
+      <p>
+        <strong>(2)</strong> Square and cube units (\(u^2, u^3\)) introduce new orderings via
+        projections like \(\pi(x,y) = x + y\), which collapse higher‑dimensional structure into
+        lines but do not reproduce the original 1D order.
+      </p>
+      <p>
+        <strong>(3)</strong> Limits of sequences with different units (e.g. \(a_n u\) vs.
+        \(b_n u^2\)) remain distinct quantities, even when their numeric parts are correlated and
+        share symmetries at infinity. Dimensional analysis prevents their identification.
+      </p>
+      <p>
+        In Laegna, this dimensional separation is not a technicality but a core feature: it is what
+        allows infinities and limits to be compared via multipliers without collapsing them into a
+        single undifferentiated “infinite” object.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+
+
+
+<style>
+  .laegna-article {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    color: #111827;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+    background: #f9fafb;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .laegna-article h1,
+  .laegna-article h2,
+  .laegna-article h3 {
+    font-family: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0.02em;
+    color: #0f172a;
+  }
+
+  .laegna-article h1 {
+    font-size: 1.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .laegna-article h2 {
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.25rem;
+  }
+
+  .laegna-article h3 {
+    font-size: 1.1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .laegna-article p {
+    margin: 0.4rem 0 0.7rem;
+  }
+
+  .laegna-article strong {
+    font-weight: 600;
+  }
+
+  .laegna-article .laegna-lead {
+    font-size: 0.98rem;
+    color: #4b5563;
+    margin-bottom: 1.4rem;
+  }
+
+  .laegna-article .laegna-block {
+    background: #ffffff;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .laegna-article .laegna-block--accent {
+    border-color: #c4b5fd;
+    background: #f5f3ff;
+  }
+
+  .laegna-article .laegna-block-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b21a8;
+    margin-bottom: 0.4rem;
+  }
+
+  .laegna-article ul {
+    margin: 0.4rem 0 0.7rem 1.3rem;
+    padding: 0;
+  }
+
+  .laegna-article li {
+    margin: 0.2rem 0;
+  }
+
+  .laegna-article code {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    background: #111827;
+    color: #e5e7eb;
+    padding: 0.08rem 0.3rem;
+    border-radius: 0.25rem;
+  }
+
+  .laegna-article .laegna-inline-math {
+    white-space: nowrap;
+  }
+
+  .laegna-article .laegna-section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9ca3af;
+    margin-bottom: 0.2rem;
+  }
+
+  .laegna-article .laegna-summary {
+    border-left: 3px solid #a855f7;
+    padding-left: 0.75rem;
+    margin-top: 0.6rem;
+    color: #4b5563;
+    font-size: 0.92rem;
+  }
+</style>
+
+<article class="laegna-article">
+
+  <header>
+    <div class="laegna-section-label">Laegna dimensional arithmetic</div>
+    <h1>Scale, Infinity, and Order as a Basis for Intuitive Proofs</h1>
+    <p class="laegna-lead">
+      In Laegna, numbers are not just points on a fixed line. Each value has a visible linear
+      projection and a hidden dimensional structure. Once you see this, arithmetic becomes geometric,
+      infinity becomes measurable, and many proofs become almost obvious.
+    </p>
+  </header>
+
+  <section>
+    <h2>1. Dimensional digits: numbers with hidden structure</h2>
+
+    <p>
+      In Laegna, a “digit” is not a single scalar but a small 2‑dimensional object. The simplest
+      version is a pair \((x, y)\) with
+      <span class="laegna-inline-math">\(x \in [0,1],\; y \in [0,1]\)</span>.
+      This pair lives in a unit square filled with infinitesimal points.
+    </p>
+
+    <div class="laegna-block">
+      <div class="laegna-block-title">Visible vs. hidden value</div>
+      <p>
+        The <strong>visible value</strong> of the digit is the linear projection
+        <span class="laegna-inline-math">\(s = x + y \in [0,2]\)</span>.
+      </p>
+      <p>
+        The <strong>hidden value</strong> is the dimensional structure: the fact that \((x, y)\)
+        belongs to a square whose axes each contain an uncountable infinity of points. The square
+        carries an “infinity of order”
+        <span class="laegna-inline-math">\(\infty^2\)</span>,
+        even though its area is just \(1\text{ cm}^2\) or simply \(1\) in abstract units.
+      </p>
+    </div>
+
+    <p>
+      This is the first key Laegna idea: a finite segment or region can host different
+      <strong>densities of infinity</strong>. The visible number \(s\) is only a shadow of a richer
+      object: a 2‑dimensional infinitesimal substrate.
+    </p>
+
+    <h3>1.1. Addition vs. multiplication as projections</h3>
+
+    <p>
+      Consider the special point where \(x = y\). Then
+      <span class="laegna-inline-math">\(s = x + x = 2x\)</span>.
+      At the same time, the “dimensional replication” of this value is
+      <span class="laegna-inline-math">\(x \cdot x = x^2\)</span>.
+    </p>
+
+    <p>
+      The equation
+      <span class="laegna-inline-math">\(x + x = x \cdot x\)</span>
+      has a unique positive solution:
+      <span class="laegna-inline-math">\(x = 2\)</span>.
+      At this point,
+      <span class="laegna-inline-math">\(2 + 2 = 2 \times 2 = 4\)</span>.
+    </p>
+
+    <div class="laegna-block laegna-block--accent">
+      <div class="laegna-block-title">Dimensional fixed point</div>
+      <p>
+        The value \(2\) is a <strong>dimensional fixed point</strong>:
+      </p>
+      <ul>
+        <li><strong>Linear extension:</strong> \(2 + 2\) extends the line.</li>
+        <li><strong>Dimensional replication:</strong> \(2 \times 2\) replicates the dimension.</li>
+        <li>At \(2\), these two views coincide numerically in the value \(4\).</li>
+      </ul>
+      <p class="laegna-summary">
+        In Laegna, \(2\) is not just “two”; it is the hinge where addition and multiplication
+        describe the same structural event.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Scale-dependent ordering: the line reorients with scale</h2>
+
+    <p>
+      Now imagine that every point on the line is not just a bare number, but a mixture of the four
+      basic compounds:
+      <strong>addition</strong>, <strong>subtraction</strong>,
+      <strong>multiplication</strong>, and <strong>division</strong>.
+      As you change scale, the relative dominance of these compounds changes.
+    </p>
+
+    <p>
+      This means the <strong>order of numbers is not absolute</strong>. It depends on the scale and
+      on which operation dominates at that scale.
+    </p>
+
+    <h3>2.1. A simple example of order changing with scale</h3>
+
+    <p>
+      Compare the expressions
+      <span class="laegna-inline-math">\(f(a) = a + a \cdot a\)</span>
+      and
+      <span class="laegna-inline-math">\(g(a) = a + \frac{a}{a}\)</span>.
+    </p>
+
+    <ul>
+      <li>
+        For small \(a\), the term \(\frac{a}{a} = 1\) can dominate the behavior of \(g(a)\),
+        while \(a \cdot a\) is tiny.
+      </li>
+      <li>
+        For large \(a\), the term \(a \cdot a\) dominates \(f(a)\), while \(\frac{a}{a}\) stays at 1.
+      </li>
+    </ul>
+
+    <p>
+      As \(a\) moves across scales, the relative order of \(f(a)\) and \(g(a)\) can flip. This is a
+      concrete instance of your observation:
+    </p>
+
+    <div class="laegna-block">
+      <p>
+        <em>“As you change the value of \(a\), the position of
+        \(a + a \cdot a\) relative to \(a + a / a\) changes; therefore, the line also changes as you
+        scale up and down.”</em>
+      </p>
+    </div>
+
+    <h3>2.2. Octaves of scale</h3>
+
+    <p>
+      Laegna organizes scale into <strong>octaves</strong>, analogous to musical octaves or Fourier
+      frequencies. A natural octave is defined by doubling:
+    </p>
+
+    <ul>
+      <li><strong>First octave:</strong> \([0, 2]\)</li>
+      <li><strong>Second octave:</strong> \([2, 4]\)</li>
+      <li><strong>Third octave:</strong> \([4, 8]\)</li>
+      <li>and so on.</li>
+    </ul>
+
+    <p>
+      In the first octave \([0, 2]\), you can think of yourself as “filling” the 2D digit: the unit
+      square of \((x, y)\) values. The visible projection
+      <span class="laegna-inline-math">\(s = x + y\)</span>
+      runs from 0 to 2.
+    </p>
+
+    <p>
+      In the second octave \([2, 4]\), you are no longer just filling the square; you are
+      <strong>unfolding the exponent</strong>—using the dimensional multiplier to map a finite
+      interval into an infinite scale.
+    </p>
+
+    <div class="laegna-block laegna-block--accent">
+      <div class="laegna-block-title">Linearizing the exponent</div>
+      <p>
+        Conceptually, you can treat the interval \([2, 4]\) as a linear parameter over an infinite
+        ray \([2, \infty)\). Each point in \([2, 4]\) corresponds to a different “power” of the
+        dimensional multiplier, so that:
+      </p>
+      <p class="laegna-summary">
+        <strong>0..2:</strong> fill the square (compress \(\infty^2\) into a finite line).<br>
+        <strong>2..4:</strong> unfold the exponent (map a finite line into a measurable infinity).
+      </p>
+    </div>
+
+    <p>
+      This is what you described as:
+      <em>“2 to 4 projects each point in given precision to 2 to infinity, creating measurable
+      infinity scale.”</em>
+    </p>
+  </section>
+
+  <section>
+    <h2>3. The center line: where order is invariant</h2>
+
+    <p>
+      The line has a special “center of order” where
+      <span class="laegna-inline-math">\(x = y\)</span>
+      and
+      <span class="laegna-inline-math">\(2 + 2 = 2 \times 2\)</span>.
+      At this point, whichever of the four basic operations you use to build the value \(4\), the
+      <strong>relative order</strong> of nearby numbers does not change.
+    </p>
+
+    <p>
+      This gives a geometric meaning to your statement:
+    </p>
+
+    <div class="laegna-block">
+      <p>
+        <em>“The center line of order is where \(x = y\), where \(2 + 2 = 2 \times 2\) – whichever
+        operations of 4 you do, you won’t change order.”</em>
+      </p>
+    </div>
+
+    <h3>3.1. Symmetry of 0..2 and 2..4</h3>
+
+    <p>
+      Around this center, the intervals \([0, 2]\) and \([2, 4]\) behave like mirror images:
+    </p>
+
+    <ul>
+      <li>
+        \([0, 2]\): you move from “no dimension filled” to “square fully filled”.
+      </li>
+      <li>
+        \([2, 4]\): you move from “square fully filled” to “square replicated as exponent”.
+      </li>
+    </ul>
+
+    <p>
+      The ordering from \(4 \to 2\) mirrors the ordering from \(0 \to 2\). This is why you can say:
+      <em>“From 4..2, identical order symmetry to 0..2 appears.”</em>
+    </p>
+
+    <h3>3.2. Infinity, order, and density</h3>
+
+    <p>
+      You also observed:
+    </p>
+
+    <div class="laegna-block">
+      <p>
+        <em>“From infinity..2, the order of numbers is same. Although smaller order infinity also
+        continues indefinitely, and you always meet new numbers: its density is so much lower, that
+        it’s shorter line if measured at dense line.”</em>
+      </p>
+    </div>
+
+    <p>
+      In Laegna terms:
+    </p>
+
+    <ul>
+      <li>
+        There are <strong>different orders of infinity</strong> (e.g. \(\infty, \infty^2, \infty^3\)),
+        each with its own density.
+      </li>
+      <li>
+        When projected onto a fixed “dense” line (like the 0..2 octave), higher‑order infinities
+        appear as <strong>shorter segments</strong>.
+      </li>
+      <li>
+        The ordering from \(\infty \to 2\) can match the ordering from \(2 \to 0\), even though the
+        densities differ.
+      </li>
+    </ul>
+
+    <p class="laegna-summary">
+      Infinity is not a single object but a family of densities. A “smaller order infinity” can be
+      infinitely long in its own sparse scale, yet correspond to a short segment when measured
+      against a denser octave.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Why this makes proofs intuitive</h2>
+
+    <p>
+      Once you accept that numbers are dimensional digits, that the line reorders itself with scale,
+      and that 2 is a fixed point where addition and multiplication coincide, many proofs become
+      geometric rather than symbolic.
+    </p>
+
+    <h3>4.1. Inequalities and growth</h3>
+
+    <p>
+      To compare two expressions, you no longer ask only “which is bigger?” in a static sense. You
+      ask:
+    </p>
+
+    <ul>
+      <li>How do they behave across octaves?</li>
+      <li>At which scales does one dominate the other?</li>
+      <li>How does their hidden dimensional structure differ?</li>
+    </ul>
+
+    <p>
+      This makes asymptotic comparisons (like “which grows faster?”) almost visual: you see which
+      expression “wins” as you move through octaves of scale.
+    </p>
+
+    <h3>4.2. Infinity and convergence</h3>
+
+    <p>
+      Instead of treating infinity as a limit point, you treat it as a <strong>density field</strong>.
+      A series converges or diverges depending on how its contributions distribute across octaves and
+      how dense its tail is when projected onto a chosen line.
+    </p>
+
+    <p>
+      This aligns with your idea of a “Fourier scale of infinities”: each octave is like a frequency
+      band, and convergence is about how much “energy” remains in higher bands.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Compressed summary of the core Laegna picture</h2>
+
+    <div class="laegna-block laegna-block--accent">
+      <div class="laegna-block-title">Three key ideas</div>
+      <p>
+        <strong>1. Dimensional digits.</strong> Numbers are projections of higher‑dimensional
+        infinitesimal structures. A value like \(s = x + y\) hides a full square of points and an
+        \(\infty^2\) substrate.
+      </p>
+      <p>
+        <strong>2. Scale‑dependent ordering.</strong> The number line reorients itself at each
+        octave. The relative order of expressions like \(a + a \cdot a\) and
+        \(a + a / a\) changes with scale.
+      </p>
+      <p>
+        <strong>3. Dimensional fixed point at 2.</strong> The value \(2\) is where
+        \(x + x = x \cdot x\). It is the hinge between filling a dimension and replicating it, and
+        it anchors the symmetry of 0..2, 2..4, and the infinite tail beyond.
+      </p>
+    </div>
+
+    <p>
+      These three ideas are enough to start doing Laegna‑style reasoning: proofs that move by
+      following dimension, scale, and order, rather than by pushing symbols around blindly.
+    </p>
+  </section>
+
+</article>
+
+
+
+
+
+<style>
+/* ————————————————————————————————————————————————
+   Laegna Mathematical Paper Layout
+   ———————————————————————————————————————————————— */
+
+.laegna-paper {
+  font-family: "STIX Two Text", "Georgia", serif;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  color: #1a1a1a;
+  background: #fafafa;
+  border-left: 6px solid #4c1d95;
+}
+
+.laegna-paper h1,
+.laegna-paper h2,
+.laegna-paper h3 {
+  font-family: "STIX Two Text", "Georgia", serif;
+  font-weight: 600;
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+.laegna-paper h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.laegna-paper h2 {
+  font-size: 1.45rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3rem;
+}
+
+.laegna-paper h3 {
+  font-size: 1.15rem;
+  margin-top: 1.6rem;
+}
+
+.laegna-paper p {
+  font-size: 1.02rem;
+  line-height: 1.62;
+  margin: 0.7rem 0;
+}
+
+.laegna-paper .abstract {
+  background: #f3e8ff;
+  border-left: 4px solid #6d28d9;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 0.98rem;
+}
+
+.laegna-paper .theorem,
+.laegna-paper .definition,
+.laegna-paper .proposition {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  padding: 1rem 1.2rem;
+  margin: 1.4rem 0;
+  border-left: 4px solid #4c1d95;
+}
+
+.laegna-paper .theorem-title,
+.laegna-paper .definition-title,
+.laegna-paper .proposition-title {
+  font-weight: 600;
+  color: #4c1d95;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.laegna-paper .aligned-block {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #ddd;
+}
+
+.laegna-paper .summary {
+  background: #eef2ff;
+  border-left: 4px solid #4338ca;
+  padding: 1rem 1.2rem;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+}
+
+</style>
+
+
+<div class="laegna-paper">
+
+<h1>Dimensional Arithmetic in Laegna:  
+A Scale‑Dependent Foundation for Order, Infinity, and Proof</h1>
+
+<div class="abstract">
+<strong>Abstract.</strong>  
+This paper introduces the Laegna framework for dimensional arithmetic, where numbers are not atomic points but projections of higher‑dimensional infinitesimal structures. We show how scale determines ordering, how addition and multiplication coincide at a dimensional fixed point, and how infinity becomes measurable through octave‑based projection. These principles yield intuitive geometric proofs for inequalities, growth, and convergence.
+</div>
+
+
+<h2>1. Dimensional Digits and Their Projections</h2>
+
+<p>
+A Laegna digit is a pair \((x, y)\) with \(x, y \in [0,1]\), representing a point in a unit square.  
+The visible number is the linear projection
+
+
+\[
+s = x + y \in [0,2],
+\]
+
+
+while the hidden structure is the infinitesimal substrate of the square, carrying an uncountable infinity of order \(\infty^2\).
+</p>
+
+<div class="definition">
+  <div class="definition-title">Definition 1 (Dimensional Digit)</div>
+  A <em>dimensional digit</em> is a pair \((x,y)\) with visible projection  
+  
+
+\[
+  \pi_1(x,y) = x + y,
+  \]
+
+
+  and hidden dimensional multiplier  
+  
+
+\[
+  \pi_2(x,y) = x \cdot y.
+  \]
+
+
+</div>
+
+<p>
+Thus every number in \([0,2]\) is the shadow of a 2‑dimensional infinitesimal continuum.
+</p>
+
+
+<h3>1.1. Addition and Multiplication as Projections</h3>
+
+<p>
+When \(x = y\), the visible and hidden projections satisfy
+
+
+\[
+x + x = x \cdot x.
+\]
+
+
+The unique positive solution is \(x = 2\), giving the identity
+
+
+\[
+2 + 2 = 2 \cdot 2 = 4.
+\]
+
+
+</p>
+
+<div class="proposition">
+  <div class="proposition-title">Proposition 1 (Dimensional Fixed Point)</div>
+  The value \(2\) is the unique point where linear extension and dimensional replication coincide.
+</div>
+
+
+<h2>2. Scale‑Dependent Ordering of Arithmetic</h2>
+
+<p>
+The number line is not fixed. Each value is a mixture of the four basic compounds  
+
+
+\[
++, \quad -, \quad \cdot, \quad /,
+\]
+
+
+and the dominance of these compounds changes with scale.  
+Thus the <strong>order of numbers depends on scale</strong>.
+</p>
+
+<div class="aligned-block">
+
+
+\[
+f(a) = a + a^2, \qquad g(a) = a + \frac{a}{a}.
+\]
+
+
+For small \(a\), \(g(a)\) dominates; for large \(a\), \(f(a)\) dominates.  
+Their ordering reverses as scale changes.
+</div>
+
+<p>
+This motivates the octave structure of Laegna arithmetic.
+</p>
+
+
+<h3>2.1. Octaves of Scale</h3>
+
+<p>
+Scaling by a factor of 2 produces natural arithmetic octaves:
+
+
+\[
+[0,2],\quad [2,4],\quad [4,8],\quad \dots
+\]
+
+
+</p>
+
+<ul>
+<li>\([0,2]\): filling the 2D digit (compressing \(\infty^2\) into a finite line)</li>
+<li>\([2,4]\): unfolding the exponent (mapping finite line into measurable infinity)</li>
+</ul>
+
+<div class="theorem">
+  <div class="theorem-title">Theorem 1 (Exponent Linearization)</div>
+  The interval \([2,4]\) is linearly isomorphic to a measurable infinite ray \([2,\infty)\) under the dimensional multiplier.  
+  Each point \(t \in [2,4]\) corresponds to a unique exponentiated scale.
+</div>
+
+
+<h2>3. Symmetry Around the Dimensional Center</h2>
+
+<p>
+The intervals \([0,2]\) and \([2,4]\) are mirror projections of the same dimensional structure.  
+The ordering from \(4 \to 2\) mirrors the ordering from \(2 \to 0\).
+</p>
+
+<div class="aligned-block">
+
+
+\[
+2 + 2 = 2 \cdot 2
+\quad\Longrightarrow\quad
+\text{addition and multiplication preserve order at the center.}
+\]
+
+
+</div>
+
+<p>
+This explains why the number line “reorients” itself at each octave.
+</p>
+
+
+<h3>3.1. Infinity as Density</h3>
+
+<p>
+Laegna distinguishes infinities by density.  
+A higher‑dimensional infinity (e.g. \(\infty^3\)) is less dense when projected onto a lower‑dimensional line.
+</p>
+
+<div class="proposition">
+  <div class="proposition-title">Proposition 2 (Density Compression)</div>
+  When projected onto a dense octave such as \([0,2]\), higher‑order infinities correspond to shorter measurable segments.
+</div>
+
+
+<h2>4. Consequences for Proof and Reasoning</h2>
+
+<p>
+Because arithmetic is dimensional and scale‑dependent, many classical proofs become geometric.
+</p>
+
+<h3>4.1. Inequalities</h3>
+
+<p>
+To compare expressions, one examines their behavior across octaves:
+
+
+\[
+f(a) \prec g(a) \quad\text{in octave } n
+\]
+
+
+rather than globally.  
+This makes monotonicity and dominance visually intuitive.
+</p>
+
+<h3>4.2. Convergence</h3>
+
+<p>
+A series converges if its contributions decay in density across octaves.  
+This reframes convergence as a geometric thinning of dimensional mass.
+</p>
+
+
+<div class="summary">
+<strong>Summary.</strong>  
+Laegna arithmetic rests on three principles:
+<ul>
+<li>Numbers are dimensional digits with visible and hidden projections.</li>
+<li>The number line reorders itself with scale through octave structure.</li>
+<li>The value \(2\) is the dimensional fixed point where addition and multiplication coincide.</li>
+</ul>
+These principles make proofs intuitive by grounding them in geometry, density, and dimensional symmetry.
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<!-- TOP LETTERS -->
+<div id="top-Z">Z</div>
+<div id="top-X">X</div>
+<div id="top-Y">Y</div>
+
+<!-- RIGHT NAV -->
+<div id="left-nav">
+  <div class="nav-icon" onclick="window.scrollTo({top:0, behavior:'smooth'})">⌂</div>
+  <div class="nav-icon">◉</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="content">
+
+<style>
+  article.measurement-demo {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 1.5rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.measurement-demo h1,
+  article.measurement-demo h2 {
+    margin-top: 0;
+  }
+
+  article.measurement-demo .figure-wrapper {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  article.measurement-demo svg {
+    border: 1px solid #ccc;
+    background: #fafafa;
+  }
+
+  article.measurement-demo .label {
+    font-size: 12px;
+    fill: #222;
+  }
+</style>
+
+<article class="measurement-demo">
+  <header>
+    <h1>Visualizing Relative Measurements with Squares X, Y, and Z</h1>
+    <p>
+      This illustration uses an SVG container to show three squares—X, Y, and Z—whose sizes are
+      related by simple measurement ratios. All squares are centered in the same container to make
+      their relative sizes easy to compare.
+    </p>
+  </header>
+
+  <section>
+    <h2>Measurement relationships</h2>
+    <p>The SVG container represents the reference space. Within it:</p>
+    <ul>
+      <li><strong>X:</strong> A square about <strong>5×5 times smaller</strong> than the container.</li>
+      <li><strong>Y:</strong> A square <strong>2×2 times bigger than X</strong>.</li>
+      <li><strong>Z:</strong> A square <strong>2×2 times smaller than X</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>SVG illustration</h2>
+    <div class="figure-wrapper">
+      <svg width="500" height="500" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+        <title id="title">Measurement of squares X, Y, and Z</title>
+        <desc id="desc">
+          A large container with three centered squares: Y (largest), X (medium), and Z (smallest).
+        </desc>
+
+        <!-- Container outline -->
+        <rect x="0" y="0" width="500" height="500"
+              fill="none" stroke="#999" stroke-dasharray="6 4" />
+
+        <!-- Y: 200 × 200 -->
+        <rect x="150" y="150" width="200" height="200"
+              fill="rgba(66, 135, 245, 0.12)" stroke="#4287f5" stroke-width="2" />
+        <text x="250" y="145" text-anchor="middle" class="label">Y (2× X)</text>
+
+        <!-- X: 100 × 100 -->
+        <rect x="200" y="200" width="100" height="100"
+              fill="rgba(76, 175, 80, 0.18)" stroke="#4caf50" stroke-width="2" />
+        <text x="250" y="195" text-anchor="middle" class="label">X (reference)</text>
+
+        <!-- Z: 50 × 50 -->
+        <rect x="225" y="225" width="50" height="50"
+              fill="rgba(244, 67, 54, 0.22)" stroke="#f44336" stroke-width="2" />
+        <text x="250" y="220" text-anchor="middle" class="label">Z (½× X)</text>
+
+        <!-- Center marker -->
+        <circle cx="250" cy="250" r="3" fill="#333" />
+      </svg>
+    </div>
+  </section>
+</article>
+
+<style>
+  article.octave-encoding {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.octave-encoding h1,
+  article.octave-encoding h2 {
+    margin-top: 0;
+  }
+
+  article.octave-encoding .figure-wrapper {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  article.octave-encoding svg {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 8px;
+  }
+
+  article.octave-encoding .label {
+    font-size: 12px;
+    fill: #222;
+  }
+
+  article.octave-encoding .value-strip {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  article.octave-encoding .value-box {
+    min-width: 80px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid #bbb;
+    background: #f7f7f7;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  article.octave-encoding .value-box span.code {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #555;
+  }
+</style>
+
+<article class="octave-encoding">
+  <header>
+    <h1>First‑order octave encoding of Z, X, and Y</h1>
+    <p>
+      Here Z, X, and Y are treated as pure values in octave space: a constant, order‑0 encoding
+      with no explicit time or geometric extent. Each value is a single coordinate on a linear
+      axis of doubling and halving.
+    </p>
+  </header>
+
+  <section>
+    <h2>Octave positions as order‑0 values</h2>
+    <p>
+      The three symbols are mapped to integers that describe their octave shift:
+    </p>
+    <ul>
+      <li><strong>Z = −1:</strong> one octave down, a division by two.</li>
+      <li><strong>X = 0:</strong> the reference octave, neutral scaling.</li>
+      <li><strong>Y = 1:</strong> one octave up, a multiplication by two.</li>
+    </ul>
+    <p>
+      As order‑0 constants, these values summarize a whole “complex” of possible measurements into
+      a single scalar: the average position of all sensitive dimensions collapsed into one octave
+      index.
+    </p>
+  </section>
+
+  <section>
+    <h2>Informative value strip</h2>
+    <p>
+      The following strip shows the three octave values as rounded boxes, emphasizing their
+      symmetric placement around the reference:
+    </p>
+
+    <div class="figure-wrapper">
+      <div class="value-strip" aria-label="Octave values Z, X, Y">
+        <div class="value-box">
+          Z = −1
+          <span class="code">one octave down</span>
+        </div>
+        <div class="value-box">
+          X = 0
+          <span class="code">reference octave</span>
+        </div>
+        <div class="value-box">
+          Y = 1
+          <span class="code">one octave up</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Linear value tree as order‑0 structure</h2>
+    <p>
+      Even though we speak of a “tree”, with only three values the structure is linear: there are
+      no branches, just a chain of positions along the octave axis. The SVG below encodes this
+      order‑0 tree, where each node is a distinct value, similar to basis vectors like
+      [1, 0, 0], [0, 1, 0], [0, 0, 1] in a trivial identity matrix.
+    </p>
+
+    <div class="figure-wrapper">
+      <svg width="500" height="220" viewBox="0 0 500 220" role="img" aria-labelledby="treeTitle treeDesc">
+        <title id="treeTitle">Linear value tree of Z, X, and Y</title>
+        <desc id="treeDesc">
+          A simple tree with three nodes in a line: Z at the left, X in the center, Y at the right,
+          representing octave positions −1, 0, and 1.
+        </desc>
+
+        <!-- Baseline -->
+        <line x1="60" y1="110" x2="440" y2="110" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4 4" />
+
+        <!-- Edges -->
+        <line x1="140" y1="110" x2="250" y2="110" stroke="#888" stroke-width="2" />
+        <line x1="250" y1="110" x2="360" y2="110" stroke="#888" stroke-width="2" />
+
+        <!-- Z node -->
+        <rect x="110" y="80" rx="12" ry="12" width="60" height="60"
+              fill="#fbe9e7" stroke="#e64a19" stroke-width="2" />
+        <text x="140" y="108" text-anchor="middle" class="label">Z</text>
+        <text x="140" y="124" text-anchor="middle" class="label">−1</text>
+
+        <!-- X node -->
+        <rect x="220" y="80" rx="12" ry="12" width="60" height="60"
+              fill="#e8f5e9" stroke="#388e3c" stroke-width="2" />
+        <text x="250" y="108" text-anchor="middle" class="label">X</text>
+        <text x="250" y="124" text-anchor="middle" class="label">0</text>
+
+        <!-- Y node -->
+        <rect x="330" y="80" rx="12" ry="12" width="60" height="60"
+              fill="#e3f2fd" stroke="#1976d2" stroke-width="2" />
+        <text x="360" y="108" text-anchor="middle" class="label">Y</text>
+        <text x="360" y="124" text-anchor="middle" class="label">1</text>
+
+        <!-- Order-0 label -->
+        <text x="250" y="190" text-anchor="middle" class="label">
+          order‑0 linear value tree (no branching)
+        </text>
+      </svg>
+    </div>
+  </section>
+
+  <section>
+    <h2>Three‑digit scopes and R = 3</h2>
+    <p>
+      Once a single octave value is understood, we can scope it by repeating the symbol. A
+      three‑digit code like <strong>“ZZZ”</strong> means “take Z at radius R = 3”: the value is
+      pushed to its own extreme within a three‑step window. Similarly, “XXX” and “YYY” mark the
+      neutral and upper extremes in the same radius.
+    </p>
+    <p>
+      In this sense, R = 3 behaves like a small, symmetric horizon around the origin: a finite
+      shell that is still topologically coherent with an underlying infinite, linearly ordered
+      space. The simple codes Z, X, Y act like basis directions; their repeated forms (ZZZ, XXX,
+      YYY) hint at how higher‑order structures can be built, much like identity matrices and
+      Hilbert‑style constructions extend trivial coordinates into richer, potentially
+      infinite‑dimensional spaces.
+    </p>
+  </section>
+</article>
+
+<style>
+  article.base3-complex {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.base3-complex h1,
+  article.base3-complex h2 {
+    margin-top: 0;
+  }
+
+  article.base3-complex .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+
+  article.base3-complex .digit-box {
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid #bbb;
+    background: #f7f7f7;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  article.base3-complex .digit-box span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #555;
+  }
+
+  article.base3-complex svg {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+
+  article.base3-complex .label {
+    font-size: 12px;
+    fill: #222;
+  }
+</style>
+
+<article class="base3-complex">
+  <header>
+    <h1>Base‑3 complex encoding of octave pairs</h1>
+    <p>
+      The octave values Z = −1, X = 0, and Y = 1 can be paired to form a two‑dimensional,
+      order‑0 complex digit system. Each digit is a pair of octave positions, forming a 3×3 grid
+      of equally scaled, equally precise values. This creates a hologram‑like pointer: a compact,
+      two‑dimensional value whose internal phase acts as a local exponent.
+    </p>
+  </header>
+
+  <section>
+    <h2>From octave values to paired coordinates</h2>
+    <p>
+      Each axis uses the same symmetric set {Z, X, Y} mapped to {0, 1, 2}. Pairing them produces
+      nine possible combinations:
+    </p>
+    <ul>
+      <li>(Z,Z), (Z,X), (Z,Y)</li>
+      <li>(X,Z), (X,X), (X,Y)</li>
+      <li>(Y,Z), (Y,X), (Y,Y)</li>
+    </ul>
+    <p>
+      These pairs behave like complex digits: two components, equal scope, equal scale, and no
+      branching. The system remains order‑0 because each pair is still a single point, but the
+      two‑dimensionality introduces a local exponent through the phase between the components.
+    </p>
+  </section>
+
+  <section>
+    <h2>Base‑3 mapping into digits 1–9</h2>
+    <p>
+      Mapping Z→0, X→1, Y→2 turns each pair into a base‑3 number. Converting to decimal yields
+      nine distinct values, assigned to digits 1–9:
+    </p>
+
+    <div class="value-grid">
+      <div class="digit-box">1<span>(Z,Z → 00)</span></div>
+      <div class="digit-box">2<span>(Z,X → 01)</span></div>
+      <div class="digit-box">3<span>(Z,Y → 02)</span></div>
+
+      <div class="digit-box">4<span>(X,Z → 10)</span></div>
+      <div class="digit-box">5<span>(X,X → 11)</span></div>
+      <div class="digit-box">6<span>(X,Y → 12)</span></div>
+
+      <div class="digit-box">7<span>(Y,Z → 20)</span></div>
+      <div class="digit-box">8<span>(Y,X → 21)</span></div>
+      <div class="digit-box">9<span>(Y,Y → 22)</span></div>
+    </div>
+
+    <p>
+      All digits share identical resolution: each is a pair of octave values, each axis has three
+      states, and the grid is uniform. This symmetry ensures equal precision, scope, and scale
+      across the entire system.
+    </p>
+  </section>
+
+  <section>
+    <h2>Order‑0 structure with a local exponent</h2>
+    <p>
+      Although the digits are two‑dimensional, they remain order‑0 because they do not branch or
+      extend in time or space. The exponent‑like behavior arises from the relation between the two
+      axes: a phase shift that acts locally, influencing the value without creating higher‑order
+      growth. The number itself becomes a measure of internal scope and branching potential.
+    </p>
+  </section>
+
+  <section>
+    <h2>SVG representation of the 3×3 complex digit grid</h2>
+    <p>
+      The following SVG shows the nine paired values arranged in their natural base‑3 lattice:
+    </p>
+
+    <svg width="420" height="420" viewBox="0 0 420 420" role="img" aria-labelledby="gridTitle gridDesc">
+      <title id="gridTitle">3×3 complex digit grid</title>
+      <desc id="gridDesc">A grid showing the nine paired octave values mapped to digits 1–9.</desc>
+
+      <!-- Grid lines -->
+      <line x1="140" y1="20" x2="140" y2="400" stroke="#ccc" />
+      <line x1="280" y1="20" x2="280" y2="400" stroke="#ccc" />
+      <line x1="20" y1="140" x2="400" y2="140" stroke="#ccc" />
+      <line x1="20" y1="280" x2="400" y2="280" stroke="#ccc" />
+
+      <!-- Cells -->
+      <!-- Row 1 -->
+      <rect x="40" y="40" width="80" height="80" rx="10" fill="#fbe9e7" stroke="#e64a19" />
+      <text x="80" y="90" text-anchor="middle" class="label">1</text>
+
+      <rect x="160" y="40" width="80" height="80" rx="10" fill="#fbe9e7" stroke="#e64a19" />
+      <text x="200" y="90" text-anchor="middle" class="label">2</text>
+
+      <rect x="280" y="40" width="80" height="80" rx="10" fill="#fbe9e7" stroke="#e64a19" />
+      <text x="320" y="90" text-anchor="middle" class="label">3</text>
+
+      <!-- Row 2 -->
+      <rect x="40" y="160" width="80" height="80" rx="10" fill="#e8f5e9" stroke="#388e3c" />
+      <text x="80" y="210" text-anchor="middle" class="label">4</text>
+
+      <rect x="160" y="160" width="80" height="80" rx="10" fill="#e8f5e9" stroke="#388e3c" />
+      <text x="200" y="210" text-anchor="middle" class="label">5</text>
+
+      <rect x="280" y="160" width="80" height="80" rx="10" fill="#e8f5e9" stroke="#388e3c" />
+      <text x="320" y="210" text-anchor="middle" class="label">6</text>
+
+      <!-- Row 3 -->
+      <rect x="40" y="280" width="80" height="80" rx="10" fill="#e3f2fd" stroke="#1976d2" />
+      <text x="80" y="330" text-anchor="middle" class="label">7</text>
+
+      <rect x="160" y="280" width="80" height="80" rx="10" fill="#e3f2fd" stroke="#1976d2" />
+      <text x="200" y="330" text-anchor="middle" class="label">8</text>
+
+      <rect x="280" y="280" width="80" height="80" rx="10" fill="#e3f2fd" stroke="#1976d2" />
+      <text x="320" y="330" text-anchor="middle" class="label">9</text>
+    </svg>
+  </section>
+
+  <section>
+    <h2>Scaling to multi‑digit scopes</h2>
+    <p>
+      Multi‑digit codes such as “ZZZ”, “XXX”, or “YYY” extend the same symmetry into radius
+      R = 3. These sequences behave like small, finite horizons that remain topologically coherent
+      with infinite linear spaces. The base‑3 complex digits form the foundation for such
+      higher‑order constructions, preserving identity‑matrix‑like triviality while allowing
+      dimensional extension.
+    </p>
+  </section>
+</article>
+
+<style>
+  article.order2-digits {
+    max-width: 820px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.order2-digits h1,
+  article.order2-digits h2 {
+    margin-top: 0;
+  }
+
+  article.order2-digits .bit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+
+  article.order2-digits .bit-box {
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid #bbb;
+    background: #f7f7f7;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  article.order2-digits .bit-box span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #555;
+  }
+
+  article.order2-digits svg {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+
+  article.order2-digits .label {
+    font-size: 12px;
+    fill: #222;
+  }
+</style>
+
+<article class="order2-digits">
+  <header>
+    <h1>Order‑2 digit construction from binary and ternary bits</h1>
+    <p>
+      The four symbols I, O, A, E form a two‑bit system: one bit distinguishes I from O and A from E, and another bit distinguishes the two groups (IO vs AE). Adding lowercase forms i, o, a, e introduces a third bit, dividing the set into two parallel layers. This creates an order‑2 digit system whose internal structure is measured across several bit‑levels.
+    </p>
+  </header>
+
+  <section>
+    <h2>The binary core: two bits defining I, O, A, E</h2>
+    <p>
+      The first two bits define the classical four‑value system:
+    </p>
+    <ul>
+      <li><strong>Bit z:</strong> distinguishes I vs O, and A vs E.</li>
+      <li><strong>Bit x:</strong> distinguishes the IO group from the AE group.</li>
+    </ul>
+    <p>
+      These two bits create a stable, symmetric 2×2 structure. Each symbol is a point in this binary square, and the system is still order‑0: no branching, no time, no spatial extension.
+    </p>
+
+    <div class="bit-grid">
+      <div class="bit-box">I<span>(x=0, z=0)</span></div>
+      <div class="bit-box">O<span>(x=0, z=1)</span></div>
+      <div class="bit-box">A<span>(x=1, z=0)</span></div>
+      <div class="bit-box">E<span>(x=1, z=1)</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Adding the third bit: lowercase forms and the y‑layer</h2>
+    <p>
+      Introducing lowercase symbols creates a second layer:
+    </p>
+    <ul>
+      <li><strong>Bit y:</strong> uppercase vs lowercase.</li>
+    </ul>
+    <p>
+      This expands the system to eight values:
+    </p>
+
+    <div class="bit-grid">
+      <div class="bit-box">I<span>y=0</span></div>
+      <div class="bit-box">O<span>y=0</span></div>
+      <div class="bit-box">A<span>y=0</span></div>
+      <div class="bit-box">E<span>y=0</span></div>
+
+      <div class="bit-box">i<span>y=1</span></div>
+      <div class="bit-box">o<span>y=1</span></div>
+      <div class="bit-box">a<span>y=1</span></div>
+      <div class="bit-box">e<span>y=1</span></div>
+    </div>
+
+    <p>
+      The result is a 2×2×2 cube of values: an order‑2 digit, because its internal structure is measured across three bits, not one. Yet it remains order‑0 in the sense that each symbol is still a single, indivisible point.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where Z‑X‑Y scaling enters: the order‑1 frequency axis</h2>
+    <p>
+      The Z‑X‑Y scale (−1, 0, 1) is not a dimension of truth values but a <strong>frequential axis</strong>. It behaves like seasons: a three‑step cycle that repeats across local octaves. This is an order‑1 structure because it measures how a value changes across octave‑mapped symmetries.
+    </p>
+    <p>
+      In continuous space, this corresponds to extremely slow exponential drift: a number whose growth rate is tied to its last infinitesimal value. When slowed to the limit, this drift becomes octave‑like. Thus, the discrete Z‑X‑Y axis mirrors a smooth, continuous frequency line.
+    </p>
+  </section>
+
+  <section>
+    <h2>Discrete vs continuous scaling</h2>
+    <p>
+      The discrete system restarts at each digit length. This allows linear approximation of higher‑order spaces: each digit is a small step, and the sequence of digits accumulates precision. The continuous system, by contrast, never restarts; it flows smoothly.
+    </p>
+    <p>
+      Yet both systems converge when the symbolic sequence becomes long enough. After enough steps, the discrete digit‑space can pinpoint a value “in infinity”: the limit of an infinite series of symbolic moments.
+    </p>
+  </section>
+
+  <section>
+    <h2>SVG: the 2×2×2 order‑2 digit cube</h2>
+    <p>
+      The following SVG shows the eight values arranged as a cube of bits x, y, z:
+    </p>
+
+    <svg width="500" height="300" viewBox="0 0 500 300" aria-labelledby="cubeTitle cubeDesc">
+      <title id="cubeTitle">Order‑2 digit cube</title>
+      <desc id="cubeDesc">A cube showing the eight values I,O,A,E,i,o,a,e arranged by bits x,y,z.</desc>
+
+      <!-- Cube edges -->
+      <line x1="120" y1="80" x2="220" y2="80" stroke="#aaa" />
+      <line x1="120" y1="80" x2="120" y2="180" stroke="#aaa" />
+      <line x1="220" y1="80" x2="220" y2="180" stroke="#aaa" />
+      <line x1="120" y1="180" x2="220" y2="180" stroke="#aaa" />
+
+      <line x1="160" y1="40" x2="260" y2="40" stroke="#aaa" />
+      <line x1="160" y1="40" x2="160" y2="140" stroke="#aaa" />
+      <line x1="260" y1="40" x2="260" y2="140" stroke="#aaa" />
+      <line x1="160" y1="140" x2="260" y2="140" stroke="#aaa" />
+
+      <!-- Connect layers -->
+      <line x1="120" y1="80" x2="160" y2="40" stroke="#aaa" />
+      <line x1="220" y1="80" x2="260" y2="40" stroke="#aaa" />
+      <line x1="120" y1="180" x2="160" y2="140" stroke="#aaa" />
+      <line x1="220" y1="180" x2="260" y2="140" stroke="#aaa" />
+
+      <!-- Upper layer: uppercase -->
+      <text x="160" y="70" text-anchor="middle" class="label">I</text>
+      <text x="260" y="70" text-anchor="middle" class="label">O</text>
+      <text x="160" y="170" text-anchor="middle" class="label">A</text>
+      <text x="260" y="170" text-anchor="middle" class="label">E</text>
+
+      <!-- Lower layer: lowercase -->
+      <text x="120" y="110" text-anchor="middle" class="label">i</text>
+      <text x="220" y="110" text-anchor="middle" class="label">o</text>
+      <text x="120" y="210" text-anchor="middle" class="label">a</text>
+      <text x="220" y="210" text-anchor="middle" class="label">e</text>
+    </svg>
+  </section>
+
+  <section>
+    <h2>Integral and differential orders</h2>
+    <p>
+      The order‑2 digit cube is discrete, but its Z‑X‑Y scaling is continuous in spirit. The discrete digits act as integral steps; the octave‑like drift acts as a differential flow. Together they form a hybrid system: symbolic precision built from small steps, and smooth frequency encoded in the transitions.
+    </p>
+    <p>
+      This duality allows the symbolic system to approximate continuous growth, quadratic curves, or exponential behavior, depending on how the digits accumulate. The structure remains identical at each digit length, but the magnitude changes, giving the system its power to represent both finite and infinite values.
+    </p>
+  </section>
+</article>
+
+<style>
+  article.order1-binary-scaling {
+    max-width: 820px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 1.5rem 2rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.order1-binary-scaling h1,
+  article.order1-binary-scaling h2 {
+    margin-top: 0;
+  }
+
+  article.order1-binary-scaling .value-strip {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  article.order1-binary-scaling .value-box {
+    min-width: 90px;
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid #bbb;
+    background: #f7f7f7;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  article.order1-binary-scaling .value-box span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #555;
+  }
+
+  article.order1-binary-scaling svg {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+
+  article.order1-binary-scaling .label {
+    font-size: 12px;
+    fill: #222;
+  }
+</style>
+
+<article class="order1-binary-scaling">
+  <header>
+    <h1>Binary mapping of octave‑scaled values at order‑1</h1>
+    <p>
+      When octave = 2 and radius R = 2, the first‑order function collapses into a binary axis:
+      <strong>O = −1</strong> and <strong>A = +1</strong>. This is the classical False/True
+      polarity. The earlier Z‑X‑Y values (−1, 0, 1) now become 0‑order constants that can be
+      encoded as three‑bit binary strings. These strings represent the same information density as
+      the previous order‑2 system, but one degree lower.
+    </p>
+  </header>
+
+  <section>
+    <h2>Binary polarity: O = −1 and A = +1</h2>
+    <p>
+      At octave = 2, the system reduces to a pure binary axis. The two values are:
+    </p>
+
+    <div class="value-strip">
+      <div class="value-box">O<span>−1 (False)</span></div>
+      <div class="value-box">A<span>+1 (True)</span></div>
+    </div>
+
+    <p>
+      This binary axis is the first‑order projection of the richer Z‑X‑Y structure. It is the
+      minimal “frequency” representation: a single octave split into two halves.
+    </p>
+  </section>
+
+  <section>
+    <h2>Encoding Z, X, Y as three‑bit binary strings</h2>
+    <p>
+      The 0‑order constants Z, X, and Y can be represented using three binary digits. Each digit
+      is either A (1) or O (0). These three bits correspond to the three‑valued structure of the
+      original Z‑X‑Y axis:
+    </p>
+
+    <ul>
+      <li><strong>Z = −1</strong> → <strong>A00</strong></li>
+      <li><strong>X = 0</strong> → <strong>OAO</strong></li>
+      <li><strong>Y = +1</strong> → <strong>OOA</strong></li>
+    </ul>
+
+    <p>
+      The mapping is not arbitrary: each bit corresponds to a structural component of the
+      three‑valued system. The final bit (rightmost) determines whether the value “steps up” into
+      the next octave. Thus <strong>OOA</strong> (Y) is one power higher than <strong>OAO</strong>
+      (X), which is higher than <strong>A00</strong> (Z).
+    </p>
+  </section>
+
+  <section>
+    <h2>Why three bits represent one octave of three values</h2>
+    <p>
+      A three‑valued system cannot be represented by a single binary bit. Instead, it requires
+      three bits to encode the same amount of information. This is why the Z‑X‑Y axis, although
+      0‑order, is informationally denser than the binary O/A axis.
+    </p>
+    <p>
+      The three bits act like a compressed hologram: each bit contributes a part of the structure,
+      and the full three‑bit string reconstructs the value’s position in the octave.
+    </p>
+  </section>
+
+  <section>
+    <h2>Information density and octave scaling</h2>
+    <p>
+      Any value expressible in information space is one integral level (one octave) more dense
+      than the raw three‑value representation. The three‑bit encoding is therefore the “next
+      octave up” from the Z‑X‑Y constants. But compared to the earlier eight‑value cube (I/O/A/E
+      with lowercase), this is one degree lower: the cube was order‑2, while this is order‑1.
+    </p>
+    <p>
+      The system scales smoothly: each increase in order adds a new dimension of measurement, but
+      the internal structure remains digit‑wise identical. This allows discrete systems to
+      approximate continuous ones. When numbers restart at each digit length, the system becomes
+      locally linear even in higher spaces.
+    </p>
+  </section>
+
+  <section>
+    <h2>SVG: binary mapping of Z, X, Y</h2>
+    <p>
+      The following SVG shows the three values mapped into their binary strings:
+    </p>
+
+    <svg width="500" height="200" viewBox="0 0 500 200" aria-labelledby="binTitle binDesc">
+      <title id="binTitle">Binary mapping of Z, X, Y</title>
+      <desc id="binDesc">Three boxes showing A00, OAO, and OOA as binary encodings of Z, X, Y.</desc>
+
+      <!-- Z -->
+      <rect x="40" y="40" width="120" height="60" rx="10" fill="#fbe9e7" stroke="#e64a19" />
+      <text x="100" y="75" text-anchor="middle" class="label">Z → A00</text>
+
+      <!-- X -->
+      <rect x="190" y="40" width="120" height="60" rx="10" fill="#e8f5e9" stroke="#388e3c" />
+      <text x="250" y="75" text-anchor="middle" class="label">X → OAO</text>
+
+      <!-- Y -->
+      <rect x="340" y="40" width="120" height="60" rx="10" fill="#e3f2fd" stroke="#1976d2" />
+      <text x="400" y="75" text-anchor="middle" class="label">Y → OOA</text>
+    </svg>
+  </section>
+
+  <section>
+    <h2>Discrete steps and continuous drift</h2>
+    <p>
+      In continuous space, growth based on the last infinitesimal value becomes octave‑like when
+      slowed to the limit. This creates a smooth rival to the discrete system. But because the
+      discrete digits restart at each length, they approximate the continuous line with surprising
+      accuracy. Each digit is a small step; the full sequence is a path through symbolic space.
+    </p>
+    <p>
+      After enough steps, the symbolic sequence can pinpoint a value “in infinity”: the limit of
+      an infinite series of discrete moments. This is how discrete octaves and continuous
+      exponentials converge.
+    </p>
+  </section>
+</article>
+
+
+
+<!-- ZX Holographic Fractal Artwork Box -->
+<section class="zxy-artwork">
+
+  <a href="https://spireason.neocities.org/exceetae1.html" class="zxy-center-link">
+    Enter the Structure
+  </a>
+
+</section>
+
+
+<style>
+.zxy-artwork{
+  position:relative;
+  width:100%;
+  min-height:340px;
+  margin:40px 0;
+  overflow:hidden;
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(120,160,255,0.25), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(255,180,120,0.2), transparent 65%),
+    linear-gradient(135deg,#05070d,#0b0f1a,#090c16);
+  border:1px solid rgba(120,150,255,0.25);
+  box-shadow:
+    0 0 60px rgba(120,150,255,0.15),
+    inset 0 0 40px rgba(120,150,255,0.08);
+}
+
+
+/* HOLOGRAM GRID */
+.zxy-artwork::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    repeating-linear-gradient(
+      60deg,
+      rgba(140,180,255,0.05) 0px,
+      rgba(140,180,255,0.05) 1px,
+      transparent 1px,
+      transparent 30px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      rgba(255,170,140,0.05) 0px,
+      rgba(255,170,140,0.05) 1px,
+      transparent 1px,
+      transparent 30px
+    );
+  animation:zxy-rotate 40s linear infinite;
+}
+
+
+/* FRACTAL WAVE LAYER */
+.zxy-artwork::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 70%),
+    conic-gradient(
+      from 0deg,
+      rgba(120,200,255,0.12),
+      rgba(255,150,120,0.12),
+      rgba(180,255,200,0.12),
+      rgba(120,200,255,0.12)
+    );
+  filter:blur(35px);
+  animation:zxy-fractal 25s ease-in-out infinite alternate;
+}
+
+
+/* CENTER LINK */
+.zxy-center-link{
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:260px;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+
+  font-size:20px;
+  letter-spacing:1px;
+  color:#eaf2ff;
+  text-decoration:none;
+
+  background:linear-gradient(
+    135deg,
+    rgba(100,140,255,0.25),
+    rgba(255,160,120,0.25)
+  );
+
+  border:1px solid rgba(150,180,255,0.35);
+  border-radius:12px;
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+    0 0 20px rgba(120,150,255,0.4),
+    inset 0 0 20px rgba(120,150,255,0.15);
+
+  transition:all 0.4s ease;
+  z-index:10;
+}
+
+
+/* HOVER: scale + harmonic glow */
+.zxy-center-link:hover{
+  transform:scale(1.08);
+  box-shadow:
+    0 0 40px rgba(120,150,255,0.7),
+    0 0 80px rgba(255,150,120,0.35),
+    inset 0 0 30px rgba(255,255,255,0.15);
+}
+
+
+
+/* ROTATIONS = SCALE / OCTAVE FEEL */
+@keyframes zxy-rotate{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+@keyframes zxy-fractal{
+  from{transform:scale(1) rotate(0deg);}
+  to{transform:scale(1.3) rotate(20deg);}
+}
+</style>
+
+
+
+<article id="binary-octave-article">
+  <header>
+    <h1>Binary Encoding of Octaves, Phases, and Frequencies</h1>
+    <p>
+      Musical and energetic states can be encoded using three binary bits based on letters O and A, representing values -1 and 1. Each bit corresponds to a distinct plane of existence:
+    </p>
+  </header>
+
+  <section>
+    <h2>Three Planes and Bits</h2>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Bit</th>
+          <th>Plane</th>
+          <th>Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Y</td><td>Spiritual / Activation</td><td>Engagement of higher consciousness</td></tr>
+        <tr><td>X</td><td>Mental / Frequency</td><td>Oscillation or wave pattern in mental plane</td></tr>
+        <tr><td>Z</td><td>Physical / Octave</td><td>Octave or material manifestation</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Binary Values of O and A</h2>
+    <p>
+      Each bit can take the value O (-1) or A (1). Triplets define the full state:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Sequence</th><th>Y</th><th>X</th><th>Z</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>OOO</td><td>-1</td><td>-1</td><td>-1</td></tr>
+        <tr><td>OOA</td><td>-1</td><td>-1</td><td>1</td></tr>
+        <tr><td>OAO</td><td>-1</td><td>1</td><td>-1</td></tr>
+        <tr><td>OAA</td><td>-1</td><td>1</td><td>1</td></tr>
+        <tr><td>AOO</td><td>1</td><td>-1</td><td>-1</td></tr>
+        <tr><td>AOA</td><td>1</td><td>-1</td><td>1</td></tr>
+        <tr><td>AAO</td><td>1</td><td>1</td><td>-1</td></tr>
+        <tr><td>AAA</td><td>1</td><td>1</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Static Measurement</h2>
+    <p>
+      Each bit has a fixed weight when computing a static value:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr><th>Bit</th><th>Weight</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Y</td><td>4</td></tr>
+        <tr><td>X</td><td>2</td></tr>
+        <tr><td>Z</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p>Value = Y × 4 + X × 2 + Z × 1</p>
+  </section>
+
+  <section>
+    <h2>Octave Measurement</h2>
+    <p>
+      Octaves are measured multiplicatively. Each bit corresponds to a multiplication level:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr><th>Bit</th><th>Octave Multiplication</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Y</td><td>3<sup>rd</sup> multiplication</td></tr>
+        <tr><td>X</td><td>2<sup>nd</sup> multiplication</td></tr>
+        <tr><td>Z</td><td>1<sup>st</sup> multiplication</td></tr>
+      </tbody>
+    </table>
+    <p>Examples:</p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr><th>Sequence</th><th>Octave Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OOA</td><td>2 × 2 = 4</td></tr>
+        <tr><td>OAA</td><td>(2 × 2) × (2 × 2) = 16</td></tr>
+        <tr><td>AAA</td><td>((2 × 2) × (2 × 2)) × ((2 × 2) × (2 × 2)) = 256</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Linearized Octave Scale</h2>
+    <p>
+      Octaves can be represented in a linearized 1:2 sequence, treating O as 0 and A as 1. Each triplet maps to a distinct octave slice:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Sequence</th><th>Linear Index</th><th>Octave Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>OOO</td><td>0</td><td>1</td></tr>
+        <tr><td>OOA</td><td>1</td><td>2</td></tr>
+        <tr><td>OAO</td><td>2</td><td>4</td></tr>
+        <tr><td>OAA</td><td>3</td><td>8</td></tr>
+        <tr><td>AOO</td><td>4</td><td>16</td></tr>
+        <tr><td>AOA</td><td>5</td><td>32</td></tr>
+        <tr><td>AAO</td><td>6</td><td>64</td></tr>
+        <tr><td>AAA</td><td>7</td><td>128</td></tr>
+      </tbody>
+    </table>
+    <p>This shows how the three-bit encoding generates octave values in a **binary-linear fashion**.</p>
+  </section>
+
+  <section>
+    <h2>Summary</h2>
+    <ul>
+      <li>Three bits encode three planes: spiritual (Y), mental (X), physical (Z).</li>
+      <li>O and A values (-1,1) allow symmetric binary representation.</li>
+      <li>Static weights provide numeric values for evaluation.</li>
+      <li>Octave multiplication provides geometric scaling of frequencies.</li>
+      <li>Linearized octaves map each bit combination to a distinct slice of the octave scale.</li>
+    </ul>
+  </section>
+</article>
+
+
+
+<article id="scientific-binary-octaves">
+  <header>
+    <h1>Scientific Theory of Three-Bit Plane Encoding</h1>
+    <p>
+      Binary encoding of O and A across three planes allows a formalized model of wave dynamics, octave structure, and activation within a multi-level framework. Each bit represents a plane: spiritual (Y), mental (X), and physical/octave (Z).
+    </p>
+  </header>
+
+  <section>
+    <h2>Planes and Their Effects</h2>
+    <p>The three planes exhibit distinct behaviors in terms of their influence on functions, accelerations, and linearity:</p>
+    <ul>
+      <li><strong>Activation Plane (Y)</strong>: Modulates the entire system’s function at a higher-order level. Effects are applied once across all underlying accelerations. Functionally, it can be seen as <code>f(f(n))</code>, providing exponential modulation.</li>
+      <li><strong>Frequency Plane (X)</strong>: Acts primarily linearly. Influences oscillatory behavior in mental/functional domain.</li>
+      <li><strong>Octave/Physical Plane (Z)</strong>: Provides acceleration or deceleration of values but within a metastable bound. Changes propagate to levels without violating metaphysical constraints; its effect is sub-linear relative to Y, modulating structure rather than absolute growth.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Binary Values and Plane Mapping</h2>
+    <p>
+      Each bit can take O (-1) or A (1). Triplets define the state of the system across three planes. These states allow **wave inference and symmetry calculations**:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr><th>Sequence</th><th>Y</th><th>X</th><th>Z</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OOO</td><td>-1</td><td>-1</td><td>-1</td></tr>
+        <tr><td>OOA</td><td>-1</td><td>-1</td><td>1</td></tr>
+        <tr><td>OAO</td><td>-1</td><td>1</td><td>-1</td></tr>
+        <tr><td>OAA</td><td>-1</td><td>1</td><td>1</td></tr>
+        <tr><td>AOO</td><td>1</td><td>-1</td><td>-1</td></tr>
+        <tr><td>AOA</td><td>1</td><td>-1</td><td>1</td></tr>
+        <tr><td>AAO</td><td>1</td><td>1</td><td>-1</td></tr>
+        <tr><td>AAA</td><td>1</td><td>1</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Mathematical Representation</h2>
+    <p>
+      Static weights can still be applied to describe **quantitative contributions of each plane**:
+    </p>
+    <ul>
+      <li>Y: spiritual / activation → exponential influence</li>
+      <li>X: frequency / mental → linear influence</li>
+      <li>Z: octave / physical → sub-linear influence</li>
+    </ul>
+    <p>
+      Octave values follow multiplicative scaling:
+    </p>
+    <table border="1" cellpadding="4" cellspacing="0">
+      <thead>
+        <tr><th>Sequence</th><th>Octave Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OOA</td><td>2 × 2 = 4</td></tr>
+        <tr><td>OAA</td><td>(2 × 2) × (2 × 2) = 16</td></tr>
+        <tr><td>AAA</td><td>((2 × 2) × (2 × 2)) × ((2 × 2) × (2 × 2)) = 256</td></tr>
+      </tbody>
+    </table>
+    <p>Linearized octave indexing allows mapping of these triplets into **distinct, non-overlapping wave slices**.</p>
+  </section>
+
+  <section>
+    <h2>Wave Inference and Symmetry Scopes</h2>
+    <p>
+      Using the plane encoding, we can analyze **wave symmetry and bounds**:
+    </p>
+    <ul>
+      <li>Activation plane (Y) establishes **upper and lower bounds**; even maximal accelerations respect this bound.</li>
+      <li>Octave plane (Z) can scale amplitude but retains **metastable control** across levels, allowing upward or downward modulation of the system’s base.</li>
+      <li>Frequency plane (X) propagates linearly, affecting oscillatory cycles while remaining constrained by Y and Z.</li>
+      <li>Combined, these produce **reprojected behaviors**, where X is linear, Z sub-linear, and Y exponential across levels.</li>
+    </ul>
+    <p>
+      Mathematically, a state <code>(Y,X,Z)</code> may induce transformations:  
+      <code>n → f_Y(f_X(f_Z(n)))</code>  
+      reflecting how planes combine while maintaining their symmetry properties.
+    </p>
+  </section>
+
+  <section>
+    <h2>Summary</h2>
+    <ul>
+      <li>Three-bit plane encoding allows **precise theoretical modeling** of activation, frequency, and octave effects.</li>
+      <li>Planes act differently: Y exponential, X linear, Z sub-linear.</li>
+      <li>Octave multiplicative scaling produces discrete numeric slices for wave inference.</li>
+      <li>Symmetry scopes arise naturally: bounds (Y), modulation (Z), oscillations (X).</li>
+      <li>Scientific interpretation links the **mathematical encoding** to functional behavior in layered systems.</li>
+    </ul>
+  </section>
+</article>
+
+
+
+
+<script>
+/* -----------------------------------------------------------
+   PART 2 — CONTENT MODULES FOR THE EXISTING SHELL
+   -----------------------------------------------------------
+   This script attaches real content to the three placeholder
+   views: Combinatorics, Trees/Flowers, and Octave Clock.
+   It uses the existing ZXYPlayground API from Part 1.
+----------------------------------------------------------- */
+
+(function() {
+  if (!window.ZXYPlayground) return;
+
+  const articleBody = document.getElementById("article-body");
+  const articleTitle = document.getElementById("article-title");
+  const articleSubtitle = document.getElementById("article-subtitle");
+  const navChips = document.querySelectorAll(".nav-chip");
+
+  /* Utility: remove previously injected modules */
+  function clearEnhancements() {
+    const old = articleBody.querySelectorAll("[data-enhanced]");
+    old.forEach(el => el.remove());
+  }
+
+  /* -----------------------------------------------------------
+     MODULE 1 — COMBINATORICS VIEW
+     ----------------------------------------------------------- */
+  function loadCombinatoricsView() {
+    clearEnhancements();
+
+    const n = ZXYPlayground.getDigits();
+    const summary = ZXYPlayground.zxySummary(n);
+
+    const sec = document.createElement("section");
+    sec.dataset.enhanced = "true";
+    sec.innerHTML = `
+      <h3>Mathematical structure of Z/X/Y strings</h3>
+      <p>
+        A string of length <strong>R = ${n}</strong> over the alphabet
+        {Z, X, Y} behaves like a <em>base‑3 digitizer</em>, but its
+        <strong>value</strong> is not base‑3. Instead, each digit contributes
+        an exponent (Z = −1, X = 0, Y = +1), and the total exponent is the
+        <strong>sum</strong> of these contributions.
+      </p>
+
+      <p>
+        This creates a dual structure:
+      </p>
+      <ul>
+        <li><strong>Exponential</strong> growth of strings: 3<sup>R</sup> = ${summary.countStrings}</li>
+        <li><strong>Linear</strong> growth of exponent range: [−R, R]</li>
+        <li><strong>Quadratic‑style</strong> crowding: many strings map to the same exponent</li>
+      </ul>
+
+      <p>
+        The “digit count” R acts as a <strong>finite resolution</strong> of an
+        otherwise infinite logarithmic scale. Each additional digit increases
+        the resolution of the exponent histogram.
+      </p>
+
+      <figure data-enhanced>
+        <svg id="zxy-histogram" viewBox="0 0 400 200"></svg>
+        <figcaption>Exponent histogram for R = ${n}</figcaption>
+      </figure>
+    `;
+
+    articleBody.appendChild(sec);
+
+    /* Draw histogram */
+    const svg = document.getElementById("zxy-histogram");
+    drawHistogram(svg, n);
+  }
+
+  /* Simple histogram renderer */
+  function drawHistogram(svg, n) {
+    const strings = ZXYPlayground.generateZxyStrings(n);
+    const exps = strings.map(ZXYPlayground.zxyNetExponent);
+    const minK = Math.min(...exps);
+    const maxK = Math.max(...exps);
+
+    const width = 400, height = 200;
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    const counts = {};
+    for (let k = minK; k <= maxK; k++) counts[k] = 0;
+    exps.forEach(k => counts[k]++);
+
+    const keys = Object.keys(counts).map(Number);
+    const maxCount = Math.max(...Object.values(counts));
+    const barWidth = width / keys.length;
+
+    keys.forEach((k, i) => {
+      const h = (counts[k] / maxCount) * (height - 20);
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", i * barWidth + 2);
+      rect.setAttribute("y", height - h - 10);
+      rect.setAttribute("width", barWidth - 4);
+      rect.setAttribute("height", h);
+      rect.setAttribute("fill", "rgba(111,211,255,0.7)");
+      svg.appendChild(rect);
+    });
+  }
+
+  /* -----------------------------------------------------------
+     MODULE 2 — TREES & FLOWERS VIEW
+     ----------------------------------------------------------- */
+  function loadTreeView() {
+    clearEnhancements();
+
+    const branching = ZXYPlayground.getBranching();
+    const depth = ZXYPlayground.getDigits();
+
+    const sec = document.createElement("section");
+    sec.dataset.enhanced = "true";
+    sec.innerHTML = `
+      <h3>Branching structures and digit depth</h3>
+      <p>
+        A digit system with <strong>b</strong> possible values produces a
+        <strong>b‑ary tree</strong> of depth <strong>R</strong>. For Z/X/Y,
+        b = 3. For a hypothetical base‑4 system, b = 4, producing a
+        “flower‑like” radial expansion.
+      </p>
+
+      <p>
+        The total number of nodes is:
+        <br>
+        <code>1 + b + b² + … + bᴿ</code>
+      </p>
+
+      <figure data-enhanced>
+        <svg id="tree-svg" viewBox="0 0 400 260"></svg>
+        <figcaption>Branching = ${branching}, depth = ${depth}</figcaption>
+      </figure>
+    `;
+
+    articleBody.appendChild(sec);
+
+    const svg = document.getElementById("tree-svg");
+    ZXYPlayground.drawTreeFlower(svg, branching, depth);
+  }
+
+  /* -----------------------------------------------------------
+     MODULE 3 — OCTAVE CLOCK VIEW
+     ----------------------------------------------------------- */
+  function loadClockView() {
+    clearEnhancements();
+
+    const modulus = ZXYPlayground.getClockModulus();
+    const n = ZXYPlayground.getDigits();
+
+    const sec = document.createElement("section");
+    sec.dataset.enhanced = "true";
+    sec.innerHTML = `
+      <h3>Octave phase and modular exponent cycles</h3>
+      <p>
+        The exponent sum of a Z/X/Y string behaves like a discrete
+        <strong>logarithmic phase</strong>. When wrapped modulo m, it forms a
+        <strong>clock</strong> that reveals periodicity and “phase collisions”.
+      </p>
+
+      <p>
+        This is analogous to:
+      </p>
+      <ul>
+        <li>octave equivalence in music</li>
+        <li>logarithmic spirals collapsing into circles</li>
+        <li>phase wrapping in Fourier analysis</li>
+      </ul>
+
+      <figure data-enhanced>
+        <svg id="clock-svg" viewBox="0 0 400 260"></svg>
+        <figcaption>Modulus = ${modulus}, digits = ${n}</figcaption>
+      </figure>
+    `;
+
+    articleBody.appendChild(sec);
+
+    const svg = document.getElementById("clock-svg");
+    ZXYPlayground.drawExponentClock(svg, modulus, n);
+  }
+
+  /* -----------------------------------------------------------
+     VIEW SWITCHING
+     ----------------------------------------------------------- */
+  function enhance(viewId) {
+    if (viewId === "view-combinatorics") loadCombinatoricsView();
+    if (viewId === "view-trees") loadTreeView();
+    if (viewId === "view-clock") loadClockView();
+  }
+
+  navChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      enhance(chip.dataset.target);
+    });
+  });
+
+  /* Enhance initial view if needed */
+  const active = document.querySelector('.nav-chip[data-active="true"]');
+  if (active) enhance(active.dataset.target);
+
+})();
+</script>
+
+
+<style>
+  article.everyday-planes {
+    max-width: 820px;
+    margin: 3rem auto;
+    background: #ffffff;
+    padding: 1.8rem 2.2rem 2.4rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    font-family: system-ui, sans-serif;
+    color: #222;
+  }
+
+  article.everyday-planes h1,
+  article.everyday-planes h2 {
+    margin-top: 0;
+  }
+
+  article.everyday-planes .plane-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  article.everyday-planes .plane-table th,
+  article.everyday-planes .plane-table td {
+    border: 1px solid #ddd;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  article.everyday-planes .plane-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+  }
+
+  article.everyday-planes .highlight {
+    background: #f0f7ff;
+    padding: 0.8rem 1rem;
+    border-left: 4px solid #4287f5;
+    margin: 1.5rem 0;
+  }
+</style>
+
+<article class="everyday-planes">
+  <header>
+    <h1>Z–X–Y in Everyday Operation</h1>
+    <p>
+      After the symbolic constructions — octave constants, base-3 grids, binary encodings —
+      the natural question is: where does this appear in daily life?
+    </p>
+  </header>
+
+  <section>
+    <h2>Three operational planes</h2>
+    <p>
+      The Z-X-Y system can be read without mysticism. It describes three layers that
+      operate continuously in ordinary modern activity.
+    </p>
+
+    <table class="plane-table">
+      <tr>
+        <th>Symbol</th>
+        <th>Plane</th>
+        <th>Everyday meaning</th>
+      </tr>
+      <tr>
+        <td><strong>Z (−1)</strong></td>
+        <td>Material</td>
+        <td>Execution, hardware, typing, clicking, file generation</td>
+      </tr>
+      <tr>
+        <td><strong>X (0)</strong></td>
+        <td>Mental</td>
+        <td>Structure, models, abstraction, decision logic</td>
+      </tr>
+      <tr>
+        <td><strong>Y (+1)</strong></td>
+        <td>Directional</td>
+        <td>Purpose, scaling, coherence across time</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Example: writing code</h2>
+    <ul>
+      <li>
+        <strong>Z:</strong> actual keystrokes, syntax, compiling, saving files.
+      </li>
+      <li>
+        <strong>X:</strong> architecture of functions, data flow, algorithm design.
+      </li>
+      <li>
+        <strong>Y:</strong> why the system exists, what it should become, long-term scaling.
+      </li>
+    </ul>
+
+    <p>
+      If one layer dominates completely, imbalance appears:
+    </p>
+    <ul>
+      <li>Too much Z → mechanical repetition without direction.</li>
+      <li>Too much X → endless modeling without execution.</li>
+      <li>Too much Y → vision without grounding.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Octaves in practical terms</h2>
+    <p>
+      An octave shift does not require music or mysticism.
+      It simply means doubling scale.
+    </p>
+
+    <ul>
+      <li>One task → one project → one system → one ecosystem.</li>
+      <li>One decision → one habit → one identity pattern.</li>
+      <li>One line of code → one module → one architecture.</li>
+    </ul>
+
+    <p>
+      Each level preserves structure but increases magnitude.
+      That is octave scaling.
+    </p>
+  </section>
+
+  <section>
+    <h2>Discrete and continuous growth</h2>
+    <p>
+      The page earlier described discrete digits approximating continuous drift.
+      This appears in modern life as:
+    </p>
+
+    <ul>
+      <li>Daily habits (discrete) forming long-term character (continuous).</li>
+      <li>Commits (discrete) forming software evolution (continuous).</li>
+      <li>Transactions (discrete) forming economic flow (continuous).</li>
+    </ul>
+
+    <div class="highlight">
+      A single symbolic step may appear small,
+      but repeated enough times,
+      it converges toward something that feels continuous.
+    </div>
+  </section>
+
+  <section>
+    <h2>No ritual required</h2>
+    <p>
+      Spiritual does not mean ceremonial.
+      It means structural coherence across scales.
+    </p>
+
+    <p>
+      Eating food does not require blessing.
+      But digestion still follows thermodynamics.
+      Writing code does not require chanting.
+      But architecture still follows invariants.
+    </p>
+
+    <p>
+      The Z-X-Y system describes invariants:
+      balance between execution, structure, and direction.
+    </p>
+  </section>
+
+  <section>
+    <h2>Modern interpretation</h2>
+    <p>
+      In a technological era:
+    </p>
+    <ul>
+      <li>Z is infrastructure.</li>
+      <li>X is algorithm.</li>
+      <li>Y is trajectory.</li>
+    </ul>
+
+    <p>
+      A system is stable when all three are synchronized.
+    </p>
+  </section>
+
+  <footer>
+    <p>
+      The symbolic constructions above are not escape from reality.
+      They are compression schemes for describing it.
+    </p>
+    <p>
+      Z grounds.  
+      X organizes.  
+      Y scales.
+    </p>
+  </footer>
+</article>
+
+
+
+
+</div>
+
+<!-- BOTTOM FOOTER -->
+<div id="bottom-footer">
+  <div class="footer-left">
+    <span class="Z">Z</span>
+    <span class="X">X</span>
+    <span class="Y">Y</span>
+  </div>
+  <div class="footer-right">
+    <span class="z">z</span>
+    <span class="x">x</span>
+    <span class="y">y</span>
+  </div>
+</div>
+
+<script>
+(function() {
+  function updateScrollFactor() {
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    var y = window.scrollY || window.pageYOffset || 0;
+    var factor = maxScroll > 0 ? (y / maxScroll) : 0;
+    factor = factor * 5;
+    document.documentElement.style.setProperty('--scroll-factor', factor.toFixed(3));
+  }
+  window.addEventListener('scroll', updateScrollFactor);
+  window.addEventListener('load', updateScrollFactor);
+})();
+</script>
+
+</body>
+</html>

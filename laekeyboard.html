@@ -1,0 +1,578 @@
+<style>
+  /* Container */
+  .laegna-widget {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    font-family: "Laegna", monospace;
+    color: #000;
+  }
+
+  .lw-row {
+    display: flex;
+    align-items: flex-start;
+    margin: 4px 0;
+  }
+
+  .lw-screen-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .lw-screen {
+    position: relative;
+    flex: 1;
+    min-height: 28px;
+    border: 1px solid #444;
+    padding: 2px 4px;
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    background: #fdfdfd;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .lw-screen-chars {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .lw-char {
+    position: relative;
+    width: 1em;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .lw-char-bg-0 { background: #ffe66b; } /* yellow */
+  .lw-char-bg-1 { background: #ff6b6b; } /* red */
+  .lw-char-bg-2 { background: #51cf66; } /* green */
+  .lw-char-bg-3 { background: #4dabf7; } /* blue */
+
+  .lw-char-circle {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 50%;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+
+  .lw-char-circle.black { background: #000; }
+  .lw-char-circle.white { background: #fff; }
+
+  .lw-ellipsis {
+    margin-left: 4px;
+    font-size: 14px;
+    color: #888;
+  }
+
+  .lw-ellipsis.has-more {
+    color: #000;
+  }
+
+  .lw-clear-btn {
+    margin-left: 4px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Keyboards */
+  .lw-kb {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    gap: 4px;
+  }
+
+  .lw-key {
+    position: relative;
+    min-width: 24px;
+    padding: 4px 6px;
+    border: 1px solid #444;
+    background: #fff7e6;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .lw-key.disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .lw-key-bullet {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 50%;
+  }
+
+  /* IOAE colors for bullets */
+  .lw-bullet-I { background: #ffe66b; } /* yellow */
+  .lw-bullet-O { background: #ff6b6b; } /* red */
+  .lw-bullet-A { background: #51cf66; } /* green */
+  .lw-bullet-E { background: #4dabf7; } /* blue */
+
+  /* Hex bullets row */
+  .lw-hex-bullets {
+    display: flex;
+    gap: 4px;
+    margin-top: 2px;
+  }
+
+  .lw-hex-bullet {
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    border: 1px solid #000;
+  }
+
+  /* Hover expansion for base-16 keyboard */
+  .lw-kb-hex:hover .lw-key-main {
+    font-weight: 700;
+  }
+
+  .lw-kb-hex:hover .lw-key-main::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 165, 0, 0.25);
+  }
+
+  /* Red warning for base-2 when base-4 overflow */
+  .lw-screen.base2-overflow {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 1px #ff6b6b;
+  }
+</style>
+
+<div class="laegna-widget" id="handheldcal-widget">
+  <!-- Base-2 screen -->
+  <div class="lw-row">
+    <div class="lw-screen-wrap">
+      <div class="lw-screen" id="screen-base2">
+        <div class="lw-screen-chars" id="screen-base2-chars"></div>
+        <span class="lw-ellipsis" id="screen-base2-ellipsis">…</span>
+      </div>
+      <button class="lw-clear-btn" id="clear-base2" title="Clear base-2">
+        ⌧
+      </button>
+    </div>
+  </div>
+  <div class="lw-kb" id="kb-base2">
+    <button class="lw-key" data-key="O">
+      O
+      <span class="lw-key-bullet lw-bullet-O"></span>
+    </button>
+    <button class="lw-key" data-key="A">
+      A
+      <span class="lw-key-bullet lw-bullet-A"></span>
+    </button>
+    <button class="lw-key" data-key="BACK">
+      ⟵
+    </button>
+  </div>
+
+  <!-- Base-4 screen (IOAE) -->
+  <div class="lw-row">
+    <div class="lw-screen-wrap">
+      <div class="lw-screen" id="screen-base4">
+        <div class="lw-screen-chars" id="screen-base4-chars"></div>
+        <span class="lw-ellipsis" id="screen-base4-ellipsis">…</span>
+      </div>
+      <button class="lw-clear-btn" id="clear-base4" title="Clear base-4">
+        ⌧
+      </button>
+    </div>
+  </div>
+  <div class="lw-kb" id="kb-base4">
+    <button class="lw-key" data-key="I">
+      I
+      <span class="lw-key-bullet lw-bullet-I"></span>
+    </button>
+    <button class="lw-key" data-key="O">
+      O
+      <span class="lw-key-bullet lw-bullet-O"></span>
+    </button>
+    <button class="lw-key" data-key="A">
+      A
+      <span class="lw-key-bullet lw-bullet-A"></span>
+    </button>
+    <button class="lw-key" data-key="E">
+      E
+      <span class="lw-key-bullet lw-bullet-E"></span>
+    </button>
+    <button class="lw-key" data-key="BACK">
+      ⟵
+    </button>
+  </div>
+
+  <!-- IOAE bullets row for base-4 -->
+  <div class="lw-hex-bullets" id="ioae-bullets">
+    <div class="lw-hex-bullet lw-bullet-I" title="I"></div>
+    <div class="lw-hex-bullet lw-bullet-O" title="O"></div>
+    <div class="lw-hex-bullet lw-bullet-A" title="A"></div>
+    <div class="lw-hex-bullet lw-bullet-E" title="E"></div>
+  </div>
+
+  <!-- Base-16 screen -->
+  <div class="lw-row">
+    <div class="lw-screen-wrap">
+      <div class="lw-screen" id="screen-base16">
+        <div class="lw-screen-chars" id="screen-base16-chars"></div>
+        <span class="lw-ellipsis" id="screen-base16-ellipsis">…</span>
+      </div>
+      <button class="lw-clear-btn" id="clear-base16" title="Clear base-16">
+        ⌧
+      </button>
+    </div>
+  </div>
+  <div class="lw-kb lw-kb-hex" id="kb-base16">
+    <!-- Title row: G, B, O, L -->
+    <button class="lw-key lw-key-main" data-key="G">
+      G
+      <span class="lw-key-bullet lw-bullet-E"></span>
+    </button>
+    <button class="lw-key lw-key-main" data-key="B">
+      B
+      <span class="lw-key-bullet lw-bullet-A"></span>
+    </button>
+    <button class="lw-key lw-key-main" data-key="O">
+      O
+      <span class="lw-key-bullet lw-bullet-O"></span>
+    </button>
+    <button class="lw-key lw-key-main" data-key="L">
+      L
+      <span class="lw-key-bullet lw-bullet-I"></span>
+    </button>
+    <button class="lw-key" data-key="BACK">
+      ⟵
+    </button>
+  </div>
+
+  <!-- Hex IOAE bullets (two bullets per hex group) -->
+  <div class="lw-hex-bullets" id="hex-ioae-bullets">
+    <div class="lw-hex-bullet" id="hex-bullet-1"></div>
+    <div class="lw-hex-bullet" id="hex-bullet-2"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const MAX_BASE2 = 16;
+  const MAX_BASE4 = 16;
+  const MAX_BASE16 = 16;
+
+  let bitsOA = ""; // underlying OA string (up to 64 bits)
+
+  const screen2 = document.getElementById("screen-base2");
+  const screen2Chars = document.getElementById("screen-base2-chars");
+  const ell2 = document.getElementById("screen-base2-ellipsis");
+
+  const screen4 = document.getElementById("screen-base4");
+  const screen4Chars = document.getElementById("screen-base4-chars");
+  const ell4 = document.getElementById("screen-base4-ellipsis");
+
+  const screen16 = document.getElementById("screen-base16");
+  const screen16Chars = document.getElementById("screen-base16-chars");
+  const ell16 = document.getElementById("screen-base16-ellipsis");
+
+  const kb2 = document.getElementById("kb-base2");
+  const kb4 = document.getElementById("kb-base4");
+  const kb16 = document.getElementById("kb-base16");
+
+  const clear2 = document.getElementById("clear-base2");
+  const clear4 = document.getElementById("clear-base4");
+  const clear16 = document.getElementById("clear-base16");
+
+  const hexBullet1 = document.getElementById("hex-bullet-1");
+  const hexBullet2 = document.getElementById("hex-bullet-2");
+
+  function colorClassForIndex(i) {
+    return "lw-char-bg-" + (i % 4);
+  }
+
+  function renderScreens() {
+    // bitsOA is underlying OA string, up to 64
+    const lenBits = bitsOA.length;
+
+    // Base-2: show up to 16 bits
+    const visible2 = bitsOA.slice(0, MAX_BASE2);
+    renderScreenChars(screen2Chars, visible2, true);
+    updateEllipsis(ell2, lenBits > MAX_BASE2);
+
+    // Base-4: group bits by 2 -> IOAE
+    const groups2 = [];
+    for (let i = 0; i + 1 < lenBits; i += 2) {
+      groups2.push(bitsOA.slice(i, i + 2));
+    }
+    const base4Letters = groups2.map(map2to4).join("");
+    const visible4 = base4Letters.slice(0, MAX_BASE4);
+    renderScreenChars(screen4Chars, visible4, false);
+    updateEllipsis(ell4, base4Letters.length > MAX_BASE4);
+
+    // Base-16: group bits by 4 -> hex letters
+    const groups4 = [];
+    for (let i = 0; i + 3 < lenBits; i += 4) {
+      groups4.push(bitsOA.slice(i, i + 4));
+    }
+    const base16Letters = groups4.map(map4to16).join("");
+    const visible16 = base16Letters.slice(0, MAX_BASE16);
+    renderScreenChars(screen16Chars, visible16, false);
+    updateEllipsis(ell16, base16Letters.length > MAX_BASE16);
+
+    // Overflow rule: if base-4 input > 8 letters, base-2 screen becomes red and base-4 kb disabled
+    if (base4Letters.length > 8) {
+      screen2.classList.add("base2-overflow");
+      setKeyboardEnabled(kb4, false);
+    } else {
+      screen2.classList.remove("base2-overflow");
+      setKeyboardEnabled(kb4, true);
+    }
+
+    // Hex IOAE bullets: based on first hex group (first 4 bits)
+    if (groups4.length > 0) {
+      const firstGroup = groups4[0];
+      const first2 = firstGroup.slice(0, 2);
+      const second2 = firstGroup.slice(2, 4);
+      setHexBullet(hexBullet1, first2);
+      setHexBullet(hexBullet2, second2);
+    } else {
+      hexBullet1.style.background = "#ccc";
+      hexBullet2.style.background = "#ccc";
+    }
+  }
+
+  function renderScreenChars(container, text, isBase2) {
+    container.innerHTML = "";
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const span = document.createElement("span");
+      span.className = "lw-char " + colorClassForIndex(i);
+      span.textContent = ch;
+
+      if (isBase2) {
+        const circle = document.createElement("span");
+        circle.className = "lw-char-circle " + (ch === "O" ? "black" : "white");
+        span.appendChild(circle);
+      }
+      container.appendChild(span);
+    }
+  }
+
+  function updateEllipsis(el, hasMore) {
+    if (hasMore) {
+      el.classList.add("has-more");
+    } else {
+      el.classList.remove("has-more");
+    }
+  }
+
+  function setKeyboardEnabled(kb, enabled) {
+    kb.querySelectorAll(".lw-key").forEach(btn => {
+      if (enabled) {
+        btn.classList.remove("disabled");
+      } else {
+        btn.classList.add("disabled");
+      }
+    });
+  }
+
+  function map2to4(bits2) {
+    // IOAE mapping:
+    // I: "OO"
+    // O: "OA"
+    // A: "AO"
+    // E: "AA"
+    switch (bits2) {
+      case "OO": return "I";
+      case "OA": return "O";
+      case "AO": return "A";
+      case "AA": return "E";
+      default: return "?";
+    }
+  }
+
+  function map4to16(bits4) {
+    // First two bits decide group:
+    // OO -> K,J,I,L
+    // OA -> Q,P,O,R
+    // AO -> C,B,A,D
+    // AA -> G,F,E,H
+    const first2 = bits4.slice(0, 2);
+    const last2 = bits4.slice(2, 4);
+    const index = bitsToIndex(last2); // 00..11 -> 0..3
+
+    let group;
+    switch (first2) {
+      case "OO": group = ["K","J","I","L"]; break;
+      case "OA": group = ["Q","P","O","R"]; break;
+      case "AO": group = ["C","B","A","D"]; break;
+      case "AA": group = ["G","F","E","H"]; break;
+      default: group = ["?","?","?","?"];
+    }
+    return group[index];
+  }
+
+  function bitsToIndex(bits2) {
+    // OO=0, OA=1, AO=2, AA=3
+    if (bits2 === "OO") return 0;
+    if (bits2 === "OA") return 1;
+    if (bits2 === "AO") return 2;
+    if (bits2 === "AA") return 3;
+    return 0;
+  }
+
+  function setHexBullet(el, bits2) {
+    // IOAE bullet of first/second two bits
+    let cls;
+    switch (bits2) {
+      case "OO": cls = "lw-bullet-I"; break;
+      case "OA": cls = "lw-bullet-O"; break;
+      case "AO": cls = "lw-bullet-A"; break;
+      case "AA": cls = "lw-bullet-E"; break;
+      default: cls = "";
+    }
+    el.className = "lw-hex-bullet " + cls;
+  }
+
+  function addBitsFromBase2(ch) {
+    if (bitsOA.length >= 64) return;
+    if (visibleCount(bitsOA, MAX_BASE2) >= MAX_BASE2) return;
+    bitsOA += ch;
+    renderScreens();
+  }
+
+  function addBitsFromBase4(letter) {
+    // I,O,A,E -> add 2 bits
+    if (bitsOA.length >= 64) return;
+    const bits2 = map4LetterToBits(letter);
+    // check screen capacity: base-4 screen max 16 letters
+    const currentGroups = Math.floor(bitsOA.length / 2);
+    if (currentGroups >= MAX_BASE4) return;
+    bitsOA += bits2;
+    renderScreens();
+  }
+
+  function map4LetterToBits(letter) {
+    switch (letter) {
+      case "I": return "OO";
+      case "O": return "OA";
+      case "A": return "AO";
+      case "E": return "AA";
+      default: return "";
+    }
+  }
+
+  function addBitsFromBase16(letter) {
+    if (bitsOA.length >= 64) return;
+    // base-16 screen max 16 letters
+    const currentGroups = Math.floor(bitsOA.length / 4);
+    if (currentGroups >= MAX_BASE16) return;
+
+    const bits4 = map16LetterToBits(letter);
+    bitsOA += bits4;
+    renderScreens();
+  }
+
+  function map16LetterToBits(letter) {
+    // Reverse of map4to16, using groups:
+    const groups = {
+      "K":"OOOO","J":"OOOA","I":"OOAO","L":"OOAA",
+      "Q":"OAOO","P":"OAOA","O":"OAAO","R":"OAAA",
+      "C":"AOOO","B":"AOOA","A":"AOAO","D":"AOAA",
+      "G":"AAOO","F":"AAOA","E":"AAAO","H":"AAAA"
+    };
+    return groups[letter] || "OOOO";
+  }
+
+  function visibleCount(bits, maxChars) {
+    return Math.min(bits.length, maxChars);
+  }
+
+  function deleteFromBase2() {
+    if (bitsOA.length === 0) return;
+    // delete 1 OA bit from original string
+    bitsOA = bitsOA.slice(0, -1);
+    renderScreens();
+  }
+
+  function deleteFromBase4() {
+    if (bitsOA.length < 2) return;
+    // delete 2 bits
+    bitsOA = bitsOA.slice(0, -2);
+    renderScreens();
+  }
+
+  function deleteFromBase16() {
+    if (bitsOA.length < 4) return;
+    // delete 4 bits
+    bitsOA = bitsOA.slice(0, -4);
+    renderScreens();
+  }
+
+  kb2.addEventListener("click", function(e) {
+    const btn = e.target.closest(".lw-key");
+    if (!btn || btn.classList.contains("disabled")) return;
+    const key = btn.dataset.key;
+    if (key === "O" || key === "A") {
+      addBitsFromBase2(key);
+    } else if (key === "BACK") {
+      deleteFromBase2();
+    }
+  });
+
+  kb4.addEventListener("click", function(e) {
+    const btn = e.target.closest(".lw-key");
+    if (!btn || btn.classList.contains("disabled")) return;
+    const key = btn.dataset.key;
+    if (["I","O","A","E"].includes(key)) {
+      addBitsFromBase4(key);
+    } else if (key === "BACK") {
+      deleteFromBase4();
+    }
+  });
+
+  kb16.addEventListener("click", function(e) {
+    const btn = e.target.closest(".lw-key");
+    if (!btn || btn.classList.contains("disabled")) return;
+    const key = btn.dataset.key;
+    if (["G","B","O","L"].includes(key)) {
+      addBitsFromBase16(key);
+    } else if (key === "BACK") {
+      deleteFromBase16();
+    }
+  });
+
+  clear2.addEventListener("click", function() {
+    bitsOA = "";
+    renderScreens();
+  });
+  clear4.addEventListener("click", function() {
+    bitsOA = "";
+    renderScreens();
+  });
+  clear16.addEventListener("click", function() {
+    bitsOA = "";
+    renderScreens();
+  });
+
+  // initial render
+  renderScreens();
+})();
+</script>

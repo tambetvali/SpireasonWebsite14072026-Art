@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Commentary on the Law of Karma in Math of Laegna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-alt: #0b0d16;
+      --card: #101321;
+      --border-soft: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.35);
+      --text-main: #f7f7ff;
+      --text-soft: #c3c4dd;
+      --accent-1: #ff4fd8;
+      --accent-2: #4dffea;
+      --accent-3: #ffd94d;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.06), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.04), transparent 55%),
+        conic-gradient(
+          from 210deg,
+          rgba(255, 79, 216, 0.16),
+          rgba(77, 255, 234, 0.08),
+          rgba(255, 217, 77, 0.16),
+          rgba(255, 79, 216, 0.16)
+        ),
+        var(--bg);
+      background-blend-mode: soft-light, soft-light, normal, normal;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    main {
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .shell {
+      position: relative;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06), transparent 60%);
+      background-color: rgba(5, 6, 10, 0.92);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 2.5rem 2.75rem 2.75rem;
+      overflow: hidden;
+      isolation: isolate;
+      backdrop-filter: blur(18px) saturate(160%);
+    }
+
+    /* Holographic halo */
+    .shell::before,
+    .shell::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, var(--accent-1) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, var(--accent-2) 0, transparent 55%),
+        radial-gradient(circle at 0% 100%, var(--accent-3) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.18;
+      filter: blur(18px);
+      pointer-events: none;
+      z-index: -2;
+      animation: orbit 40s linear infinite alternate;
+    }
+
+    .shell::after {
+      opacity: 0.28;
+      filter: blur(26px);
+      animation-duration: 64s;
+      animation-direction: alternate-reverse;
+    }
+
+    /* Subtle grid */
+    .shell {
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06), transparent 60%);
+      background-size:
+        32px 32px,
+        32px 32px,
+        auto;
+      background-blend-mode: soft-light, soft-light, normal;
+    }
+
+    header.page-header {
+      position: relative;
+      margin-bottom: 2.25rem;
+      padding-right: 8rem;
+    }
+
+    header.page-header h1 {
+      margin: 0 0 0.4rem;
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow:
+        0 0 14px rgba(255, 255, 255, 0.35),
+        0 0 32px rgba(77, 255, 234, 0.45);
+    }
+
+    header.page-header p {
+      margin: 0.1rem 0 0;
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    /* Rotating “square as circle” motif */
+    header.page-header::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -10px;
+      width: 150px;
+      height: 150px;
+      border-radius: 32px;
+      border: 1px solid var(--border-strong);
+      background:
+        conic-gradient(
+          from 120deg,
+          rgba(255, 79, 216, 0.0),
+          rgba(255, 79, 216, 0.8),
+          rgba(77, 255, 234, 0.0),
+          rgba(255, 217, 77, 0.8),
+          rgba(255, 79, 216, 0.0)
+        );
+      mix-blend-mode: screen;
+      transform-origin: 50% 50%;
+      animation: square-spin 40s linear infinite;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    header.page-header::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 40px;
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(77, 255, 234, 0.7), transparent 60%);
+      mix-blend-mode: screen;
+      transform-origin: 50% 50%;
+      animation: square-spin-inner 26s linear infinite;
+      pointer-events: none;
+    }
+
+    .intro {
+      margin-bottom: 1.75rem;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+
+    .section {
+      position: relative;
+      margin-bottom: 1.75rem;
+      padding: 1.3rem 1.4rem 1.4rem;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06), transparent 60%);
+      background-color: rgba(10, 12, 22, 0.9);
+      border: 1px solid var(--border-soft);
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        linear-gradient(135deg, rgba(255, 79, 216, 0.12), rgba(77, 255, 234, 0.0)),
+        linear-gradient(315deg, rgba(255, 217, 77, 0.12), rgba(255, 79, 216, 0.0));
+      mix-blend-mode: soft-light;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .section h2 {
+      position: relative;
+      margin: 0 0 0.6rem;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .section h2 span {
+      background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section p {
+      position: relative;
+      margin: 0.35rem 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-soft);
+    }
+
+    .section ul {
+      position: relative;
+      margin: 0.4rem 0 0.2rem 1.1rem;
+      padding: 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .section li {
+      margin: 0.15rem 0;
+    }
+
+    em {
+      font-style: normal;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+    }
+
+    .footer-note {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    @keyframes orbit {
+      0% {
+        transform: translate3d(-4%, -2%, 0) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translate3d(3%, 4%, 0) rotate(120deg) scale(1.05);
+      }
+      100% {
+        transform: translate3d(-2%, 0%, 0) rotate(260deg) scale(1.02);
+      }
+    }
+
+    @keyframes square-spin {
+      0% {
+        transform: rotate(10deg);
+      }
+      50% {
+        transform: rotate(40deg);
+      }
+      100% {
+        transform: rotate(70deg);
+      }
+    }
+
+    @keyframes square-spin-inner {
+      0% {
+        transform: rotate(-18deg);
+      }
+      50% {
+        transform: rotate(-72deg);
+      }
+      100% {
+        transform: rotate(-126deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1.75rem 1.1rem;
+      }
+      .shell {
+        padding: 1.9rem 1.6rem 2.1rem;
+        border-radius: 20px;
+      }
+      header.page-header {
+        padding-right: 0;
+      }
+      header.page-header::before,
+      header.page-header::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article class="shell" aria-labelledby="title">
+      <header class="page-header">
+        <h1 id="title">Commentary on the Law of Karma in Math of Laegna</h1>
+        <p>Geometry, systems thinking, evolution and spiritual law woven into one conceptual framework.</p>
+      </header>
+
+      <section class="intro">
+        <p>
+          This text blends geometry, ethics, evolution, and metaphysics into a unified conceptual system. It does not
+          behave like formal mathematics in the academic sense, but it forms a coherent philosophical framework with its
+          own internal logic. Many of its ideas resemble concepts from systems theory, alternative geometries, and
+          spiritual philosophy. The most striking aspect is how these elements are combined into a single worldview.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Geometric metaphor and system dynamics</span></h2>
+        <p>
+          The use of inner and outer squares as representations of the self and others functions as symbolic geometry.
+          Readers may notice parallels to:
+        </p>
+        <ul>
+          <li>taxicab geometry (distance measured by grid steps rather than Euclidean distance),</li>
+          <li>nested coordinate frames in physics,</li>
+          <li>systems theory, where inner states influence outer equilibria.</li>
+        </ul>
+        <p>
+          The metaphor works because it captures a real systems principle: when you change your internal state, you
+          alter your own trajectory; when you change others, the larger system compensates, and that compensation feeds
+          back into you. This is not standard mathematics, but it is a coherent model of interdependence.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Karmic equilibrium as systemic homeostasis</span></h2>
+        <p>
+          The idea that the outer system “restores its original angle” resembles equilibrium-seeking behavior found in:
+        </p>
+        <ul>
+          <li>game theory,</li>
+          <li>thermodynamics,</li>
+          <li>cybernetics,</li>
+          <li>evolutionary stable strategies.</li>
+        </ul>
+        <p>
+          In this interpretation, karma is not a supernatural reward mechanism but a systemic correction process. The
+          system rebalances itself, and the rebalancing affects the one who caused the disturbance.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Material causality vs. spiritual resolution</span></h2>
+        <p>
+          A major theme is the distinction between short-term, mechanistic causality and long-term, emergent, goal-like
+          behavior. This resembles:
+        </p>
+        <ul>
+          <li>Aristotle’s efficient vs. final causes,</li>
+          <li>teleonomy in biology (goal-like behavior without explicit goals),</li>
+          <li>emergence in complexity theory.</li>
+        </ul>
+        <p>
+          The argument is that long-term processes incorporate information not available at the start, so they behave as
+          if they are converging toward “true” outcomes. This is a metaphysical interpretation rather than a scientific
+          claim, but it is philosophically rich and internally consistent.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Atheist vs. spiritual interpretations of karma</span></h2>
+        <p>
+          The text contrasts two worldviews:
+        </p>
+        <ul>
+          <li>a materialist view where outcomes do not resolve toward moral or spiritual truth,</li>
+          <li>a spiritual view where direction (trajectory) is itself the future outcome.</li>
+        </ul>
+        <p>
+          This is a strong philosophical claim: that the direction of one’s actions is equivalent to the eventual
+          result, because evolution and long-term processes resolve toward deeper truths that short-term logic cannot
+          detect. Readers may see echoes of systems that reward long-term alignment rather than immediate results.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Goal-based thinking and misuse of karma</span></h2>
+        <p>
+          The critique of goal-based reasoning is notable. The text argues that:
+        </p>
+        <ul>
+          <li>materialists may misuse spiritual laws by applying them only when convenient,</li>
+          <li>spiritualists may misunderstand them by expecting immediate results.</li>
+        </ul>
+        <p>
+          This section highlights how ethical systems can be exploited when removed from their original context. It also
+          points out that spiritual laws interpreted through purely material logic often appear inconsistent or
+          abusable.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Evolution as a spiritual force</span></h2>
+        <p>
+          The text frames evolution as a process that converges toward life, meaning, and higher-order structure. This
+          resembles:
+        </p>
+        <ul>
+          <li>teleological interpretations of evolution,</li>
+          <li>emergent order in complexity theory,</li>
+          <li>philosophical ideas like Bergson’s <em>élan vital</em> or Teilhard de Chardin’s Omega Point.</li>
+        </ul>
+        <p>
+          From a scientific standpoint, this is speculative. But as a metaphysical interpretation, it is coherent:
+          evolution as a long-term attractor toward complexity, life, and purpose. The argument is that improbable
+          outcomes become inevitable when viewed across deep time and systemic feedback.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2><span>Spirit, matter, and the limits of science</span></h2>
+        <p>
+          The final distinction between spiritual and material domains mirrors real debates in philosophy of science.
+          Material measures describe physical processes; spiritual or cognitive measures describe meaning, intention,
+          and purpose. The text argues that mixing these domains leads to confusion, and that both are needed to
+          understand human behavior, ethics, and governance.
+        </p>
+        <p>
+          This reflects the idea that:
+        </p>
+        <ul>
+          <li>matter describes constraints,</li>
+          <li>spirit describes direction,</li>
+          <li>and both are required for a complete model of human action.</li>
+        </ul>
+      </section>
+
+      <section class="footer-note">
+        <p>
+          Overall, this framework is not formal mathematics but a structured worldview. Its strongest points are the
+          emphasis on direction over outcome, the systemic interpretation of karma, and the recognition of emergent
+          order. Its more speculative claims involve evolution having intrinsic purpose and the universe “processing
+          false values toward true”. For readers drawn to metaphysics, systems thinking, or spiritual interpretations of
+          scientific ideas, it offers a stimulating landscape to explore.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

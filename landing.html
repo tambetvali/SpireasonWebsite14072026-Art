@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spireason & Laegna Portal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root {
+      --bg: #f4f4f2;
+      --text: #333;
+      --primary: #4b3f72;
+      --accent: #7a5ba8;
+      --font-sans: "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Merriweather", serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+    header, section, footer {
+      max-width: 800px;
+      margin: auto;
+      padding: 1em;
+    }
+    header {
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1.5em;
+    }
+    header h1 {
+      font-family: var(--font-serif);
+      color: var(--primary);
+      margin: .2em 0;
+    }
+    header p { margin-top: 0; }
+
+    .selector, .results, .search {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1em;
+      margin: 1em 0;
+    }
+    .selector label {
+      display: block; margin: .5em 0;
+      font-weight: bold;
+    }
+    .selector select, .search input {
+      width: 100%; padding: .5em;
+      border: 1px solid #ccc; border-radius: 4px;
+    }
+    .selector button, .search button {
+      margin-top: .75em;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .6em 1.2em;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .selector button:hover, .search button:hover {
+      background: var(--primary);
+    }
+
+    .card-list { list-style: none; padding: 0; }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      margin: .5em 0;
+      padding: .8em;
+      border-radius: 4px;
+    }
+    .card h3 {
+      margin: 0 .2em;
+      font-family: var(--font-serif);
+      color: var(--primary);
+    }
+    .card p { margin: .3em 0; }
+    .card a { color: var(--accent); text-decoration: none; }
+    .card a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center; font-size: .85em;
+      color: #666; margin-top: 2em;
+      border-top: 1px solid #ddd;
+      padding-top: 1em;
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+  <header>
+    <h1>Spireason & Laegna Portal</h1>
+    <p>Your entrypoint to modernized Buddhism, scientific magic, AI research, and programming insights.</p>
+  </header>
+
+  <!-- Profile Selector -->
+  <section class="selector">
+    <label for="profile">Who are you?</label>
+    <select id="profile">
+      <option value="">– Select profile –</option>
+      <option value="spiritual">Spiritual Seeker</option>
+      <option value="scientific">Scientific Reader</option>
+      <option value="chatbot">Beginner (Chat & Explore)</option>
+      <option value="developer">Developer / Hacker</option>
+      <option value="researcher">AI Researcher</option>
+    </select>
+    <button onclick="showForProfile()">Show resources →</button>
+  </section>
+
+  <!-- Dynamic Results -->
+  <section id="results" class="results" style="display:none;">
+    <h2 id="intro"></h2>
+    <ul id="links" class="card-list"></ul>
+  </section>
+
+  <!-- Quick Keyword Search -->
+  <section class="search">
+    <label for="kw">Looking for something specific?</label>
+    <input type="text" id="kw" placeholder="e.g. pdf, Github, chakra, logic">
+    <button onclick="searchResources()">Search</button>
+  </section>
+
+  <!-- All Resources (Hidden by default) -->
+  <section id="all-resources" style="display:none;">
+    <h2>All Resources</h2>
+    <ul id="all-links" class="card-list"></ul>
+  </section>
+
+  <footer>
+    © 2025 Tambet Väli • Powered by static HTML + JavaScript
+  </footer>
+
+  <script>
+    // 1) Define resource map
+    const RESOURCES = {
+      spiritual: {
+        intro: "For the spiritual path: texts, practices, and commentaries.",
+        items: [
+          { title: "Simply about Infinities (PDF)", href: "Simply%20about%20Infinities.pdf" },
+          { title: "Reincarnation Basics (PDF)", href: "Reincarnation%20Basics.pdf" },
+          { title: "Spireason Main Site", href: "https://spireason.neocities.org/" }
+        ]
+      },
+      scientific: {
+        intro: "Science & magic entwined: logic tables, material alchemy, and proofs.",
+        items: [
+          { title: "Truth Value Tables, Matter & Mind (PDF)", href: "Truth%20Value%20Tables,%20Matter%20and%20Mind.pdf" },
+          { title: "Principles of Material Magic (PDF)", href: "Principles%20of%20Material%20Magic%20%E2%80%93%20short%20version.pdf" },
+          { title: "LaegnaSpi Dataset", href: "https://huggingface.co/datasets/tvaeli/LaegnaSpi" }
+        ]
+      },
+      chatbot: {
+        intro: "Just getting started? Chat with our AI or browse beginner-friendly notes.",
+        items: [
+          { title: "Poe Chatbot Profile", href: "https://poe.com/tambetvali" },
+          { title: "Laegna on Notion (outline)", href: "https://www.notion.so/Laegna-1a575bfc115480a38129e9a9787ab565" },
+          { title: "Positive & Negative Thinking (PDF)", href: "Short%20Text%20about%20what%20I%20say%20about%20Positive%20and%20Negative.pdf" }
+        ]
+      },
+      developer: {
+        intro: "Code, languages & tools: dive into 30+ repos on AI, math, and physics.",
+        items: [
+          { title: "GitHub: tambetvali", href: "https://github.com/tambetvali/" },
+          { title: "Logecs Theory (MD)", href: "https://github.com/tambetvali/LaegnaSpi/blob/main/logecs_theory.md" },
+          { title: "Material Alchemy Source (MD)", href: "https://github.com/tambetvali/LaegnaSpi/blob/main/material_alchemy.md" }
+        ]
+      },
+      researcher: {
+        intro: "AI & datasets: curated corpora, intuitive proofs, and prompt engineering.",
+        items: [
+          { title: "Hugging Face: LaegnaSpi", href: "https://huggingface.co/datasets/tvaeli/LaegnaSpi" },
+          { title: "Notion Research Vault", href: "https://www.notion.so/Laegna-1a575bfc115480a38129e9a9787ab565" },
+          { title: "Spireason API (draft)", href: "https://spireason.neocities.org/api-docs.html" }
+        ]
+      },
+      // A flat list for search
+      all: []
+    };
+
+    // Build `all` from every category
+    Object.values(RESOURCES)
+      .filter(c => Array.isArray(c.items))
+      .forEach(c => RESOURCES.all.push(...c.items));
+
+    // 2) Show by profile
+    function showForProfile() {
+      const sel = document.getElementById("profile").value;
+      if (!sel) return alert("Please select a profile.");
+      const data = RESOURCES[sel];
+      document.getElementById("intro").textContent = data.intro;
+      const ul = document.getElementById("links");
+      ul.innerHTML = "";
+      data.items.forEach(i => {
+        const li = document.createElement("li");
+        li.className = "card";
+        li.innerHTML = `<h3>${i.title}</h3>
+                        <p><a href="${i.href}" target="_blank">${i.href}</a></p>`;
+        ul.appendChild(li);
+      });
+      document.getElementById("results").style.display = "";
+      document.getElementById("all-resources").style.display = "none";
+    }
+
+    // 3) Keyword search
+    function searchResources() {
+      const kw = document.getElementById("kw").value.trim().toLowerCase();
+      if (!kw) return alert("Please enter a keyword to search.");
+      const matches = RESOURCES.all.filter(i =>
+        i.title.toLowerCase().includes(kw) ||
+        i.href.toLowerCase().includes(kw)
+      );
+      const section = document.getElementById("all-resources");
+      const ul = document.getElementById("all-links");
+      ul.innerHTML = "";
+      if (matches.length) {
+        matches.forEach(i => {
+          const li = document.createElement("li");
+          li.className = "card";
+          li.innerHTML = `<h3>${i.title}</h3>
+                          <p><a href="${i.href}" target="_blank">${i.href}</a></p>`;
+          ul.appendChild(li);
+        });
+      } else {
+        ul.innerHTML = `<li class="card"><p>No resources matched “${kw}”.</p></li>`;
+      }
+      section.style.display = "";
+      document.getElementById("results").style.display = "none";
+    }
+  </script>
+</body>
+</html>

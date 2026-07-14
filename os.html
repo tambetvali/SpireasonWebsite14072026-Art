@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SpiReason — Laegna Open Source Systems</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #05060a;
+      color: #f5f5f7;
+      margin: 0;
+      padding: 1.8em 1.4em 3em 1.4em;
+      line-height: 1.55;
+    }
+    a {
+      color: #7fd0ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #333a44;
+      margin: 2.4em 0 1.8em 0;
+    }
+    blockquote {
+      border-left: 3px solid #3b4a5a;
+      margin: 1.4em 0;
+      padding: 0.8em 1.2em;
+      background: rgba(10, 16, 26, 0.85);
+    }
+    big a {
+      color: #f5f5f7;
+    }
+    ul {
+      margin-left: 1.2em;
+      padding-left: 1.2em;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.08em 0.45em;
+      margin-left: 0.3em;
+      border-radius: 999px;
+      font-size: 75%;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.9;
+    }
+    .tag-ai      { background:#1b2838; color:#9fd4ff; }
+    .tag-math    { background:#231b38; color:#d0b3ff; }
+    .tag-viz     { background:#182b22; color:#9fffd0; }
+    .tag-tools   { background:#38221b; color:#ffd0a0; }
+    .tag-guide   { background:#2b1b2f; color:#ffb3f5; }
+    .tag-craft   { background:#262626; color:#f0f0f0; }
+
+    .repo-actions {
+      margin: 0.4em 0 0.9em 0;
+      font-size: 90%;
+      opacity: 0.9;
+    }
+    .repo-actions button {
+      background: #1b2838;
+      color: #e8f4ff;
+      border: 1px solid #3b4a5a;
+      border-radius: 999px;
+      padding: 0.25em 0.9em;
+      font-size: 85%;
+      cursor: pointer;
+      margin-right: 0.6em;
+    }
+    .repo-actions button:hover {
+      background: #243447;
+    }
+    .repo-actions a {
+      font-size: 90%;
+    }
+
+    .section-label {
+      font-size: 80%;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+  </style>
+
+  <script>
+    function downloadZip(url) {
+      window.location.href = url;
+    }
+  </script>
+</head>
+
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+  <!-- ————————————————————————————
+       0. LAEGNA OPEN SOURCE (SpiReason / os.html)
+  ———————————————————————————— -->
+  <p class="section-label">SPIREASON · LAEGNA CODE COMMONS</p>
+
+  <p style="margin:0.2em 0 0.8em 0;">
+    <span style="
+        font-family: Segoe UI Emoji;
+        font-size: 132px;
+        display: inline-block;
+        margin-left: 0.05em;
+      " title="Open Source Engines & Calculators">
+      ⚙️
+    </span>
+  </p>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">⚙️ </span>
+      <b>Laegna Open Source — Engines, Visualizations & Calculators</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      The same Laegna pages you visit as experiences are now available as code:  
+      to fork, reshape, and let them speak in your own language.
+    </p>
+
+    <p style="opacity:0.85;">
+      The calculators and engines below are fully open or cloneable.  
+      The first is <b>cloneable directly</b> through Mocha’s public interface;  
+      the second is a <b>fully open‑source Bolt app</b> ideal for importing into lovable.dev.  
+      You can modify labels, change the skin, remove what you do not need, or grow entirely new
+      tools from the same structural roots.
+    </p>
+  </blockquote>
+
+
+  <!-- ————————————————————————————
+       1. CALCULATORS (CLONEABLE & OPEN SOURCE)
+  ———————————————————————————— -->
+  <hr>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">🧮 </span>
+      <b>Laegna Calculators — Cloneable & Open Source</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      A calculator is a doorway: change the terms, and the world it describes changes with them.
+    </p>
+
+    <ul>
+
+      <!-- FREQUENCY CALCULATOR -->
+      <li>
+        <a href="https://getmocha.com/apps/01995d5d-50b9-759c-8547-535df4800815" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🔢 </span>
+          <b>Frequency / Harmonics Calculator</b>
+        </a>
+        <span class="tag tag-math">Cloneable</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          This is the Harmonics Calculator rebuilt on Mocha’s new platform, and unlike older
+          mocha.app deployments, this version <b>can be cloned directly</b> from the Mocha interface.  
+          It models harmonic ratios, resonant transitions, and frequency‑based relations —
+          the “sound‑logic” of Laegna mathematics.  
+          Once cloned, you can change terminology, adjust the UI, or extend the frequency
+          functions to create your own resonant tools.
+        </p>
+      </li>
+
+      <!-- OCTAVE CALCULATOR -->
+      <li>
+        <a href="https://github.com/tambetvali/exponometer.app" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">📈 </span>
+          <b>Octave / Exponometer Calculator</b>
+        </a>
+        <span class="tag tag-math">Open Source</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          The Exponometer is the octave‑logic engine of Laegna Math: exponential scaling,
+          proportional acceleration, and octave transitions.  
+          This version is fully open‑source — ideal for importing into <b>lovable.dev</b>,
+          where you can modify the UI, rewrite explanations, add new modes, or create
+          entirely new calculators by copying and adapting its components.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/exponometer.app/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/exponometer.app" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+    </ul>
+  </blockquote>
+
+
+  <!-- ————————————————————————————
+       2. NEXUS / MIND ENGINES
+  ———————————————————————————— -->
+  <hr>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">🧠 </span>
+      <b>Laegna AI Engines & Mind Fields</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      Where Laegna’s “intelligent medium” becomes code: engines, fields, and sculpted reasoning.
+    </p>
+
+    <ul>
+
+      <li>
+        <a href="https://github.com/tambetvali/nexus-warp" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🌀 </span>
+          <b>Nexus Warp</b>
+        </a>
+        <span class="tag tag-ai">AI Hub</span>
+        <span class="tag tag-viz">Visualization</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Core engine behind the Nexus Warp experience.  
+          A hub‑like interface for intelligent modelling, where prompts, responses and visual cues
+          form a resonant workspace. Fork it to create your own “AI nexus” with different domains,
+          colors, or conversational rituals.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/nexus-warp/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/nexus-warp" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/mind-sculptor-engine" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🧱 </span>
+          <b>Mind Sculptor Engine</b>
+        </a>
+        <span class="tag tag-ai">Reasoning Engine</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          A structural engine for shaping AI reasoning flows: scaffolds, stages, and sculpted
+          transformations of thought. Use it as a base to create your own “mind workflows”:
+          change the stages, rename the phases, or plug in your own prompts and evaluation rules.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/mind-sculptor-engine/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/mind-sculptor-engine" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/mind-spark-visions" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">⟐ </span>
+          <b>Mind Spark Visions</b>
+        </a>
+        <span class="tag tag-viz">Molecular Viz</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Source for the Molecular Visualization of AI.  
+          It renders clusters of meaning as molecule‑like structures. Fork it to visualize
+          different domains (philosophy, code, music) simply by changing labels, colors and
+          the mapping from concepts to “molecules”.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/mind-spark-visions/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/mind-spark-visions" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/chem-visions-ai" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">⚛️ </span>
+          <b>Chem Visions AI</b>
+        </a>
+        <span class="tag tag-viz">Atomic Viz</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Basis for the Atomic Visualization of AI.  
+          Symbolic atoms, charge‑like associations and emergent microstructures.  
+          You can retarget it to any symbolic system: change the “atoms” to be musical notes,
+          concepts, or even people in a network.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/chem-visions-ai/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/chem-visions-ai" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/embrace-data-whispers" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">📡 </span>
+          <b>Embrace Data Whispers</b>
+        </a>
+        <span class="tag tag-tools">Data Tools</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          A softer interface to data: instead of raw tables, you get “whispers” and guided
+          interpretations. Adapt it to your own datasets by changing the prompts, the labels,
+          and the way results are narrated back to the user.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/embrace-data-whispers/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/embrace-data-whispers" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+    </ul>
+  </blockquote>
+
+
+  <!-- ————————————————————————————
+       3. EXPONENTIAL WHISPERS & THEOREM THEATER
+  ———————————————————————————— -->
+  <hr>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">🧮 </span>
+      <b>Laegna Math — Exponential Whispers & Theorem Theater</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      The octave‑logic calculators and resonant integrals behind Laegna Math, now as editable code.
+    </p>
+
+    <ul>
+
+      <li>
+        <a href="https://github.com/tambetvali/exponential-whispers" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">📰 </span>
+          <b>Exponential Whispers</b>
+        </a>
+        <span class="tag tag-math">Exponometer</span>
+        <span class="tag tag-guide">Concept Guide</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Source for the Exponometer concept: intuition tools, cognition diagrams, and
+          exponential structures. Fork it to write your own “whispers” about different
+          topics: probability, growth, decay, or even spiritual scaling.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/exponential-whispers/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/exponential-whispers" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/theorem-theater" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🎭 </span>
+          <b>Theorem Theater</b>
+        </a>
+        <span class="tag tag-math">Resonant Calculus</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Basis for the Laegna Math — Intro to Resonant Calculus experience.  
+          Theorems are staged like scenes; integrals and transforms become actors.  
+          You can adapt it to any domain where you want “theorems as theater”: logic,
+          ethics, physics, or even personal development frameworks.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/theorem-theater/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/theorem-theater" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+    </ul>
+  </blockquote>
+
+
+  <!-- ————————————————————————————
+       4. GUIDES & CRAFT
+  ———————————————————————————— -->
+  <hr>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">📘 </span>
+      <b>Guides to AI Bloom & Confident Craft</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      Not just tools, but ways of working with them: how to let AI bloom, and how to craft with it.
+    </p>
+
+    <ul>
+
+      <li>
+        <a href="https://github.com/tambetvali/guide-to-ai-bloom" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🌸 </span>
+          <b>Guide to AI Bloom</b>
+        </a>
+        <span class="tag tag-guide">Practice Guide</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          A guide to letting AI “bloom” rather than just answer: how to structure prompts,
+          sessions and tools so that intelligence unfolds in layers.  
+          Use it as a template for your own guides: replace examples, add your own rituals,
+          or adapt it to a different domain (education, research, spiritual practice).
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/guide-to-ai-bloom/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/guide-to-ai-bloom" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+      <li>
+        <a href="https://github.com/tambetvali/confident-ai-craft" target="_blank">
+          <span style="font-family:Segoe UI Emoji;">🛠️ </span>
+          <b>Confident AI Craft</b>
+        </a>
+        <span class="tag tag-craft">Craft Patterns</span><br>
+
+        <p style="margin:0.4em 0 0.8em 0; opacity:0.85;">
+          Patterns for building with AI without losing your own voice.  
+          It focuses on “craft confidence”: how to iterate, refactor and refine AI‑assisted
+          systems. Fork it to document your own craft rules, team practices, or project‑specific
+          conventions.
+        </p>
+
+        <div class="repo-actions">
+          <button onclick="downloadZip('https://github.com/tambetvali/confident-ai-craft/archive/refs/heads/main.zip')">
+            Download .zip
+          </button>
+          <a href="https://github.com/tambetvali/confident-ai-craft" target="_blank">Open on GitHub</a>
+        </div>
+      </li>
+
+    </ul>
+  </blockquote>
+
+
+  <!-- ————————————————————————————
+       5. HOW TO REUSE & REMIX THESE SYSTEMS
+  ———————————————————————————— -->
+  <hr>
+
+  <blockquote>
+    <big>
+      <span style="font-family:Segoe UI Emoji;">🔧 </span>
+      <b>How to Make These Systems Your Own</b>
+    </big>
+
+    <p style="font-size:115%; font-style:italic; margin-top:0.6em;">
+      Every Laegna tool can become your tool: same structure, new story.
+    </p>
+
+    <p style="opacity:0.9;">
+      A simple path to reuse:
+    </p>
+
+    <ul style="opacity:0.9;">
+
+      <li>
+        <b>1. Choose a repository</b> that matches what you want:  
+        a calculator (<b>Exponential Whispers</b>, <b>Theorem Theater</b>, <b>Exponometer</b>),  
+        a visualization (<b>Mind Spark Visions</b>, <b>Chem Visions AI</b>),  
+        or an engine (<b>Nexus Warp</b>, <b>Mind Sculptor Engine</b>).
+      </li>
+
+      <li>
+        <b>2. Fork it on GitHub</b> (or download the <b>.zip</b> using the buttons above)
+        so you have your own copy. This is your personal Laegna branch.
+      </li>
+
+      <li>
+        <b>3. Open it in an AI web‑app builder</b> — preferably
+        <b>lovable.dev</b>, or alternatively <b>bolt.new</b> or similar.  
+        Ask the system explicitly:<br>
+        <i>
+          “This is a Laegna‑style calculator / visualization.  
+          Help me change the labels, the skin, and the explanations so it matches my topic: [your topic].”
+        </i>
+      </li>
+
+      <li>
+        <b>4. Remove what you do not need.</b>  
+        If a page has three calculators and you only need one, delete the others.  
+        If a visualization has too many panels, simplify it.  
+        The structure is there to be edited, not worshipped.
+      </li>
+
+      <li>
+        <b>5. Add new calculators or tools</b> by copying an existing one:  
+        duplicate a component, rename the functions, change the formulas and the text.  
+        For example, turn an octave‑based Exponometer into a “habit growth” calculator
+        simply by changing the variables and the narrative.
+      </li>
+
+      <li>
+        <b>6. Re‑skin the experience.</b>  
+        Change colors, fonts, icons and wording so that the tool feels like it belongs
+        to your project, your community, your spiritual or scientific language.  
+        Laegna is a grammar; you are free to write new sentences.
+      </li>
+
+      <li>
+        <b>7. Re‑deploy.</b>  
+        Once modified, re‑deploy via lovable.dev or your chosen builder.  
+        You now have a new calculator, visualization or engine — grown from Laegna soil,
+        but speaking in your own voice.
+      </li>
+
+    </ul>
+
+    <p style="opacity:0.8; margin-top:0.8em;">
+      If you get lost, open the original SpiReason main page and follow the links back:  
+      each live page has a corresponding repository here.  
+      The loop is intentional: <b>experience → source → remix → new experience.</b>
+    </p>
+  </blockquote>
+
+</body>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MetaR and 4 R Scales – Spireason</title>
+  <style>
+    body {
+      margin: 2em;
+      font-family: 'Helvetica', sans-serif;
+      background: #111;
+      color: #eee;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #ffd700;
+    }
+
+    p {
+      max-width: 900px;
+      margin: 1em auto;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #ff2400;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .r-scale {
+      display: flex;
+      justify-content: space-around;
+      margin: 2em auto;
+      flex-wrap: wrap;
+      max-width: 900px;
+    }
+
+    .r-block {
+      border: 2px solid #444;
+      border-radius: 8px;
+      padding: 1em;
+      width: 180px;
+      margin: 1em;
+      text-align: center;
+      background: linear-gradient(to bottom, #222, #333);
+    }
+
+    .r-block h3 {
+      color: #ffd700;
+      margin-bottom: 0.5em;
+    }
+
+    .r-elements {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 0.5em;
+    }
+
+    .r-element {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Colors: I=blue, O=green, A=red, E=yellow */
+    .I { background: #1E90FF; }
+    .O { background: #3CB371; }
+    .A { background: #FF2400; }
+    .E { background: #FFD700; }
+  </style>
+</head>
+<body>
+
+
+
+
+<style>
+  .accent-calc-root {
+    width: 100%;
+    padding: 40px 0 80px;
+    background: radial-gradient(circle at top, #05030a 0%, #050308 40%, #020106 100%);
+    color: #f5f5f5;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  .accent-calc-header {
+    max-width: 1200px;
+    margin: 0 auto 16px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .accent-calc-title {
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffe9a6;
+    text-shadow: 0 0 8px rgba(255,233,166,0.6);
+  }
+  .accent-calc-subtitle {
+    font-size: 12px;
+    color: #b8a8ff;
+    opacity: 0.9;
+  }
+  .accent-calc-jump {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.15) 0, transparent 40%),
+                linear-gradient(135deg, #1a0b1f 0%, #050308 50%, #120a1f 100%);
+    color: #ffe9a6;
+    font-size: 11px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  }
+  .accent-calc-frame {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 16px 24px;
+  }
+  .accent-calc-stage-wrap {
+    width: 100%;
+    height: 70vh;
+    max-height: 720px;
+    border-radius: 24px;
+    padding: 8px;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(255,255,255,0.06) 0, transparent 40%),
+      radial-gradient(circle at 90% 100%, rgba(255,255,255,0.04) 0, transparent 45%),
+      linear-gradient(135deg, #1a0b1f 0%, #050308 50%, #120a1f 100%);
+    box-shadow:
+      0 0 40px rgba(0,0,0,0.8),
+      0 0 60px rgba(157,0,255,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  #accent-kstage {
+    width: 100%;
+    height: 100%;
+  }
+  .accent-calc-info {
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #f7f0d0;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(0,0,0,0.8);
+  }
+  .accent-calc-info a {
+    color: #ffb347;
+    text-decoration: none;
+  }
+  .accent-calc-info a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="accent-calc-root" id="accent-calc-root">
+  <div class="accent-calc-header">
+    <div>
+      <div class="accent-calc-title">Accent Exponometer Glyph Table (placeholder tool to not keep you from ideas; scroll down)</div>
+      <div class="accent-calc-subtitle">Letters × accents × units · hologram pulses and hex-grid accents</div>
+    </div>
+    <button class="accent-calc-jump" id="accent-calc-jump">
+      Jump to calculator
+    </button>
+  </div>
+
+  <div class="accent-calc-frame">
+    <div class="accent-calc-stage-wrap" id="accent-calc-stage-wrap">
+      <div id="accent-kstage"></div>
+    </div>
+    <div class="accent-calc-info">
+      For unit <b>?</b> and <b>cm</b>:<br>
+      <code>letter_with_accent = base_letter · unit^accentlevel</code><br>
+      Accentlevel: ´´→E, ´→A, none→(no power), `→O, ``→I.<br>
+      Use
+      <a href="https://accelerative-complex-6gs6.bolt.host/" target="_blank">exponometer calculator</a>
+      with your real/imaginary values and find the octave matching your accent level.
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/konva@9/konva.min.js"></script>
+<script>
+  document.getElementById('accent-calc-jump').addEventListener('click', () => {
+    document.getElementById('accent-calc-stage-wrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  const AC_COLORS = {
+    bgPanel: '#2b1b0a',
+    bgPanelSoft: '#3a2610',
+    text: '#fdf7e6',
+    E: '#6A0DAD',
+    A: '#00c46a',
+    O: '#ff3b3b',
+    I: '#ffd93b',
+    U: '#d0d0d0',
+    accentEE: '#8A2BE2',
+    accentA: '#00e07f',
+    accentO: '#ff5555',
+    accentI: '#ffe066',
+    accentNone: '#aaaaaa',
+    holoCyan: '#00f5ff',
+    holoMagenta: '#ff00ff',
+    indigo: '#4B0082',
+    ethics: '#c0c0c0',      // silver
+    rightHand: '#ff3b3b'
+  };
+
+  const AC_VIOLETS = [
+    { r: 0x6A, g: 0x0D, b: 0xAD },
+    { r: 0x9D, g: 0x00, b: 0xFF },
+    { r: 0x8A, g: 0x2B, b: 0xE2 }
+  ];
+
+  function acMixViolets(t) {
+    const w1 = (1 + Math.sin(t)) / 3;
+    const w2 = (1 + Math.sin(t + 2 * Math.PI / 3)) / 3;
+    const w3 = (1 + Math.sin(t + 4 * Math.PI / 3)) / 3;
+    const r = AC_VIOLETS[0].r * w1 + AC_VIOLETS[1].r * w2 + AC_VIOLETS[2].r * w3;
+    const g = AC_VIOLETS[0].g * w1 + AC_VIOLETS[1].g * w2 + AC_VIOLETS[2].g * w3;
+    const b = AC_VIOLETS[0].b * w1 + AC_VIOLETS[1].b * w2 + AC_VIOLETS[2].b * w3;
+    return `rgb(${r.toFixed(0)},${g.toFixed(0)},${b.toFixed(0)})`;
+  }
+
+  const AC_accents = ["``", "`", "", "´", "´´"];
+  const AC_accentToExponent = {
+    "´´": "E",
+    "´": "A",
+    "": null,
+    "`": "O",
+    "``": "I"
+  };
+
+  const AC_lettersTable1 = ["E", "A", "O", "I"];
+  const AC_letterColor = {
+    E: AC_COLORS.E,
+    A: AC_COLORS.A,
+    O: AC_COLORS.O,
+    I: AC_COLORS.I,
+    U: AC_COLORS.U
+  };
+
+  const AC_accentOwnColor = {
+    "´´": AC_COLORS.accentEE,
+    "´": AC_COLORS.accentA,
+    "": AC_COLORS.accentNone,
+    "`": AC_COLORS.accentO,
+    "``": AC_COLORS.accentI
+  };
+
+  const AC_pulseConfig = {
+    E: { count: 2, base: 'violet' },
+    F: { count: 3, base: 'violet' },
+    G: { count: 3, base: 'violet' },
+    H: { count: 4, base: 'indigo' },
+    D: { count: 3, base: 'indigo' },
+    L: { count: 2, base: 'ethics' },
+    R: { count: 1, base: 'rightHand' }
+  };
+
+  function acPulseBaseColor(letter, phase) {
+    const cfg = AC_pulseConfig[letter];
+    if (!cfg) return null;
+    if (cfg.base === 'violet') return acMixViolets(phase);
+    if (cfg.base === 'indigo') return AC_COLORS.indigo;
+    if (cfg.base === 'ethics') return AC_COLORS.ethics;
+    if (cfg.base === 'rightHand') return AC_COLORS.rightHand;
+    return AC_COLORS.text;
+  }
+
+  let AC_currentLetter = "E";
+  let AC_currentAccent = "´´";
+
+  const AC_container = document.getElementById('accent-kstage');
+
+  function acInitStage() {
+    const w = AC_container.clientWidth;
+    const h = AC_container.clientHeight;
+
+    const stage = new Konva.Stage({
+      container: 'accent-kstage',
+      width: w,
+      height: h
+    });
+
+    const uiLayer = new Konva.Layer();
+    const glyphLayer = new Konva.Layer();
+    const pulseLayer = new Konva.Layer();
+    stage.add(uiLayer);
+    stage.add(glyphLayer);
+    stage.add(pulseLayer);
+
+    const padding = 16;
+    const leftW = w * 0.55;
+    const rightW = w * 0.4;
+
+    const leftX = padding;
+    const rightX = w - padding - rightW;
+    const topY = padding;
+    const midY = h * 0.45;
+    const bottomY = h - padding;
+
+    function makePanel(x, y, pw, ph, title) {
+      const group = new Konva.Group({ x, y });
+      const rect = new Konva.Rect({
+        width: pw,
+        height: ph,
+        cornerRadius: 14,
+        fillLinearGradientStartPoint: { x: 0, y: 0 },
+        fillLinearGradientEndPoint: { x: pw, y: ph },
+        fillLinearGradientColorStops: [
+          0, AC_COLORS.bgPanel,
+          1, AC_COLORS.bgPanelSoft
+        ],
+        strokeLinearGradientStartPoint: { x: 0, y: 0 },
+        strokeLinearGradientEndPoint: { x: pw, y: 0 },
+        strokeLinearGradientColorStops: [
+          0, AC_COLORS.holoCyan,
+          1, AC_COLORS.holoMagenta
+        ],
+        strokeWidth: 2,
+        shadowColor: '#000',
+        shadowBlur: 16,
+        shadowOpacity: 0.7
+      });
+      group.add(rect);
+      if (title) {
+        group.add(new Konva.Text({
+          x: 10,
+          y: 6,
+          text: title,
+          fontSize: 12,
+          fill: AC_COLORS.text,
+          opacity: 0.8
+        }));
+      }
+      uiLayer.add(group);
+      return { group, rect };
+    }
+
+    function makeGlyphButton(x, y, bw, bh, letter, accent, color, accentColor, onClick) {
+      const group = new Konva.Group({ x, y });
+      const rect = new Konva.Rect({
+        width: bw,
+        height: bh,
+        cornerRadius: 8,
+        fillLinearGradientStartPoint: { x: 0, y: 0 },
+        fillLinearGradientEndPoint: { x: bw, y: bh },
+        fillLinearGradientColorStops: [
+          0, color,
+          1, Konva.Util.getRandomColor()
+        ],
+        stroke: 'rgba(255,255,255,0.3)',
+        strokeWidth: 1,
+        shadowColor: color,
+        shadowBlur: 8,
+        shadowOpacity: 0.0
+      });
+
+      const glyphGroup = new Konva.Group({
+        x: 0,
+        y: 0,
+        width: bw,
+        height: bh
+      });
+
+      const baseLetter = new Konva.Text({
+        text: letter || '',
+        fontSize: 18,
+        x: bw / 2 - 10,
+        y: bh / 2 - 10,
+        fill: color
+      });
+
+      const accentMark = new Konva.Text({
+        text: accent || '',
+        fontSize: 14,
+        x: bw / 2 - 10,
+        y: bh / 2 - 30,
+        fill: accent ? accentColor : color,
+        visible: !!accent
+      });
+
+      glyphGroup.add(accentMark);
+      glyphGroup.add(baseLetter);
+
+      group.add(rect);
+      group.add(glyphGroup);
+
+      group.on('mouseenter', () => {
+        document.body.style.cursor = 'pointer';
+        rect.to({ shadowOpacity: 0.8, duration: 0.15 });
+      });
+      group.on('mouseleave', () => {
+        document.body.style.cursor = 'default';
+        rect.to({ shadowOpacity: 0.0, duration: 0.2 });
+      });
+      group.on('click', () => {
+        rect.to({
+          scaleX: 1.05,
+          scaleY: 1.05,
+          shadowBlur: 18,
+          shadowOpacity: 1,
+          duration: 0.12,
+          onFinish: () => {
+            rect.to({
+              scaleX: 1,
+              scaleY: 1,
+              shadowBlur: 8,
+              shadowOpacity: 0.2,
+              duration: 0.18
+            });
+          }
+        });
+        onClick && onClick();
+      });
+
+      uiLayer.add(group);
+      return { group, rect, glyphGroup, baseLetter, accentMark };
+    }
+
+    const t1H = (midY - topY) - 8;
+    const t1Panel = makePanel(leftX, topY, leftW, t1H, 'Table 1 · Letters × Accents');
+    const t1Cols = AC_accents.length;
+    const t1Rows = AC_lettersTable1.length;
+    const t1CellW = (leftW - 20) / t1Cols;
+    const t1CellH = (t1H - 30) / t1Rows;
+    const t1Cells = {};
+
+    AC_lettersTable1.forEach((letter, row) => {
+      AC_accents.forEach((acc, col) => {
+        const key = letter + '|' + acc;
+        const lx = t1Panel.group.x() + 10 + col * t1CellW;
+        const ly = t1Panel.group.y() + 20 + row * t1CellH;
+        const color = AC_letterColor[letter];
+        const accentColor = color; // accent uses letter color in table 1
+        t1Cells[key] = makeGlyphButton(
+          lx,
+          ly,
+          t1CellW - 6,
+          t1CellH - 6,
+          letter,
+          acc === '' ? '' : acc,
+          color,
+          accentColor,
+          () => {
+            AC_currentLetter = letter;
+            AC_currentAccent = acc;
+            acUpdateAll();
+          }
+        );
+      });
+    });
+
+    const t2H = (midY - topY) - 8;
+    const t2Panel = makePanel(rightX, topY, rightW, t2H, 'Table 2 · Accent Selector');
+    const t2Cols = AC_accents.length;
+    const t2CellW = (rightW - 20) / t2Cols;
+    const t2CellH = t2H - 30;
+    const t2Buttons = {};
+
+    AC_accents.forEach((acc, col) => {
+      const ax = t2Panel.group.x() + 10 + col * t2CellW;
+      const ay = t2Panel.group.y() + 20;
+      const color = AC_COLORS.bgPanelSoft;
+      const accentColor = AC_accentOwnColor[acc];
+      t2Buttons[acc] = makeGlyphButton(
+        ax,
+        ay,
+        t2CellW - 6,
+        t2CellH - 6,
+        '',                         // no base letter in selector
+        acc === '' ? '' : acc,      // no-accent button is empty
+        color,
+        accentColor,
+        () => {
+          AC_currentAccent = acc;
+          acUpdateAll();
+        }
+      );
+    });
+
+    const t3H = (bottomY - midY) - 8;
+    const t3Panel = makePanel(leftX, midY + 8, leftW, t3H, 'Table 3 · Complex Letter Grid');
+    const t3Rows = 4;
+    const t3Cols = 4;
+    const t3CellW = (leftW - 20) / t3Cols;
+    const t3CellH = (t3H - 30) / t3Rows;
+
+    const t3Letters = [
+      ['G', 'F', 'E', 'H'],
+      ['C', 'B', 'A', 'D'],
+      ['Q', 'P', 'O', 'R'],
+      ['K', 'J', 'I', 'L']
+    ];
+    const t3Buttons = [];
+
+    t3Letters.forEach((rowLetters, r) => {
+      rowLetters.forEach((letter, c) => {
+        const x = t3Panel.group.x() + 10 + c * t3CellW;
+        const y = t3Panel.group.y() + 20 + r * t3CellH;
+        const color = AC_letterColor[letter] || AC_COLORS.bgPanelSoft;
+        const btn = makeGlyphButton(
+          x,
+          y,
+          t3CellW - 6,
+          t3CellH - 6,
+          letter,
+          AC_currentAccent === '' ? '' : AC_currentAccent,
+          color,
+          color,
+          () => {
+            AC_currentLetter = letter;
+            acUpdateAll();
+          }
+        );
+        t3Buttons.push({ letter, btn });
+      });
+    });
+
+    const ansPanel = makePanel(rightX, midY + 8, rightW, t3H, 'Answer · Glyph Equation');
+
+    const ansCenterX = ansPanel.group.x() + rightW / 2;
+    const ansCenterY = ansPanel.group.y() + 60;
+
+    const ansLetterGroup = new Konva.Group({
+      x: ansCenterX,
+      y: ansCenterY
+    });
+
+    const ansBaseLetter = new Konva.Text({
+      x: -20,
+      y: -20,
+      width: 40,
+      height: 40,
+      align: 'center',
+      verticalAlign: 'middle',
+      fontSize: 40,
+      fill: AC_COLORS.text
+    });
+
+    const ansAccentMark = new Konva.Text({
+      x: -20,
+      y: -48,
+      width: 40,
+      height: 20,
+      align: 'center',
+      verticalAlign: 'middle',
+      fontSize: 24,
+      fill: AC_COLORS.text
+    });
+
+    ansLetterGroup.add(ansAccentMark);
+    ansLetterGroup.add(ansBaseLetter);
+    glyphLayer.add(ansLetterGroup);
+
+    const qBaseX = ansPanel.group.x() + 20;
+    const qBaseY = ansPanel.group.y() + 110;
+
+    const qLabel = new Konva.Text({
+      x: qBaseX,
+      y: qBaseY,
+      text: '? example',
+      fontSize: 13,
+      fill: AC_COLORS.text
+    });
+
+    const qLeftLetter = new Konva.Text({
+      x: qBaseX,
+      y: qBaseY + 24,
+      text: '',
+      fontSize: 22,
+      fill: AC_COLORS.text
+    });
+    const qLeftAccent = new Konva.Text({
+      x: qBaseX,
+      y: qBaseY + 8,
+      text: '',
+      fontSize: 16,
+      fill: AC_COLORS.text
+    });
+
+    const qEqEquals = new Konva.Text({
+      x: qBaseX + 32,
+      y: qBaseY + 24,
+      text: '=',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const qRightBase = new Konva.Text({
+      x: qBaseX + 52,
+      y: qBaseY + 24,
+      text: '',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const qUnit = new Konva.Text({
+      x: qBaseX + 80,
+      y: qBaseY + 24,
+      text: '· ?',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const qExponent = new Konva.Text({
+      x: qBaseX + 118,
+      y: qBaseY + 12,
+      text: '',
+      fontSize: 14,
+      fill: AC_COLORS.text
+    });
+
+    const cmBaseX = ansPanel.group.x() + rightW / 2 + 10;
+    const cmBaseY = qBaseY;
+
+    const cmLabel = new Konva.Text({
+      x: cmBaseX,
+      y: cmBaseY,
+      text: 'cm example',
+      fontSize: 13,
+      fill: AC_COLORS.text
+    });
+
+    const cmLeftLetter = new Konva.Text({
+      x: cmBaseX,
+      y: cmBaseY + 24,
+      text: '',
+      fontSize: 22,
+      fill: AC_COLORS.text
+    });
+    const cmLeftAccent = new Konva.Text({
+      x: cmBaseX,
+      y: cmBaseY + 8,
+      text: '',
+      fontSize: 16,
+      fill: AC_COLORS.text
+    });
+
+    const cmEqEquals = new Konva.Text({
+      x: cmBaseX + 32,
+      y: cmBaseY + 24,
+      text: '=',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const cmRightBase = new Konva.Text({
+      x: cmBaseX + 52,
+      y: cmBaseY + 24,
+      text: '',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const cmUnit = new Konva.Text({
+      x: cmBaseX + 80,
+      y: cmBaseY + 24,
+      text: '· cm',
+      fontSize: 20,
+      fill: AC_COLORS.text
+    });
+
+    const cmExponent = new Konva.Text({
+      x: cmBaseX + 132,
+      y: cmBaseY + 12,
+      text: '',
+      fontSize: 14,
+      fill: AC_COLORS.text
+    });
+
+    glyphLayer.add(
+      qLabel, qLeftLetter, qLeftAccent, qEqEquals, qRightBase, qUnit, qExponent,
+      cmLabel, cmLeftLetter, cmLeftAccent, cmEqEquals, cmRightBase, cmUnit, cmExponent
+    );
+
+    const pulseCircles = [];
+    for (let i = 0; i < 4; i++) {
+      const c = new Konva.Circle({
+        x: ansCenterX,
+        y: ansCenterY,
+        radius: 60 + i * 18,
+        stroke: AC_COLORS.holoCyan,
+        strokeWidth: 1.5,
+        opacity: 0
+      });
+      pulseCircles.push(c);
+      pulseLayer.add(c);
+    }
+
+    function acUpdateAnswer() {
+      const letter = AC_currentLetter;
+      const acc = AC_currentAccent;
+      const baseLetter = letter;
+      const exponentLetter = AC_accentToExponent[acc];
+
+      const letterCol = AC_letterColor[letter] || AC_COLORS.U;
+      const accentColSeparate = AC_accentOwnColor[acc];
+
+      ansBaseLetter.text(letter);
+      ansBaseLetter.fill(letterCol);
+      ansAccentMark.text(acc === '' ? '' : acc);
+      ansAccentMark.fill(letterCol);
+
+      qLeftLetter.text(letter);
+      qLeftLetter.fill(letterCol);
+      qLeftAccent.text(acc === '' ? '' : acc);
+      qLeftAccent.fill(letterCol);
+
+      qRightBase.text(baseLetter);
+      qRightBase.fill(letterCol);
+      if (exponentLetter) {
+        qExponent.text(exponentLetter);
+        qExponent.fill(accentColSeparate);
+      } else {
+        qExponent.text('');
+      }
+
+      cmLeftLetter.text(letter);
+      cmLeftLetter.fill(letterCol);
+      cmLeftAccent.text(acc === '' ? '' : acc);
+      cmLeftAccent.fill(letterCol);
+
+      cmRightBase.text(baseLetter);
+      cmRightBase.fill(letterCol);
+      if (exponentLetter) {
+        cmExponent.text(exponentLetter);
+        cmExponent.fill(accentColSeparate);
+      } else {
+        cmExponent.text('');
+      }
+    }
+
+    function acUpdateSelections() {
+      Object.entries(t1Cells).forEach(([key, btn]) => {
+        const [letter, acc] = key.split('|');
+        const sel = (letter === AC_currentLetter && acc === AC_currentAccent);
+        btn.rect.stroke(sel ? '#ffffff' : 'rgba(255,255,255,0.3)');
+        btn.rect.strokeWidth(sel ? 2 : 1);
+      });
+
+      Object.entries(t2Buttons).forEach(([acc, btn]) => {
+        const sel = (acc === AC_currentAccent);
+        btn.rect.stroke(sel ? '#ffffff' : 'rgba(255,255,255,0.3)');
+        btn.rect.strokeWidth(sel ? 2 : 1);
+      });
+
+      t3Buttons.forEach(({ letter, btn }) => {
+        const sel = (letter === AC_currentLetter);
+        btn.rect.stroke(sel ? '#ffffff' : 'rgba(255,255,255,0.3)');
+        btn.rect.strokeWidth(sel ? 2 : 1);
+      });
+    }
+
+    function acUpdateHexAccents() {
+      t3Buttons.forEach(({ letter, btn }) => {
+        const color = AC_letterColor[letter] || AC_COLORS.bgPanelSoft;
+        btn.baseLetter.fill(color);
+        btn.accentMark.text(AC_currentAccent === '' ? '' : AC_currentAccent);
+        btn.accentMark.fill(color);
+        btn.accentMark.visible(AC_currentAccent !== '');
+      });
+    }
+
+    function acUpdateAll() {
+      acUpdateAnswer();
+      acUpdateSelections();
+      acUpdateHexAccents();
+      uiLayer.batchDraw();
+      glyphLayer.batchDraw();
+    }
+
+    let startTime = performance.now();
+    function acAnimate() {
+      const now = performance.now();
+      const t = (now - startTime) / 1000;
+      const omega = 2.5;
+      const phase = t * omega;
+
+      const cfg = AC_pulseConfig[AC_currentLetter] ||
+                  (AC_currentAccent === '´´' ? AC_pulseConfig.E : null);
+
+      if (cfg) {
+        const baseColor = acPulseBaseColor(AC_currentLetter, phase) ||
+                          acMixViolets(phase);
+        ansBaseLetter.fill(baseColor);
+        ansAccentMark.fill(baseColor);
+
+        for (let i = 0; i < pulseCircles.length; i++) {
+          const c = pulseCircles[i];
+          if (i < cfg.count) {
+            const localPhase = phase + i * 0.6;
+            const amp = (Math.sin(localPhase) + 1) / 2;
+            const strong = 0.3 + 0.7 * amp;
+            c.opacity(0.15 + 0.25 * strong);
+            c.radius(60 + i * 18 + 10 * strong);
+            c.stroke(baseColor);
+          } else {
+            c.opacity(0);
+          }
+        }
+      } else {
+        pulseCircles.forEach(c => c.opacity(0));
+      }
+
+      pulseLayer.batchDraw();
+      requestAnimationFrame(acAnimate);
+    }
+    acAnimate();
+
+    acUpdateAll();
+    return stage;
+  }
+
+  let AC_stage = acInitStage();
+
+  window.addEventListener('resize', () => {
+    const wrap = document.getElementById('accent-calc-stage-wrap');
+    const rect = wrap.getBoundingClientRect();
+    AC_stage.width(rect.width);
+    AC_stage.height(rect.height);
+  });
+</script>
+
+
+
+
+  <h1>MetaR and 4 R Scales</h1>
+
+  <p>
+    Original reference file: 
+    <a href="MetaR%20of%204R.md" target="_blank">MetaR of 4R.md</a>
+  </p>
+
+  <p>
+    Below are the four R scales, showing each R’s digits.  
+    If an R uses half-precision, only 2 elements (O, A) appear.  
+    Full 4-element R scales show I, O, A, E.
+  </p>
+
+  <div class="r-scale">
+
+    <!-- R1 -->
+    <div class="r-block">
+      <h3>R1 - Base Source (Width: 1)</h3>
+      <div class="r-elements">
+        <div class="r-element A">A</div>
+      </div>
+      <p>Half-precision: 1 element only</p>
+    </div>
+
+    <!-- R2 -->
+    <div class="r-block">
+      <h3>R2 - Base Complexity (Width: 2)</h3>
+      <div class="r-elements">
+        <div class="r-element O">O</div>
+        <div class="r-element A">A</div>
+      </div>
+      <p>Half-precision: binary</p>
+    </div>
+
+    <!-- R3 -->
+    <div class="r-block">
+      <h3>R3 - Width (Width: 3)</h3>
+      <div class="r-elements">
+        <div class="r-element Z">Z</div>
+        <div class="r-element X">X</div>
+        <div class="r-element Y">Y</div>
+      </div>
+      <p>Three-element linear scale</p>
+    </div>
+
+    <!-- R4 -->
+    <div class="r-block">
+      <h3>R4 - Superposition (Width: 4)</h3>
+      <div class="r-elements">
+        <div class="r-element I">I</div>
+        <div class="r-element O">O</div>
+        <div class="r-element A">A</div>
+        <div class="r-element E">E</div>
+      </div>
+      <p>Full 4-element exponent scale</p>
+    </div>
+
+  </div>
+
+  <p>
+    Each scale can be seen as a “dimension” of number structure.  
+    The half-precision scales melt interior detail into fewer digits, while Superposition (R4) shows extremes: -∞, -0, +0, +∞.  
+    Combined, these scales form a hierarchy converging at the origin (0), expressing **local-global order** like differential-integral octaves.
+  </p>
+
+
+<div class="spireason-addon">
+  <h2>Laenga Number Hologram</h2>
+  <p>Interactive visualization of 4D number system primitives along all axes (Z, X, Y, Width/MetaR).</p>
+
+  <svg class="spireason-holo" width="90%" height="400"></svg>
+
+  <style>
+    .spireason-addon {
+      margin: 3em auto;
+      text-align: center;
+      max-width: 1000px;
+      font-family: 'Helvetica', sans-serif;
+      color: #eee;
+    }
+
+    .spireason-addon h2 {
+      color: #ffd700;
+      margin-bottom: 0.5em;
+    }
+
+    .spireason-addon p {
+      margin-bottom: 2em;
+    }
+
+    .spireason-holo {
+      border: 1px solid #444;
+      background: linear-gradient(to bottom, #111, #222);
+    }
+
+    .holo-node circle {
+      stroke: #fff;
+      stroke-width: 1.5;
+    }
+
+    .holo-node text {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      pointer-events: none;
+    }
+
+    .holo-label {
+      font-size: 10px;
+      fill: #fff;
+    }
+
+    /* Node colors: Z=blue/science, X=green/mundane, Y=gold/paradise, width=purple */
+    .axis-Z { fill: #1E90FF; }
+    .axis-X { fill: #3CB371; }
+    .axis-Y { fill: #FFD700; }
+    .axis-W { fill: #8a2be2; }
+  </style>
+
+  <script>
+    (function(){
+      const svgNS = "http://www.w3.org/2000/svg";
+      const svg = document.querySelector(".spireason-holo");
+      const w = svg.clientWidth || 900;
+      const h = svg.clientHeight || 400;
+      svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+
+      // Axes: Z, X, Y, Width (W)
+      const axes = ['Z','X','Y','W'];
+      const colors = {Z:'#1E90FF', X:'#3CB371', Y:'#FFD700', W:'#8a2be2'};
+
+      // Generate nodes along 4 axes
+      const steps = [4, 4, 4, 4]; // example: max 4 nodes per axis
+      const nodes = [];
+
+      axes.forEach((axis,i)=>{
+        for(let j=1;j<=steps[i];j++){
+          nodes.push({
+            axis: axis,
+            val: j,
+            x: w*0.1 + (i/4)*w*0.8 + Math.random()*10, // spread slightly
+            y: h*0.2 + (j/steps[i])*h*0.6 + Math.random()*5,
+            r: 12
+          });
+        }
+      });
+
+      // Draw nodes
+      nodes.forEach(n=>{
+        const g = document.createElementNS(svgNS,"g");
+        g.setAttribute("class","holo-node");
+
+        const circle = document.createElementNS(svgNS,"circle");
+        circle.setAttribute("cx", n.x);
+        circle.setAttribute("cy", n.y);
+        circle.setAttribute("r", n.r);
+        circle.setAttribute("fill", colors[n.axis]);
+        g.appendChild(circle);
+
+        const text = document.createElementNS(svgNS,"text");
+        text.setAttribute("x", n.x);
+        text.setAttribute("y", n.y);
+        text.setAttribute("fill","#000");
+        text.setAttribute("font-size","10");
+        text.textContent = n.val;
+        g.appendChild(text);
+
+        // Axis label below node
+        const label = document.createElementNS(svgNS,"text");
+        label.setAttribute("x", n.x);
+        label.setAttribute("y", n.y + n.r + 12);
+        label.setAttribute("class","holo-label");
+        label.textContent = n.axis;
+        g.appendChild(label);
+
+        svg.appendChild(g);
+      });
+
+      // Optional: show connections (like dimensional lattice)
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          if(nodes[i].axis !== nodes[j].axis){
+            const line = document.createElementNS(svgNS,"line");
+            line.setAttribute("x1", nodes[i].x);
+            line.setAttribute("y1", nodes[i].y);
+            line.setAttribute("x2", nodes[j].x);
+            line.setAttribute("y2", nodes[j].y);
+            line.setAttribute("stroke","#888");
+            line.setAttribute("stroke-width","0.5");
+            line.setAttribute("opacity","0.3");
+            svg.appendChild(line);
+          }
+        }
+      }
+
+    })();
+  </script>
+</div>
+
+</body>
+</html>

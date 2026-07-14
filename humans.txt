@@ -1,0 +1,20 @@
+/* humans.txt for spireason.neocities.org */
+
+Creator: Tambet Väli
+Location: Barcelona, Catalunya, Spain
+Site: https://spireason.neocities.org
+
+Purpose:
+A minimalist web space built around clarity, UTF‑8 symbols, and user freedom.
+No scripts, no tracking, no forced styling. Just text, structure, and ideas.
+
+Philosophy:
+Respect the reader. Let the browser decide. Keep the web simple.
+Everything served as static files, readable on any device, with any font.
+
+Technology:
+Hand‑written HTML, with AI CoPilot assistance and coding tasks.
+UTF‑8 everywhere.
+Hosted on Neocities.
+
+Last updated: 2026-03
