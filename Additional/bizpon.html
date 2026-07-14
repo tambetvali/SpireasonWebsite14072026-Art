@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Business Ponegation Cheat Sheet — fixed headers & tautology colors</title>
+<style>
+  :root{
+    --bg:#fbfbfc; --panel:#fff; --muted:#6b6b70; --border:#d7d7d9;
+    --pos:#2e9a5b; --neg:#c94a4a; --negotion:#b57b00; --posetion:#2b74d9;
+    --gap-right:2cm; --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+    --cell-h:120px;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(#fbfdff,#fbfbfc);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#111}
+  header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--panel)}
+  header h1{margin:0;font-size:16px}
+  nav a{color:#256ca6;text-decoration:none;margin-left:12px;font-size:13px}
+  main{display:flex;gap:18px;max-width:1280px;margin:20px auto;padding:0 12px;align-items:flex-start}
+  .left{width:calc(300px + var(--gap-right));min-width:300px;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+  .mode-row{display:flex;justify-content:space-between;gap:8px}
+  .mode-group{display:flex;gap:8px}
+  .mode-btn{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;font-weight:700}
+  .mode-business.active{background:linear-gradient(90deg,#ffecec,#ffdede);border-color:#f0a8a8;color:#7a1b1b}
+  .mode-infinity.active{background:linear-gradient(90deg,#f0fff5,#dfffe5);border-color:#7fd39a;color:#0a4e2f}
+  .mode-linear.active{background:linear-gradient(90deg,#eef6ff,#dceeff);border-color:#9bbef2;color:#0a3f66}
+  .mode-radial.active{background:linear-gradient(90deg,#fff7e6,#fff1d9);border-color:#e6c85a;color:#613f00}
+  .cheat-title{font-weight:800;margin:10px 0}
+  .defs{display:flex;gap:8px;flex-wrap:wrap}
+  .defs button{padding:8px 10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-weight:700;background:#fff}
+  .def-philosophical.active{background:linear-gradient(90deg,#ffdede,#ffd1d1);border-color:#f3a8a8;color:#7a1b1b}
+  .def-evolutionary.active{background:linear-gradient(90deg,#fff8d9,#fff2b2);border-color:#e6c85a;color:#614700}
+  .def-meaning.active{background:linear-gradient(90deg,#e6fbff,#cfeefd);border-color:#8fe0da;color:#004e4e}
+  .def-projective.active{background:linear-gradient(90deg,#f0e8ff,#e2d7ff);border-color:#b99ff0;color:#3b1a66}
+  .links{margin-top:12px;font-size:13px}
+  .links a{display:block;color:#256ca6;text-decoration:none;margin:6px 0}
+  .center{flex:1;min-width:420px}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+  #tableTitle{display:flex;justify-content:space-between;align-items:center}
+  .hint{color:var(--muted);font-size:13px;margin-top:6px}
+  table{width:100%;border-collapse:collapse;margin-top:12px}
+  th,td{border:1px solid var(--border);padding:0;margin:0;font-size:14px;vertical-align:top;background:linear-gradient(#fff,#fbfdff)}
+  thead th{font-weight:700;color:var(--muted);padding:10px 12px}
+  /* restored combined left cell that spans Good+Bad rows (logic cell), and math header spanning two columns above */
+  .logic-cell{width:3.2cm;writing-mode:vertical-rl;transform:rotate(180deg);text-orientation:mixed;font-weight:700;color:var(--muted);padding:8px;background:linear-gradient(180deg,#fbfdff,#fff);border-right:1px solid var(--border);vertical-align:middle}
+  .math-header{text-align:center;font-weight:700;color:var(--muted);padding:10px 12px}
+  .cell-top{height:calc(var(--cell-h)/2);padding:8px 12px;border-bottom:1px dashed var(--border);display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700}
+  .cell-bottom{padding:12px;font-size:13px;color:var(--muted);white-space:pre-line;overflow:auto;max-height:260px}
+  .letter-stack{display:inline-block;width:80px;height:46px;position:relative}
+  .letter-top{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--mono);font-weight:800;font-size:18px}
+  .letter-bottom{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--mono);font-weight:700;font-size:16px}
+  .offset-first{top:6px}
+  .offset-second{top:26px}
+  .badge-position{color:var(--pos);font-weight:800}
+  .badge-negation{color:var(--neg);font-weight:800}
+  .badge-negotion{color:var(--negotion);font-weight:800}
+  .badge-posetion{color:var(--posetion);font-weight:800}
+  .letter-line{margin-top:12px;font-family:var(--mono);font-weight:800;font-size:20px;display:flex;align-items:flex-end;gap:12px;justify-content:center}
+  .up-offset{transform:translateY(-8px)}
+  .rot-u{display:inline-block;transform:rotate(180deg);font-family:var(--mono);font-weight:900;background:#000;color:#fff;padding:4px 8px;border-radius:6px}
+  .right{width:320px;min-width:240px;margin-left:var(--gap-right)}
+  .rot-panel{background:var(--panel);border:1px solid var(--border);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.03)}
+  .rotating{min-height:120px}
+  footer{padding:12px;text-align:center;color:var(--muted);font-size:13px}
+  @media (max-width:980px){main{flex-direction:column;padding:12px} .left,.right{width:100%;margin-left:0} .center{width:100%}}
+</style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+<header>
+  <div style="display:flex;align-items:center;gap:12px">
+    <h1>Business Ponegation Cheat Sheet</h1>
+    <small style="color:var(--muted)">fixed</small>
+  </div>
+  <nav>
+    <a href="https://spireason.neocities.org" title="back to spireason">← spireason</a>
+    <a href="https://laegna-symbiotic-systems.lovable.app/" style="margin-left:10px">Laegna explanation</a>
+  </nav>
+</header>
+
+<main>
+  <aside class="left">
+    <h3 class="cheat-title">Modes & Controls</h3>
+
+    <div class="mode-row" style="margin-top:8px">
+      <div class="mode-group" aria-label="goal modes">
+        <button id="btn-business" class="mode-btn mode-business" onclick="setPonegationMode('business')">Business</button>
+        <button id="btn-infinity" class="mode-btn mode-infinity" onclick="setPonegationMode('infinity')">Infinity</button>
+      </div>
+      <div class="mode-group" aria-label="math modes">
+        <button id="btn-linear" class="mode-btn mode-linear" onclick="setMathMode('linear')">Linear</button>
+        <button id="btn-radial" class="mode-btn mode-radial" onclick="setMathMode('radial')">Radial</button>
+      </div>
+    </div>
+
+    <div class="cheat-area" style="margin-top:12px">
+      <div><strong>Business ponegation</strong> — the main cheat sheet above the table.</div>
+      <div style="margin-top:8px"><strong>Infinity ponegation</strong> — uses Plus/Minus; see Ponegatetables.pdf</div>
+
+      <div class="defs" style="margin-top:12px">
+        <button id="btn-def-philosophical" class="def-philosophical" onclick="selectDef('philosophical')">Philosophical</button>
+        <button id="btn-def-evolutionary" class="def-evolutionary" onclick="selectDef('evolutionary')">Evolutionary</button>
+        <button id="btn-def-meaning" class="def-meaning" onclick="selectDef('meaning')">Definition by meaning</button>
+        <button id="btn-def-projective" class="def-projective" onclick="selectDef('projective')">Projective</button>
+      </div>
+
+      <div class="links" style="margin-top:12px">
+        <a href="https://spireason.neocities.org/Additional/Ponegatetables.pdf">Ponegatetables.pdf</a>
+        <a href="https://assorted-canopy-961.notion.site/Laegna-Base-Alphabet-1ad75bfc115480f99312f8a4834456f9">Laegna Base Alphabet</a>
+      </div>
+    </div>
+  </aside>
+
+  <section class="center">
+    <div class="panel">
+      <div id="tableTitle">
+        <h3 id="sheetTitle">Philosophical Definition</h3>
+        <div class="hint" id="modeHint">Mode: Business · Linear</div>
+      </div>
+
+      <!-- IMPORTANT: added empty header cell to shift Mathematics/Positive/Negative one column to the right -->
+      <table aria-label="Ponegation table">
+        <thead>
+          <tr>
+            <th style="background:transparent;border:0;padding:0"></th>
+            <th style="background:transparent;border:0;padding:0"></th>
+            <th class="math-header" colspan="2">Mathematics</th>
+          </tr>
+          <tr>
+            <th style="background:transparent;border:0;padding:0"></th>
+            <th style="background:transparent;border:0;padding:0"></th>
+            <th id="colPositive">Positive / Real</th>
+            <th id="colNegative">Negative / Unreal</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="logic-cell" rowspan="3">Logic</td>
+            <th id="rowGood">Good / Desirable</th>
+            <td id="r1c1" style="padding:10px">
+              <div class="cell-top"><span class="badge-position">Position</span></div>
+            </td>
+            <td id="r1c2" style="padding:10px">
+              <div class="cell-top"><span class="badge-negation">Negation</span></div>
+            </td>
+            <td style="background:transparent;border:0;padding:0"></td>
+          </tr>
+
+          <tr>
+            <th id="rowBad">Bad / Undesirable</th>
+            <td id="r2c1" style="padding:10px">
+              <div class="cell-top"><span class="badge-posetion">Posetion</span></div>
+            </td>
+            <td id="r2c2" style="padding:10px">
+              <div class="cell-top"><span class="badge-negotion">Negotion</span></div>
+            </td>
+            <td style="background:transparent;border:0;padding:0"></td>
+          </tr>
+
+          <tr>
+            <th id="rowTauto">Tautology</th>
+            <td id="r3c1" style="height:var(--cell-h);padding:0">
+              <div class="cell-top" id="r3c1-top">
+                <div class="letter-stack" id="r3c1-stack">
+                  <div id="r3c1-letter-first" class="letter-top offset-first">—</div>
+                  <div id="r3c1-letter-second" class="letter-bottom offset-second">—</div>
+                </div>
+                <div id="r3c1-short" style="margin-left:8px" class="badge-posetion">Posetion / Position</div>
+              </div>
+              <div id="r3c1-bottom" class="cell-bottom"></div>
+            </td>
+            <td id="r3c2" style="height:var(--cell-h);padding:0">
+              <div class="cell-top" id="r3c2-top">
+                <div class="letter-stack" id="r3c2-stack">
+                  <div id="r3c2-letter-first" class="letter-top offset-first">—</div>
+                  <div id="r3c2-letter-second" class="letter-bottom offset-second">—</div>
+                </div>
+                <div id="r3c2-short" style="margin-left:8px" class="badge-negotion">Negation / Negotion</div>
+              </div>
+              <div id="r3c2-bottom" class="cell-bottom"></div>
+            </td>
+            <td style="background:transparent;border:0;padding:0"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="letter-line" aria-hidden="false" title="Laegna letters order">
+        <span id="L-U">U</span>
+        <span id="L-I">I</span>
+        <span id="L-O">O</span>
+        <span id="L-A">A</span>
+        <span id="L-E">E</span>
+        <span style="width:18px"></span>
+        <span class="up-offset rot-u" id="L-rotU">U</span>
+      </div>
+
+    </div>
+  </section>
+
+  <aside class="right">
+    <div class="rot-panel panel">
+      <div class="rotating" id="rotatingDef" aria-live="polite"></div>
+      <div style="margin-top:8px;color:var(--muted);font-size:13px">
+        The rotating panel cycles the four definitions; clicks and timer behave equivalently.
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <a href="https://laegna-symbiotic-systems.lovable.app/">Laegna explanation</a> ·
+  <a href="https://spireason.neocities.org/Additional/Ponegatetables.pdf">Ponegatetables.pdf</a>
+</footer>
+
+<script>
+/* exact definition texts preserved */
+const DEFINITIONS = {
+  philosophical:{ left:["POSETION","True by form, false by essence.","POSITION","True by form, true by essence."], right:["NEGATION","False by form, true by essence.","NEGOTION","False by form, false by essence."] },
+  evolutionary:{ left:["POSETION","True locally, false in infinity.","POSITION","True locally and in infinity."], right:["NEGATION","False locally and in infinity.","NEGOTION","False locally and in infinity."] },
+  meaning:{ left:["POSETION","True which means false.","POSITION","True which means true."], right:["NEGATION","False which means true.","NEGOTION","False which means false."] },
+  projective:{ left:["POSETION","Fake / projected true.","POSITION","Real true."], right:["NEGATION","Fake / projected false.","NEGOTION","Real false."] }
+};
+
+/* stack layouts restored */
+const STACK_LAYOUTS = {
+  radial: { left_first:['E','A'], left_second:['O','I'] },
+  linear:{ left_first:['O','E'], left_second:['A','I'] }
+};
+
+/* ponegate -> letter mappings used for coloring letters */
+const MAPPINGS = {
+  linear: { Position:'A', Negation:'O', Negotion:'I', Posetion:'E' },
+  radial:  { Position:'A', Negation:'E', Negotion:'I', Posetion:'O' }
+};
+
+let state = { mode:'business', math:'linear', def:'philosophical', rotIndex:0 };
+
+/* keep group independence for highlights */
+function setPonegationMode(mode){
+  state.mode = mode;
+  document.getElementById('btn-business').classList.toggle('active', mode==='business');
+  document.getElementById('btn-infinity').classList.toggle('active', mode==='infinity');
+
+  // restore labels when switching
+  document.getElementById('rowGood').innerText = mode==='business' ? 'Good / Desirable' : 'Infinite';
+  document.getElementById('rowBad').innerText  = mode==='business' ? 'Bad / Undesirable'  : 'Finite';
+  document.getElementById('colPositive').innerText = mode==='business' ? 'Positive / Real' : 'Plus';
+  document.getElementById('colNegative').innerText = mode==='business' ? 'Negative / Unreal' : 'Minus';
+
+  document.getElementById('modeHint').innerText = (mode==='business'?'Business':'Infinity') + ' · ' + (state.math==='linear'?'Linear':'Radial');
+  applyDefinition(state.def);
+}
+
+function setMathMode(math){
+  state.math = math;
+  document.getElementById('btn-linear').classList.toggle('active', math==='linear');
+  document.getElementById('btn-radial').classList.toggle('active', math==='radial');
+  document.getElementById('modeHint').innerText = (state.mode==='business'?'Business':'Infinity') + ' · ' + (math==='linear'?'Linear':'Radial');
+  applyDefinition(state.def);
+}
+
+/* select definition and highlight button */
+function selectDef(key){
+  state.def = key;
+  ['philosophical','evolutionary','meaning','projective'].forEach(id=>{
+    const btn = document.getElementById('btn-def-'+id);
+    if(btn) btn.classList.toggle('active', id===key);
+  });
+  applyDefinition(key);
+}
+
+/* fill tautology bottoms and top stacks, restore exact wording, color tautology letters */
+function applyDefinition(key){
+  const d = DEFINITIONS[key] || DEFINITIONS.philosophical;
+  document.getElementById('sheetTitle').innerText = key.charAt(0).toUpperCase()+key.slice(1) + ' Definition';
+
+  // put exact texts with extra spacing
+  document.getElementById('r3c1-bottom').innerText = d.left[0] + ' — ' + d.left[1] + '\n\n' + d.left[2] + ' — ' + d.left[3];
+  document.getElementById('r3c2-bottom').innerText = d.right[0] + ' — ' + d.right[1] + '\n\n' + d.right[2] + ' — ' + d.right[3];
+
+  // stacks by math layout
+  const layout = state.math === 'radial' ? STACK_LAYOUTS.radial : STACK_LAYOUTS.linear;
+  const leftPair = layout.left_first;
+  const rightPair = layout.left_second;
+
+  document.getElementById('r3c1-letter-first').innerText = leftPair[0] || '—';
+  document.getElementById('r3c1-letter-second').innerText = leftPair[1] || '—';
+  document.getElementById('r3c2-letter-first').innerText = rightPair[0] || '—';
+  document.getElementById('r3c2-letter-second').innerText = rightPair[1] || '—';
+
+  // update Laegna letters tooltips and colors per mapping
+  const map = MAPPINGS[state.math];
+  const inv = {};
+  Object.keys(map).forEach(k=>{ inv[map[k]] = k; });
+  ['U','I','O','A','E'].forEach(ch=>{
+    const el = document.getElementById('L-'+ch);
+    if(!el) return;
+    const assigned = inv[ch] || '';
+    el.title = assigned ? assigned + ' → ' + ch : '';
+    // color by ponegate
+    if(assigned === 'Position') el.style.color = 'var(--pos)';
+    else if(assigned === 'Negation') el.style.color = 'var(--neg)';
+    else if(assigned === 'Negotion') el.style.color = 'var(--negotion)';
+    else if(assigned === 'Posetion') el.style.color = 'var(--posetion)';
+    else el.style.color = '';
+  });
+
+  // color letters inside tautology top stacks to match current ponegate associations
+  // We'll color each stack letter by the ponegate assigned to that letter in current mapping
+  ['r3c1-letter-first','r3c1-letter-second','r3c2-letter-first','r3c2-letter-second'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    const ch = el.innerText || '';
+    const pone = inv[ch] || '';
+    if(pone === 'Position') el.style.color = 'var(--pos)';
+    else if(pone === 'Negation') el.style.color = 'var(--neg)';
+    else if(pone === 'Negotion') el.style.color = 'var(--negotion)';
+    else if(pone === 'Posetion') el.style.color = 'var(--posetion)';
+    else el.style.color = '';
+  });
+
+  renderRotatingPanel(true);
+}
+
+/* rotating panel: timer and clicks equivalent */
+let rotKeys = ['philosophical','evolutionary','meaning','projective'];
+let rotIndex = 0;
+function renderRotatingPanel(forceNow){
+  if(forceNow){
+    const key = state.def;
+    const d = DEFINITIONS[key];
+    const c = document.getElementById('rotatingDef');
+    if(c) c.innerHTML = '<h4 style="margin:0 0 6px 0">'+(key.charAt(0).toUpperCase()+key.slice(1))+' Definition</h4>'+
+      '<div style="font-size:13px;color:var(--muted)"><strong>Positive</strong>: '+d.left[0]+' — '+d.left[1]+'<br>'+d.left[2]+' — '+d.left[3]+'<br><strong>Negative</strong>: '+d.right[0]+' — '+d.right[1]+'<br>'+d.right[2]+' — '+d.right[3]+'</div>';
+  } else {
+    rotIndex = (rotIndex + 1) % rotKeys.length;
+    selectDef(rotKeys[rotIndex]);
+  }
+}
+
+/* boot */
+function init(){
+  document.getElementById('btn-business').classList.add('active');
+  document.getElementById('btn-linear').classList.add('active');
+  const defBtn = document.getElementById('btn-def-philosophical');
+  if(defBtn) defBtn.classList.add('active');
+
+  setPonegationMode('business');
+  setMathMode('linear');
+  selectDef('philosophical');
+
+  setInterval(()=>{ renderRotatingPanel(false); },6000);
+}
+document.addEventListener('DOMContentLoaded', init);
+
+/* keyboard shortcuts */
+document.addEventListener('keydown', e=>{
+  if(e.key==='1') setPonegationMode('business');
+  if(e.key==='2') setPonegationMode('infinity');
+  if(e.key.toLowerCase()==='l') setMathMode('linear');
+  if(e.key.toLowerCase()==='r') setMathMode('radial');
+  if(e.key==='ArrowRight'){ renderRotatingPanel(false); }
+  if(e.key==='ArrowLeft'){ rotIndex=(rotIndex-1+rotKeys.length)%rotKeys.length; renderRotatingPanel(false); }
+});
+</script>
+</body>
+</html>

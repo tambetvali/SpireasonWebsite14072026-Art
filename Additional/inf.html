@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Infinity Constant Simulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      margin: 0;
+      background: #0a0f1c;
+      color: #e0e8f0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    canvas {
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 8px;
+    }
+    .controls {
+      margin-top: 20px;
+      width: 600px;
+      text-align: center;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-top: 6px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <h1>Infinity Constant Simulator</h1>
+  <canvas id="sim" width="600" height="600"></canvas>
+  <div class="controls">
+    <input type="range" id="slider" min="0" max="10" value="5" step="1" />
+    <div class="labels">
+      <span>0</span><span>1</span><span>E</span><span>∞</span><span>5</span><span>Inf²</span>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("sim");
+    const ctx = canvas.getContext("2d");
+    const slider = document.getElementById("slider");
+
+    const size = canvas.width;
+    const center = size / 2;
+    const rhombRadius = size * 0.28;
+    const steps = 11;
+    const centerIndex = 5;
+
+    function inverse8n(n, maxN) {
+      const raw = Math.pow(8, n);
+      const maxRaw = Math.pow(8, maxN);
+      return 1 - raw / maxRaw;
+    }
+
+    function draw(step) {
+      ctx.clearRect(0, 0, size, size);
+
+      // Draw square
+      ctx.strokeStyle = "#475569";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(center - rhombRadius, center - rhombRadius, rhombRadius * 2, rhombRadius * 2);
+
+      // Draw rhomb
+      ctx.save();
+      ctx.translate(center, center);
+      ctx.rotate(Math.PI / 4);
+      if (step === centerIndex) {
+        ctx.fillStyle = "rgba(96,165,250,0.15)";
+        ctx.fillRect(-rhombRadius, -rhombRadius, rhombRadius * 2, rhombRadius * 2);
+      }
+      ctx.strokeStyle = "#60a5fa";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-rhombRadius, -rhombRadius, rhombRadius * 2, rhombRadius * 2);
+      ctx.restore();
+
+      // Inner circle (left of center)
+      if (step <= centerIndex) {
+        let t = (centerIndex - step) / centerIndex;
+        let radius = rhombRadius * Math.SQRT2 * (1 - t); // normalized from 1 to 0
+        if (step === centerIndex - 1) radius = rhombRadius; // E step
+        ctx.beginPath();
+        ctx.arc(center, center, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = "#dbeafe";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // Outer projection (right of center)
+      if (step >= centerIndex) {
+        let n = step - centerIndex;
+        let maxN = steps - 1 - centerIndex;
+        let factor = inverse8n(n, maxN); // from 1 to 0
+        let radius = size * 0.75 * factor;
+
+        const corners = [
+          { x: 0, y: 0, start: 0, end: Math.PI / 2 },
+          { x: size, y: 0, start: Math.PI / 2, end: Math.PI },
+          { x: size, y: size, start: Math.PI, end: 3 * Math.PI / 2 },
+          { x: 0, y: size, start: 3 * Math.PI / 2, end: 2 * Math.PI }
+        ];
+
+        ctx.strokeStyle = "rgba(96,165,250,0.5)";
+        ctx.lineWidth = 2;
+        corners.forEach(c => {
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, radius, c.start, c.end);
+          ctx.stroke();
+        });
+
+        // Optional: draw central ring to suggest reverse projection
+        ctx.beginPath();
+        ctx.arc(center, center, radius * 0.05, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(96,165,250,0.1)";
+        ctx.fill();
+      }
+
+      // Center point
+      ctx.beginPath();
+      ctx.arc(center, center, 3, 0, Math.PI * 2);
+      ctx.fillStyle = "#94a3b8";
+      ctx.fill();
+    }
+
+    slider.addEventListener("input", () => {
+      draw(parseInt(slider.value));
+    });
+
+    draw(centerIndex);
+  </script>
+</body>
+</html>

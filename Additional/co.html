@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call to Cooperation: Unified Theories</title>
+<style>
+body { font-family: Georgia, serif; line-height: 1.8; padding: 20px; background: #fefefe; color: #222; max-width: 900px; margin: auto; }
+h1, h2 { color: #2c3e50; }
+a { color: #2980b9; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.section { margin-bottom: 25px; padding: 15px; border-left: 4px solid #2980b9; background: #fafafa; border-radius: 6px; }
+.collapsible { cursor: pointer; display:block; margin-top: 10px; font-weight: bold; color:#555; }
+.content { display: none; margin-top: 10px; padding-left: 10px; border-left: 2px dotted #aaa; }
+.hover-detail { display:none; position:absolute; background:#fff; border:1px solid #ccc; padding:10px; max-width:350px; z-index:100; border-radius:5px; box-shadow:0 0 12px rgba(0,0,0,0.2);}
+.share-btn, .role-btn { margin:4px; padding:8px 12px; border-radius:5px; border:1px solid #2980b9; cursor:pointer; }
+.share-btn { background:#2980b9; color:white; }
+.role-btn { background:#fff; color:#2980b9; }
+.role-btn.active { background:#2980b9; color:#fff; }
+.highlight { background:#dff0d8; }
+.pre { font-family: monospace; background:#f0f0f0; padding:5px 8px; border-radius:4px; display:inline-block; }
+</style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+
+<h1>Call to Cooperation: Unified Spiritual & Scientific Theories</h1>
+
+<div class="section">
+  <p>Dear Reader,</p>
+  <p>I invite you to explore my unified approach to spiritual and scientific theories. Over time, this work has grown as a synthesis of ideas, and it is designed to allow others to extend it, verify it, and apply it to their own understanding. Whether you are a researcher, developer, creative mind, or simply interested in learning, there are multiple pathways to cooperate and contribute.</p>
+  <p>All content is shared under <strong>CC-BY-NC-SA-4.0</strong>. You are free to use it for open-source projects, educational work, or scientific research. Commercial use requires permission or purchase from the author. Respecting open-source contributions ensures that this work remains accessible and alive for all.</p>
+</div>
+
+<div class="section">
+  <p>This work is accessible through multiple portals and resources. You may wish to explore them in detail:</p>
+  <ul>
+    <li><a href="https://spireason.neocities.org/">Main website</a> – introduction and overview for spiritual audiences.</li>
+    <li><a href="https://github.com/tambetvali/">GitHub repositories</a> – technical, code, and method documentation.</li>
+    <li><a href="https://www.notion.so/Laegna-1a575bfc115480a38129e9a9787ab565?pvs=4">Notion AI School</a> – structured AI-ready theory explanations.</li>
+    <li><a href="https://huggingface.co/datasets/tvaeli/LaegnaSpi">Hugging Face Dataset</a> – main site and Notion data for AI use.</li>
+  </ul>
+  <span class="collapsible">Advanced: Cooperation Possibilities {…}</span>
+  <div class="content">
+    <ul>
+      <li><strong>Researcher:</strong> analyze datasets, extend AI school, test theorems in your own domain.</li>
+      <li><strong>Developer:</strong> enhance portals, build bots, improve indexing or AI-based Q&A engines.</li>
+      <li><strong>Creative:</strong> diagrams, graphics, visualizations, articles, or popularization projects.</li>
+      <li><strong>Interested:</strong> summaries, sharing content, small contributions, browsing for inspiration.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <p>Implementation portals are already in place to allow practical exploration:</p>
+  <ul>
+    <li><a href="https://logecs-pathways-unfold.lovable.app/logecs" class="hoverable" data-detail="Build advanced webpages, clean and add data manually, expand content creatively.">Logecs Pathways</a></li>
+    <li><a href="https://laegna-visionary-haven.lovable.app/" class="hoverable" data-detail="Enhance AI-focused content, restructure information, contribute AI analysis.">Laegna Visionary Haven</a></li>
+    <li><a href="https://laegna-spibody-path.lovable.app/" class="hoverable" data-detail="Improve somatic-spiritual content, create visualizations, add examples or exercises.">SpiBody Path</a></li>
+    <li><a href="https://poe.com/tambetvali" class="hoverable" data-detail="Create advanced AI access, AI-generated reports, or improve interactive bots.">Bots & AI</a></li>
+    <li><a href="https://www.perplexity.ai/spaces/new-space-dLTaZz8CSd2FUCjIiYQARA" class="hoverable" data-detail="Improve search, indexing, or question-answering using AI.">AI Search & Q&A Engine</a></li>
+  </ul>
+</div>
+
+<div class="section">
+  <p>Please select your role to highlight pathways suitable for you:</p>
+  <button class="role-btn" data-role="Researcher">Researcher</button>
+  <button class="role-btn" data-role="Developer">Developer</button>
+  <button class="role-btn" data-role="Creative">Creative</button>
+  <button class="role-btn" data-role="Lazy">Lazy</button>
+  <button class="role-btn" data-role="Interested">Interested</button>
+  <button class="role-btn" data-role="Any">Any</button>
+  <p id="role-description" style="margin-top:10px; font-style:italic;"></p>
+</div>
+
+<div class="section">
+  <p>Share this page or generate an email to invite collaborators:</p>
+  <button class="share-btn" onclick="generateEmail()">Generate Email</button>
+  <button class="share-btn" onclick="copyText()">Copy to Clipboard</button>
+  <button class="share-btn" onclick="shareFB()">Share on Facebook</button>
+  <p id="share-output" style="margin-top:10px;"></p>
+</div>
+
+<div id="hover-box" class="hover-detail"></div>
+
+<script>
+// Collapsible sections
+document.querySelectorAll(".collapsible").forEach(button => {
+  button.addEventListener("click", () => {
+    const content = button.nextElementSibling;
+    content.style.display = content.style.display === "block" ? "none" : "block";
+  });
+});
+
+// Hover details
+const hoverBox = document.getElementById('hover-box');
+document.querySelectorAll('.hoverable').forEach(el => {
+  el.addEventListener('mouseover', e => {
+    hoverBox.innerText = el.dataset.detail;
+    hoverBox.style.display = 'block';
+    hoverBox.style.top = (e.pageY + 10) + 'px';
+    hoverBox.style.left = (e.pageX + 10) + 'px';
+  });
+  el.addEventListener('mousemove', e => {
+    hoverBox.style.top = (e.pageY + 10) + 'px';
+    hoverBox.style.left = (e.pageX + 10) + 'px';
+  });
+  el.addEventListener('mouseout', () => { hoverBox.style.display = 'none'; });
+});
+
+// Share / Email
+const cooperationText = `Dear Collaborator,
+
+I invite you to explore and contribute to my work combining spiritual and scientific theories.
+
+Links:
+- Main website: https://spireason.neocities.org/
+- GitHub: https://github.com/tambetvali/
+- Notion AI School: https://www.notion.so/Laegna-1a575bfc115480a38129e9a9787ab565?pvs=4
+- HuggingFace dataset: https://huggingface.co/datasets/tvaeli/LaegnaSpi
+
+Collaboration opportunities: creative works, popularization, website development, AI/bot improvement, applying my theorems to your sciences, ethics, spiritual views, or math.
+
+License: CC-BY-NC-SA-4.0.`;
+
+function generateEmail() {
+  const subject = encodeURIComponent("Call to Cooperation: Unified Theories");
+  const body = encodeURIComponent(cooperationText);
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+function copyText() {
+  navigator.clipboard.writeText(cooperationText).then(() => {
+    document.getElementById('share-output').innerText = 'Text copied to clipboard!';
+  });
+}
+
+function shareFB() {
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://spireason.neocities.org/')}&quote=${encodeURIComponent(cooperationText)}`;
+  window.open(fbUrl, '_blank', 'width=600,height=400');
+}
+
+// Role-based highlighting
+const roles = {
+  "Researcher": {
+    description: "Focus on theorems, AI datasets, Notion AI school, experiments, and applying theories to your sciences, ethics, or math.",
+    highlightLinks: [
+      "https://www.notion.so/Laegna-1a575bfc115480a38129e9a9787ab565?pvs=4",
+      "https://huggingface.co/datasets/tvaeli/LaegnaSpi",
+      "https://github.com/tambetvali/"
+    ]
+  },
+  "Developer": {
+    description: "Focus on building websites, AI systems, bots, improving indexing/search engines, adding new tools.",
+    highlightLinks: [
+      "https://logecs-pathways-unfold.lovable.app/logecs",
+      "https://laegna-visionary-haven.lovable.app/",
+      "https://poe.com/tambetvali"
+    ]
+  },
+  "Creative": {
+    description: "Focus on graphics, diagrams, chakra maps, visualizations, articles, and popularizing content.",
+    highlightLinks: [
+      "https://laegna-spibody-path.lovable.app/",
+      "https://logecs-pathways-unfold.lovable.app/logecs"
+    ]
+  },
+  "Lazy": {
+    description: "Focus on summaries, easy ways to support the work, or sharing content.",
+    highlightLinks: [
+      "https://spireason.neocities.org/"
+    ]
+  },
+  "Interested": {
+    description: "Browse content, explore portals, and learn without heavy commitment.",
+    highlightLinks: [
+      "https://spireason.neocities.org/",
+      "https://laegna-visionary-haven.lovable.app/"
+    ]
+  },
+  "Any": {
+    description: "Combination of all above; adaptive content based on preferences.",
+    highlightLinks: [
+      "https://spireason.neocities.org/",
+      "https://github.com/tambetvali/",
+      "https://logecs-pathways-unfold.lovable.app/logecs",
+      "https://laegna-visionary-haven.lovable.app/",
+      "https://laegna-spibody-path.lovable.app/",
+      "https://poe.com/tambetvali",
+      "https://www.perplexity.ai/spaces/new-space-dLTaZz8CSd2FUCjIiYQARA"
+    ]
+  }
+};
+
+document.querySelectorAll('.role-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const role = btn.dataset.role;
+    document.getElementById('role-description').innerText = roles[role].description;
+    document.querySelectorAll('.hoverable').forEach(link => {
+      link.style.background = roles[role].highlightLinks.includes(link.href) ? "#dff0d8" : "transparent";
+    });
+  });
+});
+</script>
+
+</body>
+</html>

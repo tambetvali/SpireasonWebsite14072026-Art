@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Structured Infinity: A Linear Lens on Relativity</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0b0f14;
+      color: #e6eef7;
+    }
+    header {
+      background: #121924;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #2a3a4f;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #6fe3ff;
+    }
+    header p {
+      margin: 8px 0 0;
+      font-size: 1.1em;
+      color: #9db3cd;
+    }
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+      justify-content: center;
+    }
+    .panel {
+      flex: 1 1 500px;
+      max-width: 700px;
+      background: #121924;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    .panel h2 {
+      margin-top: 0;
+      color: #8ef7b5;
+    }
+    .panel p {
+      color: #cfd9e6;
+      line-height: 1.6;
+    }
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .controls label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9em;
+      color: #a7bed8;
+    }
+    .controls input[type="range"] {
+      width: 150px;
+    }
+    svg {
+      width: 100%;
+      height: 500px;
+      margin-top: 20px;
+      background: radial-gradient(circle at center, #1a2738, #0b0f14);
+      border: 1px solid #2a3a4f;
+      border-radius: 12px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #9db3cd;
+    }
+    a {
+      color: #6fe3ff;
+    }
+  </style>
+</head>
+<body><script src='https://www.noupe.com/embed/01991006f5e27d3f91eaaaefbf7ea6e000ea.js'></script>
+  <header>
+    <h1>Structured Infinity</h1>
+    <p>A Linear Lens on Relativity — Visualizing Curved Space Differently</p>
+  </header>
+  <main>
+    <div class="panel">
+      <h2>Concept Overview</h2>
+      <p>
+        What if the speed of light and gravitational horizons weren’t hard limits, but structured infinities? This page explores a visual model that reinterprets curved spacetime through a linear lens — compressing infinite curvature into a finite, analyzable space.
+      </p>
+      <p>
+        The left side shows traditional curvature, where space warps dramatically near boundaries. The right side shows the same structure, but compressed linearly to reveal hidden symmetries.
+      </p>
+      <p>
+        Full write-up: <br>
+        <a href="https://github.com/tambetvali/LaeSpiEssentialTheorems/blob/LaegnaAIBasics/LaegnaTheorems/PhysicalWorld/relativitytheory.md" target="_blank">
+          Relativity Theory — GitHub
+        </a>
+      </p>
+      <div class="controls">
+        <label>
+          Curvature (k)
+          <input type="range" id="curvature" min="0" max="0.85" step="0.01" value="0.35">
+        </label>
+        <label>
+          Grid Density
+          <input type="range" id="density" min="4" max="20" step="1" value="10">
+        </label>
+        <label>
+          <input type="checkbox" id="showAsymptote" checked>
+          Show Asymptote
+        </label>
+        <label>
+          <input type="checkbox" id="animate">
+          Animate Curvature
+        </label>
+      </div>
+      <svg id="visualization" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="panel">
+      <h2>Walkthrough</h2>
+      <p><strong>Left Panel:</strong> Curved space. Grid lines warp as curvature increases. The red dashed circle shows the asymptotic boundary — where space “blows up.”</p>
+      <p><strong>Right Panel:</strong> Linearized space. The same warped grid is compressed using a smooth function like <code>atan(r)</code>, keeping infinity within bounds.</p>
+      <p>This lets us analyze the structure of space near boundaries without singularities — treating them as structured infinities rather than unreachable walls.</p>
+    </div>
+  </main>
+  <footer>
+    Built by Tambet · <a href="https://github.com/tambetvali/LaeSpiEssentialTheorems" target="_blank">Essential Theorems Repo</a>
+  </footer>
+<script>
+const svg = document.getElementById("visualization");
+const curvatureSlider = document.getElementById("curvature");
+const densitySlider = document.getElementById("density");
+const showAsymptote = document.getElementById("showAsymptote");
+const animateToggle = document.getElementById("animate");
+
+let W = 900, H = 500, PAD = 30;
+let anim = { on: false, t: 0 };
+
+function toScreen(x, y, offsetX = 0) {
+  const sx = offsetX + PAD + (x + 1) * (W / 2 - 2 * PAD) / 2;
+  const sy = H - (PAD + (y + 1) * (H - 2 * PAD) / 2);
+  return [sx, sy];
+}
+
+function warpMap(x, y, k) {
+  const r2 = x * x + y * y;
+  const denom = 1 - k * r2;
+  const f = 1 / Math.max(1e-6, denom);
+  return [x * f, y * f];
+}
+
+function linearize(x, y) {
+  const r = Math.hypot(x, y);
+  if (r < 1e-9) return [x, y];
+  const s = Math.atan(r) / (Math.PI / 2);
+  const scale = s / r;
+  return [x * scale, y * scale];
+}
+
+function draw() {
+  const k = parseFloat(curvatureSlider.value);
+  const density = parseInt(densitySlider.value);
+  svg.innerHTML = "";
+
+  const leftGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  const rightGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+  drawGrid(leftGroup, k, density, false, 0);
+  drawGrid(rightGroup, k, density, true, W / 2);
+
+  svg.appendChild(leftGroup);
+  svg.appendChild(rightGroup);
+
+  if (showAsymptote.checked && k > 0) {
+    drawAsymptote(leftGroup, k, false, 0);
+    drawAsymptote(rightGroup, k, true, W / 2);
+  }
+
+  addLabels();
+}
+
+function drawGrid(group, k, density, linear, offsetX) {
+  for (let i = 0; i <= density; i++) {
+    const t = -1 + 2 * (i / density);
+    drawLine(group, t, true, k, linear, offsetX);
+    drawLine(group, t, false, k, linear, offsetX);
+  }
+}
+
+function drawLine(group, fixed, vertical, k, linear, offsetX) {
+  const pts = [];
+  for (let j = 0; j <= 100; j++) {
+    const t = -1 + 2 * (j / 100);
+    const x = vertical ? fixed : t;
+    const y = vertical ? t : fixed;
+    let [wx, wy] = warpMap(x, y, k);
+    if (linear) [wx, wy] = linearize(wx, wy);
+    pts.push(toScreen(wx, wy, offsetX));
+  }
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+  line.setAttribute("points", pts.map(p => p.join(",")).join(" "));
+  line.setAttribute("stroke", "#6fe3ff");
+  line.setAttribute("stroke-width", "1.2");
+  line.setAttribute("fill", "none");
+  group.appendChild(line);
+}
+
+function drawAsymptote(group, k, linear, offsetX) {
+  const r = 1 / Math.sqrt(k);
+  const pts = [];
+  for (let i = 0; i <= 100; i++) {
+    const a = 2 * Math.PI * (i / 100);
+    let x = r * Math.cos(a);
+    let y = r * Math.sin(a);
+    if (linear) [x, y] = linearize(x, y);
+    pts.push(toScreen(x, y, offsetX));
+  }
+  const circle = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+  circle.setAttribute("points", pts.map(p => p.join(",")).join(" "));
+  circle.setAttribute("stroke", "#ff7e7e");
+  circle.setAttribute("stroke-width", "1.5");
+  circle.setAttribute("stroke-dasharray", "6 4");
+  circle.setAttribute("fill", "none");
+  group.appendChild(circle);
+}
+
+function addLabels() {
+  const labelLeft = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  labelLeft.setAttribute("x", 20);
+  labelLeft.setAttribute("y", 30);
+  labelLeft.setAttribute("fill", "#cfe7ff");
+  labelLeft.setAttribute("font-size", "16");
+  labelLeft.textContent = "Curved View";
+
+  const labelRight = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  labelRight.setAttribute("x", W / 2 + 20);
+  labelRight.setAttribute("y", 30);
+  labelRight.setAttribute("fill", "#cfe7ff");
+  labelRight.setAttribute("font-size", "16");
+  labelRight.textContent = "Linearized View";
+
+  svg.appendChild(labelLeft);
+  svg.appendChild(labelRight);
+}
+
+function tick() {
+  if (anim.on) {
+    anim.t += 0.016;
+    const base = 0.15, amp = 0.28;
+    const k = base + amp * 0.5 * (1 + Math.sin(anim.t * 0.7));
+    curvatureSlider.value = Math.min(0.85, Math.max(0, k)).toFixed(3);
+    draw();
+    requestAnimationFrame(tick);
+  }
+}
+
+curvatureSlider.addEventListener("input", draw);
+densitySlider.addEventListener("input", draw);
+showAsymptote.addEventListener("change", draw);
+animateToggle.addEventListener("change", () => {
+  anim.on = animateToggle.checked;
+  if (anim.on) requestAnimationFrame(tick);
+});
+
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simply about Infinities — Extensions</title>
+
+<style>
+
+/* ==== Base Cosmic Fractal Background ==== */
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(0,255,200,0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(100,150,255,0.15), transparent 40%),
+        linear-gradient(135deg, #050510, #0a0f2a 40%, #120c2f);
+    color: #e8faff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* subtle fractal grid overlay */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 8px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 10px);
+    pointer-events: none;
+}
+
+/* ==== Layout ==== */
+
+.wrapper {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 40px;
+}
+
+/* ==== Intro Section ==== */
+
+.intro-block {
+    margin-bottom: 60px;
+    padding: 30px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(0,60,120,0.3), rgba(0,200,255,0.08));
+    border: 1px solid rgba(0,255,220,0.4);
+    box-shadow:
+        0 0 20px rgba(0,255,220,0.25),
+        inset 0 0 30px rgba(0,100,200,0.2);
+    backdrop-filter: blur(8px);
+}
+
+.intro-block h1 {
+    margin-top: 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #00fff2, #5ea3ff, #b388ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==== Link List Section ==== */
+
+.link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.link-item {
+    position: relative;
+    padding: 18px 24px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(0,80,160,0.35), rgba(0,255,200,0.15));
+    border: 1px solid rgba(0,255,255,0.4);
+    box-shadow:
+        0 0 12px rgba(0,255,255,0.35);
+    transition: all 0.25s ease;
+    overflow: hidden;
+}
+
+/* holographic shimmer */
+.link-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15), transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.link-item:hover::after {
+    transform: translateX(100%);
+}
+
+.link-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+        0 0 25px rgba(0,255,255,0.6);
+}
+
+/* ==== Meta Text ==== */
+
+.link-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.link-desc {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ==== Infinity Decorative Symbol ==== */
+
+.infinity-symbol {
+    font-size: 2.5rem;
+    opacity: 0.15;
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ===== Intro Block ===== -->
+
+    <div class="intro-block">
+        <h1>♾️ Simply about Infinities — Interactive Extensions</h1>
+        <p>
+            I created two experimental pages inspired by the text 
+            <strong>“Simply about Infinities”</strong> (PDF available at 
+            <a href="https://spireason.neocities.org/Simply%20about%20Infinities.pdf" target="_blank" style="color:#8ff;">
+                spireason.neocities.org
+            </a>).
+        </p>
+        <p>
+            These pages explore infinities as living structures — recursive,
+            layered, woven — like fractals reflecting themselves through
+            holographic gradients of meaning.
+        </p>
+        <p>
+            🔷 Mathematical structure  
+            🔷 Recursive reasoning  
+            🔷 Layered abstraction  
+            🔷 Infinity as relation, not magnitude
+        </p>
+    </div>
+
+    <!-- ===== Link Group ===== -->
+
+    <div class="link-group">
+
+        <a class="link-item" href="https://infinity-weave-nexus.lovable.app/" target="_blank">
+            <div class="link-title">🧩 Simply about Infinities — Lovable.dev</div>
+            <div class="link-desc">Fractal woven interface interpretation</div>
+            <div class="infinity-symbol">∞</div>
+        </a>
+
+        <a class="link-item" href="https://infinities-multi-pag-lkcz.bolt.host/" target="_blank">
+            <div class="link-title">⚡ Simply about Infinities — bolt.new</div>
+            <div class="link-desc">Multi-page structural reinterpretation</div>
+            <div class="infinity-symbol">∞</div>
+        </a>
+
+        <!-- Add future links here -->
+        <!--
+        <a class="link-item" href="#" target="_blank">
+            <div class="link-title">🌀 Future Interpretation</div>
+            <div class="link-desc">Description of future variation</div>
+            <div class="infinity-symbol">∞</div>
+        </a>
+        -->
+
+    </div>
+
+</div>
+
+</body>
+</html>

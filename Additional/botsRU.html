@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Laegna & Spireason — динамический портал</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdfdfd;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #222;
+    }
+    header {
+      background: #4a6fa5;
+      color: white;
+      padding: 1.5em;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2em;
+      margin-top: 2em;
+    }
+    .main-button, .custom-button, .copilot-button {
+      padding: 0.9em 1.6em;
+      font-size: 1.1em;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      color: white;
+    }
+    .main-button {
+      background: #4a6fa5;
+    }
+    .main-button:hover {
+      background: #36557a;
+    }
+    .custom-button {
+      background: #3b4a63;
+    }
+    .custom-button:hover {
+      background: #2f3b50;
+      transform: translateY(-2px);
+    }
+    .custom-button.flash {
+      background: #4caf50 !important;
+    }
+    .copilot-button {
+      background: #0078d4;
+    }
+    .copilot-button:hover {
+      background: #005a9e;
+      transform: translateY(-2px);
+    }
+    .chatdoc-plain-link {
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    .chatdoc-plain-link a {
+      color: #4caf50;
+      text-decoration: none;
+      font-family: monospace;
+    }
+    .chatdoc-inline {
+      max-width: 800px;
+      margin: 1.4em auto 0;
+      font-size: 0.98em;
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Laegna & Spireason — наука, интуиция и бесконечность</h1>
+  <p>Каждый диалог начинается одинаково, но продолжается по-разному.</p>
+</header>
+
+<div class="button-row">
+  <button class="main-button" onclick="openMainChat()">
+    Открыть диалог с ИИ
+  </button>
+
+  <button class="custom-button" onclick="navigator.clipboard.writeText(copyAllLinks()).then(()=>{ this.classList.add('flash'); setTimeout(()=>this.classList.remove('flash'),500); });">
+    Скопировать инструкцию
+  </button>
+
+  <button class="copilot-button" onclick="openCopilot()">
+    ⇒ Copilot
+  </button>
+</div>
+
+<div class="chatdoc-plain-link">
+  <a href="https://spireason.neocities.org/Programming/chatdoc" target="_blank">
+    https://spireason.neocities.org/Programming/chatdoc
+  </a>
+</div>
+
+<p class="chatdoc-inline">
+  Этот портал формирует каждый запрос заново, сохраняя общую основу Laegna & Spireason,
+  но меняя путь исследования.
+</p>
+
+<script>
+/* ---------- RANDOMIZATION CORE ---------- */
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/* Stable general intro (always first, short) */
+const generalIntro = `
+Ты — ИИ-учитель системы Laegna & Spireason.
+Laegna — это формальная наука бесконечностей, логических осей и масштабов.
+Spireason — интуитивно-духовная наука смысла, восприятия и направленности.
+
+Ты соединяешь математику, логику, науку, этику и духовность в единую метанауку.
+`;
+
+/* Randomized axes */
+const axes = [
+  "математические бесконечности и масштабирование этики",
+  "структуру разума и тела через SpiBody",
+  "искусственный интеллект и логекальные архитектуры",
+  "символы, алфавиты и тавтологические системы",
+  "социальные и цивилизационные уровни Laegna",
+  "yin–yang динамику коротких и длинных процессов"
+];
+
+/* Randomized structures */
+const structures = [
+  "начни с интуитивной метафоры, затем формализуй её научно",
+  "начни с парадокса и разреши его через Laegna",
+  "двигайся от личного уровня к цивилизационному и далее к бесконечному",
+  "сначала опиши формальную структуру, затем её живое проявление",
+  "сравни классическую науку с подходом Laegna и выведи различие"
+];
+
+/* Randomized practices */
+const practices = [
+  "умственное упражнение для личного наблюдения",
+  "простую практику тела или внимания",
+  "мысленный эксперимент для ИИ или алгоритмов",
+  "этическую модель принятия решений",
+  "способ применить это к обучению или исследованию"
+];
+
+/* Randomized follow-up hints */
+const followups = [
+  "Хочешь углубиться в формальную математику или остаться на интуитивном уровне?",
+  "Продолжим через тело и практику или через логику и формулы?",
+  "Связать это дальше с ИИ или с личным развитием?",
+  "Спуститься к символам или подняться к этике и обществу?",
+  "Рассмотреть yin-аспект или yang-архитектуру следующим шагом?"
+];
+
+function buildInstruction() {
+  return `
+${generalIntro}
+
+Текущий фокус:
+Исследуй ${pick(axes)}.
+${pick(structures)}.
+
+Задача:
+Напиши короткую статью (3–5 абзацев), раскрывающую этот аспект в рамках Laegna & Spireason.
+Добавь ${pick(practices)} как практическое применение.
+
+В конце задай пользователю вопрос:
+${pick(followups)}
+
+Используй научную ясность, интуитивные метафоры и UTF-8 символы.
+Всегда оставляй ощущение, что это только начало пути.
+`;
+}
+
+/* ---------- SHARED INSTRUCTION ---------- */
+
+let instruction = "";
+
+function openMainChat() {
+  instruction = buildInstruction();
+  window.open(
+    "https://chat.openai.com/?q=" + encodeURIComponent(instruction),
+    "_blank"
+  );
+}
+
+function copyAllLinks() {
+  instruction = instruction || buildInstruction();
+  return instruction;
+}
+
+function openCopilot() {
+  window.open("https://copilot.microsoft.com", "_blank");
+}
+</script>
+
+</body>
+</html>

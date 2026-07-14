@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Octave-Frequency Calculator</title>
+<style>
+  body { margin: 0; font-family: sans-serif; background: #f8f8f8; color: #333; }
+  .container { display: grid; grid-template-columns: 1fr 2fr 1fr; grid-template-rows: auto 1fr auto; height: 100vh; }
+  header, footer { grid-column: 1 / 4; text-align: center; padding: 0.5em; background: #eee; }
+  .left, .right { padding: 1em; overflow-y: auto; }
+  .center { display: flex; justify-content: center; align-items: center; position: relative; }
+  svg { width: 100%; height: 100%; }
+  .scale-label { font-size: 0.8em; fill: #666; }
+  .highlight { stroke: blue; stroke-width: 2; fill: none; }
+  .note { font-size: 0.9em; }
+  .chakra { font-size: 0.9em; color: #a64ca6; }
+  .yin-yang { font-size: 0.9em; color: #444; }
+  input[type=range] { width: 100%; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header><h2>Octave-Frequency Calculator</h2></header>
+  <div class="left">
+    <h3>Frequency</h3>
+    <input type="range" min="0.5" max="1" step="0.01" value="0.75" id="freqSlider">
+    <div id="freqVal">Frequency: 0.75</div>
+    <h3>Octave</h3>
+    <input type="range" min="0" max="6" step="0.01" value="3" id="octSlider">
+    <div id="octVal">Octave: 3</div>
+    <h3>Musical Note</h3>
+    <div id="noteDisplay" class="note">Note: A</div>
+    <h3>Chakra</h3>
+    <div id="chakraDisplay" class="chakra">Chakra: Heart</div>
+    <h3>Yin/Yang</h3>
+    <div id="yyDisplay" class="yin-yang">Balance: Tao</div>
+  </div>
+  <div class="center">
+    <svg id="graph" viewBox="0 0 600 400">
+      <rect x="100" y="100" width="400" height="200" class="highlight"/>
+      <line x1="300" y1="100" x2="300" y2="300" stroke="blue" stroke-width="1"/>
+      <line x1="100" y1="200" x2="500" y2="200" stroke="blue" stroke-width="1"/>
+      <text x="110" y="95" class="scale-label">X1: Musical</text>
+      <text x="110" y="315" class="scale-label">X2: Linear</text>
+      <text x="510" y="200" class="scale-label">Y: Octave</text>
+    </svg>
+  </div>
+  <div class="right">
+    <h3>12 Notes</h3>
+    <div id="noteButtons"></div>
+    <h3>7 Chakras</h3>
+    <div id="chakraButtons"></div>
+  </div>
+  <footer>Made for <a href="https://spireason.neocities.org/Additional/" target="_blank">Spireason</a></footer>
+</div>
+<script>
+const freqSlider = document.getElementById('freqSlider');
+const octSlider = document.getElementById('octSlider');
+const freqVal = document.getElementById('freqVal');
+const octVal = document.getElementById('octVal');
+const noteDisplay = document.getElementById('noteDisplay');
+const chakraDisplay = document.getElementById('chakraDisplay');
+const yyDisplay = document.getElementById('yyDisplay');
+
+const notes = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
+const chakras = ["Root", "Sacral", "Solar", "Heart", "Throat", "Third Eye", "Crown"];
+
+function updateDisplays() {
+  const freq = parseFloat(freqSlider.value);
+  const octave = parseFloat(octSlider.value);
+  freqVal.textContent = `Frequency: ${freq.toFixed(2)}`;
+  octVal.textContent = `Octave: ${octave.toFixed(2)}`;
+
+  const noteIndex = Math.floor((freq - 0.5) * 12);
+  noteDisplay.textContent = `Note: ${notes[noteIndex] || "?"}`;
+
+  const chakraIndex = Math.floor((freq - 0.5) * 7);
+  chakraDisplay.textContent = `Chakra: ${chakras[chakraIndex] || "?"}`;
+
+  const balance = freq < 0.6 ? "Yin" : freq > 0.9 ? "Yang" : "Tao";
+  yyDisplay.textContent = `Balance: ${balance}`;
+}
+
+freqSlider.addEventListener('input', updateDisplays);
+octSlider.addEventListener('input', updateDisplays);
+updateDisplays();
+
+const noteButtons = document.getElementById('noteButtons');
+notes.forEach((note, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = note;
+  btn.onclick = () => { freqSlider.value = (i / 12 + 0.5).toFixed(2); updateDisplays(); };
+  noteButtons.appendChild(btn);
+});
+
+const chakraButtons = document.getElementById('chakraButtons');
+chakras.forEach((chakra, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = chakra;
+  btn.onclick = () => { freqSlider.value = (i / 7 + 0.5).toFixed(2); updateDisplays(); };
+  chakraButtons.appendChild(btn);
+});
+</script>
+</body>
+</html>
